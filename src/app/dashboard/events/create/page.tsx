@@ -1,4 +1,4 @@
-import { EventForm } from "@/app/dashboard/events/event-form";
+import { EventForm } from "@/components/dashboard/events/event-form";
 
 export default function CreateEventPage() {
   return <EventForm />;

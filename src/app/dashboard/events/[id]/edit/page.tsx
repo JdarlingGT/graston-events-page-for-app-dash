@@ -1,6 +1,6 @@
 "use client";
 
-import { EventForm } from "@/app/dashboard/events/event-form";
+import { EventForm } from "@/components/dashboard/events/event-form";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useEffect, useState } from "react";
 
