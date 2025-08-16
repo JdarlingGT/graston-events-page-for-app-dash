@@ -131,6 +131,12 @@ export default function EventsPage() {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem asChild>
+                  <Link href={`/dashboard/events/${event.id}`}>
+                    <Eye className="mr-2 h-4 w-4" />
+                    View Details
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
                   <Link href={`/dashboard/events/${event.id}/edit`}>
                     <FilePenLine className="mr-2 h-4 w-4" />
                     Edit
