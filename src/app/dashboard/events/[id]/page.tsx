@@ -9,9 +9,23 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar, MapPin, User, Users, ShoppingCart, ArrowLeft } from "lucide-react";
 import { RosterTable } from "@/components/roster-table";
 import { Button } from "@/components/ui/button";
+import { EventSummaryChart } from "@/components/dashboard/events/event-summary-chart";
+import { KitPurchaseRatioChart } from "@/components/dashboard/events/kit-purchase-ratio-chart";
 
-// A placeholder for the detailed components we will build next
-const ChartsPlaceholder = () => <Skeleton className="h-80 w-full" />;
+interface Event {
+  id: string;
+  name: string;
+  city: string;
+  state: string;
+  instructor: string;
+  enrolledStudents: number;
+  instrumentsPurchased: number;
+  date: string;
+  venue: {
+    name: string;
+    city: string;
+  };
+}
 
 const getDangerZoneStatus = (enrolledStudents: number) => {
   if (enrolledStudents < 4) {
@@ -24,11 +38,11 @@ const getDangerZoneStatus = (enrolledStudents: number) => {
 };
 
 export default function EventDetailPage({ params }: { params: { id: string } }) {
-  const [event, setEvent] = useState<any>(null);
+  const [event, setEvent] = useState<Event | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
+  useEffect(() => {    
     async function fetchEvent() {
       try {
         const response = await fetch(`/api/events/${params.id}`);
@@ -61,6 +75,11 @@ export default function EventDetailPage({ params }: { params: { id: string } }) 
     return <p className="text-destructive">{error}</p>;
   }
 
+  // Explicitly check if event is null after loading and error states are handled
+  if (!event) {
+    return <p className="text-destructive">Event data could not be loaded.</p>;
+  }
+
   const dangerZone = getDangerZoneStatus(event.enrolledStudents);
 
   return (
@@ -79,7 +98,8 @@ export default function EventDetailPage({ params }: { params: { id: string } }) 
               <CardTitle className="text-3xl">{event.name}</CardTitle>
             </div>
             <div className="text-right">
-              <p className="text-lg font-semibold text-muted-foreground">{event.category}</p>
+              {/* Assuming category might be derived or added later if needed */}
+              {/* <p className="text-lg font-semibold text-muted-foreground">{event.category}</p> */}
             </div>
           </div>
         </CardHeader>
@@ -118,7 +138,16 @@ export default function EventDetailPage({ params }: { params: { id: string } }) 
 
       <div>
         <h2 className="text-2xl font-bold tracking-tight mb-4">Analytics</h2>
-        <ChartsPlaceholder />
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+          <EventSummaryChart
+            enrolledStudents={event.enrolledStudents}
+            instrumentsPurchased={event.instrumentsPurchased}
+          />
+          <KitPurchaseRatioChart
+            enrolledStudents={event.enrolledStudents}
+            instrumentsPurchased={event.instrumentsPurchased}
+          />
+        </div>
       </div>
     </div>
   );

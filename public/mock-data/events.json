@@ -6,7 +6,12 @@
     "state": "WI",
     "instructor": "GT Instructor",
     "enrolledStudents": 35,
-    "instrumentsPurchased": 28
+    "instrumentsPurchased": 28,
+    "date": "2025-09-10",
+    "venue": {
+      "name": "Eau Claire Training Center",
+      "city": "Eau Claire"
+    }
   },
   {
     "id": "26012317",
@@ -15,7 +20,12 @@
     "state": "ME",
     "instructor": "Kelsey Taylor",
     "enrolledStudents": 42,
-    "instrumentsPurchased": 35
+    "instrumentsPurchased": 35,
+    "date": "2025-09-06",
+    "venue": {
+      "name": "Portland Convention Hall",
+      "city": "Portland"
+    }
   },
   {
     "id": "26017859",
@@ -24,7 +34,12 @@
     "state": "N/A",
     "instructor": "Michael Racette",
     "enrolledStudents": 28,
-    "instrumentsPurchased": 20
+    "instrumentsPurchased": 20,
+    "date": "2025-04-26",
+    "venue": {
+      "name": "Virtual Event Platform",
+      "city": "Online"
+    }
   },
   {
     "id": "26021561",
@@ -33,7 +48,12 @@
     "state": "MA",
     "instructor": "Michael Racette",
     "enrolledStudents": 48,
-    "instrumentsPurchased": 40
+    "instrumentsPurchased": 40,
+    "date": "2025-09-20",
+    "venue": {
+      "name": "West Boylston Clinic",
+      "city": "West Boylston"
+    }
   },
   {
     "id": "26022807",
@@ -42,7 +62,12 @@
     "state": "NS",
     "instructor": "Dr Reena Pathak",
     "enrolledStudents": 30,
-    "instrumentsPurchased": 25
+    "instrumentsPurchased": 25,
+    "date": "2025-09-20",
+    "venue": {
+      "name": "Halifax Event Space",
+      "city": "Halifax"
+    }
   },
   {
     "id": "26023031",
@@ -51,7 +76,12 @@
     "state": "OH",
     "instructor": "Sheila Wilson",
     "enrolledStudents": 55,
-    "instrumentsPurchased": 45
+    "instrumentsPurchased": 45,
+    "date": "2025-08-02",
+    "venue": {
+      "name": "Cincinnati Conference Center",
+      "city": "Cincinnati"
+    }
   },
   {
     "id": "26023043",
@@ -60,7 +90,12 @@
     "state": "PA",
     "instructor": "Dr Reena Pathak",
     "enrolledStudents": 38,
-    "instrumentsPurchased": 30
+    "instrumentsPurchased": 30,
+    "date": "2025-10-11",
+    "venue": {
+      "name": "Pittsburgh Training Institute",
+      "city": "Pittsburgh"
+    }
   },
   {
     "id": "26024593",
@@ -69,7 +104,12 @@
     "state": "CA",
     "instructor": "Larry Munger",
     "enrolledStudents": 40,
-    "instrumentsPurchased": 32
+    "instrumentsPurchased": 32,
+    "date": "2025-09-28",
+    "venue": {
+      "name": "Pasadena Learning Hub",
+      "city": "Pasadena"
+    }
   },
   {
     "id": "26025538",
@@ -78,7 +118,12 @@
     "state": "OH",
     "instructor": "Dr Reena Pathak",
     "enrolledStudents": 33,
-    "instrumentsPurchased": 27
+    "instrumentsPurchased": 27,
+    "date": "2025-09-13",
+    "venue": {
+      "name": "Cleveland Workshop Space",
+      "city": "Cleveland"
+    }
   },
   {
     "id": "26025572",
@@ -87,7 +132,12 @@
     "state": "FL",
     "instructor": "Mark Wieland",
     "enrolledStudents": 45,
-    "instrumentsPurchased": 38
+    "instrumentsPurchased": 38,
+    "date": "2025-09-27",
+    "venue": {
+      "name": "Merritt Island Venue",
+      "city": "Merritt Island"
+    }
   },
   {
     "id": "26025715",
@@ -96,7 +146,12 @@
     "state": "AZ",
     "instructor": "Larry Munger",
     "enrolledStudents": 50,
-    "instrumentsPurchased": 42
+    "instrumentsPurchased": 42,
+    "date": "2025-08-23",
+    "venue": {
+      "name": "Phoenix Education Center",
+      "city": "Phoenix"
+    }
   },
   {
     "id": "26025942",
@@ -105,7 +160,12 @@
     "state": "WI",
     "instructor": "Robert Stow",
     "enrolledStudents": 37,
-    "instrumentsPurchased": 30
+    "instrumentsPurchased": 30,
+    "date": "2025-08-16",
+    "venue": {
+      "name": "Eau Claire Training Center",
+      "city": "Eau Claire"
+    }
   },
   {
     "id": "26030951",
@@ -114,7 +174,12 @@
     "state": "NV",
     "instructor": "Trevor Roberts",
     "enrolledStudents": 41,
-    "instrumentsPurchased": 34
+    "instrumentsPurchased": 34,
+    "date": "2025-10-25",
+    "venue": {
+      "name": "Las Vegas Seminar Room",
+      "city": "Las Vegas"
+    }
   },
   {
     "id": "26031000",
@@ -123,7 +188,12 @@
     "state": "FL",
     "instructor": "Ashli Linkhorn",
     "enrolledStudents": 39,
-    "instrumentsPurchased": 31
+    "instrumentsPurchased": 31,
+    "date": "2025-09-27",
+    "venue": {
+      "name": "Cape Coral Training Room",
+      "city": "Cape Coral"
+    }
   },
   {
     "id": "26031015",
@@ -132,7 +202,12 @@
     "state": "IN",
     "instructor": "N/A",
     "enrolledStudents": 25,
-    "instrumentsPurchased": 20
+    "instrumentsPurchased": 20,
+    "date": "2025-11-08",
+    "venue": {
+      "name": "Indianapolis Convention Center",
+      "city": "Indianapolis"
+    }
   },
   {
     "id": "26031225",
@@ -141,7 +216,12 @@
     "state": "GA",
     "instructor": "N/A",
     "enrolledStudents": 22,
-    "instrumentsPurchased": 18
+    "instrumentsPurchased": 18,
+    "date": "2025-11-01",
+    "venue": {
+      "name": "Atlanta Training Facility",
+      "city": "Atlanta"
+    }
   },
   {
     "id": "26031232",
@@ -150,7 +230,12 @@
     "state": "FL",
     "instructor": "N/A",
     "enrolledStudents": 28,
-    "instrumentsPurchased": 23
+    "instrumentsPurchased": 23,
+    "date": "2025-11-15",
+    "venue": {
+      "name": "West Melbourne Event Hall",
+      "city": "West Melbourne"
+    }
   },
   {
     "id": "26031495",
@@ -159,7 +244,12 @@
     "state": "BC",
     "instructor": "John Dang",
     "enrolledStudents": 36,
-    "instrumentsPurchased": 29
+    "instrumentsPurchased": 29,
+    "date": "2025-09-27",
+    "venue": {
+      "name": "Port Moody Community Center",
+      "city": "Port Moody"
+    }
   },
   {
     "id": "26031583",
@@ -168,7 +258,12 @@
     "state": "CO",
     "instructor": "Ryan Lystad",
     "enrolledStudents": 43,
-    "instrumentsPurchased": 36
+    "instrumentsPurchased": 36,
+    "date": "2025-11-22",
+    "venue": {
+      "name": "Denver Workshop Center",
+      "city": "Denver"
+    }
   },
   {
     "id": "26031688",
@@ -177,7 +272,12 @@
     "state": "NY",
     "instructor": "Dave Mansfield",
     "enrolledStudents": 34,
-    "instrumentsPurchased": 27
+    "instrumentsPurchased": 27,
+    "date": "2025-10-18",
+    "venue": {
+      "name": "Garden City Learning Space",
+      "city": "Garden City"
+    }
   },
   {
     "id": "26031921",
@@ -186,7 +286,12 @@
     "state": "CA",
     "instructor": "John Dang",
     "enrolledStudents": 46,
-    "instrumentsPurchased": 39
+    "instrumentsPurchased": 39,
+    "date": "2025-11-08",
+    "venue": {
+      "name": "Livermore Education Hub",
+      "city": "Livermore"
+    }
   },
   {
     "id": "27397901",
@@ -195,7 +300,12 @@
     "state": "NY",
     "instructor": "Justine DeLuccio",
     "enrolledStudents": 52,
-    "instrumentsPurchased": 44
+    "instrumentsPurchased": 44,
+    "date": "2025-11-08",
+    "venue": {
+      "name": "NYC Training Center",
+      "city": "New York City"
+    }
   },
   {
     "id": "27397905",
@@ -204,7 +314,12 @@
     "state": "MA",
     "instructor": "N/A",
     "enrolledStudents": 20,
-    "instrumentsPurchased": 16
+    "instrumentsPurchased": 16,
+    "date": "2025-12-06",
+    "venue": {
+      "name": "West Boylston Clinic",
+      "city": "West Boylston"
+    }
   },
   {
     "id": "27397917",
@@ -213,7 +328,12 @@
     "state": "N/A",
     "instructor": "Greg Kelley",
     "enrolledStudents": 31,
-    "instrumentsPurchased": 24
+    "instrumentsPurchased": 24,
+    "date": "2025-09-13",
+    "venue": {
+      "name": "Virtual Event Platform",
+      "city": "Online"
+    }
   },
   {
     "id": "27398059",
@@ -222,7 +342,12 @@
     "state": "IL",
     "instructor": "N/A",
     "enrolledStudents": 27,
-    "instrumentsPurchased": 22
+    "instrumentsPurchased": 22,
+    "date": "2026-01-24",
+    "venue": {
+      "name": "Des Plaines Conference Room",
+      "city": "Des Plaines"
+    }
   },
   {
     "id": "27398063",
@@ -231,7 +356,12 @@
     "state": "AB",
     "instructor": "John Dang",
     "enrolledStudents": 32,
-    "instrumentsPurchased": 26
+    "instrumentsPurchased": 26,
+    "date": "2025-11-22",
+    "venue": {
+      "name": "Edmonton Training Hall",
+      "city": "Edmonton"
+    }
   },
   {
     "id": "27398155",
@@ -240,7 +370,12 @@
     "state": "IN",
     "instructor": "Mike Ploski",
     "enrolledStudents": 44,
-    "instrumentsPurchased": 37
+    "instrumentsPurchased": 37,
+    "date": "2025-11-22",
+    "venue": {
+      "name": "Indianapolis Convention Center",
+      "city": "Indianapolis"
+    }
   },
   {
     "id": "27398162",
@@ -249,7 +384,12 @@
     "state": "CA",
     "instructor": "Larry Munger",
     "enrolledStudents": 49,
-    "instrumentsPurchased": 41
+    "instrumentsPurchased": 41,
+    "date": "2025-12-13",
+    "venue": {
+      "name": "Santa Monica Workshop",
+      "city": "Santa Monica"
+    }
   },
   {
     "id": "27398192",
@@ -258,7 +398,12 @@
     "state": "NJ",
     "instructor": "Kelsey Taylor",
     "enrolledStudents": 30,
-    "instrumentsPurchased": 24
+    "instrumentsPurchased": 24,
+    "date": "2025-10-04",
+    "venue": {
+      "name": "Somerset Event Venue",
+      "city": "Somerset"
+    }
   },
   {
     "id": "27398232",
@@ -267,7 +412,12 @@
     "state": "OR",
     "instructor": "Michael Dillon",
     "enrolledStudents": 38,
-    "instrumentsPurchased": 30
+    "instrumentsPurchased": 30,
+    "date": "2025-11-08",
+    "venue": {
+      "name": "Portland Workshop Center",
+      "city": "Portland"
+    }
   },
   {
     "id": "27398267",
@@ -276,7 +426,12 @@
     "state": "IN",
     "instructor": "Mike Ploski",
     "enrolledStudents": 35,
-    "instrumentsPurchased": 28
+    "instrumentsPurchased": 28,
+    "date": "2025-12-11",
+    "venue": {
+      "name": "Bloomington Training Center",
+      "city": "Bloomington"
+    }
   },
   {
     "id": "27398568",
@@ -285,7 +440,12 @@
     "state": "N/A",
     "instructor": "Mike Ploski",
     "enrolledStudents": 23,
-    "instrumentsPurchased": 19
+    "instrumentsPurchased": 19,
+    "date": "2025-09-20",
+    "venue": {
+      "name": "Virtual Event Platform",
+      "city": "Online"
+    }
   },
   {
     "id": "27398734",
@@ -294,7 +454,12 @@
     "state": "AB",
     "instructor": "John Dang",
     "enrolledStudents": 37,
-    "instrumentsPurchased": 30
+    "instrumentsPurchased": 30,
+    "date": "2025-11-15",
+    "venue": {
+      "name": "Calgary Learning Hub",
+      "city": "Calgary"
+    }
   },
   {
     "id": "27398821",
@@ -303,7 +468,12 @@
     "state": "N/A",
     "instructor": "Greg Kelley",
     "enrolledStudents": 29,
-    "instrumentsPurchased": 23
+    "instrumentsPurchased": 23,
+    "date": "2025-10-11",
+    "venue": {
+      "name": "Virtual Event Platform",
+      "city": "Online"
+    }
   },
   {
     "id": "27398885",
@@ -312,7 +482,12 @@
     "state": "SC",
     "instructor": "Ashli Linkhorn",
     "enrolledStudents": 33,
-    "instrumentsPurchased": 26
+    "instrumentsPurchased": 26,
+    "date": "2025-09-13",
+    "venue": {
+      "name": "Duncan Training Facility",
+      "city": "Duncan"
+    }
   },
   {
     "id": "27398957",
@@ -321,6 +496,11 @@
     "state": "KS",
     "instructor": "Mike Ploski",
     "enrolledStudents": 40,
-    "instrumentsPurchased": 33
+    "instrumentsPurchased": 33,
+    "date": "2025-11-01",
+    "venue": {
+      "name": "Sabetha Community Hall",
+      "city": "Sabetha"
+    }
   }
 ]
