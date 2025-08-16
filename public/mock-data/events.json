@@ -1,0 +1,56 @@
+[
+  {
+    "id": "evt-1",
+    "name": "Advanced M1 Training",
+    "city": "San Diego",
+    "state": "CA",
+    "instructor": "Dr. Jane Smith",
+    "enrolledStudents": 15,
+    "instrumentsPurchased": 12
+  },
+  {
+    "id": "evt-2",
+    "name": "Intro to Graston Technique",
+    "city": "Chicago",
+    "state": "IL",
+    "instructor": "John Doe",
+    "enrolledStudents": 8,
+    "instrumentsPurchased": 7
+  },
+  {
+    "id": "evt-3",
+    "name": "M2-Advanced Training",
+    "city": "Miami",
+    "state": "FL",
+    "instructor": "Dr. Emily White",
+    "enrolledStudents": 3,
+    "instrumentsPurchased": 2
+  },
+  {
+    "id": "evt-4",
+    "name": "Clinical Applications Workshop",
+    "city": "Seattle",
+    "state": "WA",
+    "instructor": "Dr. Michael Brown",
+    "enrolledStudents": 22,
+    "instrumentsPurchased": 20
+  },
+  {
+    "id": "evt-5",
+    "name": "Lower Extremity Specialist",
+    "city": "Boston",
+    "state": "MA",
+    "instructor": "Dr. Sarah Green",
+    "enrolledStudents": 9,
+    "instrumentsPurchased": 9
+  },
+  {
+    "id": "evt-6",
+    "name": "Upper Extremity Masterclass",
+    "city": "Denver",
+    "state": "CO",
+    "instructor": "Dr. David Black",
+    "enrolledStudents": 2,
+    "instrumentsPurchased": 1
+  }
+]
