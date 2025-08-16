@@ -13,8 +13,9 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
 import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
-import { ArrowUpDown } from "lucide-react";
+import { ArrowUpDown, Building, CalendarDays, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { StatCard } from "@/components/dashboard/stat-card";
 
 interface Event {
   id: string;
@@ -24,6 +25,14 @@ interface Event {
   instructor: string;
   enrolledStudents: number;
   instrumentsPurchased: number;
+}
+
+interface Venue {
+  id: string;
+  name: string;
+  type: string;
+  city: string;
+  capacity: number;
 }
 
 const getDangerZoneStatus = (enrolledStudents: number) => {
@@ -38,26 +47,40 @@ const getDangerZoneStatus = (enrolledStudents: number) => {
 
 export default function DashboardPage() {
   const [events, setEvents] = useState<Event[]>([]);
+  const [venues, setVenues] = useState<Venue[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchEvents() {
+    async function fetchData() {
       try {
-        const response = await fetch("/api/events");
-        if (!response.ok) {
-          throw new Error("Failed to fetch events");
+        const [eventsResponse, venuesResponse] = await Promise.all([
+          fetch("/api/events"),
+          fetch("/api/venues"),
+        ]);
+
+        if (!eventsResponse.ok || !venuesResponse.ok) {
+          throw new Error("Failed to fetch dashboard data");
         }
-        const data = await response.json();
-        setEvents(data);
+
+        const eventsData = await eventsResponse.json();
+        const venuesData = await venuesResponse.json();
+
+        setEvents(eventsData);
+        setVenues(venuesData);
       } catch (error) {
         console.error(error);
-        toast.error("Failed to load event data.");
+        toast.error("Failed to load dashboard data.");
       } finally {
         setLoading(false);
       }
     }
-    fetchEvents();
+    fetchData();
   }, []);
+
+  const totalEnrolled = events.reduce(
+    (sum, event) => sum + event.enrolledStudents,
+    0
+  );
 
   const columns: ColumnDef<Event>[] = [
     {
@@ -87,14 +110,18 @@ export default function DashboardPage() {
             Enrolled
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </Button>
-        )
+        );
       },
-      cell: ({ row }) => <div className="text-center">{row.original.enrolledStudents}</div>
+      cell: ({ row }) => (
+        <div className="text-center">{row.original.enrolledStudents}</div>
+      ),
     },
     {
       accessorKey: "instrumentsPurchased",
       header: "Kits Purchased",
-       cell: ({ row }) => <div className="text-center">{row.original.instrumentsPurchased}</div>
+      cell: ({ row }) => (
+        <div className="text-center">{row.original.instrumentsPurchased}</div>
+      ),
     },
     {
       id: "dangerZone",
@@ -107,23 +134,52 @@ export default function DashboardPage() {
   ];
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Event Dashboard</CardTitle>
-        <CardDescription>
-          An overview of all upcoming events and their status.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
+    <div className="space-y-4">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {loading ? (
-          <div className="space-y-4">
-            <Skeleton className="h-10 w-1/4" />
-            <Skeleton className="h-64 w-full" />
-          </div>
+          <>
+            <Skeleton className="h-28" />
+            <Skeleton className="h-28" />
+            <Skeleton className="h-28" />
+          </>
         ) : (
-          <DataTable columns={columns} data={events} />
+          <>
+            <StatCard
+              title="Total Events"
+              value={events.length.toString()}
+              icon={CalendarDays}
+            />
+            <StatCard
+              title="Total Venues"
+              value={venues.length.toString()}
+              icon={Building}
+            />
+            <StatCard
+              title="Total Students Enrolled"
+              value={totalEnrolled.toString()}
+              icon={Users}
+            />
+          </>
         )}
-      </CardContent>
-    </Card>
+      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle>Event Summary</CardTitle>
+          <CardDescription>
+            An overview of all upcoming events and their status.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {loading ? (
+            <div className="space-y-4">
+              <Skeleton className="h-10 w-1/4" />
+              <Skeleton className="h-64 w-full" />
+            </div>
+          ) : (
+            <DataTable columns={columns} data={events} />
+          )}
+        </CardContent>
+      </Card>
+    </div>
   );
 }
