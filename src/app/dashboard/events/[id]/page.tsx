@@ -37,13 +37,7 @@ const getDangerZoneStatus = (enrolledStudents: number) => {
   return { text: "OK", variant: "default" as const };
 };
 
-type EventDetailPageProps = {
-  params: {
-    id: string;
-  };
-};
-
-export default function EventDetailPage({ params }: EventDetailPageProps) {
+export default function EventDetailPage({ params }: { params: { id: string } }) {
   const [event, setEvent] = useState<Event | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -81,7 +75,6 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
     return <p className="text-destructive">{error}</p>;
   }
 
-  // Explicitly check if event is null after loading and error states are handled
   if (!event) {
     return <p className="text-destructive">Event data could not be loaded.</p>;
   }

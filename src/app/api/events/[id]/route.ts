@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import path from 'path';
 import { promises as fs } from 'fs';
 import { eventSchema } from '@/lib/schemas';
@@ -12,7 +12,7 @@ async function readEventFile(id: string) {
     return JSON.parse(fileContents);
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
-      return null; // File not found
+      return null;
     }
     console.error(`Failed to read event file ${id}:`, error);
     throw new Error('Could not read event data.');
@@ -21,7 +21,7 @@ async function readEventFile(id: string) {
 
 async function writeEventFile(event: any) {
   try {
-    await fs.mkdir(eventsDirectory, { recursive: true }); // Ensure directory exists
+    await fs.mkdir(eventsDirectory, { recursive: true });
     const filePath = path.join(eventsDirectory, `${event.id}.json`);
     await fs.writeFile(filePath, JSON.stringify(event, null, 2), 'utf8');
   } catch (error) {
@@ -34,17 +34,17 @@ async function deleteEventFile(id: string) {
   try {
     const filePath = path.join(eventsDirectory, `${id}.json`);
     await fs.unlink(filePath);
-    return true; // Successfully deleted
+    return true;
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
-      return false; // File not found, consider it already deleted
+      return false;
     }
     console.error('Failed to delete event file:', error);
     throw new Error('Could not delete event data.');
   }
 }
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(request: Request, { params }: { params: { id: string } }) {
   const event = await readEventFile(params.id);
 
   if (!event) {
@@ -54,7 +54,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
   return NextResponse.json(event);
 }
 
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(request: Request, { params }: { params: { id: string } }) {
   try {
     const body = await request.json();
     const validation = eventSchema.safeParse(body);
@@ -71,7 +71,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
     const updatedEvent = {
       ...existingEvent,
       ...validation.data,
-      id: params.id, // Ensure ID remains consistent
+      id: params.id,
     };
 
     await writeEventFile(updatedEvent);
@@ -83,7 +83,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
   }
 }
 
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(request: Request, { params }: { params: { id: string } }) {
   try {
     const deleted = await deleteEventFile(params.id);
     if (!deleted) {

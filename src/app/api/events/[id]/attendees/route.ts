@@ -1,6 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
-// Mock data for attendees
 const attendees = [
   { id: 'att-1', eventId: '25995731', name: 'Alice Johnson', email: 'alice@example.com', registrationDate: '2024-05-01', kitPurchased: true },
   { id: 'att-2', eventId: '25995731', name: 'Bob Williams', email: 'bob@example.com', registrationDate: '2024-05-03', kitPurchased: false },
@@ -46,13 +45,12 @@ const attendees = [
 ];
 
 export async function GET(
-  request: NextRequest,
+  request: Request,
   { params }: { params: { id: string } }
 ) {
   const eventId = params.id;
   const eventAttendees = attendees.filter(att => att.eventId === eventId);
 
-  // Simulate network delay
   await new Promise(resolve => setTimeout(resolve, 500));
 
   return NextResponse.json(eventAttendees);
