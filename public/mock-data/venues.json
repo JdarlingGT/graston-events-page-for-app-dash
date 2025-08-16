@@ -1,0 +1,30 @@
+[
+  {
+    "id": "venue-1",
+    "name": "Grand Tech Hall",
+    "type": "Conference Center",
+    "city": "San Francisco",
+    "capacity": 500
+  },
+  {
+    "id": "venue-2",
+    "name": "Innovation Loft",
+    "type": "Meeting Space",
+    "city": "New York",
+    "capacity": 100
+  },
+  {
+    "id": "venue-3",
+    "name": "Lakeside Retreat",
+    "type": "Resort",
+    "city": "Chicago",
+    "capacity": 250
+  },
+  {
+    "id": "venue-4",
+    "name": "The Digital Hub",
+    "type": "Coworking Space",
+    "city": "Austin",
+    "capacity": 150
+  }
+]

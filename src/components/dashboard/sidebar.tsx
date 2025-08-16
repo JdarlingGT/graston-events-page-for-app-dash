@@ -1,0 +1,44 @@
+"use client";
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { Home, Building, LayoutDashboard } from 'lucide-react';
+import { cn } from '../../lib/utils';
+
+const navItems = [
+  { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/dashboard/venues', label: 'Venues', icon: Building },
+];
+
+export default function Sidebar() {
+  const pathname = usePathname();
+
+  return (
+    <aside className="hidden w-64 flex-col border-r bg-background sm:flex">
+      <div className="border-b p-4">
+        <Link href="/dashboard" className="flex items-center gap-2 font-semibold">
+          <Home className="h-6 w-6" />
+          <span className="">Command Center</span>
+        </Link>
+      </div>
+      <nav className="flex-1 p-2">
+        <ul className="space-y-1">
+          {navItems.map((item) => (
+            <li key={item.href}>
+              <Link
+                href={item.href}
+                className={cn(
+                  'flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary',
+                  pathname === item.href && 'bg-muted text-primary'
+                )}
+              >
+                <item.icon className="h-4 w-4" />
+                {item.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </aside>
+  );
+}
