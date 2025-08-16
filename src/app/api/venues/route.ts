@@ -1,19 +1,56 @@
 import { NextResponse } from 'next/server';
 import path from 'path';
 import { promises as fs } from 'fs';
+import { venueSchema } from '@/lib/schemas';
 
-export async function GET() {
+const jsonDirectory = path.join(process.cwd(), 'public', 'mock-data');
+const filePath = path.join(jsonDirectory, 'venues.json');
+
+async function getVenues() {
   try {
-    // Construct the path to the JSON file in the public directory
-    const jsonDirectory = path.join(process.cwd(), 'public', 'mock-data');
-    const fileContents = await fs.readFile(path.join(jsonDirectory, 'venues.json'), 'utf8');
-    
-    // Parse the file content and send it as a response
-    const venues = JSON.parse(fileContents);
-    return NextResponse.json(venues);
+    const fileContents = await fs.readFile(filePath, 'utf8');
+    return JSON.parse(fileContents);
   } catch (error) {
     console.error('Failed to read venues data:', error);
-    // Return an error response if the file can't be read
-    return new NextResponse('Internal Server Error: Could not load venue data.', { status: 500 });
+    return [];
+  }
+}
+
+async function saveVenues(venues: any) {
+  try {
+    await fs.writeFile(filePath, JSON.stringify(venues, null, 2), 'utf8');
+  } catch (error) {
+    console.error('Failed to save venues data:', error);
+    throw new Error('Could not save venue data.');
+  }
+}
+
+export async function GET() {
+  const venues = await getVenues();
+  return NextResponse.json(venues);
+}
+
+export async function POST(request: Request) {
+  try {
+    const body = await request.json();
+    const validation = venueSchema.safeParse(body);
+
+    if (!validation.success) {
+      return new NextResponse(JSON.stringify(validation.error.format()), { status: 400 });
+    }
+
+    const venues = await getVenues();
+    const newVenue = {
+      id: `venue-${Date.now()}`,
+      ...validation.data,
+    };
+
+    venues.push(newVenue);
+    await saveVenues(venues);
+
+    return NextResponse.json(newVenue, { status: 201 });
+  } catch (error) {
+    console.error(error);
+    return new NextResponse('Internal Server Error', { status: 500 });
   }
 }
