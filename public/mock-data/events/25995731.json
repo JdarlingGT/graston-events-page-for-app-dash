@@ -1,0 +1,14 @@
+{
+  "id": "25995731",
+  "name": "Essential Training - Eau Claire, WI",
+  "city": "Eau Claire",
+  "state": "WI",
+  "instructor": "GT Instructor",
+  "enrolledStudents": 35,
+  "instrumentsPurchased": 28,
+  "date": "2025-09-10",
+  "venue": {
+    "name": "Eau Claire Training Center",
+    "city": "Eau Claire"
+  }
+}

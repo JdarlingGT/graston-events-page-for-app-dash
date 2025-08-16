@@ -47,7 +47,7 @@ const attendees = [
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } } // Simplified type definition
 ) {
   const eventId = params.id;
   const eventAttendees = attendees.filter(att => att.eventId === eventId);

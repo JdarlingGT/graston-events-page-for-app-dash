@@ -1,33 +1,51 @@
 import { NextResponse } from 'next/server';
 import path from 'path';
 import { promises as fs } from 'fs';
-import { eventSchema } from '@/lib/schemas';
+import { eventSchema } from '@/lib/schemas'; // Correctly import eventSchema
 
-const jsonDirectory = path.join(process.cwd(), 'public', 'mock-data');
-const filePath = path.join(jsonDirectory, 'events.json');
+const eventsDirectory = path.join(process.cwd(), 'public', 'mock-data', 'events');
 
-async function getEvents() {
+async function readEventFile(id: string) {
   try {
+    const filePath = path.join(eventsDirectory, `${id}.json`);
     const fileContents = await fs.readFile(filePath, 'utf8');
     return JSON.parse(fileContents);
   } catch (error) {
-    console.error('Failed to read events data:', error);
-    return [];
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
+      return null; // File not found
+    }
+    console.error(`Failed to read event file ${id}:`, error);
+    throw new Error('Could not read event data.');
   }
 }
 
-async function saveEvents(events: any) {
+async function writeEventFile(event: any) {
   try {
-    await fs.writeFile(filePath, JSON.stringify(events, null, 2), 'utf8');
+    await fs.mkdir(eventsDirectory, { recursive: true }); // Ensure directory exists
+    const filePath = path.join(eventsDirectory, `${event.id}.json`);
+    await fs.writeFile(filePath, JSON.stringify(event, null, 2), 'utf8');
   } catch (error) {
-    console.error('Failed to save events data:', error);
+    console.error('Failed to write event file:', error);
     throw new Error('Could not save event data.');
   }
 }
 
+async function deleteEventFile(id: string) {
+  try {
+    const filePath = path.join(eventsDirectory, `${id}.json`);
+    await fs.unlink(filePath);
+    return true; // Successfully deleted
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
+      return false; // File not found, consider it already deleted
+    }
+    console.error('Failed to delete event file:', error);
+    throw new Error('Could not delete event data.');
+  }
+}
+
 export async function GET(request: Request, { params }: { params: { id: string } }) {
-  const events = await getEvents();
-  const event = events.find((e: any) => e.id === params.id);
+  const event = await readEventFile(params.id);
 
   if (!event) {
     return new NextResponse('Event not found', { status: 404 });
@@ -39,26 +57,24 @@ export async function GET(request: Request, { params }: { params: { id: string }
 export async function PUT(request: Request, { params }: { params: { id: string } }) {
   try {
     const body = await request.json();
-    const validation = eventSchema.safeParse(body);
+    const validation = eventSchema.safeParse(body); // Use eventSchema
 
     if (!validation.success) {
       return new NextResponse(JSON.stringify(validation.error.format()), { status: 400 });
     }
 
-    let events = await getEvents();
-    const eventIndex = events.findIndex((e: any) => e.id === params.id);
-
-    if (eventIndex === -1) {
+    const existingEvent = await readEventFile(params.id);
+    if (!existingEvent) {
       return new NextResponse('Event not found', { status: 404 });
     }
 
     const updatedEvent = {
-      ...events[eventIndex],
+      ...existingEvent,
       ...validation.data,
+      id: params.id, // Ensure ID remains consistent
     };
-    events[eventIndex] = updatedEvent;
 
-    await saveEvents(events);
+    await writeEventFile(updatedEvent);
 
     return NextResponse.json(updatedEvent);
   } catch (error) {
@@ -69,16 +85,10 @@ export async function PUT(request: Request, { params }: { params: { id: string }
 
 export async function DELETE(request: Request, { params }: { params: { id: string } }) {
   try {
-    let events = await getEvents();
-    const eventExists = events.some((e: any) => e.id === params.id);
-
-    if (!eventExists) {
+    const deleted = await deleteEventFile(params.id);
+    if (!deleted) {
       return new NextResponse('Event not found', { status: 404 });
     }
-
-    const updatedEvents = events.filter((e: any) => e.id !== params.id);
-    await saveEvents(updatedEvents);
-
     return new NextResponse(null, { status: 204 });
   } catch (error) {
     console.error(error);

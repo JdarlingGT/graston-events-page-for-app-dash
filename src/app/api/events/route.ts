@@ -3,31 +3,39 @@ import path from 'path';
 import { promises as fs } from 'fs';
 import { eventSchema } from '@/lib/schemas';
 
-const jsonDirectory = path.join(process.cwd(), 'public', 'mock-data');
-const filePath = path.join(jsonDirectory, 'events.json');
+const eventsDirectory = path.join(process.cwd(), 'public', 'mock-data', 'events');
 
-async function getEvents() {
+async function readAllEventFiles() {
   try {
-    const fileContents = await fs.readFile(filePath, 'utf8');
-    return JSON.parse(fileContents);
+    // Ensure the directory exists before trying to read it
+    await fs.mkdir(eventsDirectory, { recursive: true });
+    const files = await fs.readdir(eventsDirectory);
+    const eventFiles = files.filter(file => file.endsWith('.json'));
+    const allEvents = [];
+    for (const file of eventFiles) {
+      const fileContents = await fs.readFile(path.join(eventsDirectory, file), 'utf8');
+      allEvents.push(JSON.parse(fileContents));
+    }
+    return allEvents;
   } catch (error) {
-    console.error('Failed to read events data:', error);
+    console.error('Failed to read event files:', error);
     return [];
   }
 }
 
-async function saveEvents(events: any) {
+async function writeEventFile(event: any) {
   try {
-    await fs.writeFile(filePath, JSON.stringify(events, null, 2), 'utf8');
-  } catch (error)
-  {
-    console.error('Failed to save events data:', error);
+    await fs.mkdir(eventsDirectory, { recursive: true }); // Ensure directory exists
+    const filePath = path.join(eventsDirectory, `${event.id}.json`);
+    await fs.writeFile(filePath, JSON.stringify(event, null, 2), 'utf8');
+  } catch (error) {
+    console.error('Failed to write event file:', error);
     throw new Error('Could not save event data.');
   }
 }
 
 export async function GET() {
-  const events = await getEvents();
+  const events = await readAllEventFiles();
   return NextResponse.json(events);
 }
 
@@ -40,14 +48,12 @@ export async function POST(request: Request) {
       return new NextResponse(JSON.stringify(validation.error.format()), { status: 400 });
     }
 
-    const events = await getEvents();
     const newEvent = {
-      id: `event-${Date.now()}`,
+      id: `event-${Date.now()}`, // Generate a unique ID
       ...validation.data,
     };
 
-    events.push(newEvent);
-    await saveEvents(events);
+    await writeEventFile(newEvent);
 
     return NextResponse.json(newEvent, { status: 201 });
   } catch (error) {
