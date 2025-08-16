@@ -27,7 +27,7 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { Skeleton } from '@/components/ui/skeleton';
-import { PlusCircle, MoreHorizontal, FilePenLine, Trash2, ArrowUpDown, Eye } from 'lucide-react';
+import { PlusCircle, MoreHorizontal, FilePenLine, Trash2, ArrowUpDown, Eye, Calendar } from 'lucide-react';
 import { toast } from 'sonner';
 import { DataTable } from '@/components/ui/data-table';
 import { ColumnDef } from '@tanstack/react-table';
@@ -188,8 +188,22 @@ export default function EventsPage() {
                 <Skeleton className="h-10 w-1/4" />
                 <Skeleton className="h-40 w-full" />
               </div>
-            ) : (
+            ) : events.length > 0 ? (
               <DataTable columns={columns} data={events} searchPlaceholder="Search events..." />
+            ) : (
+              <div className="flex flex-col items-center justify-center py-12 text-center">
+                <Calendar className="h-12 w-12 text-muted-foreground" />
+                <h3 className="mt-4 text-lg font-semibold">No Events Found</h3>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  There are no events scheduled yet.
+                </p>
+                <Button className="mt-4" asChild>
+                  <Link href="/dashboard/events/create">
+                    <PlusCircle className="mr-2 h-4 w-4" />
+                    Create Event
+                  </Link>
+                </Button>
+              </div>
             )}
           </CardContent>
         </Card>

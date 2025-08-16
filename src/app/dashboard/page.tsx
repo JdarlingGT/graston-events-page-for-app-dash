@@ -16,6 +16,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface Event {
   id: string;
@@ -122,7 +128,20 @@ export default function DashboardPage() {
       header: "Danger Zone",
       cell: ({ row }) => {
         const status = getDangerZoneStatus(row.original.enrolledStudents);
-        return <Badge variant={status.variant}>{status.text}</Badge>;
+        return (
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <Badge variant={status.variant}>{status.text}</Badge>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>At Risk: &lt; 4 students</p>
+                <p>Warning: 4-9 students</p>
+                <p>OK: 10+ students</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        );
       },
     },
   ];

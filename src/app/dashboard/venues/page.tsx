@@ -27,7 +27,7 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { Skeleton } from '@/components/ui/skeleton';
-import { PlusCircle, MoreHorizontal, FilePenLine, Trash2, ArrowUpDown } from 'lucide-react';
+import { PlusCircle, MoreHorizontal, FilePenLine, Trash2, ArrowUpDown, Building } from 'lucide-react';
 import { toast } from 'sonner';
 import { DataTable } from '@/components/ui/data-table';
 import { ColumnDef } from '@tanstack/react-table';
@@ -176,8 +176,22 @@ export default function VenuesPage() {
                 <Skeleton className="h-10 w-1/4" />
                 <Skeleton className="h-40 w-full" />
               </div>
-            ) : (
+            ) : venues.length > 0 ? (
               <DataTable columns={columns} data={venues} />
+            ) : (
+              <div className="flex flex-col items-center justify-center py-12 text-center">
+                <Building className="h-12 w-12 text-muted-foreground" />
+                <h3 className="mt-4 text-lg font-semibold">No Venues Found</h3>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  You haven't added any venues yet.
+                </p>
+                <Button className="mt-4" asChild>
+                  <Link href="/dashboard/venues/create">
+                    <PlusCircle className="mr-2 h-4 w-4" />
+                    Create Venue
+                  </Link>
+                </Button>
+              </div>
             )}
           </CardContent>
         </Card>

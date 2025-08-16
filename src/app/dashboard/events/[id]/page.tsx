@@ -1,12 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Calendar, MapPin, User, Users, ShoppingCart } from "lucide-react";
+import { Calendar, MapPin, User, Users, ShoppingCart, ArrowLeft } from "lucide-react";
 import { RosterTable } from "@/components/roster-table";
+import { Button } from "@/components/ui/button";
 
 // A placeholder for the detailed components we will build next
 const ChartsPlaceholder = () => <Skeleton className="h-80 w-full" />;
@@ -63,6 +65,12 @@ export default function EventDetailPage({ params }: { params: { id: string } }) 
 
   return (
     <div className="space-y-6">
+      <Button variant="outline" asChild className="w-fit">
+        <Link href="/dashboard/events">
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          Back to All Events
+        </Link>
+      </Button>
       <Card>
         <CardHeader>
           <div className="flex items-start justify-between">
