@@ -8,3 +8,14 @@ export const venueSchema = z.object({
 });
 
 export type VenueFormValues = z.infer<typeof venueSchema>;
+
+export const eventSchema = z.object({
+  name: z.string().min(3, { message: "Event name must be at least 3 characters long." }),
+  city: z.string().min(2, { message: "City is required." }),
+  state: z.string().min(2, { message: "State is required." }),
+  instructor: z.string().min(2, { message: "Instructor name is required." }),
+  enrolledStudents: z.coerce.number().int().min(0, { message: "Enrolled students must be a non-negative number." }),
+  instrumentsPurchased: z.coerce.number().int().min(0, { message: "Kits purchased must be a non-negative number." }),
+});
+
+export type EventFormValues = z.infer<typeof eventSchema>;

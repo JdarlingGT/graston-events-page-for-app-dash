@@ -2,11 +2,12 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Building, LayoutDashboard } from 'lucide-react';
+import { Home, Building, LayoutDashboard, Calendar } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
 const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/dashboard/events', label: 'Events', icon: Calendar },
   { href: '/dashboard/venues', label: 'Venues', icon: Building },
 ];
 
@@ -22,19 +23,24 @@ export function MobileSidebar() {
         <Home className="h-5 w-5 transition-all group-hover:scale-110" />
         <span className="sr-only">Command Center</span>
       </Link>
-      {navItems.map((item) => (
-        <Link
-          key={item.href}
-          href={item.href}
-          className={cn(
-            "flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground",
-            pathname === item.href && "text-foreground"
-          )}
-        >
-          <item.icon className="h-5 w-5" />
-          {item.label}
-        </Link>
-      ))}
+      {navItems.map((item) => {
+        const isActive = item.href === '/dashboard' 
+          ? pathname === item.href 
+          : pathname.startsWith(item.href);
+        return (
+          <Link
+            key={item.href}
+            href={item.href}
+            className={cn(
+              "flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground",
+              isActive && "text-foreground"
+            )}
+          >
+            <item.icon className="h-5 w-5" />
+            {item.label}
+          </Link>
+        )
+      })}
     </nav>
   );
 }
