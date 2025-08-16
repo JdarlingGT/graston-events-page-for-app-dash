@@ -16,6 +16,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowUpDown, Building, CalendarDays, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { StatCard } from "@/components/dashboard/stat-card";
+import { EventEnrollmentChart } from "@/components/dashboard/event-enrollment-chart";
 
 interface Event {
   id: string;
@@ -162,24 +163,35 @@ export default function DashboardPage() {
           </>
         )}
       </div>
-      <Card>
-        <CardHeader>
-          <CardTitle>Event Summary</CardTitle>
-          <CardDescription>
-            An overview of all upcoming events and their status.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-7">
+        <div className="lg:col-span-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Event Summary</CardTitle>
+              <CardDescription>
+                An overview of all upcoming events and their status.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {loading ? (
+                <div className="space-y-4">
+                  <Skeleton className="h-10 w-1/4" />
+                  <Skeleton className="h-64 w-full" />
+                </div>
+              ) : (
+                <DataTable columns={columns} data={events} />
+              )}
+            </CardContent>
+          </Card>
+        </div>
+        <div className="lg:col-span-3">
           {loading ? (
-            <div className="space-y-4">
-              <Skeleton className="h-10 w-1/4" />
-              <Skeleton className="h-64 w-full" />
-            </div>
+            <Skeleton className="h-[485px]" />
           ) : (
-            <DataTable columns={columns} data={events} />
+            <EventEnrollmentChart data={events} />
           )}
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 }
