@@ -1,0 +1,78 @@
+"use client";
+
+import { useState, useEffect } from 'react';
+import { DataTable } from '@/components/ui/data-table';
+import { ColumnDef } from '@tanstack/react-table';
+import { Skeleton } from '@/components/ui/skeleton';
+import { toast } from 'sonner';
+import { Badge } from '@/components/ui/badge';
+
+interface Attendee {
+  id: string;
+  name: string;
+  email: string;
+  registrationDate: string;
+  kitPurchased: boolean;
+}
+
+const columns: ColumnDef<Attendee>[] = [
+  {
+    accessorKey: "name",
+    header: "Name",
+  },
+  {
+    accessorKey: "email",
+    header: "Email",
+  },
+  {
+    accessorKey: "registrationDate",
+    header: "Registered On",
+    cell: ({ row }) => new Date(row.original.registrationDate).toLocaleDateString(),
+  },
+  {
+    accessorKey: "kitPurchased",
+    header: "Kit Purchased",
+    cell: ({ row }) => {
+      const purchased = row.original.kitPurchased;
+      return <Badge variant={purchased ? "default" : "secondary"}>{purchased ? "Yes" : "No"}</Badge>;
+    },
+  },
+];
+
+export function RosterTable({ eventId }: { eventId: string }) {
+  const [attendees, setAttendees] = useState<Attendee[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchAttendees() {
+      setLoading(true);
+      try {
+        const response = await fetch(`/api/events/${eventId}/attendees`);
+        if (!response.ok) throw new Error('Failed to fetch attendees');
+        const data = await response.json();
+        setAttendees(data);
+      } catch (error) {
+        console.error(error);
+        toast.error('Failed to load event roster.');
+      } finally {
+        setLoading(false);
+      }
+    }
+    if (eventId) {
+      fetchAttendees();
+    }
+  }, [eventId]);
+
+  if (loading) {
+    return (
+      <div className="space-y-2">
+        <Skeleton className="h-8 w-1/3" />
+        <Skeleton className="h-32 w-full" />
+      </div>
+    );
+  }
+
+  return (
+    <DataTable columns={columns} data={attendees} searchPlaceholder="Search attendees..." />
+  );
+}

@@ -5,10 +5,10 @@ import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Calendar, MapPin, User, Users, CheckCircle, ShoppingCart } from "lucide-react";
+import { Calendar, MapPin, User, Users, ShoppingCart } from "lucide-react";
+import { RosterTable } from "@/components/roster-table";
 
 // A placeholder for the detailed components we will build next
-const RosterTablePlaceholder = () => <Skeleton className="h-64 w-full" />;
 const ChartsPlaceholder = () => <Skeleton className="h-80 w-full" />;
 
 const getDangerZoneStatus = (enrolledStudents: number) => {
@@ -99,10 +99,14 @@ export default function EventDetailPage({ params }: { params: { id: string } }) 
         </CardContent>
       </Card>
 
-      <div>
-        <h2 className="text-2xl font-bold tracking-tight mb-4">Event Roster</h2>
-        <RosterTablePlaceholder />
-      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle>Event Roster</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <RosterTable eventId={params.id} />
+        </CardContent>
+      </Card>
 
       <div>
         <h2 className="text-2xl font-bold tracking-tight mb-4">Analytics</h2>
