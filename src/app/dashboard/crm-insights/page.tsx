@@ -3,9 +3,9 @@
 import { useState, useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
-import { FunnelHealth } from "@/components/dashboard/crm/funnel-health";
-import { LeadAnalysis } from "@/components/dashboard/crm/lead-analysis";
-import { ActivityLog } from "@/components/dashboard/crm/activity-log";
+import { FunnelHealth } from "../../../components/dashboard/crm/funnel-health";
+import { LeadAnalysis } from "../../../components/dashboard/crm/lead-analysis";
+import { ActivityLog } from "../../../components/dashboard/crm/activity-log";
 
 export default function CrmInsightsPage() {
   const [funnelData, setFunnelData] = useState<any>(null);
