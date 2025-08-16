@@ -27,7 +27,7 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { Skeleton } from '@/components/ui/skeleton';
-import { PlusCircle, MoreHorizontal, FilePenLine, Trash2, ArrowUpDown } from 'lucide-react';
+import { PlusCircle, MoreHorizontal, FilePenLine, Trash2, ArrowUpDown, Eye } from 'lucide-react';
 import { toast } from 'sonner';
 import { DataTable } from '@/components/ui/data-table';
 import { ColumnDef } from '@tanstack/react-table';
@@ -39,6 +39,7 @@ interface Event {
   state: string;
   instructor: string;
   enrolledStudents: number;
+  instrumentsPurchased: number;
 }
 
 export default function EventsPage() {
@@ -108,12 +109,12 @@ export default function EventsPage() {
       header: "City",
     },
     {
-      accessorKey: "state",
-      header: "State",
-    },
-    {
       accessorKey: "enrolledStudents",
       header: "Enrolled",
+    },
+    {
+      accessorKey: "instrumentsPurchased",
+      header: "Kits Purchased",
     },
     {
       id: "actions",
@@ -182,7 +183,7 @@ export default function EventsPage() {
                 <Skeleton className="h-40 w-full" />
               </div>
             ) : (
-              <DataTable columns={columns} data={events} />
+              <DataTable columns={columns} data={events} searchPlaceholder="Search events..." />
             )}
           </CardContent>
         </Card>
