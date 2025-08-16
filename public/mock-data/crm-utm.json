@@ -1,0 +1,8 @@
+{
+  "utm_sources": [
+    { "source": "Google Ads", "leads": 400, "converted": 120 },
+    { "source": "Facebook", "leads": 300, "converted": 90 },
+    { "source": "Email", "leads": 200, "converted": 75 },
+    { "source": "Direct", "leads": 150, "converted": 20 }
+  ]
+}

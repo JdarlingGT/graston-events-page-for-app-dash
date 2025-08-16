@@ -1,0 +1,44 @@
+[
+  {
+    "id": "act-1",
+    "date": "2025-08-21",
+    "contact": "John Doe",
+    "action": "Purchased Instrument Bundle",
+    "source": "WooCommerce"
+  },
+  {
+    "id": "act-2",
+    "date": "2025-08-20",
+    "contact": "Jane Smith",
+    "action": "Completed Essential Training",
+    "source": "LearnDash"
+  },
+  {
+    "id": "act-3",
+    "date": "2025-08-19",
+    "contact": "Peter Jones",
+    "action": "Registered for Advanced Course",
+    "source": "FluentCRM"
+  },
+  {
+    "id": "act-4",
+    "date": "2025-08-18",
+    "contact": "Mary Johnson",
+    "action": "Downloaded GT Short",
+    "source": "Website Form"
+  },
+  {
+    "id": "act-5",
+    "date": "2025-08-17",
+    "contact": "David Williams",
+    "action": "Submitted Evaluation Form",
+    "source": "Gravity Forms"
+  },
+  {
+    "id": "act-6",
+    "date": "2025-08-16",
+    "contact": "Sarah Miller",
+    "action": "Attended Essential Webinar",
+    "source": "Automator"
+  }
+]

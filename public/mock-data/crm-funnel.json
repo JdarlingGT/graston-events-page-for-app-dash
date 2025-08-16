@@ -1,0 +1,15 @@
+{
+  "stages": [
+    { "stage": "GT Short Downloaded", "count": 1200 },
+    { "stage": "Essential Registered", "count": 750 },
+    { "stage": "Essential Completed", "count": 600 },
+    { "stage": "Advanced Registered", "count": 300 },
+    { "stage": "Advanced Completed", "count": 220 }
+  ],
+  "conversion_rates": {
+    "GTU_to_Essential": 62.5,
+    "Essential_to_Completed": 80,
+    "Completed_to_Advanced": 50,
+    "Advanced_to_Completed": 73.33
+  }
+}
