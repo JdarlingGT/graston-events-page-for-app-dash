@@ -1,7 +1,7 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import path from 'path';
 import { promises as fs } from 'fs';
-import { eventSchema } from '@/lib/schemas'; // Correctly import eventSchema
+import { eventSchema } from '@/lib/schemas';
 
 const eventsDirectory = path.join(process.cwd(), 'public', 'mock-data', 'events');
 
@@ -44,7 +44,7 @@ async function deleteEventFile(id: string) {
   }
 }
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   const event = await readEventFile(params.id);
 
   if (!event) {
@@ -54,10 +54,10 @@ export async function GET(request: Request, { params }: { params: { id: string }
   return NextResponse.json(event);
 }
 
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
+export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     const body = await request.json();
-    const validation = eventSchema.safeParse(body); // Use eventSchema
+    const validation = eventSchema.safeParse(body);
 
     if (!validation.success) {
       return new NextResponse(JSON.stringify(validation.error.format()), { status: 400 });
@@ -83,7 +83,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
   }
 }
 
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     const deleted = await deleteEventFile(params.id);
     if (!deleted) {

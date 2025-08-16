@@ -37,7 +37,13 @@ const getDangerZoneStatus = (enrolledStudents: number) => {
   return { text: "OK", variant: "default" as const };
 };
 
-export default function EventDetailPage({ params }: { params: { id: string } }) { // Simplified type definition
+type EventDetailPageProps = {
+  params: {
+    id: string;
+  };
+};
+
+export default function EventDetailPage({ params }: EventDetailPageProps) {
   const [event, setEvent] = useState<Event | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

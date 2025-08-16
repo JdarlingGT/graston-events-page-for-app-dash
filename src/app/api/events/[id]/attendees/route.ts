@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 // Mock data for attendees
 const attendees = [
@@ -46,8 +46,8 @@ const attendees = [
 ];
 
 export async function GET(
-  request: Request,
-  { params }: { params: { id: string } } // Simplified type definition
+  request: NextRequest,
+  { params }: { params: { id: string } }
 ) {
   const eventId = params.id;
   const eventAttendees = attendees.filter(att => att.eventId === eventId);
