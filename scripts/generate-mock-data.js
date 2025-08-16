@@ -4,18 +4,14 @@ const fs = require("fs");
 const path = require("path");
 const Papa = require("papaparse");
 
-const csvDir = path.join(__dirname, "..", "public", "mock-data", "csv");
-const outDir = path.join(__dirname, "..", "public", "mock-data");
+// Look for CSV files directly in public/mock-data
+const dataDir = path.join(__dirname, "..", "public", "mock-data");
+const outDir = dataDir;
 
-// Ensure output directory exists
-if (!fs.existsSync(outDir)) {
-  fs.mkdirSync(outDir, { recursive: true });
-}
-
-// Read all CSV files in csvDir
-fs.readdirSync(csvDir).forEach((file) => {
+// Read all files in the directory
+fs.readdirSync(dataDir).forEach((file) => {
   if (file.toLowerCase().endsWith(".csv")) {
-    const csvPath = path.join(csvDir, file);
+    const csvPath = path.join(dataDir, file);
     const csvContent = fs.readFileSync(csvPath, "utf8");
     const { data, errors } = Papa.parse(csvContent, {
       header: true,
