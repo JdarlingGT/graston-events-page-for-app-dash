@@ -56,3 +56,22 @@ export let mockTasks: Task[] = [
     attachments: [],
   },
 ];
+
+export interface Provider {
+  id: string;
+  name: string;
+  email: string;
+  city: string;
+  state: string;
+  providerType: string;
+  trainingHistory: { eventId: string; eventName: string; date: string }[];
+}
+
+export const mockProviders: Provider[] = [
+  { id: 'prov-1', name: 'Dr. Emily Carter', email: 'emily.carter@clinic.com', city: 'Austin', state: 'TX', providerType: 'Medical Doctor', trainingHistory: [{ eventId: '25995731', eventName: 'Essential Training Austin', date: '2023-05-15' }] },
+  { id: 'prov-2', name: 'John Reed, RN', email: 'j.reed@hospital.org', city: 'Austin', state: 'TX', providerType: 'Registered Nurse', trainingHistory: [{ eventId: '25995731', eventName: 'Essential Training Austin', date: '2023-05-15' }] },
+  { id: 'prov-3', name: 'Maria Garcia, PA', email: 'm.garcia@practice.net', city: 'New York', state: 'NY', providerType: 'Physician Assistant', trainingHistory: [{ eventId: '26012317', eventName: 'Essential Training NYC', date: '2023-06-20' }] },
+  { id: 'prov-4', name: 'Dr. Chen Wei', email: 'chen.wei@medcenter.com', city: 'San Francisco', state: 'CA', providerType: 'Medical Doctor', trainingHistory: [{ eventId: '26017859', eventName: 'Essential Training SF', date: '2023-07-25' }] },
+  { id: 'prov-5', name: 'Sarah Jenkins, NP', email: 's.jenkins@health.com', city: 'Austin', state: 'TX', providerType: 'Nurse Practitioner', trainingHistory: [] },
+  { id: 'prov-6', name: 'David Lee', email: 'david.lee@rehab.com', city: 'Austin', state: 'TX', providerType: 'Physical Therapist', trainingHistory: [{ eventId: '25995731', eventName: 'Essential Training Austin', date: '2023-05-15' }] },
+];
