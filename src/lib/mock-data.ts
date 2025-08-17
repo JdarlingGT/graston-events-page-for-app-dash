@@ -55,6 +55,42 @@ export let mockTasks: Task[] = [
     tags: ["Instructor", "Travel"],
     attachments: [],
   },
+  {
+    id: "task-6",
+    title: "Draft social media copy",
+    description: "Create engaging copy for Facebook, Twitter, and LinkedIn for the Q3 campaign.",
+    status: "in-progress" as const,
+    priority: "medium" as const,
+    assignee: { name: "Lisa Park", avatar: "https://i.pravatar.cc/150?img=3" },
+    dueDate: new Date(Date.now() + 4 * 24 * 60 * 60 * 1000).toISOString(),
+    tags: ["Marketing", "Content"],
+    attachments: [],
+    projectId: "proj-1"
+  },
+  {
+    id: "task-7",
+    title: "Design new landing page mockups",
+    description: "Create high-fidelity mockups in Figma for the new homepage and product pages.",
+    status: "todo" as const,
+    priority: "high" as const,
+    assignee: { name: "Mike Chen", avatar: "https://i.pravatar.cc/150?img=2" },
+    dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+    tags: ["Design", "UX"],
+    attachments: [],
+    projectId: "proj-2"
+  },
+  {
+    id: "task-8",
+    title: "Develop instructor profile page",
+    description: "Build the front-end components for the instructor profile page, including bio, courses, and ratings.",
+    status: "todo" as const,
+    priority: "medium" as const,
+    assignee: { name: "Sarah Johnson", avatar: "https://i.pravatar.cc/150?img=1" },
+    dueDate: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000).toISOString(),
+    tags: ["Development", "Frontend"],
+    attachments: [],
+    projectId: "proj-3"
+  }
 ];
 
 export interface Provider {

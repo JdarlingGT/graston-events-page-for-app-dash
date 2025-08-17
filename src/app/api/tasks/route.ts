@@ -3,10 +3,19 @@ import { mockTasks } from '@/lib/mock-data';
 import { createCalendarEvent, sendGmailNotification } from '@/lib/google';
 import { Task } from '@/components/tasks/task-board';
 
-export async function GET() {
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const projectId = searchParams.get('projectId');
+
   // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 500));
-  return NextResponse.json(mockTasks, {
+  
+  let tasks = mockTasks;
+  if (projectId) {
+    tasks = mockTasks.filter(task => task.projectId === projectId);
+  }
+
+  return NextResponse.json(tasks, {
     headers: {
       'Cache-Control': 'private, max-age=10',
     },

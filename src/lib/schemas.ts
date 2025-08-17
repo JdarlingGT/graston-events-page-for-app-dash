@@ -40,6 +40,13 @@ export const eventSchema = z.object({
 });
 export type EventFormValues = z.infer<typeof eventSchema>;
 
+// Schema for creating/updating a project
+export const projectSchema = z.object({
+  name: z.string().min(5, { message: "Project name must be at least 5 characters." }),
+  description: z.string().min(10, { message: "Description must be at least 10 characters." }),
+});
+export type ProjectFormValues = z.infer<typeof projectSchema>;
+
 // Schema for task attachments from Google Drive
 export const attachmentSchema = z.object({
   id: z.string(),
