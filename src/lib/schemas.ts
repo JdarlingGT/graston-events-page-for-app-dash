@@ -19,3 +19,14 @@ export const eventSchema = z.object({
 });
 
 export type EventFormValues = z.infer<typeof eventSchema>;
+
+export const taskSchema = z.object({
+  title: z.string().min(3, { message: "Title must be at least 3 characters." }),
+  description: z.string().optional(),
+  status: z.enum(["todo", "in-progress", "done"]),
+  priority: z.enum(["low", "medium", "high"]),
+  dueDate: z.date().optional(),
+  assigneeName: z.string().optional(),
+});
+
+export type TaskFormValues = z.infer<typeof taskSchema>;

@@ -13,9 +13,10 @@ import { cn } from "@/lib/utils";
 interface TaskColumnProps {
   column: { id: string; title: string };
   tasks: Task[];
+  onEdit: (task: Task) => void;
 }
 
-export function TaskColumn({ column, tasks }: TaskColumnProps) {
+export function TaskColumn({ column, tasks, onEdit }: TaskColumnProps) {
   const { setNodeRef, isOver } = useDroppable({
     id: column.id,
   });
@@ -33,7 +34,7 @@ export function TaskColumn({ column, tasks }: TaskColumnProps) {
     <div
       ref={setNodeRef}
       className={cn(
-        "flex-1 p-4 bg-muted/50 rounded-lg transition-colors duration-200",
+        "flex-1 p-4 bg-muted/50 rounded-lg transition-colors duration-200 min-h-[300px]",
         isOver && "bg-muted"
       )}
     >
@@ -47,7 +48,7 @@ export function TaskColumn({ column, tasks }: TaskColumnProps) {
       >
         <div className="space-y-4">
           {sortedTasks.map((task) => (
-            <TaskCard key={task.id} task={task} />
+            <TaskCard key={task.id} task={task} onEdit={onEdit} />
           ))}
         </div>
       </SortableContext>
