@@ -147,6 +147,7 @@ export function LiveTrainingWorkspace({ eventId }: { eventId: string }) {
           checked={roster[row.original.id]?.attendance || false}
           onCheckedChange={(checked) => updateRoster(row.original.id, { attendance: checked })}
           className="data-[state=checked]:bg-green-500"
+          aria-label={`Mark ${row.original.name} as present`}
         />
       ),
     },

@@ -101,10 +101,10 @@ export function CheckInKiosk({ eventId }: { eventId: string }) {
                 <p className="font-medium text-lg">{student.name}</p>
               </div>
               <div className="sm:col-span-3 grid grid-cols-2 sm:grid-cols-4 gap-2">
-                <Button variant={checkIns[student.id]?.morningIn ? "default" : "outline"} onClick={() => checkInMutation.mutate({ studentId: student.id, period: 'morningIn' })}><LogIn className="mr-2 h-4 w-4" /> Morning</Button>
-                <Button variant={checkIns[student.id]?.lunchOut ? "default" : "outline"} onClick={() => checkInMutation.mutate({ studentId: student.id, period: 'lunchOut' })}><Coffee className="mr-2 h-4 w-4" /> Lunch</Button>
-                <Button variant={checkIns[student.id]?.lunchIn ? "default" : "outline"} onClick={() => checkInMutation.mutate({ studentId: student.id, period: 'lunchIn' })}><LogIn className="mr-2 h-4 w-4" /> Return</Button>
-                <Button variant={checkIns[student.id]?.afternoonOut ? "default" : "outline"} onClick={() => checkInMutation.mutate({ studentId: student.id, period: 'afternoonOut' })}><LogOut className="mr-2 h-4 w-4" /> End</Button>
+                <Button variant={checkIns[student.id]?.morningIn ? "default" : "outline"} onClick={() => checkInMutation.mutate({ studentId: student.id, period: 'morningIn' })} aria-label={`Check in for morning session for ${student.name}`}><LogIn className="mr-2 h-4 w-4" /> Morning</Button>
+                <Button variant={checkIns[student.id]?.lunchOut ? "default" : "outline"} onClick={() => checkInMutation.mutate({ studentId: student.id, period: 'lunchOut' })} aria-label={`Check out for lunch for ${student.name}`}><Coffee className="mr-2 h-4 w-4" /> Lunch</Button>
+                <Button variant={checkIns[student.id]?.lunchIn ? "default" : "outline"} onClick={() => checkInMutation.mutate({ studentId: student.id, period: 'lunchIn' })} aria-label={`Check in from lunch for ${student.name}`}><LogIn className="mr-2 h-4 w-4" /> Return</Button>
+                <Button variant={checkIns[student.id]?.afternoonOut ? "default" : "outline"} onClick={() => checkInMutation.mutate({ studentId: student.id, period: 'afternoonOut' })} aria-label={`Check out for the day for ${student.name}`}><LogOut className="mr-2 h-4 w-4" /> End</Button>
               </div>
             </div>
           ))}

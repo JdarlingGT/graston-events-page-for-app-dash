@@ -5,9 +5,10 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
-interface EventDetailPageProps {
+type EventDetailPageProps = {
   params: { id: string };
-}
+  searchParams: { [key: string]: string | string[] | undefined };
+};
 
 export default function EventDetailPage({ params }: EventDetailPageProps) {
   return (
