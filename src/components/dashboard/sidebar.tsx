@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, LayoutDashboard, Calendar, BarChart3, CheckSquare, Settings, BookOpen, Target, Megaphone, Building, Users, Archive, UserCheck } from 'lucide-react';
+import { Home, LayoutDashboard, Calendar, BarChart3, CheckSquare, Settings, BookOpen, Target, Megaphone, Building, Users, Archive, UserCheck, FolderKanban } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import {
   Accordion,
@@ -15,6 +15,7 @@ const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/dashboard/instructor', label: 'Instructor Workspace', icon: UserCheck },
   { href: '/dashboard/events', label: 'Events', icon: Calendar },
+  { href: '/dashboard/projects', label: 'Projects', icon: FolderKanban },
   { href: '/dashboard/tasks', label: 'Tasks', icon: CheckSquare },
   { href: '/dashboard/marketing', label: 'Marketing', icon: Megaphone },
   { href: '/dashboard/sales', label: 'Sales', icon: Target },

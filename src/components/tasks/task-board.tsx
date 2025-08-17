@@ -27,6 +27,13 @@ export interface Attachment {
   iconUrl: string;
 }
 
+export interface Comment {
+  id: string;
+  author: { name: string; avatar?: string };
+  timestamp: string;
+  text: string;
+}
+
 export interface Task {
   id: string;
   title: string;
@@ -40,6 +47,8 @@ export interface Task {
   dueDate?: string;
   tags?: string[];
   attachments?: Attachment[];
+  comments?: Comment[];
+  projectId?: string;
 }
 
 const columns = [
@@ -56,7 +65,7 @@ const assignees = [
   { name: "Unassigned", avatar: "" },
 ];
 
-export function TaskBoard() {
+export function TaskBoard({ projectId }: { projectId?: string }) {
   const [activeTask, setActiveTask] = useState<Task | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
@@ -70,17 +79,20 @@ export function TaskBoard() {
     })
   );
 
+  const queryKey = projectId ? ["tasks", projectId] : ["tasks"];
+  const apiUrl = projectId ? `/api/tasks?projectId=${projectId}` : "/api/tasks";
+
   const { data: tasks = [], isLoading } = useQuery<Task[]>({
-    queryKey: ["tasks"],
+    queryKey,
     queryFn: async () => {
-      const response = await fetch("/api/tasks");
+      const response = await fetch(apiUrl);
       if (!response.ok) throw new Error("Failed to fetch tasks");
       return response.json();
     },
   });
 
   const handleOptimisticUpdate = (updatedTask: Partial<Task> & { id: string }) => {
-    queryClient.setQueryData<Task[]>(['tasks'], (old = []) =>
+    queryClient.setQueryData<Task[]>(queryKey, (old = []) =>
       old.map(task => task.id === updatedTask.id ? { ...task, ...updatedTask } : task)
     );
   };
@@ -97,7 +109,7 @@ export function TaskBoard() {
     },
     onSuccess: () => {
       toast.success("Task created successfully!");
-      queryClient.invalidateQueries({ queryKey: ['tasks'] });
+      queryClient.invalidateQueries({ queryKey });
     },
     onError: () => toast.error("Failed to create task"),
   });
@@ -115,7 +127,7 @@ export function TaskBoard() {
     },
     onSuccess: () => toast.success("Task updated successfully!"),
     onError: () => toast.error("Failed to update task"),
-    onSettled: () => queryClient.invalidateQueries({ queryKey: ['tasks'] }),
+    onSettled: () => queryClient.invalidateQueries({ queryKey }),
   });
 
   const handleDragStart = (event: DragStartEvent) => {
@@ -153,6 +165,7 @@ export function TaskBoard() {
       status: values.status,
       dueDate: values.dueDate?.toISOString(),
       assignee: assigneeData && assigneeData.name !== "Unassigned" ? assigneeData : undefined,
+      projectId: projectId, // Add projectId to new tasks
     };
 
     if (taskId) {
