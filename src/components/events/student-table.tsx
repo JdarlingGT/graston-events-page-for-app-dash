@@ -112,6 +112,7 @@ export function StudentTable({ eventId, eventDate }: StudentTableProps) {
             table.toggleAllPageRowsSelected(isChecked);
             setSelectedStudents(isChecked ? students.map(s => s.id) : []);
           }}
+          aria-label="Select all rows"
           className="rounded border border-input"
         />
       ),
@@ -125,6 +126,7 @@ export function StudentTable({ eventId, eventDate }: StudentTableProps) {
               e.target.checked ? [...prev, row.original.id] : prev.filter(id => id !== row.original.id)
             );
           }}
+          aria-label={`Select row for ${row.original.name}`}
           className="rounded border border-input"
         />
       ),
@@ -180,7 +182,7 @@ export function StudentTable({ eventId, eventDate }: StudentTableProps) {
       id: "actions",
       cell: ({ row }) => (
         <DropdownMenu>
-          <DropdownMenuTrigger asChild><Button variant="ghost" className="h-8 w-8 p-0"><MoreHorizontal className="h-4 w-4" /></Button></DropdownMenuTrigger>
+          <DropdownMenuTrigger asChild><Button variant="ghost" className="h-8 w-8 p-0" aria-label={`Actions for ${row.original.name}`}><MoreHorizontal className="h-4 w-4" /></Button></DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem onClick={() => handleCrmLink(row.original.crmId)}><ExternalLink className="mr-2 h-4 w-4" />View in CRM</DropdownMenuItem>
             <DropdownMenuItem><Mail className="mr-2 h-4 w-4" />Send Email</DropdownMenuItem>

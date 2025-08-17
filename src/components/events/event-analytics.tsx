@@ -229,40 +229,42 @@ export function EventAnalytics({ eventId }: EventAnalyticsProps) {
               <CardTitle>Enrollment & Revenue Trend</CardTitle>
             </CardHeader>
             <CardContent>
-              <ResponsiveContainer width="100%" height={400}>
-                <LineChart data={analytics.enrollmentTrend}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="date" />
-                  <YAxis yAxisId="left" />
-                  <YAxis yAxisId="right" orientation="right" />
-                  <Tooltip />
-                  <Legend />
-                  <Line
-                    yAxisId="left"
-                    type="monotone"
-                    dataKey="enrolled"
-                    stroke="#8884d8"
-                    strokeWidth={2}
-                    name="Enrolled Students"
-                  />
-                  <Line
-                    yAxisId="left"
-                    type="monotone"
-                    dataKey="target"
-                    stroke="#82ca9d"
-                    strokeDasharray="5 5"
-                    name="Target"
-                  />
-                  <Line
-                    yAxisId="right"
-                    type="monotone"
-                    dataKey="revenue"
-                    stroke="#ffc658"
-                    strokeWidth={2}
-                    name="Revenue ($)"
-                  />
-                </LineChart>
-              </ResponsiveContainer>
+              <div role="img" aria-label="Line chart showing enrollment and revenue trends over the selected time period.">
+                <ResponsiveContainer width="100%" height={400}>
+                  <LineChart data={analytics.enrollmentTrend}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="date" />
+                    <YAxis yAxisId="left" />
+                    <YAxis yAxisId="right" orientation="right" />
+                    <Tooltip />
+                    <Legend />
+                    <Line
+                      yAxisId="left"
+                      type="monotone"
+                      dataKey="enrolled"
+                      stroke="#8884d8"
+                      strokeWidth={2}
+                      name="Enrolled Students"
+                    />
+                    <Line
+                      yAxisId="left"
+                      type="monotone"
+                      dataKey="target"
+                      stroke="#82ca9d"
+                      strokeDasharray="5 5"
+                      name="Target"
+                    />
+                    <Line
+                      yAxisId="right"
+                      type="monotone"
+                      dataKey="revenue"
+                      stroke="#ffc658"
+                      strokeWidth={2}
+                      name="Revenue ($)"
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
@@ -273,18 +275,20 @@ export function EventAnalytics({ eventId }: EventAnalyticsProps) {
               <CardTitle>Conversion Funnel</CardTitle>
             </CardHeader>
             <CardContent>
-              <ResponsiveContainer width="100%" height={400}>
-                <FunnelChart>
-                  <Tooltip />
-                  <Funnel
-                    dataKey="value"
-                    data={analytics.conversionFunnel}
-                    isAnimationActive
-                  >
-                    <LabelList position="center" fill="#fff" stroke="none" />
-                  </Funnel>
-                </FunnelChart>
-              </ResponsiveContainer>
+              <div role="img" aria-label="Funnel chart illustrating the conversion rates through different stages from page views to course enrollment.">
+                <ResponsiveContainer width="100%" height={400}>
+                  <FunnelChart>
+                    <Tooltip />
+                    <Funnel
+                      dataKey="value"
+                      data={analytics.conversionFunnel}
+                      isAnimationActive
+                    >
+                      <LabelList position="center" fill="#fff" stroke="none" />
+                    </Funnel>
+                  </FunnelChart>
+                </ResponsiveContainer>
+              </div>
               <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
                 {analytics.conversionFunnel.map((stage: FunnelStage, index: number) => (
                   <div key={stage.stage} className="text-center">
@@ -308,17 +312,19 @@ export function EventAnalytics({ eventId }: EventAnalyticsProps) {
               <CardTitle>Traffic Sources Performance</CardTitle>
             </CardHeader>
             <CardContent>
-              <ResponsiveContainer width="100%" height={400}>
-                <BarChart data={analytics.trafficSources}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="source" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="visitors" fill="#8884d8" name="Visitors" />
-                  <Bar dataKey="conversions" fill="#82ca9d" name="Conversions" />
-                </BarChart>
-              </ResponsiveContainer>
+              <div role="img" aria-label="Bar chart comparing visitors and conversions from different traffic sources.">
+                <ResponsiveContainer width="100%" height={400}>
+                  <BarChart data={analytics.trafficSources}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="source" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Bar dataKey="visitors" fill="#8884d8" name="Visitors" />
+                    <Bar dataKey="conversions" fill="#82ca9d" name="Conversions" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
               <div className="mt-4 space-y-2">
                 {analytics.trafficSources.map((source: TrafficSource) => (
                   <div key={source.source} className="flex items-center justify-between p-3 bg-muted rounded-lg">
@@ -348,25 +354,27 @@ export function EventAnalytics({ eventId }: EventAnalyticsProps) {
                 <CardTitle>Student Demographics</CardTitle>
               </CardHeader>
               <CardContent>
-                <ResponsiveContainer width="100%" height={300}>
-                  <PieChart>
-                    <Pie
-                      data={analytics.demographics}
-                      cx="50%"
-                      cy="50%"
-                      labelLine={false}
-                      label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                      outerRadius={80}
-                      fill="#8884d8"
-                      dataKey="value"
-                    >
-                      {analytics.demographics.map((entry: Demographic, index: number) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                      ))}
-                    </Pie>
-                    <Tooltip />
-                  </PieChart>
-                </ResponsiveContainer>
+                <div role="img" aria-label="Pie chart showing the demographic breakdown of students by professional category.">
+                  <ResponsiveContainer width="100%" height={300}>
+                    <PieChart>
+                      <Pie
+                        data={analytics.demographics}
+                        cx="50%"
+                        cy="50%"
+                        labelLine={false}
+                        label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                        outerRadius={80}
+                        fill="#8884d8"
+                        dataKey="value"
+                      >
+                        {analytics.demographics.map((entry: Demographic, index: number) => (
+                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                        ))}
+                      </Pie>
+                      <Tooltip />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
               </CardContent>
             </Card>
 

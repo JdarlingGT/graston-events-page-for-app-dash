@@ -197,9 +197,9 @@ export function EventDetail({ eventId }: EventDetailProps) {
                     <h1 className="text-3xl font-bold">{event.title}</h1>
                     <div className="flex gap-2">
                       <Button asChild variant="outline"><Link href={`/dashboard/events/${event.id}/edit`}><Edit className="h-4 w-4 mr-2" />Edit</Link></Button>
-                      <Button variant="outline" size="icon" onClick={handleDuplicate}><Copy className="h-4 w-4" /></Button>
+                      <Button variant="outline" size="icon" onClick={handleDuplicate} aria-label="Duplicate event"><Copy className="h-4 w-4" /></Button>
                       <AlertDialogTrigger asChild>
-                        <Button variant="destructive" size="icon"><Trash className="h-4 w-4" /></Button>
+                        <Button variant="destructive" size="icon" aria-label="Delete event"><Trash className="h-4 w-4" /></Button>
                       </AlertDialogTrigger>
                     </div>
                   </div>

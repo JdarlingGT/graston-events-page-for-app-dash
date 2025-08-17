@@ -58,7 +58,7 @@ export function UTMAnalysis({ data }: UTMAnalysisProps) {
           <CardDescription>Distribution of leads from different UTM sources.</CardDescription>
         </CardHeader>
         <CardContent>
-          <ChartContainer config={{}} className="min-h-[300px] w-full">
+          <ChartContainer config={{}} className="min-h-[300px] w-full" role="img" aria-label="Pie chart showing the distribution of leads from different UTM sources.">
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie data={data} dataKey="leads" nameKey="source" cx="50%" cy="50%" outerRadius={100} label>
@@ -79,7 +79,7 @@ export function UTMAnalysis({ data }: UTMAnalysisProps) {
           <CardDescription>Comparison of leads, converted customers, and revenue by source.</CardDescription>
         </CardHeader>
         <CardContent>
-          <ChartContainer config={barChartConfig} className="min-h-[300px] w-full">
+          <ChartContainer config={barChartConfig} className="min-h-[300px] w-full" role="img" aria-label="Bar chart comparing leads, converted customers, and revenue by UTM source.">
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={chartData}>
                 <CartesianGrid vertical={false} />

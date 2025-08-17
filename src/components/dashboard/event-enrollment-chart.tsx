@@ -39,7 +39,7 @@ export function EventEnrollmentChart() {
         <CardDescription>Student enrollment over time</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
+        <ChartContainer config={chartConfig} role="img" aria-label="Line chart showing student enrollment trends over time compared to total capacity.">
           <ResponsiveContainer width="100%" height={350}>
             <LineChart data={data}>
               <XAxis

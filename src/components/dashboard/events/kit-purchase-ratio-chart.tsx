@@ -43,7 +43,7 @@ export function KitPurchaseRatioChart({ enrolledStudents, instrumentsPurchased }
         <CardDescription>Breakdown of students who purchased kits vs. those who did not.</CardDescription>
       </CardHeader>
       <CardContent className="flex justify-center pb-0">
-        <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
+        <ChartContainer config={chartConfig} className="min-h-[200px] w-full" role="img" aria-label="Pie chart showing the ratio of students who purchased kits versus those who did not.">
           <ResponsiveContainer width="100%" height={200}>
             <PieChart>
               <ChartTooltip

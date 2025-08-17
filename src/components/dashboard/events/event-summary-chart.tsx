@@ -39,7 +39,7 @@ export function EventSummaryChart() {
         <CardDescription>Events by status</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
+        <ChartContainer config={chartConfig} role="img" aria-label="Bar chart showing the count of events by status: Upcoming, Ongoing, and Completed.">
           <ResponsiveContainer width="100%" height={350}>
             <BarChart data={data}>
               <XAxis
