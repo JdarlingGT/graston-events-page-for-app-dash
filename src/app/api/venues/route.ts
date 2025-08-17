@@ -27,7 +27,11 @@ async function saveVenues(venues: any) {
 
 export async function GET() {
   const venues = await getVenues();
-  return NextResponse.json(venues);
+  return NextResponse.json(venues, {
+    headers: {
+      'Cache-Control': 'public, s-maxage=120, stale-while-revalidate=600',
+    },
+  });
 }
 
 export async function POST(request: Request) {

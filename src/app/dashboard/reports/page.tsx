@@ -32,6 +32,7 @@ function CrmInsightsContent() {
       if (!res.ok) throw new Error("Failed to fetch funnel data");
       return res.json();
     },
+    staleTime: 1000 * 60 * 15, // 15 minutes
   });
 
   const { data: utmData, isLoading: utmLoading } = useQuery<UtmSource[]>({
@@ -42,6 +43,7 @@ function CrmInsightsContent() {
       const json = await res.json();
       return json.utm_sources;
     },
+    staleTime: 1000 * 60 * 15, // 15 minutes
   });
 
   const isLoading = funnelLoading || utmLoading;

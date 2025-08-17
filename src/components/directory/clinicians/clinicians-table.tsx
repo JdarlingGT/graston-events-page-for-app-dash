@@ -41,6 +41,7 @@ export function CliniciansTable() {
   const { data: clinicians = [], isLoading } = useQuery<Clinician[]>({
     queryKey: ["clinicians"],
     queryFn: fetchClinicians,
+    staleTime: 1000 * 60 * 15, // 15 minutes
   });
 
   if (isLoading) {

@@ -17,5 +17,9 @@ async function getClinicians() {
 
 export async function GET() {
   const clinicians = await getClinicians();
-  return NextResponse.json(clinicians);
+  return NextResponse.json(clinicians, {
+    headers: {
+      'Cache-Control': 'public, s-maxage=120, stale-while-revalidate=600',
+    },
+  });
 }

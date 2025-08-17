@@ -71,6 +71,7 @@ export function StudentTable({ eventId, eventDate }: StudentTableProps) {
         crmTags: ["New Student", student.preCourseCompleted ? "Pre-Course Complete" : "Pre-Course Incomplete"],
       }));
     },
+    staleTime: 1000 * 60 * 5, // 5 minutes
   });
 
   const { data: checkIns = {}, isLoading: checkInsLoading } = useQuery<Record<string, CheckInRecord>>({

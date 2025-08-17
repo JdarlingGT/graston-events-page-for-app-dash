@@ -12,8 +12,13 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { MapPin, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { EventMap } from "./events/EventMap";
 import { differenceInDays, parseISO } from "date-fns";
+import dynamic from "next/dynamic";
+
+const EventMap = dynamic(() => import("./events/EventMap").then((mod) => mod.EventMap), {
+  loading: () => <Skeleton className="h-96 w-full rounded-lg" />,
+  ssr: false,
+});
 
 interface Event {
   id: string;

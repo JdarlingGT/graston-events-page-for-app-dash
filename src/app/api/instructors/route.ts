@@ -27,7 +27,11 @@ async function saveInstructors(instructors: any) {
 
 export async function GET() {
   const instructors = await getInstructors();
-  return NextResponse.json(instructors);
+  return NextResponse.json(instructors, {
+    headers: {
+      'Cache-Control': 'public, s-maxage=120, stale-while-revalidate=600',
+    },
+  });
 }
 
 export async function POST(request: Request) {

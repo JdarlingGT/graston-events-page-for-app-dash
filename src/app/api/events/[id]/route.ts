@@ -23,5 +23,9 @@ export async function GET(request: Request, { params }: { params: { id: string }
     return new NextResponse('Event not found', { status: 404 });
   }
 
-  return NextResponse.json(event);
+  return NextResponse.json(event, {
+    headers: {
+      'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+    },
+  });
 }

@@ -49,6 +49,7 @@ export function VenuesTable() {
   const { data: venues = [], isLoading } = useQuery<Venue[]>({
     queryKey: ["venues"],
     queryFn: fetchVenues,
+    staleTime: 1000 * 60 * 15, // 15 minutes
   });
 
   const deleteMutation = useMutation({

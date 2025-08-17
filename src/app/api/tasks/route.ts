@@ -6,7 +6,11 @@ import { Task } from '@/components/tasks/task-board';
 export async function GET() {
   // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 500));
-  return NextResponse.json(mockTasks);
+  return NextResponse.json(mockTasks, {
+    headers: {
+      'Cache-Control': 'private, max-age=10',
+    },
+  });
 }
 
 export async function POST(request: Request) {

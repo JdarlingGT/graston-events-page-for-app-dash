@@ -8,15 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
-import { StudentTable } from "./student-table";
-import { TaskBoard } from "./task-board";
 import { MarketingRescueCopilotModal } from "./marketing-rescue-copilot-modal";
-import { LogisticsTab } from "./logistics-tab";
-import { PostMortemTab } from "./post-mortem-tab";
-import { InternalNotesPanel } from "./internal-notes-panel";
-import { BulkEmailPanel } from "./bulk-email-panel";
-import { EventScheduleTimeline } from "./event-schedule-timeline";
-import { ActivityLogTab } from "./activity-log-tab";
 import { 
   Calendar, 
   MapPin, 
@@ -48,6 +40,33 @@ import {
 import { toast } from "sonner";
 import Link from "next/link";
 import { Progress } from "../ui/progress";
+import dynamic from "next/dynamic";
+
+const StudentTable = dynamic(() => import("./student-table").then(mod => mod.StudentTable), {
+  loading: () => <Skeleton className="h-96 w-full" />,
+});
+const TaskBoard = dynamic(() => import("./task-board").then(mod => mod.TaskBoard), {
+  loading: () => <Skeleton className="h-96 w-full" />,
+});
+const LogisticsTab = dynamic(() => import("./logistics-tab").then(mod => mod.LogisticsTab), {
+  loading: () => <Skeleton className="h-64 w-full" />,
+});
+const PostMortemTab = dynamic(() => import("./post-mortem-tab").then(mod => mod.PostMortemTab), {
+  loading: () => <Skeleton className="h-96 w-full" />,
+});
+const InternalNotesPanel = dynamic(() => import("./internal-notes-panel").then(mod => mod.InternalNotesPanel), {
+  loading: () => <Skeleton className="h-64 w-full" />,
+});
+const BulkEmailPanel = dynamic(() => import("./bulk-email-panel").then(mod => mod.BulkEmailPanel), {
+  loading: () => <Skeleton className="h-64 w-full" />,
+});
+const EventScheduleTimeline = dynamic(() => import("./event-schedule-timeline").then(mod => mod.EventScheduleTimeline), {
+  loading: () => <Skeleton className="h-96 w-full" />,
+});
+const ActivityLogTab = dynamic(() => import("./activity-log-tab").then(mod => mod.ActivityLogTab), {
+  loading: () => <Skeleton className="h-96 w-full" />,
+});
+
 
 interface EventDetailProps {
   eventId: string;
@@ -110,6 +129,7 @@ export function EventDetail({ eventId }: EventDetailProps) {
       }
       return response.json();
     },
+    staleTime: 1000 * 60 * 5, // 5 minutes
   });
 
   const reminderMutation = useMutation({

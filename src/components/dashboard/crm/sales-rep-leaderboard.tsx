@@ -30,6 +30,7 @@ export function SalesRepLeaderboard() {
       if (!response.ok) throw new Error("Failed to fetch sales reps");
       return response.json();
     },
+    staleTime: 1000 * 60 * 5, // 5 minutes
   });
 
   if (isLoading) {

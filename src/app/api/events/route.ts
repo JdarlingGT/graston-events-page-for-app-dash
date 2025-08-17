@@ -19,5 +19,9 @@ export async function GET(request: Request) {
   const events = await getEvents();
   // This endpoint will now just return all events.
   // The components will need to be updated to handle the new data structure.
-  return NextResponse.json(events);
+  return NextResponse.json(events, {
+    headers: {
+      'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+    },
+  });
 }

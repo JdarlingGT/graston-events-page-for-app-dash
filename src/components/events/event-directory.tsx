@@ -4,10 +4,15 @@ import React, { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";
-import { EventMap } from "./event-map";
 import { EventCard } from "./event-card";
 import { EventFilters } from "./event-filters";
 import { AnimatePresence, motion } from "framer-motion";
+import dynamic from "next/dynamic";
+
+const EventMap = dynamic(() => import("./event-map").then((mod) => mod.EventMap), {
+  loading: () => <Skeleton className="h-[450px] w-full rounded-lg border" />,
+  ssr: false,
+});
 
 interface Event {
   id: string;

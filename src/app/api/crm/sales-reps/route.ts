@@ -40,5 +40,9 @@ export async function GET() {
   // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 600));
   
-  return NextResponse.json(mockSalesReps);
+  return NextResponse.json(mockSalesReps, {
+    headers: {
+      'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=1800',
+    },
+  });
 }

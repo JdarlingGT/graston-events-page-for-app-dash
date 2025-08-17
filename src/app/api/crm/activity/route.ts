@@ -9,7 +9,11 @@ export async function GET() {
   try {
     const fileContents = await fs.readFile(filePath, 'utf8');
     const data = JSON.parse(fileContents);
-    return NextResponse.json(data);
+    return NextResponse.json(data, {
+      headers: {
+        'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=1800',
+      },
+    });
   } catch (error) {
     console.error('Failed to read CRM activity data:', error);
     return new NextResponse('Internal Server Error', { status: 500 });

@@ -49,6 +49,7 @@ export function InstructorsTable() {
   const { data: instructors = [], isLoading } = useQuery<Instructor[]>({
     queryKey: ["instructors"],
     queryFn: fetchInstructors,
+    staleTime: 1000 * 60 * 15, // 15 minutes
   });
 
   const deleteMutation = useMutation({
