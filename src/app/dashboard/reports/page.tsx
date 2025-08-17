@@ -50,10 +50,10 @@ export default function ReportsPage() {
           {loading ? <Skeleton className="h-[434px]" /> : <SalesOverviewChart />}
         </div>
         <div>
-          {loading ? <Skeleton className="h-[485px]" /> : <EventEnrollmentChart data={events} />}
+          {loading ? <Skeleton className="h-[485px]" /> : <EventEnrollmentChart />}
         </div>
         <div>
-          {loading ? <Skeleton className="h-[485px]" /> : <InstrumentSalesChart data={events} />}
+          {loading ? <Skeleton className="h-[485px]" /> : <InstrumentSalesChart />}
         </div>
       </div>
     </div>

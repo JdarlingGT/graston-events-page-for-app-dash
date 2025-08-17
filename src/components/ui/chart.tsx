@@ -2,7 +2,6 @@
 
 import * as React from "react"
 import * as RechartsPrimitive from "recharts"
-import { ResponsiveContainer } from "recharts"
 
 import { cn } from "@/lib/utils"
 
@@ -17,59 +16,9 @@ const CartesianGrid = React.forwardRef<
     {...props}
   />
 ))
-
 CartesianGrid.displayName = "CartesianGrid"
 
-interface ChartTooltipProps {
-  hideIndicator?: boolean;
-  indicator?: "dot" | "line" | "dashed";
-  className?: string;
-  active?: boolean;
-  payload?: any[];
-}
-
-const ChartTooltip = React.forwardRef<
-  HTMLDivElement,
-  ChartTooltipProps
->(({ active, payload, className, indicator = "dot", hideIndicator = false, ...props }, ref) => {
-  if (active && payload && payload.length) {
-    return (
-      <div
-        ref={ref}
-        className={cn(
-          "rounded-lg border bg-background px-3 py-2 text-sm shadow-md",
-          className
-        )}
-        {...props}
-      >
-        {payload.map((item: any) => (
-          <div
-            key={item.dataKey}
-            className="flex items-center justify-between gap-x-4"
-          >
-            {item.name && (
-              <span className="flex items-center gap-x-2" data-testid="chart-tooltip-item-name">
-                {!hideIndicator && (
-                  <span
-                    className={cn("flex h-2 w-2 rounded-full", item.color)}
-                    style={{ backgroundColor: item.color }}
-                  />
-                )}
-                {item.name}
-              </span>
-            )}
-            <span className="text-right font-medium" data-testid="chart-tooltip-item-value">
-              {item.value}
-            </span>
-          </div>
-        ))}
-      </div>
-    )
-  }
-
-  return null
-})
-ChartTooltip.displayName = "ChartTooltip"
+const ChartTooltip = RechartsPrimitive.Tooltip
 
 interface ChartTooltipContentProps {
   nameKey?: string;
@@ -165,22 +114,21 @@ const ChartContainer = React.forwardRef<
   const chartId = `chart-${id || uniqueId}`
 
   return (
-    <div
-      ref={ref}
-      data-chart={chartId}
-      className={cn(
-        "flex aspect-video justify-center text-foreground",
-        className
-      )}
-      {...props}
-    >
-      <ChartContext.Provider value={{ config }}>
+    <ChartContext.Provider value={{ config }}>
+      <div
+        ref={ref}
+        data-chart={chartId}
+        className={cn(
+          "flex aspect-video justify-center text-foreground",
+          className
+        )}
+        {...props}
+      >
         {React.cloneElement(children, {
-          id: chartId,
-          className: cn("max-h-[--container-height] w-full", children.props?.className),
-        })}
-      </ChartContext.Provider>
-    </div>
+          className: cn("max-h-[--container-height] w-full", (children.props as any)?.className),
+        } as React.HTMLAttributes<HTMLElement>)}
+      </div>
+    </ChartContext.Provider>
   )
 })
 ChartContainer.displayName = "ChartContainer"
