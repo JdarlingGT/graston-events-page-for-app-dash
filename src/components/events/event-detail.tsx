@@ -9,21 +9,19 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { StudentTable } from "./student-table";
-import { DangerZonePanel } from "./danger-zone-panel";
 import { TaskBoard } from "./task-board";
-import { EventAnalytics } from "./event-analytics";
-import { CommunicationsPanel } from "./communications-panel";
 import { MarketingRescueCopilotModal } from "./marketing-rescue-copilot-modal";
+import { LogisticsTab } from "./logistics-tab";
+import { PostMortemTab } from "./post-mortem-tab";
+import { InternalNotesPanel } from "./internal-notes-panel";
+import { BulkEmailPanel } from "./bulk-email-panel";
 import { 
   Calendar, 
   MapPin, 
-  User, 
   Users, 
-  Clock,
   DollarSign,
   Mail,
   Phone,
-  ExternalLink,
   Edit,
   Share2
 } from "lucide-react";
@@ -101,7 +99,6 @@ export function EventDetail({ eventId }: EventDetailProps) {
         url: window.location.href,
       });
     } catch (error) {
-      // Fallback to clipboard
       navigator.clipboard.writeText(window.location.href);
       toast.success("Link copied to clipboard");
     }
@@ -124,18 +121,6 @@ export function EventDetail({ eventId }: EventDetailProps) {
     );
   }
 
-  const getDangerZoneStatus = () => {
-    if (event.enrollment.current < event.enrollment.minViable) {
-      return { text: "At Risk", variant: "destructive" as const };
-    }
-    if (event.enrollment.current / event.enrollment.capacity >= 0.9) {
-      return { text: "Almost Full", variant: "secondary" as const };
-    }
-    return { text: "Healthy", variant: "default" as const };
-  };
-
-  const status = getDangerZoneStatus();
-
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -151,18 +136,9 @@ export function EventDetail({ eventId }: EventDetailProps) {
                 />
               </div>
             )}
-            
             <div className="flex-1 space-y-4">
               <div className="flex items-start justify-between">
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <Badge variant={status.variant}>{status.text}</Badge>
-                    <Badge variant="outline">{event.type}</Badge>
-                    <Badge variant="outline">{event.mode}</Badge>
-                  </div>
-                  <h1 className="text-3xl font-bold">{event.title}</h1>
-                </div>
-                
+                <h1 className="text-3xl font-bold">{event.title}</h1>
                 <div className="flex gap-2">
                   <Button variant="outline" size="sm" onClick={handleShare}>
                     <Share2 className="h-4 w-4" />
@@ -175,141 +151,49 @@ export function EventDetail({ eventId }: EventDetailProps) {
                   </Button>
                 </div>
               </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="flex items-center gap-2">
-                  <Calendar className="h-5 w-5 text-muted-foreground" />
-                  <div>
-                    <div className="font-medium">
-                      {new Date(event.schedule.startDate).toLocaleDateString()}
-                    </div>
-                    <div className="text-sm text-muted-foreground">
-                      {event.schedule.startTime} - {event.schedule.endTime}
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="flex items-center gap-2">
-                  <MapPin className="h-5 w-5 text-muted-foreground" />
-                  <div>
-                    <div className="font-medium">{event.venue.name}</div>
-                    <div className="text-sm text-muted-foreground">
-                      {event.venue.city}, {event.venue.state}
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="flex items-center gap-2">
-                  <Users className="h-5 w-5 text-muted-foreground" />
-                  <div>
-                    <div className="font-medium">
-                      {event.enrollment.current} / {event.enrollment.capacity}
-                    </div>
-                    <div className="text-sm text-muted-foreground">Enrolled</div>
-                  </div>
-                </div>
-                
-                <div className="flex items-center gap-2">
-                  <DollarSign className="h-5 w-5 text-muted-foreground" />
-                  <div>
-                    <div className="font-medium">
-                      ${event.pricing.revenue.toLocaleString()}
-                    </div>
-                    <div className="text-sm text-muted-foreground">Revenue</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3 p-3 bg-muted rounded-lg">
-                <Avatar className="h-10 w-10">
-                  <AvatarImage src={event.instructor.avatar} />
-                  <AvatarFallback>
-                    {event.instructor.name.split(' ').map((n: string) => n[0]).join('')}
-                  </AvatarFallback>
-                </Avatar>
-                <div className="flex-1">
-                  <div className="font-medium">{event.instructor.name}</div>
-                  <div className="text-sm text-muted-foreground">Instructor</div>
-                </div>
-                <div className="flex gap-2">
-                  <Button asChild variant="outline" size="sm">
-                    <a href={`mailto:${event.instructor.email}`}>
-                      <Mail className="h-4 w-4" />
-                    </a>
-                  </Button>
-                  <Button asChild variant="outline" size="sm">
-                    <a href={`tel:${event.instructor.phone}`}>
-                      <Phone className="h-4 w-4" />
-                    </a>
-                  </Button>
-                </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="flex items-center gap-2"><Calendar className="h-5 w-5 text-muted-foreground" /><div><div className="font-medium">{new Date(event.schedule.startDate).toLocaleDateString()}</div><div className="text-sm text-muted-foreground">{event.schedule.startTime} - {event.schedule.endTime}</div></div></div>
+                <div className="flex items-center gap-2"><MapPin className="h-5 w-5 text-muted-foreground" /><div><div className="font-medium">{event.venue.name}</div><div className="text-sm text-muted-foreground">{event.venue.city}, {event.venue.state}</div></div></div>
+                <div className="flex items-center gap-2"><Users className="h-5 w-5 text-muted-foreground" /><div><div className="font-medium">{event.enrollment.current} / {event.enrollment.capacity}</div><div className="text-sm text-muted-foreground">Enrolled</div></div></div>
               </div>
             </div>
           </div>
         </CardHeader>
       </Card>
 
-      {/* Danger Zone Panel */}
-      <DangerZonePanel 
-        event={{
-          id: event.id,
-          title: event.title,
-          enrolledStudents: event.enrollment.current,
-          capacity: event.enrollment.capacity,
-          minViableEnrollment: event.enrollment.minViable,
-          registrationDeadline: event.schedule.startDate,
-          revenue: event.pricing.revenue,
-          projectedRevenue: event.pricing.projectedRevenue,
-        }}
-        onOpenCopilot={() => setIsCopilotOpen(true)}
-      />
-
       {/* Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="grid w-full grid-cols-5">
+        <TabsList className="grid w-full grid-cols-6">
           <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="students">Students</TabsTrigger>
-          <TabsTrigger value="communications">Communications</TabsTrigger>
+          <TabsTrigger value="attendees">Attendees</TabsTrigger>
+          <TabsTrigger value="logistics">Logistics</TabsTrigger>
           <TabsTrigger value="tasks">Tasks</TabsTrigger>
-          <TabsTrigger value="analytics">Analytics</TabsTrigger>
+          <TabsTrigger value="communications">Communications</TabsTrigger>
+          <TabsTrigger value="post-mortem">Post-Mortem</TabsTrigger>
         </TabsList>
         
-        <TabsContent value="overview" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Event Description</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="prose max-w-none">
-                <p>{event.description}</p>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardHeader>
-              <CardTitle>Instructor Bio</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground">{event.instructor.bio}</p>
-            </CardContent>
-          </Card>
+        <TabsContent value="overview" className="mt-6">
+          <InternalNotesPanel />
         </TabsContent>
         
-        <TabsContent value="students">
+        <TabsContent value="attendees" className="mt-6">
           <StudentTable eventId={eventId} eventDate={event.schedule.startDate} />
         </TabsContent>
 
-        <TabsContent value="communications">
-          <CommunicationsPanel eventId={eventId} />
+        <TabsContent value="logistics" className="mt-6">
+          <LogisticsTab venue={event.venue} instructor={event.instructor} />
         </TabsContent>
         
-        <TabsContent value="tasks">
+        <TabsContent value="tasks" className="mt-6">
           <TaskBoard eventId={eventId} />
         </TabsContent>
         
-        <TabsContent value="analytics">
-          <EventAnalytics eventId={eventId} />
+        <TabsContent value="communications" className="mt-6">
+          <BulkEmailPanel attendeeCount={event.enrollment.current} />
+        </TabsContent>
+
+        <TabsContent value="post-mortem" className="mt-6">
+          <PostMortemTab />
         </TabsContent>
       </Tabs>
 

@@ -16,7 +16,8 @@ import {
   CheckCircle,
   XCircle,
   Clock,
-  MoreHorizontal
+  MoreHorizontal,
+  Check
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -27,6 +28,7 @@ import {
 import { toast } from "sonner";
 import { Skeleton } from "../ui/skeleton";
 import { differenceInDays, parseISO } from "date-fns";
+import { CheckInMode } from "./check-in-mode";
 
 interface Student {
   id: string;
@@ -52,6 +54,7 @@ interface StudentTableProps {
 
 export function StudentTable({ eventId, eventDate }: StudentTableProps) {
   const [selectedStudents, setSelectedStudents] = useState<string[]>([]);
+  const [isCheckInMode, setIsCheckInMode] = useState(false);
 
   const { data: students = [], isLoading, error } = useQuery<Student[]>({
     queryKey: ["event-students", eventId],
@@ -65,7 +68,6 @@ export function StudentTable({ eventId, eventDate }: StudentTableProps) {
   });
 
   const handleCrmLink = (crmId: string) => {
-    // Open FluentCRM contact in new tab
     const crmUrl = `/wp-admin/admin.php?page=fluentcrm-admin#/subscribers/${crmId}`;
     window.open(crmUrl, '_blank');
   };
@@ -143,25 +145,6 @@ export function StudentTable({ eventId, eventDate }: StudentTableProps) {
       ),
     },
     {
-      accessorKey: "licenseState",
-      header: "State",
-      cell: ({ row }) => (
-        <div className="flex items-center gap-1">
-          <MapPin className="h-3 w-3" />
-          {row.original.licenseState}
-        </div>
-      ),
-    },
-    {
-      accessorKey: "datePurchased",
-      header: "Purchased",
-      cell: ({ row }) => (
-        <div className="text-sm">
-          {new Date(row.original.datePurchased).toLocaleDateString()}
-        </div>
-      ),
-    },
-    {
       accessorKey: "preCourseProgress",
       header: "Pre-Course",
       cell: ({ row }) => {
@@ -186,24 +169,6 @@ export function StudentTable({ eventId, eventDate }: StudentTableProps) {
       },
     },
     {
-      accessorKey: "tags",
-      header: "Tags",
-      cell: ({ row }) => (
-        <div className="flex flex-wrap gap-1">
-          {row.original.tags.slice(0, 2).map((tag: string) => (
-            <Badge key={tag} variant="secondary" className="text-xs">
-              {tag}
-            </Badge>
-          ))}
-          {row.original.tags.length > 2 && (
-            <Badge variant="outline" className="text-xs">
-              +{row.original.tags.length - 2}
-            </Badge>
-          )}
-        </div>
-      ),
-    },
-    {
       id: "actions",
       cell: ({ row }) => {
         const student = row.original;
@@ -223,18 +188,16 @@ export function StudentTable({ eventId, eventDate }: StudentTableProps) {
                 <Mail className="mr-2 h-4 w-4" />
                 Send Email
               </DropdownMenuItem>
-              {student.phone && (
-                <DropdownMenuItem>
-                  <Phone className="mr-2 h-4 w-4" />
-                  Call Student
-                </DropdownMenuItem>
-              )}
             </DropdownMenuContent>
           </DropdownMenu>
         );
       },
     },
   ];
+
+  if (isCheckInMode) {
+    return <CheckInMode students={students} onFinish={() => setIsCheckInMode(false)} />;
+  }
 
   if (error) {
     return (
@@ -255,11 +218,9 @@ export function StudentTable({ eventId, eventDate }: StudentTableProps) {
         </div>
         
         <div className="flex gap-2">
-          <Button variant="outline" size="sm">
-            Import Students
-          </Button>
-          <Button size="sm">
-            Add Student
+          <Button variant="outline" size="sm" onClick={() => setIsCheckInMode(true)}>
+            <Check className="mr-2 h-4 w-4" />
+            Check-in Mode
           </Button>
         </div>
       </div>
