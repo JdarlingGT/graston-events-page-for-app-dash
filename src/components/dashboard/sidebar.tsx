@@ -23,10 +23,10 @@ const navItems = [
     label: 'Directory', 
     icon: BookOpen,
     children: [
-      { href: '/dashboard/venues', label: 'Venues', icon: Building },
-      { href: '/dashboard/instructors', label: 'Instructors', icon: Users },
-      { href: '/dashboard/clinicians', label: 'Clinicians', icon: Users },
-      { href: '/dashboard/archival-search', label: 'Archival Search', icon: Archive },
+      { href: '/dashboard/directory/venues', label: 'Venues', icon: Building },
+      { href: '/dashboard/directory/instructors', label: 'Instructors', icon: Users },
+      { href: '/dashboard/directory/clinicians', label: 'Clinicians', icon: Users },
+      { href: '/dashboard/directory/archival-search', label: 'Archival Search', icon: Archive },
     ]
   },
   { href: '/dashboard/settings', label: 'Settings', icon: Settings },
@@ -35,7 +35,7 @@ const navItems = [
 export default function Sidebar() {
   const pathname = usePathname();
 
-  const isDirectoryActive = ['/dashboard/venues', '/dashboard/instructors', '/dashboard/clinicians', '/dashboard/archival-search'].some(path => pathname.startsWith(path));
+  const isDirectoryActive = ['/dashboard/directory/venues', '/dashboard/directory/instructors', '/dashboard/directory/clinicians', '/dashboard/directory/archival-search'].some(path => pathname.startsWith(path));
 
   return (
     <aside className="fixed inset-y-0 left-0 z-10 hidden w-64 flex-col border-r bg-background/80 backdrop-blur-xl sm:flex">
