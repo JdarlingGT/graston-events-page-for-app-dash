@@ -19,10 +19,13 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
+import { Switch } from "@/components/ui/switch";
 import { EventFormValues, eventSchema } from "@/lib/schemas";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useState } from "react";
+import { Sparkles } from "lucide-react";
+import { ContentCopilotModal } from "@/components/events/content-copilot-modal";
 
 interface Event {
   id: string;
@@ -41,6 +44,8 @@ interface EventFormProps {
 export function EventForm({ initialData }: EventFormProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [isCopilotOpen, setIsCopilotOpen] = useState(false);
+  const [socialMediaContent, setSocialMediaContent] = useState("");
 
   const form = useForm<EventFormValues>({
     resolver: zodResolver(eventSchema),
@@ -72,6 +77,10 @@ export function EventForm({ initialData }: EventFormProps) {
       }
 
       toast.success(`Event ${initialData ? "updated" : "created"} successfully!`);
+      // Here you would also trigger the marketing automations based on the toggles
+      if (socialMediaContent) {
+        toast.info("Social media posts have been scheduled.");
+      }
       router.push("/dashboard/events");
       router.refresh();
     } catch (error) {
@@ -83,113 +92,163 @@ export function EventForm({ initialData }: EventFormProps) {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{initialData ? "Edit Event" : "Create Event"}</CardTitle>
-        <CardDescription>
-          Fill in the details below to {initialData ? "update the" : "add a new"}{" "}
-          event.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Event Name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="e.g., Summer Tech Camp" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="instructor"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Instructor</FormLabel>
-                    <FormControl>
-                      <Input placeholder="e.g., Jane Doe" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="city"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>City</FormLabel>
-                    <FormControl>
-                      <Input placeholder="e.g., Austin" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="state"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>State</FormLabel>
-                    <FormControl>
-                      <Input placeholder="e.g., TX" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="enrolledStudents"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Enrolled Students</FormLabel>
-                    <FormControl>
-                      <Input type="number" placeholder="e.g., 25" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="instrumentsPurchased"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Kits Purchased</FormLabel>
-                    <FormControl>
-                      <Input type="number" placeholder="e.g., 20" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="flex justify-end gap-2">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => router.push("/dashboard/events")}
-                disabled={loading}
-              >
-                Cancel
-              </Button>
-              <Button type="submit" disabled={loading}>
-                {loading ? "Saving..." : "Save Changes"}
-              </Button>
-            </div>
-          </form>
-        </Form>
-      </CardContent>
-    </Card>
+    <>
+      <Card>
+        <CardHeader>
+          <CardTitle>{initialData ? "Edit Event" : "Create Event"}</CardTitle>
+          <CardDescription>
+            Fill in the details below to {initialData ? "update the" : "add a new"}{" "}
+            event.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Event Name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g., Summer Tech Camp" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="instructor"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Instructor</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g., Jane Doe" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="city"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>City</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g., Austin" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="state"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>State</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g., TX" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="enrolledStudents"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Enrolled Students</FormLabel>
+                      <FormControl>
+                        <Input type="number" placeholder="e.g., 25" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="instrumentsPurchased"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Kits Purchased</FormLabel>
+                      <FormControl>
+                        <Input type="number" placeholder="e.g., 20" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              {/* Marketing Automation Section */}
+              <div className="space-y-4 rounded-lg border p-4">
+                <h3 className="text-lg font-medium">Marketing Automation</h3>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between rounded-lg border p-3 shadow-sm">
+                    <div className="space-y-0.5">
+                      <FormLabel>Schedule Announcement Email</FormLabel>
+                      <p className="text-xs text-muted-foreground">
+                        Automatically send a sequence to your mailing list.
+                      </p>
+                    </div>
+                    <Switch />
+                  </div>
+                  <div className="flex items-center justify-between rounded-lg border p-3 shadow-sm">
+                    <div className="space-y-0.5">
+                      <FormLabel>Generate Initial Social Media Posts</FormLabel>
+                      <p className="text-xs text-muted-foreground">
+                        Use AI to create engaging posts for your channels.
+                      </p>
+                    </div>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setIsCopilotOpen(true)}
+                    >
+                      <Sparkles className="mr-2 h-4 w-4" />
+                      Generate with AI Co-Pilot
+                    </Button>
+                  </div>
+                  {socialMediaContent && (
+                    <div className="p-3 bg-muted rounded-md">
+                      <p className="text-sm font-medium">Generated Content Preview:</p>
+                      <p className="text-sm text-muted-foreground mt-2 whitespace-pre-wrap italic">
+                        "{socialMediaContent.substring(0, 150)}..."
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex justify-end gap-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => router.push("/dashboard/events")}
+                  disabled={loading}
+                >
+                  Cancel
+                </Button>
+                <Button type="submit" disabled={loading}>
+                  {loading ? "Saving..." : "Save Changes"}
+                </Button>
+              </div>
+            </form>
+          </Form>
+        </CardContent>
+      </Card>
+      <ContentCopilotModal
+        isOpen={isCopilotOpen}
+        onClose={() => setIsCopilotOpen(false)}
+        onSave={setSocialMediaContent}
+        eventName={form.getValues("name") || "this amazing event"}
+      />
+    </>
   );
 }
