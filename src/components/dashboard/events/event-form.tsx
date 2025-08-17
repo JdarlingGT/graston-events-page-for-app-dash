@@ -96,9 +96,17 @@ export function EventForm({ initialData }: EventFormProps) {
       }
 
       toast.success(`Event ${initialData ? "updated" : "created"} successfully!`);
+      
       if (!initialData) {
+        const eventType = values.courseType.includes("In-Person") ? "In-Person" : "Virtual";
+        await fetch('/api/tasks/bulkCreate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ eventType, eventName: values.title })
+        });
         toast.info("Relevant setup tasks have been automatically created.");
       }
+
       if (socialMediaContent) {
         toast.info("Social media posts have been scheduled.");
       }

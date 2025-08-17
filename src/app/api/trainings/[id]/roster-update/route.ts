@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { jsPDF } from "jspdf";
 
 export async function POST(
   request: Request,
@@ -9,16 +10,38 @@ export async function POST(
     const eventId = params.id;
 
     console.log(`--- Final Roster Submitted for Event: ${eventId} ---`);
-    console.log(JSON.stringify(rosterData, null, 2));
-    console.log("--- End of Roster Data ---");
+    
+    for (const student of rosterData) {
+      if (student.attendance && student.skillsCheck === 'Passed') {
+        console.log(`Processing certificate for ${student.studentName} (${student.studentId})`);
+        
+        // 1. Mock FluentCRM tag application
+        console.log(`Applying 'Certificate_Issued' tag to student ${student.studentId}`);
 
-    // In a real application, you would loop through rosterData and:
-    // 1. For each student with 'Passed' status, apply a 'Course_Completed' tag in FluentCRM.
-    //    e.g., await fluentCrmApi.addTag(student.crmId, 'Course_Completed');
-    // 2. Save the skills check status and any notes to the student's record.
-    //    e.g., await db.updateClinician(student.id, { skillsCheck: student.skillsCheck, notes: student.notes });
+        // 2. Dynamically generate a PDF certificate
+        const doc = new jsPDF();
+        doc.setFontSize(22);
+        doc.text("Certificate of Completion", 105, 20, { align: "center" });
+        doc.setFontSize(16);
+        doc.text("This is to certify that", 105, 40, { align: "center" });
+        doc.setFontSize(20);
+        doc.text(student.studentName, 105, 55, { align: "center" });
+        doc.setFontSize(16);
+        doc.text(`has successfully completed the training.`, 105, 70, { align: "center" });
+        // In a real app, you'd add event name, date, instructor, etc.
+        // And choose a template based on license type.
+        const pdfOutput = doc.output('datauristring');
+        
+        // 3. Mock saving to R2 and attaching link to profile
+        console.log(`Generated PDF for student ${student.studentId}. In a real app, this would be uploaded and linked.`);
 
-    // Simulate API delay
+        // 4. Mock sending email with certificate
+        console.log(`Sending certificate email to ${student.studentEmail}`);
+      }
+    }
+
+    console.log("--- End of Roster Processing ---");
+
     await new Promise(resolve => setTimeout(resolve, 1000));
 
     return NextResponse.json({

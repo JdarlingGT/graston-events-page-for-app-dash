@@ -7,20 +7,15 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Progress } from "@/components/ui/progress";
 import { Switch } from "@/components/ui/switch";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { InstructorResourcePod } from "./instructor-resource-pod";
 import { QuickEmailModal } from "./quick-email-modal";
 import { AddNoteModal } from "./add-note-modal";
-import { Mail, Edit } from "lucide-react";
+import { Mail, Edit, Badge, MonitorPlay } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { SkillsEvaluationModal } from "./skills-evaluation-modal";
 
 interface Student {
   id: string;
@@ -44,6 +39,7 @@ export function LiveTrainingWorkspace({ eventId }: { eventId: string }) {
   const [roster, setRoster] = useState<Record<string, RosterState>>({});
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
   const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
+  const [isEvaluationModalOpen, setIsEvaluationModalOpen] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
 
   const { data: event, isLoading: eventLoading } = useQuery<EventDetails>({
@@ -103,6 +99,8 @@ export function LiveTrainingWorkspace({ eventId }: { eventId: string }) {
   const handleSubmitRoster = () => {
     const finalRoster = students.map(student => ({
       studentId: student.id,
+      studentName: student.name,
+      studentEmail: student.email,
       ...roster[student.id],
     }));
     submitRosterMutation.mutate(finalRoster);
@@ -143,21 +141,24 @@ export function LiveTrainingWorkspace({ eventId }: { eventId: string }) {
     {
       id: "skillsCheck",
       header: "Skills Check",
-      cell: ({ row }) => (
-        <Select
-          value={roster[row.original.id]?.skillsCheck || "Not Started"}
-          onValueChange={(value: RosterState["skillsCheck"]) => updateRoster(row.original.id, { skillsCheck: value })}
-        >
-          <SelectTrigger className="w-40">
-            <SelectValue placeholder="Select status" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="Not Started">Not Started</SelectItem>
-            <SelectItem value="Passed">Passed</SelectItem>
-            <SelectItem value="Needs Review">Needs Review</SelectItem>
-          </SelectContent>
-        </Select>
-      ),
+      cell: ({ row }) => {
+        const status = roster[row.original.id]?.skillsCheck || "Not Started";
+        return (
+          <div className="flex items-center gap-2">
+            <Badge variant={status === "Passed" ? "default" : status === "Needs Review" ? "secondary" : "outline"}>{status}</Badge>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                setSelectedStudent(row.original);
+                setIsEvaluationModalOpen(true);
+              }}
+            >
+              Evaluate
+            </Button>
+          </div>
+        );
+      },
     },
     {
       id: "actions",
@@ -193,10 +194,18 @@ export function LiveTrainingWorkspace({ eventId }: { eventId: string }) {
               <h1 className="text-2xl font-bold">{event?.name}</h1>
               <p className="text-muted-foreground">{event?.date ? new Date(event.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) : ''}</p>
             </div>
-            <Button onClick={() => setIsEmailModalOpen(true)}>
-              <Mail className="mr-2 h-4 w-4" />
-              Email Class
-            </Button>
+            <div className="flex gap-2">
+              <Button asChild variant="outline">
+                <Link href={`/kiosk/${eventId}`} target="_blank">
+                  <MonitorPlay className="mr-2 h-4 w-4" />
+                  Launch Kiosk
+                </Link>
+              </Button>
+              <Button onClick={() => setIsEmailModalOpen(true)}>
+                <Mail className="mr-2 h-4 w-4" />
+                Email Class
+              </Button>
+            </div>
           </div>
           <div className="space-y-2">
             <div className="flex justify-between text-sm font-medium">
@@ -243,6 +252,15 @@ export function LiveTrainingWorkspace({ eventId }: { eventId: string }) {
           if (selectedStudent) {
             updateRoster(selectedStudent.id, { notes: note });
           }
+        }}
+      />
+      <SkillsEvaluationModal
+        isOpen={isEvaluationModalOpen}
+        onClose={() => setIsEvaluationModalOpen(false)}
+        student={selectedStudent}
+        onSave={(studentId, result) => {
+          updateRoster(studentId, { skillsCheck: result.status, notes: result.notes });
+          setIsEvaluationModalOpen(false);
         }}
       />
     </div>
