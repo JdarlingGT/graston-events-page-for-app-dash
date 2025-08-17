@@ -6,7 +6,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
 import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
-import { ArrowUpDown, Building, CalendarDays, Users } from "lucide-react";
+import { ArrowUpDown, Building, CalendarDays, Users, ShieldCheck, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { StatCard } from "@/components/dashboard/stat-card";
 import {
@@ -34,7 +34,7 @@ interface Event {
 }
 
 interface Venue {
-  id: string;
+  id:string;
 }
 
 const getDangerZoneStatus = (enrolledStudents: number) => {
@@ -51,6 +51,7 @@ export default function DashboardPage() {
   const [events, setEvents] = useState<Event[]>([]);
   const [venues, setVenues] = useState<Venue[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isChecking, setIsChecking] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -78,6 +79,31 @@ export default function DashboardPage() {
     }
     fetchData();
   }, []);
+
+  const handleRunCheck = async () => {
+    setIsChecking(true);
+    toast.info("Running proactive danger zone check...");
+    try {
+      const response = await fetch("/api/events/check-danger-zone", {
+        method: "POST",
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error("Check failed");
+      }
+      if (result.atRiskCount > 0) {
+        toast.warning(
+          `${result.atRiskCount} at-risk event(s) found. Notifications sent.`
+        );
+      } else {
+        toast.success("All events are healthy. No issues found.");
+      }
+    } catch (error) {
+      toast.error("Failed to run the danger zone check.");
+    } finally {
+      setIsChecking(false);
+    }
+  };
 
   const totalEnrolled = events.reduce(
     (sum, event) => sum + event.enrolledStudents,
@@ -158,9 +184,10 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-4">
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {loading ? (
           <>
+            <Skeleton className="h-28" />
             <Skeleton className="h-28" />
             <Skeleton className="h-28" />
             <Skeleton className="h-28" />
@@ -182,6 +209,26 @@ export default function DashboardPage() {
               value={totalEnrolled.toString()}
               icon={Users}
             />
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">System Health</CardTitle>
+                <ShieldCheck className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <p className="text-xs text-muted-foreground">
+                  Manually check for at-risk events.
+                </p>
+                <Button
+                  size="sm"
+                  className="w-full mt-2"
+                  onClick={handleRunCheck}
+                  disabled={isChecking}
+                >
+                  <Zap className="mr-2 h-4 w-4" />
+                  {isChecking ? "Checking..." : "Run Danger Zone Check"}
+                </Button>
+              </CardContent>
+            </Card>
           </>
         )}
       </div>
