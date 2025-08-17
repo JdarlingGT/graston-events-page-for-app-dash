@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 
-// This is a simplified in-memory store for the mock data.
-// In a real app, you'd fetch this from a database.
+// Mock task data
 let mockTasks = [
   {
     id: "task-1",
@@ -10,7 +9,7 @@ let mockTasks = [
     status: "todo" as const,
     priority: "high" as const,
     assignee: { name: "Sarah Johnson", avatar: "https://i.pravatar.cc/150?img=1" },
-    dueDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString(),
+    dueDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString(), // 2 days from now
     tags: ["Venue", "Logistics"],
   },
   {
@@ -30,7 +29,7 @@ let mockTasks = [
     status: "done" as const,
     priority: "medium" as const,
     assignee: { name: "Lisa Park", avatar: "https://i.pravatar.cc/150?img=3" },
-    dueDate: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
+    dueDate: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), // Yesterday
     tags: ["Materials", "Printing"],
   },
   {
@@ -54,25 +53,22 @@ let mockTasks = [
   },
 ];
 
+export async function GET() {
+  // Simulate API delay
+  await new Promise(resolve => setTimeout(resolve, 500));
+  return NextResponse.json(mockTasks);
+}
 
-export async function PATCH(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
+export async function POST(request: Request) {
   try {
-    const updates = await request.json();
-    const taskIndex = mockTasks.findIndex(t => t.id === params.id);
-
-    if (taskIndex === -1) {
-      return new NextResponse('Task not found', { status: 404 });
-    }
-
-    mockTasks[taskIndex] = { ...mockTasks[taskIndex], ...updates };
-    
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 300));
-
-    return NextResponse.json(mockTasks[taskIndex]);
+    const body = await request.json();
+    const newTask = {
+      id: `task-${Date.now()}`,
+      ...body,
+      status: 'todo', // New tasks always start in 'To Do'
+    };
+    mockTasks.push(newTask);
+    return NextResponse.json(newTask, { status: 201 });
   } catch (error) {
     return new NextResponse('Internal Server Error', { status: 500 });
   }
