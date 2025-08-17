@@ -44,8 +44,8 @@ export type EventFormValues = z.infer<typeof eventSchema>;
 export const taskSchema = z.object({
   title: z.string().min(2, { message: "Task title is required." }),
   description: z.string().optional(),
-  status: z.enum(["todo", "in-progress", "done"]).default("todo"),
-  priority: z.enum(["low", "medium", "high"]).default("medium"),
+  status: z.enum(["todo", "in-progress", "done"]),
+  priority: z.enum(["low", "medium", "high"]),
   dueDate: z.date().optional(),
   assigneeName: z.string().optional(),
   attachments: z.array(z.any()).optional(),

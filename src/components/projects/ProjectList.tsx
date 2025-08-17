@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ProjectCard } from "./ProjectCard";
+import { ProjectCard } from "./project-card";
 
 interface Project {
   id: string;
