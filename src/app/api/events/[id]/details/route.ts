@@ -52,5 +52,7 @@ export async function GET(
   // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 500));
   
-  return NextResponse.json(mockEventDetail);
+  // In a real app, you'd use params.id to fetch the correct event
+  // For now, we'll just return the mock data with the correct ID
+  return NextResponse.json({ ...mockEventDetail, id: params.id });
 }

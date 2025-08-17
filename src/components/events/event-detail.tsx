@@ -103,7 +103,7 @@ export function EventDetail({ eventId }: EventDetailProps) {
   const { data: event, isLoading, error } = useQuery<EventDetailData>({
     queryKey: ["event-detail", eventId],
     queryFn: async () => {
-      const response = await fetch(`/api/events/${eventId}/detail`);
+      const response = await fetch(`/api/events/${eventId}/details`);
       if (!response.ok) {
         throw new Error("Failed to fetch event details");
       }
