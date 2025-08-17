@@ -68,7 +68,7 @@ export function TaskCard({ task, isOverlay, onEdit }: TaskCardProps) {
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" className="h-6 w-6 flex-shrink-0" aria-label="Task options">
+            <Button variant="ghost" size="icon" className="h-6 w-6 flex-shrink-0" aria-label={`Task options for ${task.title}`}>
               <MoreHorizontal className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>

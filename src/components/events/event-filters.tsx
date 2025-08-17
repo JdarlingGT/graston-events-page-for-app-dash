@@ -347,7 +347,7 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
           {filters.search && (
             <Badge variant="secondary" className="flex items-center gap-1">
               Search: "{filters.search}"
-              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("search")}>
+              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("search")} aria-label="Clear search filter">
                 <X className="h-3 w-3" />
               </Button>
             </Badge>
@@ -355,7 +355,7 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
           {filters.type !== "all" && (
             <Badge variant="secondary" className="flex items-center gap-1">
               Type: {filters.type}
-              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("type")}>
+              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("type")} aria-label="Clear type filter">
                 <X className="h-3 w-3" />
               </Button>
             </Badge>
@@ -363,7 +363,7 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
           {filters.mode !== "all" && (
             <Badge variant="secondary" className="flex items-center gap-1">
               Mode: {filters.mode}
-              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("mode")}>
+              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("mode")} aria-label="Clear mode filter">
                 <X className="h-3 w-3" />
               </Button>
             </Badge>
@@ -371,7 +371,7 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
           {filters.status !== "all" && (
             <Badge variant="secondary" className="flex items-center gap-1">
               Status: {filters.status}
-              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("status")}>
+              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("status")} aria-label="Clear status filter">
                 <X className="h-3 w-3" />
               </Button>
             </Badge>
@@ -379,7 +379,7 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
           {filters.dangerZone !== "all" && (
             <Badge variant="secondary" className="flex items-center gap-1">
               Risk: {filters.dangerZone}
-              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("dangerZone")}>
+              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("dangerZone")} aria-label="Clear risk filter">
                 <X className="h-3 w-3" />
               </Button>
             </Badge>
@@ -388,7 +388,7 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
             <Badge variant="secondary" className="flex items-center gap-1">
               Date: {filters.dateRange.from && format(filters.dateRange.from, "MMM dd")}
               {filters.dateRange.to && ` - ${format(filters.dateRange.to, "MMM dd")}`}
-              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("dateRange")}>
+              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("dateRange")} aria-label="Clear date range filter">
                 <X className="h-3 w-3" />
               </Button>
             </Badge>
@@ -396,7 +396,7 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
           {(filters.enrollmentRange[0] > 0 || filters.enrollmentRange[1] < 100) && (
             <Badge variant="secondary" className="flex items-center gap-1">
               Enrollment: {filters.enrollmentRange[0]} - {filters.enrollmentRange[1]}
-              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("enrollmentRange")}>
+              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("enrollmentRange")} aria-label="Clear enrollment range filter">
                 <X className="h-3 w-3" />
               </Button>
             </Badge>
@@ -404,7 +404,7 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
           {(filters.revenueRange[0] > 0 || filters.revenueRange[1] < 100000) && (
             <Badge variant="secondary" className="flex items-center gap-1">
               Revenue: ${filters.revenueRange[0].toLocaleString()} - ${filters.revenueRange[1].toLocaleString()}
-              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("revenueRange")}>
+              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("revenueRange")} aria-label="Clear revenue range filter">
                 <X className="h-3 w-3" />
               </Button>
             </Badge>
@@ -412,7 +412,7 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
           {filters.cities.length > 0 && (
             <Badge variant="secondary" className="flex items-center gap-1">
               Cities: {filters.cities.join(", ")}
-              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("cities")}>
+              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("cities")} aria-label="Clear cities filter">
                 <X className="h-3 w-3" />
               </Button>
             </Badge>
@@ -420,7 +420,7 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
           {filters.instructors.length > 0 && (
             <Badge variant="secondary" className="flex items-center gap-1">
               Instructors: {filters.instructors.join(", ")}
-              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("instructors")}>
+              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("instructors")} aria-label="Clear instructors filter">
                 <X className="h-3 w-3" />
               </Button>
             </Badge>

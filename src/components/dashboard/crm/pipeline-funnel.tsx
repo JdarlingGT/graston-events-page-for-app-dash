@@ -40,7 +40,7 @@ export function PipelineFunnel({ stages, conversionRates }: PipelineFunnelProps)
       <CardContent>
         <div className="grid gap-6 lg:grid-cols-2">
           {/* Funnel Chart */}
-          <div className="min-h-[300px] w-full" role="img" aria-label="Funnel chart showing lead progression through key stages.">
+          <div className="min-h-[300px] w-full" role="img" aria-label="Funnel chart showing lead progression through key stages: GTU Lead, Essential Course, Completed Essential, Advanced Course, Completed Advanced.">
             <ResponsiveContainer width="100%" height={300}>
               <FunnelChart margin={{ top: 20, right: 20, left: 20, bottom: 20 }}>
                 <Tooltip content={<ChartTooltipContent />} />

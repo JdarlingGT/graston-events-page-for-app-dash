@@ -38,7 +38,7 @@ export function InstrumentSalesChart() {
         <CardDescription>Monthly instrument and accessory sales</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} role="img" aria-label="Area chart showing monthly instrument and accessory sales.">
+        <ChartContainer config={chartConfig} role="img" aria-label="Area chart showing monthly instrument and accessory sales over the past 6 months.">
           <ResponsiveContainer width="100%" height={350}>
             <AreaChart data={data}>
               <XAxis

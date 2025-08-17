@@ -65,6 +65,7 @@ export default function Sidebar() {
                           <li key={child.href}>
                             <Link
                               href={child.href}
+                              aria-current={pathname.startsWith(child.href) ? "page" : undefined}
                               className={cn(
                                 'flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary',
                                 pathname.startsWith(child.href) && 'bg-muted text-primary'
@@ -88,6 +89,7 @@ export default function Sidebar() {
               <li key={item.href}>
                 <Link
                   href={item.href!}
+                  aria-current={isActive ? "page" : undefined}
                   className={cn(
                     'flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary',
                     isActive && 'bg-muted text-primary'

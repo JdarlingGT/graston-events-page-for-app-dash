@@ -10,6 +10,7 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command";
+import { DialogTitle } from "@/components/ui/dialog";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { Calendar, CheckSquare, Building, Users, LayoutDashboard } from "lucide-react";
@@ -78,6 +79,7 @@ export function CommandPalette() {
 
   return (
     <CommandDialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogTitle className="sr-only">Command Palette</DialogTitle>
       <CommandInput placeholder="Type a command or search..." />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>

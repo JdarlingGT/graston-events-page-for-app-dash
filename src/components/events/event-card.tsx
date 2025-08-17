@@ -107,7 +107,7 @@ export function EventCard({ event, isHovered, onHover, className }: EventCardPro
         <div className="relative h-48 overflow-hidden rounded-t-lg">
           <img
             src={event.featuredImage}
-            alt={event.name}
+            alt={`Featured image for ${event.name}`}
             className={cn(
               "h-full w-full object-cover transition-all duration-300 group-hover:scale-105",
               !imageLoaded && "opacity-0"

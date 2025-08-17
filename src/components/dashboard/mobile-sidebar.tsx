@@ -36,6 +36,7 @@ export function MobileSidebar() {
           <Link
             key={item.href}
             href={item.href}
+            aria-current={isActive ? "page" : undefined}
             className={cn(
               "flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground",
               isActive && "text-foreground"

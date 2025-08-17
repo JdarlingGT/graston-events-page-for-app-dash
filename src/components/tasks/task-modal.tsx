@@ -244,6 +244,7 @@ export function TaskModal({ isOpen, onClose, onSubmit, task, isLoading }: TaskMo
                       size="icon"
                       className="h-6 w-6 flex-shrink-0"
                       onClick={() => handleRemoveAttachment(file.id)}
+                      aria-label={`Remove attachment ${file.name}`}
                     >
                       <X className="h-4 w-4" />
                     </Button>

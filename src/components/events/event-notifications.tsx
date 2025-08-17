@@ -224,7 +224,7 @@ export function EventNotifications({ eventId, showAll = false }: EventNotificati
                         
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
+                            <Button variant="ghost" size="sm" className="h-6 w-6 p-0" aria-label={`More options for notification: ${notification.title}`}>
                               <MoreHorizontal className="h-3 w-3" />
                             </Button>
                           </DropdownMenuTrigger>
