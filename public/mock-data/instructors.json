@@ -1,26 +1,44 @@
 [
   {
-    "id": "inst-1",
-    "name": "Sarah Johnson",
-    "email": "sarah.j@example.com",
-    "phone": "555-123-4567",
-    "bio": "Sarah is a senior React developer with 8+ years of experience building scalable web applications. She's contributed to several open-source projects and speaks regularly at tech conferences.",
-    "specialties": "React, Frontend Architecture, TypeScript"
+    "id": "inst_01",
+    "name": "Dr. Jane Smith",
+    "email": "jane.smith@example.com",
+    "bio": "Dr. Smith is a leading expert in soft tissue mobilization and has been a certified Graston Technique instructor for over 10 years."
   },
   {
-    "id": "inst-2",
-    "name": "Mike Chen",
-    "email": "mike.c@example.com",
-    "phone": "555-987-6543",
-    "bio": "Mike is a full-stack developer specializing in Node.js and cloud infrastructure. He is passionate about building efficient and scalable backend systems.",
-    "specialties": "Node.js, AWS, DevOps, System Design"
+    "id": "inst_02",
+    "name": "Dr. Michael Clark",
+    "email": "michael.clark@example.com",
+    "bio": "With a background in sports medicine, Dr. Clark specializes in athletic injuries and performance enhancement using GT."
   },
   {
-    "id": "inst-3",
-    "name": "Lisa Park",
-    "email": "lisa.p@example.com",
-    "phone": "555-555-1212",
-    "bio": "Lisa is a UX/UI expert with a background in design systems and accessibility. She ensures that applications are not only functional but also beautiful and easy to use.",
-    "specialties": "UX/UI Design, Accessibility, Design Systems"
+    "id": "inst_03",
+    "name": "Dr. Emily White",
+    "email": "emily.white@example.com",
+    "bio": "Dr. White's research focuses on the neurological effects of instrument-assisted soft tissue mobilization."
+  },
+  {
+    "id": "inst_04",
+    "name": "Dr. Robert Green",
+    "email": "robert.green@example.com",
+    "bio": "A physical therapist for over 20 years, Dr. Green brings a wealth of clinical experience to his teaching."
+  },
+  {
+    "id": "inst_05",
+    "name": "Dr. Sarah Brown",
+    "email": "sarah.brown@example.com",
+    "bio": "Dr. Brown is a certified athletic trainer and instructor, focusing on rehabilitation protocols."
+  },
+  {
+    "id": "inst_06",
+    "name": "Dr. David Wilson",
+    "email": "david.wilson@example.com",
+    "bio": "An expert in post-surgical recovery, Dr. Wilson integrates Graston Technique into his comprehensive patient care plans."
+  },
+  {
+    "id": "inst_07",
+    "name": "Dr. Linda Taylor",
+    "email": "linda.taylor@example.com",
+    "bio": "Dr. Taylor is a chiropractor and a master instructor, known for her dynamic and engaging teaching style."
   }
 ]
