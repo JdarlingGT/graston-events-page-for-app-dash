@@ -1,7 +1,7 @@
 "use client";
 
-import { VenueForm } from "../../venue-form";
-import { Skeleton } from "../../../../../components/ui/skeleton";
+import { VenueForm } from "@/components/directory/venues/venue-form";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useEffect, useState } from "react";
 
 interface Venue {

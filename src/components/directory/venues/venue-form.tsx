@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Button } from "../../../components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -10,16 +10,16 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../../../components/ui/form";
-import { Input } from "../../../components/ui/input";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
   CardDescription,
-} from "../../../components/ui/card";
-import { VenueFormValues, venueSchema } from "../../../lib/schemas";
+} from "@/components/ui/card";
+import { VenueFormValues, venueSchema } from "@/lib/schemas";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useState } from "react";
@@ -68,7 +68,7 @@ export function VenueForm({ initialData }: VenueFormProps) {
       }
 
       toast.success(`Venue ${initialData ? "updated" : "created"} successfully!`);
-      router.push("/dashboard/venues");
+      router.push("/dashboard/directory/venues");
       router.refresh();
     } catch (error) {
       console.error(error);
@@ -146,7 +146,7 @@ export function VenueForm({ initialData }: VenueFormProps) {
               <Button
                 type="button"
                 variant="outline"
-                onClick={() => router.push("/dashboard/venues")}
+                onClick={() => router.push("/dashboard/directory/venues")}
                 disabled={loading}
               >
                 Cancel

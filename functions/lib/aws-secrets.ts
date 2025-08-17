@@ -13,6 +13,16 @@ interface DbSecret {
   dbClusterIdentifier: string;
 }
 
+// Define a generic type for the Cloudflare environment context
+interface EventContext {
+  env: {
+    AWS_ACCESS_KEY_ID: string;
+    AWS_SECRET_ACCESS_KEY: string;
+    AWS_REGION: string;
+    SECRET_NAME: string;
+  };
+}
+
 // Cache the secret in the module scope to avoid refetching on every request
 let cachedSecret: DbSecret | null = null;
 
@@ -22,7 +32,7 @@ let cachedSecret: DbSecret | null = null;
  * @param context - The Cloudflare Pages function context to access environment variables.
  * @returns The parsed database secret.
  */
-export async function getDbSecret(context: EventContext<any, any, any>): Promise<DbSecret> {
+export async function getDbSecret(context: EventContext): Promise<DbSecret> {
   if (cachedSecret) {
     return cachedSecret;
   }

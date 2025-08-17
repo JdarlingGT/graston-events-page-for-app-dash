@@ -1,5 +1,13 @@
 import { query } from "../../lib/pg";
 
+// Define types for Cloudflare Pages Functions environment
+interface EventContext {
+  request: Request;
+  env: any;
+}
+type PagesFunction = (context: EventContext) => Response | Promise<Response>;
+
+
 // A simple placeholder for Cloudflare Access JWT verification.
 // In a real scenario, this would involve a library like 'jose' to verify the token signature
 // against Cloudflare's public keys.

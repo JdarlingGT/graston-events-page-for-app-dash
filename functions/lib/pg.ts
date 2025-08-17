@@ -1,6 +1,11 @@
 import { Pool } from "pg";
 import { getDbSecret } from "./aws-secrets";
 
+// Define a generic type for the Cloudflare environment context
+interface EventContext {
+  env: any;
+}
+
 // Create a single, module-scoped pool to be reused across requests.
 let pool: Pool;
 
@@ -10,7 +15,7 @@ let pool: Pool;
  * @param context - The Cloudflare Pages function context.
  * @returns An initialized PostgreSQL Pool instance.
  */
-async function getPool(context: EventContext<any, any, any>): Promise<Pool> {
+async function getPool(context: EventContext): Promise<Pool> {
   if (!pool) {
     const secret = await getDbSecret(context);
     pool = new Pool({
@@ -37,7 +42,7 @@ async function getPool(context: EventContext<any, any, any>): Promise<Pool> {
  * @param params - An array of parameters to safely substitute into the query.
  * @returns The result of the query.
  */
-export async function query(context: EventContext<any, any, any>, sql: string, params: any[] = []) {
+export async function query(context: EventContext, sql: string, params: any[] = []) {
   const dbPool = await getPool(context);
   const client = await dbPool.connect();
   try {
