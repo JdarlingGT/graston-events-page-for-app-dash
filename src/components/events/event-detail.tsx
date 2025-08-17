@@ -12,6 +12,7 @@ import { StudentTable } from "./student-table";
 import { DangerZonePanel } from "./danger-zone-panel";
 import { TaskBoard } from "./task-board";
 import { EventAnalytics } from "./event-analytics";
+import { CommunicationsPanel } from "./communications-panel";
 import { 
   Calendar, 
   MapPin, 
@@ -255,9 +256,10 @@ export function EventDetail({ eventId }: EventDetailProps) {
 
       {/* Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="students">Students</TabsTrigger>
+          <TabsTrigger value="communications">Communications</TabsTrigger>
           <TabsTrigger value="tasks">Tasks</TabsTrigger>
           <TabsTrigger value="analytics">Analytics</TabsTrigger>
         </TabsList>
@@ -285,7 +287,11 @@ export function EventDetail({ eventId }: EventDetailProps) {
         </TabsContent>
         
         <TabsContent value="students">
-          <StudentTable eventId={eventId} />
+          <StudentTable eventId={eventId} eventDate={event.schedule.startDate} />
+        </TabsContent>
+
+        <TabsContent value="communications">
+          <CommunicationsPanel eventId={eventId} />
         </TabsContent>
         
         <TabsContent value="tasks">

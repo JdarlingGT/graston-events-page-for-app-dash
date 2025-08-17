@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { DataTable } from "@/components/ui/data-table";
-import { ColumnDef } from "@tanstack/react-table";
+import { ColumnDef, Row } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
 import { Skeleton } from "../ui/skeleton";
+import { differenceInDays, parseISO } from "date-fns";
 
 interface Student {
   id: string;
@@ -46,9 +47,10 @@ interface Student {
 
 interface StudentTableProps {
   eventId: string;
+  eventDate: string;
 }
 
-export function StudentTable({ eventId }: StudentTableProps) {
+export function StudentTable({ eventId, eventDate }: StudentTableProps) {
   const [selectedStudents, setSelectedStudents] = useState<string[]>([]);
 
   const { data: students = [], isLoading, error } = useQuery<Student[]>({
@@ -82,6 +84,26 @@ export function StudentTable({ eventId }: StudentTableProps) {
     } catch (error) {
       toast.error('Failed to send email');
     }
+  };
+
+  const getRowClassName = (row: Row<Student>) => {
+    const student = row.original;
+    if (student.preCourseCompleted) {
+      return "bg-green-50 dark:bg-green-900/20";
+    }
+
+    if (!eventDate) return "";
+
+    const daysUntilEvent = differenceInDays(parseISO(eventDate), new Date());
+
+    if (daysUntilEvent < 7) {
+      return "bg-red-50 dark:bg-red-900/20";
+    }
+    if (daysUntilEvent <= 14) {
+      return "bg-yellow-50 dark:bg-yellow-900/20";
+    }
+
+    return "";
   };
 
   const columns: ColumnDef<Student>[] = [
@@ -252,6 +274,7 @@ export function StudentTable({ eventId }: StudentTableProps) {
           columns={columns} 
           data={students} 
           searchPlaceholder="Search students..."
+          getRowClassName={getRowClassName}
         />
       )}
     </div>
