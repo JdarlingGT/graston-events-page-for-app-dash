@@ -19,9 +19,9 @@ export default function DashboardPage() {
 
       {/* Top Stat Cards */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <StatCard title="Total Revenue (Month)" value="$67,000" icon={DollarSign} />
-        <StatCard title="Upcoming Events" value="15" icon={Calendar} />
-        <StatCard title="At-Risk Events" value="3" icon={AlertTriangle} />
+        <StatCard title="Total Revenue (Month)" value="$67,000" icon={DollarSign} change={5.2} changeDescription="vs last month" />
+        <StatCard title="Upcoming Events" value="15" icon={Calendar} change={-1.1} changeDescription="vs last month" />
+        <StatCard title="At-Risk Events" value="3" icon={AlertTriangle} change={2.5} changeDescription="vs last week" />
         <StatCard title="My Open Tasks" value="5" icon={CheckSquare} />
       </div>
       

@@ -5,23 +5,22 @@ import { ColumnDef, ColumnFiltersState } from "@tanstack/react-table";
 import { DataTable } from "@/components/ui/data-table";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
-import { DANGER_ZONE_CONFIG } from "@/lib/config";
-import { differenceInDays, parseISO } from "date-fns";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { ArrowUpDown } from "lucide-react";
 import React from "react";
+import { Progress } from "../ui/progress";
 
 interface Event {
   id: string;
-  name: string;
-  date: string;
-  instructor: string;
-  city: string;
-  enrolledStudents: number;
-  instrumentsPurchased: number;
-  mode: "In-Person" | "Virtual";
+  title: string;
+  startDate: string;
+  location: { city: string };
+  enrolledCount: number;
+  capacity: number;
+  status: "Go" | "At Risk" | "Completed";
+  instructorIds: string[];
 }
 
 async function fetchEvents(): Promise<Event[]> {
@@ -30,65 +29,58 @@ async function fetchEvents(): Promise<Event[]> {
   return response.json();
 }
 
-const getDangerZoneStatus = (event: Event) => {
-  const threshold = DANGER_ZONE_CONFIG.THRESHOLDS[event.mode] || 0;
-  const totalSignups = event.enrolledStudents + event.instrumentsPurchased;
-  const isAtRisk = totalSignups < threshold;
-
-  if (!isAtRisk) {
-    return { level: "safe", text: "Safe" };
-  }
-
-  const daysAway = differenceInDays(parseISO(event.date), new Date());
-
-  if (daysAway < 0) {
-    return { level: "past", text: "Past Event" };
-  }
-  if (daysAway < DANGER_ZONE_CONFIG.URGENCY_DAYS.URGENT) {
-    return { level: "urgent", text: `At Risk (<${DANGER_ZONE_CONFIG.URGENCY_DAYS.URGENT} days)` };
-  }
-  if (daysAway <= DANGER_ZONE_CONFIG.URGENCY_DAYS.WARNING) {
-    return { level: "warning", text: `At Risk (7-10 days)` };
-  }
-  
-  return { level: "at-risk", text: "At Risk" };
-};
-
 export const columns: ColumnDef<Event>[] = [
   {
-    accessorKey: "name",
+    accessorKey: "title",
     header: "Event Name",
     cell: ({ row }) => (
       <Link href={`/dashboard/events/${row.original.id}`} className="font-medium text-primary hover:underline">
-        {row.original.name}
+        {row.original.title}
       </Link>
     ),
   },
   {
-    accessorKey: "date",
+    accessorKey: "startDate",
     header: ({ column }) => (
       <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
         Date
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
-    cell: ({ row }) => new Date(row.original.date).toLocaleDateString(),
+    cell: ({ row }) => new Date(row.original.startDate).toLocaleDateString(),
   },
-  { accessorKey: "instructor", header: "Instructor" },
-  { accessorKey: "city", header: "City" },
-  { accessorKey: "enrolledStudents", header: "Enrolled" },
-  { accessorKey: "instrumentsPurchased", header: "Kits" },
   {
-    id: "dangerZone",
-    header: "Danger Zone Status",
+    accessorKey: "location",
+    header: "City",
+    cell: ({ row }) => row.original.location.city,
+  },
+  {
+    id: "enrollment",
+    header: "Enrollment",
     cell: ({ row }) => {
-      const status = getDangerZoneStatus(row.original);
+      const { enrolledCount, capacity } = row.original;
+      const percentage = capacity > 0 ? (enrolledCount / capacity) * 100 : 0;
+      return (
+        <div className="flex items-center gap-2">
+          <Progress value={percentage} className="h-2 w-20" />
+          <span className="text-sm text-muted-foreground">
+            {enrolledCount} / {capacity}
+          </span>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+    cell: ({ row }) => {
+      const status = row.original.status;
       const classes = cn({
-        "text-yellow-600": status.level === "warning",
-        "text-red-600 font-bold": status.level === "urgent",
-        "text-orange-500": status.level === "at-risk",
+        "text-yellow-600": status === "At Risk",
+        "text-green-600": status === "Go",
+        "text-gray-500": status === "Completed",
       });
-      return <span className={classes}>{status.text}</span>;
+      return <span className={classes}>{status}</span>;
     },
   },
 ];
@@ -108,7 +100,7 @@ export function EventsTable({ columnFilters, setColumnFilters }: EventsTableProp
     toast.error("Failed to load events data.");
   }
 
-  const upcomingEvents = isLoading ? [] : events.filter(event => differenceInDays(parseISO(event.date), new Date()) >= 0);
+  const upcomingEvents = isLoading ? [] : events.filter(event => event.status !== "Completed");
 
   if (isLoading) {
     return (

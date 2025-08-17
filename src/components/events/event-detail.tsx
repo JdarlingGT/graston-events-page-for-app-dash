@@ -25,13 +25,25 @@ import {
   Mail,
   Phone,
   Edit,
-  Share2,
   Clock,
   Tag,
   Briefcase,
   CheckCircle,
-  Activity
+  Activity,
+  Trash,
+  Copy
 } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
 import Link from "next/link";
 import { Progress } from "../ui/progress";
@@ -99,17 +111,16 @@ export function EventDetail({ eventId }: EventDetailProps) {
     },
   });
 
-  const handleShare = async () => {
-    try {
-      await navigator.share({
-        title: event?.title,
-        text: `Check out this event: ${event?.title}`,
-        url: window.location.href,
-      });
-    } catch (error) {
-      navigator.clipboard.writeText(window.location.href);
-      toast.success("Link copied to clipboard");
-    }
+  const handleDelete = () => {
+    toast.promise(new Promise(resolve => setTimeout(resolve, 1000)), {
+      loading: "Deleting event...",
+      success: "Event deleted successfully.",
+      error: "Failed to delete event.",
+    });
+  };
+
+  const handleDuplicate = () => {
+    toast.info("Duplicate feature coming soon!");
   };
 
   if (isLoading) {
@@ -139,137 +150,156 @@ export function EventDetail({ eventId }: EventDetailProps) {
   const enrollmentPercentage = (event.enrollment.current / event.enrollment.capacity) * 100;
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
-      {/* Left Column */}
-      <div className="lg:col-span-3 space-y-6">
-        <Card>
-          <CardHeader>
-            <div className="flex flex-col md:flex-row gap-6">
-              {event.featuredImage && (
-                <div className="md:w-1/3">
-                  <img src={event.featuredImage} alt={event.title} className="w-full h-48 object-cover rounded-lg" />
-                </div>
-              )}
-              <div className="flex-1 space-y-2">
-                <div className="flex items-start justify-between">
-                  <h1 className="text-3xl font-bold">{event.title}</h1>
-                  <div className="flex gap-2">
-                    <Button variant="outline" size="icon" onClick={handleShare}><Share2 className="h-4 w-4" /></Button>
-                    <Button asChild variant="outline"><Link href={`/dashboard/events/${event.id}/edit`}><Edit className="h-4 w-4 mr-2" />Edit</Link></Button>
+    <AlertDialog>
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
+        {/* Left Column */}
+        <div className="lg:col-span-3 space-y-6">
+          <Card>
+            <CardHeader>
+              <div className="flex flex-col md:flex-row gap-6">
+                {event.featuredImage && (
+                  <div className="md:w-1/3">
+                    <img src={event.featuredImage} alt={event.title} className="w-full h-48 object-cover rounded-lg" />
+                  </div>
+                )}
+                <div className="flex-1 space-y-2">
+                  <div className="flex items-start justify-between">
+                    <h1 className="text-3xl font-bold">{event.title}</h1>
+                    <div className="flex gap-2">
+                      <Button asChild variant="outline"><Link href={`/dashboard/events/${event.id}/edit`}><Edit className="h-4 w-4 mr-2" />Edit</Link></Button>
+                      <Button variant="outline" size="icon" onClick={handleDuplicate}><Copy className="h-4 w-4" /></Button>
+                      <AlertDialogTrigger asChild>
+                        <Button variant="destructive" size="icon"><Trash className="h-4 w-4" /></Button>
+                      </AlertDialogTrigger>
+                    </div>
+                  </div>
+                  <p className="text-muted-foreground">{event.description}</p>
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    {event.tags.map(tag => <Badge key={tag} variant="secondary">{tag}</Badge>)}
                   </div>
                 </div>
-                <p className="text-muted-foreground">{event.description}</p>
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {event.tags.map(tag => <Badge key={tag} variant="secondary">{tag}</Badge>)}
+              </div>
+            </CardHeader>
+          </Card>
+
+          <Tabs value={activeTab} onValueChange={setActiveTab}>
+            <TabsList className="grid w-full grid-cols-7">
+              <TabsTrigger value="overview">Overview</TabsTrigger>
+              <TabsTrigger value="attendees">Attendees</TabsTrigger>
+              <TabsTrigger value="logistics">Logistics</TabsTrigger>
+              <TabsTrigger value="tasks">Tasks</TabsTrigger>
+              <TabsTrigger value="communications">Communications</TabsTrigger>
+              <TabsTrigger value="activity">Activity Log</TabsTrigger>
+              <TabsTrigger value="post-mortem">Post-Mortem</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="overview" className="mt-6 space-y-6">
+              <EventScheduleTimeline schedule={event.schedule} />
+              <InternalNotesPanel />
+            </TabsContent>
+            
+            <TabsContent value="attendees" className="mt-6">
+              <StudentTable eventId={eventId} eventDate={event.schedule.startDate} />
+            </TabsContent>
+
+            <TabsContent value="logistics" className="mt-6">
+              <LogisticsTab venue={event.venue} instructor={event.instructor} />
+            </TabsContent>
+            
+            <TabsContent value="tasks" className="mt-6">
+              <TaskBoard eventId={eventId} />
+            </TabsContent>
+            
+            <TabsContent value="communications" className="mt-6">
+              <BulkEmailPanel attendeeCount={event.enrollment.current} />
+            </TabsContent>
+
+            <TabsContent value="activity" className="mt-6">
+              <ActivityLogTab eventId={eventId} />
+            </TabsContent>
+
+            <TabsContent value="post-mortem" className="mt-6">
+              <PostMortemTab />
+            </TabsContent>
+          </Tabs>
+        </div>
+
+        {/* Right Column */}
+        <div className="lg:col-span-1 space-y-6 lg:sticky lg:top-20">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg">Status & Capacity</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center gap-2">
+                <CheckCircle className="h-4 w-4 text-green-500" />
+                <span className="font-medium capitalize">{event.status}</span>
+              </div>
+              <div className="space-y-1">
+                <div className="flex justify-between text-sm">
+                  <span>{event.enrollment.current} / {event.enrollment.capacity} Enrolled</span>
+                  <span>{enrollmentPercentage.toFixed(0)}%</span>
                 </div>
+                <Progress value={enrollmentPercentage} />
               </div>
-            </div>
-          </CardHeader>
-        </Card>
-
-        <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-7">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="attendees">Attendees</TabsTrigger>
-            <TabsTrigger value="logistics">Logistics</TabsTrigger>
-            <TabsTrigger value="tasks">Tasks</TabsTrigger>
-            <TabsTrigger value="communications">Communications</TabsTrigger>
-            <TabsTrigger value="activity">Activity Log</TabsTrigger>
-            <TabsTrigger value="post-mortem">Post-Mortem</TabsTrigger>
-          </TabsList>
-          
-          <TabsContent value="overview" className="mt-6 space-y-6">
-            <EventScheduleTimeline schedule={event.schedule} />
-            <InternalNotesPanel />
-          </TabsContent>
-          
-          <TabsContent value="attendees" className="mt-6">
-            <StudentTable eventId={eventId} eventDate={event.schedule.startDate} />
-          </TabsContent>
-
-          <TabsContent value="logistics" className="mt-6">
-            <LogisticsTab venue={event.venue} instructor={event.instructor} />
-          </TabsContent>
-          
-          <TabsContent value="tasks" className="mt-6">
-            <TaskBoard eventId={eventId} />
-          </TabsContent>
-          
-          <TabsContent value="communications" className="mt-6">
-            <BulkEmailPanel attendeeCount={event.enrollment.current} />
-          </TabsContent>
-
-          <TabsContent value="activity" className="mt-6">
-            <ActivityLogTab eventId={eventId} />
-          </TabsContent>
-
-          <TabsContent value="post-mortem" className="mt-6">
-            <PostMortemTab />
-          </TabsContent>
-        </Tabs>
-      </div>
-
-      {/* Right Column */}
-      <div className="lg:col-span-1 space-y-6 lg:sticky lg:top-20">
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">Status & Capacity</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex items-center gap-2">
-              <CheckCircle className="h-4 w-4 text-green-500" />
-              <span className="font-medium capitalize">{event.status}</span>
-            </div>
-            <div className="space-y-1">
-              <div className="flex justify-between text-sm">
-                <span>{event.enrollment.current} / {event.enrollment.capacity} Enrolled</span>
-                <span>{enrollmentPercentage.toFixed(0)}%</span>
+              <div className="text-sm text-muted-foreground">
+                {event.enrollment.waitlist} on waitlist
               </div>
-              <Progress value={enrollmentPercentage} />
-            </div>
-            <div className="text-sm text-muted-foreground">
-              {event.enrollment.waitlist} on waitlist
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
 
-        <Card>
-          <CardHeader><CardTitle className="text-lg">Key Details</CardTitle></CardHeader>
-          <CardContent className="space-y-3 text-sm">
-            <div className="flex items-center gap-2"><Calendar className="h-4 w-4 text-muted-foreground" /><span>{new Date(event.schedule.startDate).toLocaleDateString()}</span></div>
-            <div className="flex items-center gap-2"><Clock className="h-4 w-4 text-muted-foreground" /><span>{event.schedule.startTime} - {event.schedule.endTime} ({event.schedule.timezone})</span></div>
-            <div className="flex items-center gap-2"><DollarSign className="h-4 w-4 text-muted-foreground" /><span>${event.pricing.basePrice}</span></div>
-            <div className="flex items-center gap-2"><Tag className="h-4 w-4 text-muted-foreground" /><span>{event.type}</span></div>
-            <div className="flex items-center gap-2"><Briefcase className="h-4 w-4 text-muted-foreground" /><span>{event.mode}</span></div>
-          </CardContent>
-        </Card>
+          <Card>
+            <CardHeader><CardTitle className="text-lg">Key Details</CardTitle></CardHeader>
+            <CardContent className="space-y-3 text-sm">
+              <div className="flex items-center gap-2"><Calendar className="h-4 w-4 text-muted-foreground" /><span>{new Date(event.schedule.startDate).toLocaleDateString()}</span></div>
+              <div className="flex items-center gap-2"><Clock className="h-4 w-4 text-muted-foreground" /><span>{event.schedule.startTime} - {event.schedule.endTime} ({event.schedule.timezone})</span></div>
+              <div className="flex items-center gap-2"><DollarSign className="h-4 w-4 text-muted-foreground" /><span>${event.pricing.basePrice}</span></div>
+              <div className="flex items-center gap-2"><Tag className="h-4 w-4 text-muted-foreground" /><span>{event.type}</span></div>
+              <div className="flex items-center gap-2"><Briefcase className="h-4 w-4 text-muted-foreground" /><span>{event.mode}</span></div>
+            </CardContent>
+          </Card>
 
-        <Card>
-          <CardHeader><CardTitle className="text-lg">Instructor</CardTitle></CardHeader>
-          <CardContent className="space-y-3 text-sm">
-            <div className="flex items-center gap-3">
-              <Avatar><AvatarImage src={event.instructor.avatar} /><AvatarFallback>{event.instructor.name.split(' ').map(n => n[0]).join('')}</AvatarFallback></Avatar>
-              <span className="font-semibold">{event.instructor.name}</span>
-            </div>
-            <div className="flex items-center gap-2"><Mail className="h-4 w-4 text-muted-foreground" /><span>{event.instructor.email}</span></div>
-            <div className="flex items-center gap-2"><Phone className="h-4 w-4 text-muted-foreground" /><span>{event.instructor.phone}</span></div>
-          </CardContent>
-        </Card>
+          <Card>
+            <CardHeader><CardTitle className="text-lg">Instructor</CardTitle></CardHeader>
+            <CardContent className="space-y-3 text-sm">
+              <div className="flex items-center gap-3">
+                <Avatar><AvatarImage src={event.instructor.avatar} /><AvatarFallback>{event.instructor.name.split(' ').map(n => n[0]).join('')}</AvatarFallback></Avatar>
+                <span className="font-semibold">{event.instructor.name}</span>
+              </div>
+              <div className="flex items-center gap-2"><Mail className="h-4 w-4 text-muted-foreground" /><span>{event.instructor.email}</span></div>
+              <div className="flex items-center gap-2"><Phone className="h-4 w-4 text-muted-foreground" /><span>{event.instructor.phone}</span></div>
+            </CardContent>
+          </Card>
 
-        <Card>
-          <CardHeader><CardTitle className="text-lg">Venue</CardTitle></CardHeader>
-          <CardContent className="space-y-2 text-sm">
-            <p className="font-semibold">{event.venue.name}</p>
-            <p className="text-muted-foreground">{event.venue.address}<br/>{event.venue.city}, {event.venue.state}</p>
-          </CardContent>
-        </Card>
+          <Card>
+            <CardHeader><CardTitle className="text-lg">Venue</CardTitle></CardHeader>
+            <CardContent className="space-y-2 text-sm">
+              <p className="font-semibold">{event.venue.name}</p>
+              <p className="text-muted-foreground">{event.venue.address}<br/>{event.venue.city}, {event.venue.state}</p>
+            </CardContent>
+          </Card>
+        </div>
+
+        <MarketingRescueCopilotModal
+          isOpen={isCopilotOpen}
+          onClose={() => setIsCopilotOpen(false)}
+          eventName={event.title}
+        />
       </div>
-
-      <MarketingRescueCopilotModal
-        isOpen={isCopilotOpen}
-        onClose={() => setIsCopilotOpen(false)}
-        eventName={event.title}
-      />
-    </div>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+          <AlertDialogDescription>
+            This action cannot be undone. This will permanently delete the event "{event.title}".
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={handleDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+            Delete
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }
