@@ -6,14 +6,20 @@ import { useEffect, useState } from "react";
 
 interface Event {
   id: string;
-  name: string;
-  city: string;
-  state: string;
-  instructor: string;
-  enrolledStudents: number;
-  instrumentsPurchased: number;
-  type: "Essential" | "Advanced";
-  mode: "In-Person" | "Virtual";
+  title: string;
+  status: "Go" | "At Risk" | "Completed";
+  startDate: string;
+  endDate: string;
+  location: {
+    city: string;
+    state: string;
+    venueId: string | null;
+  };
+  courseType: string;
+  capacity: number;
+  enrolledCount: number;
+  revenue: number;
+  instructorIds: string[];
 }
 
 export default function EditEventPage({ params }: { params: { id: string } }) {

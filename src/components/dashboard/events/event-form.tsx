@@ -36,14 +36,20 @@ import { ContentCopilotModal } from "@/components/events/content-copilot-modal";
 
 interface Event {
   id: string;
-  name: string;
-  city: string;
-  state: string;
-  instructor: string;
-  enrolledStudents: number;
-  instrumentsPurchased: number;
-  type: "Essential" | "Advanced";
-  mode: "In-Person" | "Virtual";
+  title: string;
+  status: "Go" | "At Risk" | "Completed";
+  startDate: string;
+  endDate: string;
+  location: {
+    city: string;
+    state: string;
+    venueId: string | null;
+  };
+  courseType: string;
+  capacity: number;
+  enrolledCount: number;
+  revenue: number;
+  instructorIds: string[];
 }
 
 interface EventFormProps {
@@ -59,14 +65,16 @@ export function EventForm({ initialData }: EventFormProps) {
   const form = useForm<EventFormValues>({
     resolver: zodResolver(eventSchema),
     defaultValues: initialData || {
-      name: "",
-      city: "",
-      state: "",
-      instructor: "",
-      enrolledStudents: 0,
-      instrumentsPurchased: 0,
-      type: "Essential",
-      mode: "In-Person",
+      title: "",
+      status: "Go",
+      startDate: "",
+      endDate: "",
+      location: { city: "", state: "", venueId: null },
+      courseType: "",
+      capacity: 25,
+      enrolledCount: 0,
+      revenue: 0,
+      instructorIds: [],
     },
   });
 
@@ -120,12 +128,12 @@ export function EventForm({ initialData }: EventFormProps) {
               <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
                 <FormField
                   control={form.control}
-                  name="name"
+                  name="title"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Event Name</FormLabel>
+                      <FormLabel>Event Title</FormLabel>
                       <FormControl>
-                        <Input placeholder="e.g., Summer Tech Camp" {...field} />
+                        <Input placeholder="e.g., Essential Training | Chicago, IL" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -133,12 +141,12 @@ export function EventForm({ initialData }: EventFormProps) {
                 />
                 <FormField
                   control={form.control}
-                  name="instructor"
+                  name="courseType"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Instructor</FormLabel>
+                      <FormLabel>Course Type</FormLabel>
                       <FormControl>
-                        <Input placeholder="e.g., Jane Doe" {...field} />
+                        <Input placeholder="e.g., Essential In-Person" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -146,7 +154,7 @@ export function EventForm({ initialData }: EventFormProps) {
                 />
                 <FormField
                   control={form.control}
-                  name="city"
+                  name="location.city"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>City</FormLabel>
@@ -159,7 +167,7 @@ export function EventForm({ initialData }: EventFormProps) {
                 />
                 <FormField
                   control={form.control}
-                  name="state"
+                  name="location.state"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>State</FormLabel>
@@ -172,38 +180,33 @@ export function EventForm({ initialData }: EventFormProps) {
                 />
                 <FormField
                   control={form.control}
-                  name="type"
+                  name="status"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Event Type</FormLabel>
+                      <FormLabel>Status</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
-                          <SelectTrigger><SelectValue placeholder="Select an event type" /></SelectTrigger>
+                          <SelectTrigger><SelectValue placeholder="Select a status" /></SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="Essential">Essential</SelectItem>
-                          <SelectItem value="Advanced">Advanced</SelectItem>
+                          <SelectItem value="Go">Go</SelectItem>
+                          <SelectItem value="At Risk">At Risk</SelectItem>
+                          <SelectItem value="Completed">Completed</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <FormField
+                 <FormField
                   control={form.control}
-                  name="mode"
+                  name="capacity"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Event Mode</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <FormControl>
-                          <SelectTrigger><SelectValue placeholder="Select an event mode" /></SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          <SelectItem value="In-Person">In-Person</SelectItem>
-                          <SelectItem value="Virtual">Virtual</SelectItem>
-                        </SelectContent>
-                      </Select>
+                      <FormLabel>Capacity</FormLabel>
+                      <FormControl>
+                        <Input type="number" {...field} />
+                      </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -272,7 +275,7 @@ export function EventForm({ initialData }: EventFormProps) {
         isOpen={isCopilotOpen}
         onClose={() => setIsCopilotOpen(false)}
         onSave={setSocialMediaContent}
-        eventName={form.getValues("name") || "this amazing event"}
+        eventName={form.getValues("title") || "this amazing event"}
       />
     </>
   );

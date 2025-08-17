@@ -9,6 +9,8 @@ interface Venue {
   name: string;
   type: string;
   city: string;
+  state: string;
+  contactPerson: string;
   capacity: number;
 }
 

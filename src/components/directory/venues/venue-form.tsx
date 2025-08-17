@@ -29,6 +29,8 @@ interface Venue {
   name: string;
   type: string;
   city: string;
+  state: string;
+  contactPerson: string;
   capacity: number;
 }
 
@@ -46,6 +48,8 @@ export function VenueForm({ initialData }: VenueFormProps) {
       name: "",
       type: "",
       city: "",
+      state: "",
+      contactPerson: "",
       capacity: 0,
     },
   });
@@ -124,6 +128,32 @@ export function VenueForm({ initialData }: VenueFormProps) {
                   <FormLabel>City</FormLabel>
                   <FormControl>
                     <Input placeholder="e.g., San Francisco" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="state"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>State</FormLabel>
+                  <FormControl>
+                    <Input placeholder="e.g., CA" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="contactPerson"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Contact Person</FormLabel>
+                  <FormControl>
+                    <Input placeholder="e.g., Jane Doe" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
