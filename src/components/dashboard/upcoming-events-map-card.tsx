@@ -20,7 +20,21 @@ const EventMap = dynamic(() => import("./events/EventMap").then((mod) => mod.Eve
   ssr: false,
 });
 
-interface Event {
+// Raw type from API
+interface RawEvent {
+  id: string;
+  name: string;
+  date: string;
+  city: string;
+  state: string;
+  enrolledStudents: number;
+  capacity: number;
+  status: "upcoming" | "ongoing" | "completed";
+  minViableEnrollment: number;
+}
+
+// Target type for the EventMap component
+interface MappedEvent {
   id: string;
   title: string;
   startDate: string;
@@ -33,20 +47,44 @@ interface Event {
   status: "Go" | "At Risk" | "Completed";
 }
 
-async function fetchUpcomingEvents(): Promise<Event[]> {
+async function fetchUpcomingEvents(): Promise<MappedEvent[]> {
   const response = await fetch("/api/events");
   if (!response.ok) throw new Error("Failed to fetch events");
-  const events = await response.json();
+  const rawEvents: RawEvent[] = await response.json();
   
   // Filter to only upcoming events (not completed)
-  return events.filter((event: Event) => 
-    event.status !== "Completed" && 
-    differenceInDays(parseISO(event.startDate), new Date()) >= -1 // Include events from yesterday onwards
+  const upcomingRawEvents = rawEvents.filter((event) => 
+    event.status !== "completed" && 
+    differenceInDays(parseISO(event.date), new Date()) >= -1
   );
+
+  // Map to the structure expected by EventMap
+  return upcomingRawEvents.map(event => {
+    let status: "Go" | "At Risk" | "Completed" = "Go";
+    if (event.enrolledStudents < event.minViableEnrollment) {
+      status = "At Risk";
+    }
+    if (event.status === "completed") {
+      status = "Completed";
+    }
+
+    return {
+      id: event.id,
+      title: event.name,
+      startDate: event.date,
+      location: {
+        city: event.city,
+        state: event.state,
+      },
+      enrolledCount: event.enrolledStudents,
+      capacity: event.capacity,
+      status: status,
+    };
+  });
 }
 
 export function UpcomingEventsMapCard() {
-  const { data: events, isLoading } = useQuery<Event[]>({
+  const { data: events, isLoading } = useQuery<MappedEvent[]>({
     queryKey: ["upcoming-events-map"],
     queryFn: fetchUpcomingEvents,
   });
