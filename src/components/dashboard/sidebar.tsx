@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, LayoutDashboard, Calendar, BarChart3, CheckSquare, Settings, BookOpen, Target, Megaphone, Building, Users } from 'lucide-react';
+import { Home, LayoutDashboard, Calendar, BarChart3, CheckSquare, Settings, BookOpen, Target, Megaphone, Building, Users, Archive } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import {
   Accordion,
@@ -24,6 +24,7 @@ const navItems = [
     children: [
       { href: '/dashboard/directory/venues', label: 'Venues', icon: Building },
       { href: '/dashboard/directory/instructors', label: 'Instructors', icon: Users },
+      { href: '/dashboard/archival-search', label: 'Archival Search', icon: Archive },
     ]
   },
   { href: '/dashboard/settings', label: 'Settings', icon: Settings },
@@ -32,7 +33,7 @@ const navItems = [
 export default function Sidebar() {
   const pathname = usePathname();
 
-  const isDirectoryActive = pathname.startsWith('/dashboard/directory');
+  const isDirectoryActive = pathname.startsWith('/dashboard/directory') || pathname.startsWith('/dashboard/archival-search');
 
   return (
     <aside className="fixed inset-y-0 left-0 z-10 hidden w-64 flex-col border-r bg-background sm:flex">
