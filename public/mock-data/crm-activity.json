@@ -1,44 +1,37 @@
 [
   {
     "id": "act-1",
-    "date": "2025-08-21",
+    "date": "2024-07-20",
     "contact": "John Doe",
-    "action": "Purchased Instrument Bundle",
-    "source": "WooCommerce"
+    "action": "Opened welcome email",
+    "source": "Email Campaign"
   },
   {
     "id": "act-2",
-    "date": "2025-08-20",
+    "date": "2024-07-19",
     "contact": "Jane Smith",
-    "action": "Completed Essential Training",
-    "source": "LearnDash"
+    "action": "Visited pricing page",
+    "source": "Organic Search"
   },
   {
     "id": "act-3",
-    "date": "2025-08-19",
+    "date": "2024-07-18",
     "contact": "Peter Jones",
-    "action": "Registered for Advanced Course",
-    "source": "FluentCRM"
+    "action": "Submitted contact form",
+    "source": "Google Ads"
   },
   {
     "id": "act-4",
-    "date": "2025-08-18",
-    "contact": "Mary Johnson",
-    "action": "Downloaded GT Short",
-    "source": "Website Form"
+    "date": "2024-07-17",
+    "contact": "Alice Brown",
+    "action": "Downloaded brochure",
+    "source": "Facebook Ads"
   },
   {
     "id": "act-5",
-    "date": "2025-08-17",
-    "contact": "David Williams",
-    "action": "Submitted Evaluation Form",
-    "source": "Gravity Forms"
-  },
-  {
-    "id": "act-6",
-    "date": "2025-08-16",
-    "contact": "Sarah Miller",
-    "action": "Attended Essential Webinar",
-    "source": "Automator"
+    "date": "2024-07-16",
+    "contact": "Bob White",
+    "action": "Attended webinar",
+    "source": "Webinar"
   }
 ]

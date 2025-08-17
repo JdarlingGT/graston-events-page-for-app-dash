@@ -1,226 +1,30 @@
 [
   {
-    "id": "venue-eau-claire-wi",
-    "name": "Eau Claire Training Center",
-    "type": "Training Facility",
-    "city": "Eau Claire",
-    "state": "WI",
-    "capacity": 75
-  },
-  {
-    "id": "venue-portland-me",
-    "name": "Portland Convention Hall",
-    "type": "Convention Center",
-    "city": "Portland",
-    "state": "ME",
-    "capacity": 120
-  },
-  {
-    "id": "venue-west-boylston-ma",
-    "name": "West Boylston Clinic",
-    "type": "Clinic",
-    "city": "West Boylston",
-    "state": "MA",
-    "capacity": 60
-  },
-  {
-    "id": "venue-halifax-ns",
-    "name": "Halifax Event Space",
-    "type": "Event Space",
-    "city": "Halifax",
-    "state": "NS",
-    "capacity": 90
-  },
-  {
-    "id": "venue-cincinnati-oh",
-    "name": "Cincinnati Conference Center",
+    "id": "venue-1",
+    "name": "Grand Tech Hall",
     "type": "Conference Center",
-    "city": "Cincinnati",
-    "state": "OH",
+    "city": "San Francisco",
+    "capacity": 500
+  },
+  {
+    "id": "venue-2",
+    "name": "Innovation Hub",
+    "type": "Co-working Space",
+    "city": "Austin",
     "capacity": 150
   },
   {
-    "id": "venue-pittsburgh-pa",
-    "name": "Pittsburgh Training Institute",
-    "type": "Training Institute",
-    "city": "Pittsburgh",
-    "state": "PA",
-    "capacity": 80
+    "id": "venue-3",
+    "name": "City Auditorium",
+    "type": "Auditorium",
+    "city": "New York",
+    "capacity": 1000
   },
   {
-    "id": "venue-pasadena-ca",
-    "name": "Pasadena Learning Hub",
-    "type": "Learning Hub",
-    "city": "Pasadena",
-    "state": "CA",
-    "capacity": 100
-  },
-  {
-    "id": "venue-cleveland-oh",
-    "name": "Cleveland Workshop Space",
-    "type": "Workshop Space",
-    "city": "Cleveland",
-    "state": "OH",
-    "capacity": 70
-  },
-  {
-    "id": "venue-merritt-island-fl",
-    "name": "Merritt Island Venue",
-    "type": "Venue",
-    "city": "Merritt Island",
-    "state": "FL",
-    "capacity": 95
-  },
-  {
-    "id": "venue-phoenix-az",
-    "name": "Phoenix Education Center",
-    "type": "Education Center",
-    "city": "Phoenix",
-    "state": "AZ",
-    "capacity": 110
-  },
-  {
-    "id": "venue-las-vegas-nv",
-    "name": "Las Vegas Seminar Room",
-    "type": "Seminar Room",
-    "city": "Las Vegas",
-    "state": "NV",
-    "capacity": 85
-  },
-  {
-    "id": "venue-cape-coral-fl",
-    "name": "Cape Coral Training Room",
-    "type": "Training Room",
-    "city": "Cape Coral",
-    "state": "FL",
-    "capacity": 65
-  },
-  {
-    "id": "venue-indianapolis-in",
-    "name": "Indianapolis Convention Center",
-    "type": "Convention Center",
-    "city": "Indianapolis",
-    "state": "IN",
-    "capacity": 130
-  },
-  {
-    "id": "venue-atlanta-ga",
-    "name": "Atlanta Training Facility",
-    "type": "Training Facility",
-    "city": "Atlanta",
-    "state": "GA",
-    "capacity": 105
-  },
-  {
-    "id": "venue-west-melbourne-fl",
-    "name": "West Melbourne Event Hall",
-    "type": "Event Hall",
-    "city": "West Melbourne",
-    "state": "FL",
-    "capacity": 90
-  },
-  {
-    "id": "venue-port-moody-bc",
-    "name": "Port Moody Community Center",
-    "type": "Community Center",
-    "city": "Port Moody",
-    "state": "BC",
-    "capacity": 70
-  },
-  {
-    "id": "venue-denver-co",
-    "name": "Denver Workshop Center",
-    "type": "Workshop Center",
-    "city": "Denver",
-    "state": "CO",
-    "capacity": 115
-  },
-  {
-    "id": "venue-garden-city-ny",
-    "name": "Garden City Learning Space",
-    "type": "Learning Space",
-    "city": "Garden City",
-    "state": "NY",
-    "capacity": 80
-  },
-  {
-    "id": "venue-livermore-ca",
-    "name": "Livermore Education Hub",
-    "type": "Education Hub",
-    "city": "Livermore",
-    "state": "CA",
-    "capacity": 100
-  },
-  {
-    "id": "venue-new-york-city-ny",
-    "name": "NYC Training Center",
-    "type": "Training Center",
-    "city": "New York City",
-    "state": "NY",
-    "capacity": 180
-  },
-  {
-    "id": "venue-des-plaines-il",
-    "name": "Des Plaines Conference Room",
-    "type": "Conference Room",
-    "city": "Des Plaines",
-    "state": "IL",
-    "capacity": 75
-  },
-  {
-    "id": "venue-edmonton-ab",
-    "name": "Edmonton Training Hall",
-    "type": "Training Hall",
-    "city": "Edmonton",
-    "state": "AB",
-    "capacity": 90
-  },
-  {
-    "id": "venue-santa-monica-ca",
-    "name": "Santa Monica Workshop",
-    "type": "Workshop",
-    "city": "Santa Monica",
-    "state": "CA",
-    "capacity": 100
-  },
-  {
-    "id": "venue-somerset-nj",
-    "name": "Somerset Event Venue",
-    "type": "Event Venue",
-    "city": "Somerset",
-    "state": "NJ",
-    "capacity": 85
-  },
-  {
-    "id": "venue-bloomington-in",
-    "name": "Bloomington Training Center",
-    "type": "Training Center",
-    "city": "Bloomington",
-    "state": "IN",
-    "capacity": 70
-  },
-  {
-    "id": "venue-calgary-ab",
-    "name": "Calgary Learning Hub",
-    "type": "Learning Hub",
-    "city": "Calgary",
-    "state": "AB",
-    "capacity": 95
-  },
-  {
-    "id": "venue-duncan-sc",
-    "name": "Duncan Training Facility",
-    "type": "Training Facility",
-    "city": "Duncan",
-    "state": "SC",
-    "capacity": 60
-  },
-  {
-    "id": "venue-sabetha-ks",
-    "name": "Sabetha Community Hall",
-    "type": "Community Hall",
-    "city": "Sabetha",
-    "state": "KS",
-    "capacity": 50
+    "id": "venue-4",
+    "name": "Community Arts Center",
+    "type": "Arts Center",
+    "city": "Los Angeles",
+    "capacity": 200
   }
 ]
