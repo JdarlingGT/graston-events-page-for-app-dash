@@ -12,13 +12,14 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Calendar, ArrowRight, MapPin } from "lucide-react";
 import Link from "next/link";
-import { differenceInDays, parseISO } from "date-fns";
+import { parseISO } from "date-fns";
 
 interface UpcomingEvent {
   id: string;
   name: string;
   date: string;
   city: string;
+  status: "upcoming" | "ongoing" | "completed";
 }
 
 async function fetchUpcomingEvents(): Promise<UpcomingEvent[]> {
@@ -26,7 +27,7 @@ async function fetchUpcomingEvents(): Promise<UpcomingEvent[]> {
   if (!response.ok) throw new Error("Failed to fetch events");
   const events = await response.json();
   return events
-    .filter((event: UpcomingEvent) => differenceInDays(parseISO(event.date), new Date()) >= 0)
+    .filter((event: UpcomingEvent) => event.status !== "completed")
     .sort((a: UpcomingEvent, b: UpcomingEvent) => new Date(a.date).getTime() - new Date(b.date).getTime())
     .slice(0, 5);
 }
