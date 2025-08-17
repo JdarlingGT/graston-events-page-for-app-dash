@@ -8,7 +8,6 @@ import { PipelineFunnel } from "@/components/dashboard/crm/pipeline-funnel";
 import { UTMAnalysis } from "@/components/dashboard/crm/utm-analysis";
 import { AutomatorLogTable } from "@/components/dashboard/crm/automator-log-table";
 import { SalesRepLeaderboard } from "@/components/dashboard/crm/sales-rep-leaderboard";
-import { AttributionDashboard } from "@/components/dashboard/marketing/attribution-dashboard";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -84,7 +83,6 @@ export default function ReportsPage() {
         <TabsList>
           <TabsTrigger value="key-metrics">Key Metrics</TabsTrigger>
           <TabsTrigger value="crm-insights">CRM Insights</TabsTrigger>
-          <TabsTrigger value="marketing-attribution">Marketing Attribution</TabsTrigger>
         </TabsList>
         <TabsContent value="key-metrics" className="mt-4">
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
@@ -97,9 +95,6 @@ export default function ReportsPage() {
         </TabsContent>
         <TabsContent value="crm-insights" className="mt-4">
           <CrmInsightsContent />
-        </TabsContent>
-        <TabsContent value="marketing-attribution" className="mt-4">
-          <AttributionDashboard />
         </TabsContent>
       </Tabs>
     </div>
