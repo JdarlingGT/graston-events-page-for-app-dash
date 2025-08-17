@@ -28,7 +28,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 
 // POST to update a student's check-in status
 export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
-  const { studentId, period, timestamp } = await request.json();
+  const { studentId, period, timestamp } = await request.json() as { studentId: string, period: string, timestamp: string };
   if (!studentId || !period || !timestamp) {
     return new NextResponse('Missing required fields', { status: 400 });
   }

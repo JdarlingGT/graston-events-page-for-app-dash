@@ -1,12 +1,21 @@
 import { NextResponse } from 'next/server';
 import { jsPDF } from "jspdf";
 
+interface RosterEntry {
+  studentId: string;
+  studentName: string;
+  studentEmail: string;
+  licenseType: string;
+  attendance: boolean;
+  skillsCheck: 'Passed' | 'Needs Review' | 'Not Started';
+}
+
 export async function POST(
   request: Request,
   { params }: { params: { id: string } }
 ) {
   try {
-    const rosterData = await request.json();
+    const rosterData = await request.json() as RosterEntry[];
     const eventId = params.id;
 
     console.log(`--- Final Roster Submitted for Event: ${eventId} ---`);
