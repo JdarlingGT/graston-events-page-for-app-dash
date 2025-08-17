@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, LayoutDashboard, Calendar, BarChart3, CheckSquare } from 'lucide-react';
+import { Home, LayoutDashboard, Calendar, BarChart3, CheckSquare, Settings } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
 const navItems = [
@@ -10,6 +10,7 @@ const navItems = [
   { href: '/dashboard/events', label: 'Events', icon: Calendar },
   { href: '/dashboard/tasks', label: 'Tasks', icon: CheckSquare },
   { href: '/dashboard/reports', label: 'Reports', icon: BarChart3 },
+  { href: '/dashboard/settings', label: 'Settings', icon: Settings },
 ];
 
 export function MobileSidebar() {

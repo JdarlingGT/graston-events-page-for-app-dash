@@ -28,7 +28,7 @@ export async function PATCH(
         };
         const email = assigneeEmails[updatedTask.assignee.name];
         if (email) {
-            await sendGmailNotification({ ...updatedTask, assignee: { ...updatedTask, assignee, email } });
+            await sendGmailNotification({ ...updatedTask, assignee: { ...updatedTask.assignee, email } });
         }
     }
 
