@@ -74,7 +74,7 @@ export default function ReportsPage() {
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Reports & Insights</h1>
+        <h1>Reports & Insights</h1>
         <p className="text-muted-foreground">
           Analytical overview of events, sales, and CRM performance.
         </p>

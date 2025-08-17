@@ -16,7 +16,7 @@ export default function SettingsPage() {
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Settings</h1>
+        <h1>Settings</h1>
         <p className="text-muted-foreground">
           Manage your account settings and integrations.
         </p>

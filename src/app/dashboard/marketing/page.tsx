@@ -122,7 +122,7 @@ export default function MarketingPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Marketing Command Center</h1>
+        <h1>Marketing Command Center</h1>
         <p className="text-muted-foreground">
           Your central hub for AI-powered marketing intelligence and campaign execution.
         </p>

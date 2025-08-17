@@ -6,7 +6,7 @@ export default function TasksPage() {
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Task Management</h1>
+        <h1>Task Management</h1>
         <p className="text-muted-foreground">
           Organize, assign, and track all your event-related tasks.
         </p>

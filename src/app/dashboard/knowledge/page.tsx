@@ -10,7 +10,7 @@ export default function KnowledgeBasePage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">System Knowledge Base</h1>
+        <h1>System Knowledge Base</h1>
         <p className="text-muted-foreground">
           An internal reference for our backend systems and automations.
         </p>

@@ -11,7 +11,7 @@ export default function SalesDashboardPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Sales Command Center</h1>
+        <h1>Sales Command Center</h1>
         <p className="text-muted-foreground">
           Monitor team performance and launch targeted outreach campaigns.
         </p>
