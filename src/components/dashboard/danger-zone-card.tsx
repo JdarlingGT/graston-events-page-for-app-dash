@@ -1,6 +1,6 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import {
   Card,
   CardContent,
@@ -10,10 +10,11 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { AlertTriangle, ArrowRight } from "lucide-react";
+import { AlertTriangle, ArrowRight, RefreshCw } from "lucide-react";
 import Link from "next/link";
 import { differenceInDays, parseISO } from "date-fns";
 import { Progress } from "../ui/progress";
+import { toast } from "sonner";
 
 interface AtRiskEvent {
   id: string;
@@ -38,17 +39,40 @@ async function fetchAtRiskEvents(): Promise<AtRiskEvent[]> {
 }
 
 export function DangerZoneCard() {
-  const { data: atRiskEvents, isLoading } = useQuery<AtRiskEvent[]>({
+  const { data: atRiskEvents, isLoading, refetch } = useQuery<AtRiskEvent[]>({
     queryKey: ["at-risk-events"],
     queryFn: fetchAtRiskEvents,
+  });
+
+  const checkDangerZoneMutation = useMutation({
+    mutationFn: () => fetch('/api/events/check-danger-zone', { method: 'POST' }),
+    onSuccess: async (res) => {
+      const data = await res.json();
+      toast.success(`Scan complete. Found ${data.atRiskCount} at-risk event(s).`);
+      refetch(); // Refetch the at-risk events to update the card
+    },
+    onError: () => {
+      toast.error("Failed to run Danger Zone check.");
+    },
   });
 
   return (
     <Card>
       <CardHeader>
-        <div className="flex items-center gap-2">
-          <AlertTriangle className="h-5 w-5 text-destructive" />
-          <CardTitle>Danger Zone Events</CardTitle>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <AlertTriangle className="h-5 w-5 text-destructive" />
+            <CardTitle>Danger Zone Events</CardTitle>
+          </div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => checkDangerZoneMutation.mutate()}
+            disabled={checkDangerZoneMutation.isPending}
+          >
+            <RefreshCw className={`mr-2 h-4 w-4 ${checkDangerZoneMutation.isPending ? 'animate-spin' : ''}`} />
+            Run Proactive Check
+          </Button>
         </div>
         <CardDescription>
           Events below minimum viable enrollment that require attention.
