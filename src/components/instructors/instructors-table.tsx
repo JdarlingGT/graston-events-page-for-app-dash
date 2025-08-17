@@ -74,7 +74,7 @@ export function InstructorsTable() {
       accessorKey: "name",
       header: "Name",
       cell: ({ row }) => (
-        <Link href={`/dashboard/directory/instructors/${row.original.id}`} className="font-medium text-primary hover:underline">
+        <Link href={`/dashboard/instructors/${row.original.id}`} className="font-medium text-primary hover:underline">
           {row.original.name}
         </Link>
       ),
@@ -97,13 +97,13 @@ export function InstructorsTable() {
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuItem
-                  onClick={() => router.push(`/dashboard/directory/instructors/${instructor.id}`)}
+                  onClick={() => router.push(`/dashboard/instructors/${instructor.id}`)}
                 >
                   <Eye className="mr-2 h-4 w-4" />
                   View Details
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                  onClick={() => router.push(`/dashboard/directory/instructors/${instructor.id}/edit`)}
+                  onClick={() => router.push(`/dashboard/instructors/${instructor.id}/edit`)}
                 >
                   <Edit className="mr-2 h-4 w-4" />
                   Edit

@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, LayoutDashboard, Calendar, BarChart3, CheckSquare, Settings, BookOpen, Target, Megaphone, Building, Users, Archive } from 'lucide-react';
+import { Home, LayoutDashboard, Calendar, BarChart3, CheckSquare, Settings, BookOpen, Target, Megaphone, Building, Users, Archive, UserCheck } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import {
   Accordion,
@@ -13,6 +13,7 @@ import {
 
 const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/dashboard/instructor', label: 'Instructor Workspace', icon: UserCheck },
   { href: '/dashboard/events', label: 'Events', icon: Calendar },
   { href: '/dashboard/tasks', label: 'Tasks', icon: CheckSquare },
   { href: '/dashboard/marketing', label: 'Marketing', icon: Megaphone },
@@ -22,9 +23,9 @@ const navItems = [
     label: 'Directory', 
     icon: BookOpen,
     children: [
-      { href: '/dashboard/directory/venues', label: 'Venues', icon: Building },
-      { href: '/dashboard/directory/instructors', label: 'Instructors', icon: Users },
-      { href: '/dashboard/directory/clinicians', label: 'Clinicians', icon: Users },
+      { href: '/dashboard/venues', label: 'Venues', icon: Building },
+      { href: '/dashboard/instructors', label: 'Instructors', icon: Users },
+      { href: '/dashboard/clinicians', label: 'Clinicians', icon: Users },
       { href: '/dashboard/archival-search', label: 'Archival Search', icon: Archive },
     ]
   },
@@ -34,7 +35,7 @@ const navItems = [
 export default function Sidebar() {
   const pathname = usePathname();
 
-  const isDirectoryActive = pathname.startsWith('/dashboard/directory') || pathname.startsWith('/dashboard/archival-search');
+  const isDirectoryActive = ['/dashboard/venues', '/dashboard/instructors', '/dashboard/clinicians', '/dashboard/archival-search'].some(path => pathname.startsWith(path));
 
   return (
     <aside className="fixed inset-y-0 left-0 z-10 hidden w-64 flex-col border-r bg-background/80 backdrop-blur-xl sm:flex">
@@ -66,7 +67,7 @@ export default function Sidebar() {
                               href={child.href}
                               className={cn(
                                 'flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary',
-                                pathname === child.href && 'bg-muted text-primary'
+                                pathname.startsWith(child.href) && 'bg-muted text-primary'
                               )}
                             >
                               <child.icon className="h-4 w-4" />
