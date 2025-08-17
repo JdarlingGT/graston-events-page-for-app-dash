@@ -24,7 +24,8 @@ async function fetchInstructorTrainings(): Promise<Training[]> {
   const res = await fetch('/api/events');
   if (!res.ok) throw new Error('Failed to fetch trainings');
   const allEvents = await res.json();
-  return allEvents.filter((event: any) => event.instructor.name === CURRENT_INSTRUCTOR_NAME);
+  // The mock data has instructor as a string, not an object. Adjusting filter.
+  return allEvents.filter((event: any) => event.instructor === CURRENT_INSTRUCTOR_NAME);
 }
 
 const columns: ColumnDef<Training>[] = [

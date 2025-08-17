@@ -1,23 +1,30 @@
 [
   {
-    "id": "clin_001",
-    "name": "Dr. Evelyn Reed",
-    "email": "evelyn.reed@health.com",
+    "id": "clin-1",
+    "name": "Dr. Sarah Connor",
+    "email": "sarah.connor@skynet.com",
     "specialty": "Physical Therapist",
+    "location": "Los Angeles, CA"
+  },
+  {
+    "id": "clin-2",
+    "name": "John Reese, DC",
+    "email": "john.reese@themachine.com",
+    "specialty": "Chiropractor",
     "location": "New York, NY"
   },
   {
-    "id": "clin_002",
-    "name": "Dr. Marcus Thorne",
-    "email": "marcus.thorne@clinic.net",
-    "specialty": "Chiropractor",
-    "location": "Chicago, IL"
+    "id": "clin-3",
+    "name": "Dr. Harold Finch",
+    "email": "harold.finch@themachine.com",
+    "specialty": "Athletic Trainer",
+    "location": "New York, NY"
   },
   {
-    "id": "clin_003",
-    "name": "Dr. Lena Petrova",
-    "email": "lena.petrova@sportsmed.org",
-    "specialty": "Athletic Trainer",
-    "location": "Los Angeles, CA"
+    "id": "clin-4",
+    "name": "Root Shaw, MD",
+    "email": "root.shaw@northernlights.com",
+    "specialty": "Medical Doctor",
+    "location": "Washington, D.C."
   }
 ]

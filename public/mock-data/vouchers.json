@@ -1,29 +1,29 @@
 [
   {
-    "voucherId": "vch_001",
-    "clinicianId": "clin_001",
-    "code": "WELCOME100",
-    "value": 100,
+    "voucherId": "vch_1672531200000",
+    "clinicianId": "clin-1",
+    "code": "SAVE50-ABC123",
+    "value": 50,
     "type": "fixed",
-    "expirationDate": "2025-12-31T23:59:59Z",
+    "expirationDate": "2025-12-31T23:59:59.000Z",
     "status": "Active"
   },
   {
-    "voucherId": "vch_002",
-    "clinicianId": "clin_001",
-    "code": "USED-VOUCHER",
-    "value": 50,
-    "type": "fixed",
-    "expirationDate": "2024-06-30T23:59:59Z",
+    "voucherId": "vch_1675209600000",
+    "clinicianId": "clin-1",
+    "code": "SAVE10-DEF456",
+    "value": 10,
+    "type": "percentage",
+    "expirationDate": "2024-06-30T23:59:59.000Z",
     "status": "Used"
   },
   {
-    "voucherId": "vch_003",
-    "clinicianId": "clin_002",
-    "code": "SAVE15-FALL",
-    "value": 15,
-    "type": "percentage",
-    "expirationDate": "2025-10-31T23:59:59Z",
+    "voucherId": "vch_1677628800000",
+    "clinicianId": "clin-2",
+    "code": "SAVE100-GHI789",
+    "value": 100,
+    "type": "fixed",
+    "expirationDate": "2025-12-31T23:59:59.000Z",
     "status": "Active"
   }
 ]
