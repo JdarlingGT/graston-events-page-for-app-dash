@@ -3,36 +3,45 @@
 import { useState, useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
-import { FunnelHealth } from "../../../components/dashboard/crm/funnel-health";
-import { LeadAnalysis } from "../../../components/dashboard/crm/lead-analysis";
-import { ActivityLog } from "../../../components/dashboard/crm/activity-log";
+import { PipelineFunnel } from "../../../components/dashboard/crm/pipeline-funnel";
+import { UTMAnalysis } from "../../../components/dashboard/crm/utm-analysis";
+import { AutomatorLogTable } from "../../../components/dashboard/crm/automator-log-table";
+import { SalesRepLeaderboard } from "../../../components/dashboard/crm/sales-rep-leaderboard";
+
+interface FunnelData {
+  stages: Array<{ stage: string; count: number }>;
+  conversion_rates: Record<string, number>;
+}
+
+interface UtmSource {
+  source: string;
+  leads: number;
+  converted: number;
+  revenue: number;
+}
 
 export default function CrmInsightsPage() {
-  const [funnelData, setFunnelData] = useState<any>(null);
-  const [utmData, setUtmData] = useState<any>(null);
-  const [activityData, setActivityData] = useState<any[]>([]);
+  const [funnelData, setFunnelData] = useState<FunnelData | null>(null);
+  const [utmData, setUtmData] = useState<UtmSource[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const [funnelRes, utmRes, activityRes] = await Promise.all([
+        const [funnelRes, utmRes] = await Promise.all([
           fetch("/api/crm/funnel"),
           fetch("/api/crm/utm"),
-          fetch("/api/crm/activity"),
         ]);
 
-        if (!funnelRes.ok || !utmRes.ok || !activityRes.ok) {
+        if (!funnelRes.ok || !utmRes.ok) {
           throw new Error("Failed to fetch CRM data");
         }
 
         const funnelJson = await funnelRes.json();
         const utmJson = await utmRes.json();
-        const activityJson = await activityRes.json();
 
         setFunnelData(funnelJson);
-        setUtmData(utmJson);
-        setActivityData(activityJson);
+        setUtmData(utmJson.utm_sources); // Assuming utm_sources is an array
       } catch (error) {
         console.error(error);
         toast.error("Failed to load CRM Insights data.");
@@ -54,23 +63,25 @@ export default function CrmInsightsPage() {
 
       {loading ? (
         <div className="space-y-4">
-          <Skeleton className="h-48 w-full" />
+          <Skeleton className="h-64 w-full" /> {/* Placeholder for PipelineFunnel */}
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-5">
-            <Skeleton className="h-96 lg:col-span-2" />
-            <Skeleton className="h-96 lg:col-span-3" />
+            <Skeleton className="h-96 lg:col-span-2" /> {/* Placeholder for UTMAnalysis */}
+            <Skeleton className="h-96 lg:col-span-3" /> {/* Placeholder for UTMAnalysis */}
           </div>
-          <Skeleton className="h-96 w-full" />
+          <Skeleton className="h-96 w-full" /> {/* Placeholder for AutomatorLogTable */}
+          <Skeleton className="h-64 w-full" /> {/* Placeholder for SalesRepLeaderboard */}
         </div>
       ) : (
         <div className="space-y-4">
           {funnelData && (
-            <FunnelHealth
+            <PipelineFunnel
               stages={funnelData.stages}
               conversionRates={funnelData.conversion_rates}
             />
           )}
-          {utmData && <LeadAnalysis data={utmData.utm_sources} />}
-          {activityData && <ActivityLog data={activityData} />}
+          {utmData && <UTMAnalysis data={utmData} />}
+          <AutomatorLogTable />
+          <SalesRepLeaderboard />
         </div>
       )}
     </div>

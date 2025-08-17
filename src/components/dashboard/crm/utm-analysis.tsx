@@ -14,9 +14,10 @@ interface UtmSource {
   source: string;
   leads: number;
   converted: number;
+  revenue: number; // Added revenue
 }
 
-interface LeadAnalysisProps {
+interface UTMAnalysisProps {
   data: UtmSource[];
 }
 
@@ -37,9 +38,13 @@ const barChartConfig = {
     label: "Converted",
     color: "hsl(var(--chart-2))",
   },
+  revenue: { // Added revenue to chart config
+    label: "Revenue",
+    color: "hsl(var(--chart-3))",
+  },
 } satisfies ChartConfig;
 
-export function LeadAnalysis({ data }: LeadAnalysisProps) {
+export function UTMAnalysis({ data }: UTMAnalysisProps) {
   const chartData = data.map(item => ({
     ...item,
     conversionRate: ((item.converted / item.leads) * 100).toFixed(2) + '%',
@@ -65,13 +70,12 @@ export function LeadAnalysis({ data }: LeadAnalysisProps) {
                 <ChartTooltip content={<ChartTooltipContent />} />
               </PieChart>
             </ResponsiveContainer>
-          </ChartContainer>
-        </CardContent>
+          </ChartContent>
       </Card>
       <Card className="lg:col-span-3">
         <CardHeader>
-          <CardTitle>Lead Conversion Analysis</CardTitle>
-          <CardDescription>Comparison of leads to converted customers by source.</CardDescription>
+          <CardTitle>Lead Conversion & Revenue Analysis</CardTitle>
+          <CardDescription>Comparison of leads, converted customers, and revenue by source.</CardDescription>
         </CardHeader>
         <CardContent>
           <ChartContainer config={barChartConfig} className="min-h-[300px] w-full">
@@ -84,10 +88,10 @@ export function LeadAnalysis({ data }: LeadAnalysisProps) {
                 <Legend />
                 <Bar dataKey="leads" fill="var(--color-leads)" radius={4} />
                 <Bar dataKey="converted" fill="var(--color-converted)" radius={4} />
+                <Bar dataKey="revenue" fill="var(--color-revenue)" radius={4} /> {/* Added revenue bar */}
               </BarChart>
             </ResponsiveContainer>
-          </ChartContainer>
-        </CardContent>
+          </ChartContent>
       </Card>
     </div>
   );
