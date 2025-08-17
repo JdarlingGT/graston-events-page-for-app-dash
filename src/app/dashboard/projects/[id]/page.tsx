@@ -6,11 +6,15 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ProjectOverview } from "@/components/projects/project-overview";
 
 interface Project {
   id: string;
   name: string;
   description: string;
+  memberAvatars: string[];
+  progress: number;
 }
 
 export default function ProjectDetailPage({ params }: { params: { id: string } }) {
@@ -28,9 +32,14 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
       <div className="space-y-4">
         <Skeleton className="h-10 w-1/4" />
         <Skeleton className="h-8 w-1/2" />
+        <Skeleton className="h-10 w-full" />
         <Skeleton className="h-[60vh] w-full" />
       </div>
     );
+  }
+
+  if (!project) {
+    return <p>Project not found.</p>;
   }
 
   return (
@@ -42,10 +51,21 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
         </Link>
       </Button>
       <div>
-        <h1 className="text-2xl font-bold">{project?.name}</h1>
-        <p className="text-muted-foreground">{project?.description}</p>
+        <h1 className="text-2xl font-bold">{project.name}</h1>
+        <p className="text-muted-foreground">{project.description}</p>
       </div>
-      <TaskBoard projectId={params.id} />
+      <Tabs defaultValue="overview" className="w-full">
+        <TabsList>
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="tasks">Tasks</TabsTrigger>
+        </TabsList>
+        <TabsContent value="overview" className="mt-4">
+          <ProjectOverview project={project} />
+        </TabsContent>
+        <TabsContent value="tasks" className="mt-4">
+          <TaskBoard projectId={params.id} />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

@@ -3,9 +3,9 @@
 import { StatCard } from "@/components/dashboard/stat-card";
 import { DangerZoneCard } from "@/components/dashboard/danger-zone-card";
 import { MyTasksCard } from "@/components/dashboard/my-tasks-card";
-import { UpcomingEventsCard } from "@/components/dashboard/upcoming-events-card";
 import { UpcomingEventsMapCard } from "@/components/dashboard/upcoming-events-map-card";
 import { TopSourcesCard } from "@/components/dashboard/top-sources-card";
+import { RecentProjectsCard } from "@/components/dashboard/recent-projects-card";
 import { DollarSign, Calendar, AlertTriangle, CheckSquare } from "lucide-react";
 
 export default function DashboardPage() {
@@ -41,7 +41,7 @@ export default function DashboardPage() {
           <TopSourcesCard />
         </div>
         <div className="lg:col-span-1">
-          <UpcomingEventsCard />
+          <RecentProjectsCard />
         </div>
       </div>
     </div>

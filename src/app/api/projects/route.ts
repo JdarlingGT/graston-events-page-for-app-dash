@@ -37,9 +37,18 @@ let mockProjects = [
   }
 ];
 
-export async function GET() {
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const limit = searchParams.get('limit');
+
   await new Promise(resolve => setTimeout(resolve, 500));
-  return NextResponse.json(mockProjects);
+  
+  let projects = mockProjects;
+  if (limit) {
+    projects = projects.slice(0, parseInt(limit, 10));
+  }
+
+  return NextResponse.json(projects);
 }
 
 export async function POST(request: Request) {
@@ -58,7 +67,7 @@ export async function POST(request: Request) {
       progress: 0,
     };
 
-    mockProjects.push(newProject);
+    mockProjects.unshift(newProject); // Add to the beginning to appear as "recent"
 
     return NextResponse.json(newProject, { status: 201 });
   } catch (error) {
