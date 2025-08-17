@@ -20,6 +20,13 @@ export const eventSchema = z.object({
 
 export type EventFormValues = z.infer<typeof eventSchema>;
 
+export const attachmentSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  url: z.string().url(),
+  iconUrl: z.string().url(),
+});
+
 export const taskSchema = z.object({
   title: z.string().min(3, { message: "Title must be at least 3 characters." }),
   description: z.string().optional(),
@@ -27,6 +34,7 @@ export const taskSchema = z.object({
   priority: z.enum(["low", "medium", "high"]),
   dueDate: z.date().optional(),
   assigneeName: z.string().optional(),
+  attachments: z.array(attachmentSchema).optional(),
 });
 
 export type TaskFormValues = z.infer<typeof taskSchema>;

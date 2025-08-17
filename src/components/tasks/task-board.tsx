@@ -20,6 +20,13 @@ import { Button } from "../ui/button";
 import { PlusCircle } from "lucide-react";
 import { TaskFormValues } from "@/lib/schemas";
 
+export interface Attachment {
+  id: string;
+  name: string;
+  url: string;
+  iconUrl: string;
+}
+
 export interface Task {
   id: string;
   title: string;
@@ -32,6 +39,7 @@ export interface Task {
   };
   dueDate?: string;
   tags?: string[];
+  attachments?: Attachment[];
 }
 
 const columns = [

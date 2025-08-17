@@ -14,8 +14,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Task } from "./task-board";
 import { cn } from "@/lib/utils";
-import { Clock, Flag, MoreHorizontal, Edit } from "lucide-react";
+import { Clock, Flag, MoreHorizontal, Edit, Paperclip } from "lucide-react";
 import { differenceInDays, parseISO } from "date-fns";
+import Link from "next/link";
 
 interface TaskCardProps {
   task: Task;
@@ -84,6 +85,21 @@ export function TaskCard({ task, isOverlay, onEdit }: TaskCardProps) {
           <p className="text-sm text-muted-foreground line-clamp-2">
             {task.description}
           </p>
+        )}
+        {task.attachments && task.attachments.length > 0 && (
+          <div className="space-y-2">
+            <h4 className="text-xs font-semibold flex items-center gap-1"><Paperclip className="h-3 w-3" /> Attachments</h4>
+            <div className="flex flex-wrap gap-2">
+              {task.attachments.map(file => (
+                <Button key={file.id} variant="outline" size="sm" asChild className="h-auto py-1 px-2">
+                  <Link href={file.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                    <img src={file.iconUrl} alt="file icon" className="h-4 w-4" />
+                    <span className="text-xs">{file.name}</span>
+                  </Link>
+                </Button>
+              ))}
+            </div>
+          </div>
         )}
         <div className="flex items-center gap-2 flex-wrap">
             <Badge variant={getPriorityColor(task.priority) as any} className="text-xs">

@@ -10,6 +10,7 @@ export let mockTasks: Task[] = [
     assignee: { name: "Sarah Johnson", avatar: "https://i.pravatar.cc/150?img=1" },
     dueDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString(), // 2 days from now
     tags: ["Venue", "Logistics"],
+    attachments: [],
   },
   {
     id: "task-2",
@@ -20,6 +21,7 @@ export let mockTasks: Task[] = [
     assignee: { name: "Mike Chen", avatar: "https://i.pravatar.cc/150?img=2" },
     dueDate: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString(),
     tags: ["Virtual", "Tech Check"],
+    attachments: [],
   },
   {
     id: "task-3",
@@ -30,6 +32,7 @@ export let mockTasks: Task[] = [
     assignee: { name: "Lisa Park", avatar: "https://i.pravatar.cc/150?img=3" },
     dueDate: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), // Yesterday
     tags: ["Materials", "Printing"],
+    attachments: [],
   },
   {
     id: "task-4",
@@ -40,6 +43,7 @@ export let mockTasks: Task[] = [
     assignee: { name: "Mike Chen", avatar: "https://i.pravatar.cc/150?img=2" },
     dueDate: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000).toISOString(),
     tags: ["Communication", "Virtual"],
+    attachments: [],
   },
   {
     id: "task-5",
@@ -49,5 +53,6 @@ export let mockTasks: Task[] = [
     priority: "low" as const,
     dueDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(),
     tags: ["Instructor", "Travel"],
+    attachments: [],
   },
 ];

@@ -15,6 +15,7 @@ export async function POST(request: Request) {
       id: `task-${Date.now()}`,
       ...body,
       status: 'todo', // New tasks always start in 'To Do'
+      attachments: [], // Initialize with empty attachments
     };
     mockTasks.push(newTask);
 
