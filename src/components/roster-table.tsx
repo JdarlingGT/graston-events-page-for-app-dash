@@ -13,7 +13,7 @@ interface Attendee {
   name: string;
   email: string;
   registrationDate: string;
-  kitPurchased: boolean;
+  instrumentSetPurchased: boolean;
 }
 
 const columns: ColumnDef<Attendee>[] = [
@@ -31,10 +31,10 @@ const columns: ColumnDef<Attendee>[] = [
     cell: ({ row }) => new Date(row.original.registrationDate).toLocaleDateString(),
   },
   {
-    accessorKey: "kitPurchased",
-    header: "Kit Purchased",
+    accessorKey: "instrumentSetPurchased",
+    header: "Instrument Set Purchased",
     cell: ({ row }) => {
-      const purchased = row.original.kitPurchased;
+      const purchased = row.original.instrumentSetPurchased;
       return <Badge variant={purchased ? "default" : "secondary"}>{purchased ? "Yes" : "No"}</Badge>;
     },
   },

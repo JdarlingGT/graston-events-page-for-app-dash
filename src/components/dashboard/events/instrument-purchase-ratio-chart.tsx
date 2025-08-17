@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card"
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
 
-interface KitPurchaseRatioChartProps {
+interface InstrumentPurchaseRatioChartProps {
   enrolledStudents: number;
   instrumentsPurchased: number;
 }
@@ -18,32 +18,32 @@ interface KitPurchaseRatioChartProps {
 const chartConfig = {
   value: {
     label: "Count",
-    color: "hsl(var(--chart-1))", // Added a default color for 'value'
+    color: "hsl(var(--chart-1))",
   },
-  "Kits Purchased": {
-    label: "Kits Purchased", // Added missing label
+  "Instrument Set Purchased": {
+    label: "Instrument Set Purchased",
     color: "hsl(var(--chart-2))",
   },
-  "No Kit": {
-    label: "No Kit", // Added missing label
+  "No Instrument Set": {
+    label: "No Instrument Set",
     color: "hsl(var(--chart-4))",
   },
 } satisfies ChartConfig
 
-export function KitPurchaseRatioChart({ enrolledStudents, instrumentsPurchased }: KitPurchaseRatioChartProps) {
+export function InstrumentPurchaseRatioChart({ enrolledStudents, instrumentsPurchased }: InstrumentPurchaseRatioChartProps) {
   const data = [
-    { name: "Kits Purchased", value: instrumentsPurchased },
-    { name: "No Kit", value: enrolledStudents - instrumentsPurchased },
-  ].filter(item => item.value > 0); // Filter out categories with 0 value
+    { name: "Instrument Set Purchased", value: instrumentsPurchased },
+    { name: "No Instrument Set", value: enrolledStudents - instrumentsPurchased },
+  ].filter(item => item.value > 0);
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Kit Purchase Ratio</CardTitle>
-        <CardDescription>Breakdown of students who purchased kits vs. those who did not.</CardDescription>
+        <CardTitle>Instrument Set Purchase Ratio</CardTitle>
+        <CardDescription>Breakdown of students who purchased instrument sets vs. those who did not.</CardDescription>
       </CardHeader>
       <CardContent className="flex justify-center pb-0">
-        <ChartContainer config={chartConfig} className="min-h-[200px] w-full" role="img" aria-label="Pie chart showing the ratio of students who purchased kits versus those who did not.">
+        <ChartContainer config={chartConfig} className="min-h-[200px] w-full" role="img" aria-label="Pie chart showing the ratio of students who purchased instrument sets versus those who did not.">
           <ResponsiveContainer width="100%" height={200}>
             <PieChart>
               <ChartTooltip

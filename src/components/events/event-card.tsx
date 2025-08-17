@@ -142,13 +142,13 @@ export function EventCard({ event, isHovered, onHover, className }: EventCardPro
             </h3>
             <div className="flex items-center gap-2 mt-2">
               <Avatar className="h-6 w-6">
-                <AvatarImage src={event.instructor.avatar} />
+                <AvatarImage src={event.instructor?.avatar} />
                 <AvatarFallback className="text-xs">
-                  {event.instructor.name.split(' ').map((n: string) => n[0]).join('')}
+                  {event.instructor?.name?.split(' ').map((n: string) => n[0]).join('') || 'N/A'}
                 </AvatarFallback>
               </Avatar>
               <span className="text-sm text-muted-foreground">
-                {event.instructor.name}
+                {event.instructor?.name || 'Unassigned'}
               </span>
             </div>
           </div>

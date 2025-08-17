@@ -12,7 +12,7 @@ interface LogisticsTabProps {
 
 const shippingItems = [
   "Training Manuals (50x)",
-  "Instrument Kits (25x)",
+  "Instrument Sets (25x)",
   "Welcome Packets & Swag",
   "AV Kit (Projector, Cables)",
   "Sign-in Sheets & Pens",

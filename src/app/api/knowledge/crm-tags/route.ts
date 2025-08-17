@@ -5,7 +5,7 @@ const mockTags = [
   { id: 2, name: 'Essential Course', description: 'Tag for students enrolled in any Essential course.' },
   { id: 3, name: 'Advanced Course', description: 'Tag for students enrolled in any Advanced course.' },
   { id: 4, name: 'GTU Lead', description: 'Lead from the "Graston Technique University" funnel.' },
-  { id: 5, name: 'Instrument Purchase', description: 'Student purchased an instrument kit.' },
+  { id: 5, name: 'Instrument Set Purchase', description: 'Student purchased an instrument set.' },
   { id: 6, name: 'Waitlist', description: 'Contact is on a waitlist for a full event.' },
 ];
 
