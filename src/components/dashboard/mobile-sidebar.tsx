@@ -2,16 +2,13 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Building, LayoutDashboard, Calendar, BarChart3, LineChart, Map } from 'lucide-react';
+import { Home, LayoutDashboard, Calendar, BarChart3 } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
 const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/dashboard/events', label: 'Events', icon: Calendar },
-  { href: '/dashboard/events/directory', label: 'Event Directory', icon: Map },
-  { href: '/dashboard/venues', label: 'Venues', icon: Building },
   { href: '/dashboard/reports', label: 'Reports', icon: BarChart3 },
-  { href: '/dashboard/crm-insights', label: 'CRM Insights', icon: LineChart },
 ];
 
 export function MobileSidebar() {
