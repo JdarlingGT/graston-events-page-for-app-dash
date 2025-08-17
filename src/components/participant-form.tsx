@@ -95,8 +95,8 @@ export function ParticipantForm({ token }: { token: string }) {
               )}
             />
             <div className="space-y-2">
-              <FormLabel>Digital Signature</FormLabel>
-              <div className="rounded-lg border bg-background">
+              <FormLabel id="signature-label">Digital Signature</FormLabel>
+              <div className="rounded-lg border bg-background" role="application" aria-labelledby="signature-label">
                 <SignatureCanvas
                   ref={sigCanvas}
                   penColor="black"

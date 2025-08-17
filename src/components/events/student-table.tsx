@@ -221,6 +221,7 @@ export function StudentTable({ eventId, eventDate }: StudentTableProps) {
               value={(columnFilters.find(f => f.id === 'name')?.value as string) ?? ''}
               onChange={(event) => setColumnFilters([{ id: 'name', value: event.target.value }])}
               className="max-w-sm"
+              aria-label="Search students by name"
             />
           </div>
           <DataTable columns={columns} data={students} getRowClassName={getRowClassName} columnFilters={columnFilters} setColumnFilters={setColumnFilters} />
