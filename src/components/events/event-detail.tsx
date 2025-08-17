@@ -15,6 +15,8 @@ import { LogisticsTab } from "./logistics-tab";
 import { PostMortemTab } from "./post-mortem-tab";
 import { InternalNotesPanel } from "./internal-notes-panel";
 import { BulkEmailPanel } from "./bulk-email-panel";
+import { EventScheduleTimeline } from "./event-schedule-timeline";
+import { ActivityLogTab } from "./activity-log-tab";
 import { 
   Calendar, 
   MapPin, 
@@ -27,7 +29,8 @@ import {
   Clock,
   Tag,
   Briefcase,
-  CheckCircle
+  CheckCircle,
+  Activity
 } from "lucide-react";
 import { toast } from "sonner";
 import Link from "next/link";
@@ -165,16 +168,18 @@ export function EventDetail({ eventId }: EventDetailProps) {
         </Card>
 
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-6">
+          <TabsList className="grid w-full grid-cols-7">
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="attendees">Attendees</TabsTrigger>
             <TabsTrigger value="logistics">Logistics</TabsTrigger>
             <TabsTrigger value="tasks">Tasks</TabsTrigger>
             <TabsTrigger value="communications">Communications</TabsTrigger>
+            <TabsTrigger value="activity">Activity Log</TabsTrigger>
             <TabsTrigger value="post-mortem">Post-Mortem</TabsTrigger>
           </TabsList>
           
-          <TabsContent value="overview" className="mt-6">
+          <TabsContent value="overview" className="mt-6 space-y-6">
+            <EventScheduleTimeline schedule={event.schedule} />
             <InternalNotesPanel />
           </TabsContent>
           
@@ -192,6 +197,10 @@ export function EventDetail({ eventId }: EventDetailProps) {
           
           <TabsContent value="communications" className="mt-6">
             <BulkEmailPanel attendeeCount={event.enrollment.current} />
+          </TabsContent>
+
+          <TabsContent value="activity" className="mt-6">
+            <ActivityLogTab eventId={eventId} />
           </TabsContent>
 
           <TabsContent value="post-mortem" className="mt-6">

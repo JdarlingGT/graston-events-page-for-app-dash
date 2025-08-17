@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
+import { Switch } from "@/components/ui/switch";
 import { 
   ExternalLink, 
   Mail, 
@@ -17,7 +18,8 @@ import {
   XCircle,
   Clock,
   MoreHorizontal,
-  Check
+  Check,
+  User
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -30,6 +32,7 @@ import { Skeleton } from "../ui/skeleton";
 import { differenceInDays, parseISO } from "date-fns";
 import { CheckInMode } from "./check-in-mode";
 import { Input } from "../ui/input";
+import { BulkActions } from "./bulk-actions";
 
 interface Student {
   id: string;
@@ -43,6 +46,10 @@ interface Student {
   datePurchased: string;
   preCourseCompleted: boolean;
   preCourseProgress: number;
+  courseProgress: number; // New: LearnDash course progress
+  licenseType: string; // New: License type classification
+  crmTags: string[]; // New: FluentCRM tags
+  checkedIn: boolean; // New: Check-in status
   crmId: string;
   tags: string[];
   lastActivity: string;
@@ -65,9 +72,39 @@ export function StudentTable({ eventId, eventDate }: StudentTableProps) {
       if (!response.ok) {
         throw new Error("Failed to fetch students");
       }
-      return response.json();
+      const data = await response.json();
+      
+      // Enrich the data with new fields
+      return data.map((student: any) => ({
+        ...student,
+        courseProgress: Math.floor(Math.random() * 100), // Mock LearnDash progress
+        licenseType: getLicenseType(student.providerType),
+        crmTags: generateCrmTags(student),
+        checkedIn: false, // Default check-in status
+      }));
     },
   });
+
+  // Helper functions for data enrichment
+  const getLicenseType = (providerType: string): string => {
+    const typeMap: { [key: string]: string } = {
+      "Registered Nurse": "RN License",
+      "Medical Doctor": "MD License", 
+      "Nurse Practitioner": "NP License",
+      "Physician Assistant": "PA License",
+      "Physical Therapist": "PT License"
+    };
+    return typeMap[providerType] || "Professional License";
+  };
+
+  const generateCrmTags = (student: any): string[] => {
+    const tags = ["New Student"];
+    if (student.preCourseCompleted) tags.push("Pre-Course Complete");
+    if (student.instrumentsPurchased) tags.push("Kit Purchased");
+    if (student.providerType.includes("Nurse")) tags.push("Nursing Professional");
+    if (student.licenseState === "CA") tags.push("California Provider");
+    return tags;
+  };
 
   const handleCrmLink = (crmId: string) => {
     const crmUrl = `/wp-admin/admin.php?page=fluentcrm-admin#/subscribers/${crmId}`;
@@ -88,6 +125,12 @@ export function StudentTable({ eventId, eventDate }: StudentTableProps) {
     } catch (error) {
       toast.error('Failed to send email');
     }
+  };
+
+  const handleCheckInToggle = async (studentId: string, checked: boolean) => {
+    // Optimistically update the UI
+    // In a real app, this would make an API call
+    toast.success(checked ? 'Student checked in' : 'Student checked out');
   };
 
   const getRowClassName = (row: Row<Student>) => {
@@ -111,6 +154,40 @@ export function StudentTable({ eventId, eventDate }: StudentTableProps) {
   };
 
   const columns: ColumnDef<Student>[] = [
+    {
+      id: "select",
+      header: ({ table }) => (
+        <input
+          type="checkbox"
+          checked={table.getIsAllPageRowsSelected()}
+          onChange={(e) => {
+            table.toggleAllPageRowsSelected(e.target.checked);
+            if (e.target.checked) {
+              setSelectedStudents(students.map(s => s.id));
+            } else {
+              setSelectedStudents([]);
+            }
+          }}
+          className="rounded border border-input"
+        />
+      ),
+      cell: ({ row }) => (
+        <input
+          type="checkbox"
+          checked={selectedStudents.includes(row.original.id)}
+          onChange={(e) => {
+            if (e.target.checked) {
+              setSelectedStudents(prev => [...prev, row.original.id]);
+            } else {
+              setSelectedStudents(prev => prev.filter(id => id !== row.original.id));
+            }
+          }}
+          className="rounded border border-input"
+        />
+      ),
+      enableSorting: false,
+      enableHiding: false,
+    },
     {
       accessorKey: "name",
       header: "Student",
@@ -140,10 +217,10 @@ export function StudentTable({ eventId, eventDate }: StudentTableProps) {
       ),
     },
     {
-      accessorKey: "providerType",
-      header: "Provider Type",
+      accessorKey: "licenseType",
+      header: "License Type",
       cell: ({ row }) => (
-        <Badge variant="outline">{row.original.providerType}</Badge>
+        <Badge variant="outline">{row.original.licenseType}</Badge>
       ),
     },
     {
@@ -152,7 +229,7 @@ export function StudentTable({ eventId, eventDate }: StudentTableProps) {
       cell: ({ row }) => {
         const student = row.original;
         return (
-          <div className="space-y-1">
+          <div className="space-y-1 w-24">
             <div className="flex items-center gap-2">
               {student.preCourseCompleted ? (
                 <CheckCircle className="h-4 w-4 text-green-500" />
@@ -166,6 +243,60 @@ export function StudentTable({ eventId, eventDate }: StudentTableProps) {
               </span>
             </div>
             <Progress value={student.preCourseProgress} className="h-1" />
+          </div>
+        );
+      },
+    },
+    {
+      accessorKey: "courseProgress",
+      header: "Course Progress",
+      cell: ({ row }) => {
+        const progress = row.original.courseProgress;
+        return (
+          <div className="space-y-1 w-24">
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium">{progress}%</span>
+            </div>
+            <Progress value={progress} className="h-2" />
+          </div>
+        );
+      },
+    },
+    {
+      accessorKey: "crmTags",
+      header: "CRM Tags",
+      cell: ({ row }) => {
+        const tags = row.original.crmTags;
+        return (
+          <div className="flex flex-wrap gap-1 max-w-48">
+            {tags.slice(0, 2).map((tag, index) => (
+              <Badge key={index} variant="secondary" className="text-xs">
+                {tag}
+              </Badge>
+            ))}
+            {tags.length > 2 && (
+              <Badge variant="outline" className="text-xs">
+                +{tags.length - 2}
+              </Badge>
+            )}
+          </div>
+        );
+      },
+    },
+    {
+      accessorKey: "checkedIn",
+      header: "Status",
+      cell: ({ row }) => {
+        const student = row.original;
+        return (
+          <div className="flex items-center gap-2">
+            <Switch
+              checked={student.checkedIn}
+              onCheckedChange={(checked) => handleCheckInToggle(student.id, checked)}
+            />
+            <span className="text-sm text-muted-foreground">
+              {student.checkedIn ? "Checked In" : "Not Checked In"}
+            </span>
           </div>
         );
       },
@@ -189,6 +320,10 @@ export function StudentTable({ eventId, eventDate }: StudentTableProps) {
               <DropdownMenuItem onClick={() => handleSendEmail(student.id)}>
                 <Mail className="mr-2 h-4 w-4" />
                 Send Email
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <User className="mr-2 h-4 w-4" />
+                View Profile
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -215,7 +350,7 @@ export function StudentTable({ eventId, eventDate }: StudentTableProps) {
         <div>
           <h3 className="text-lg font-semibold">Enrolled Students</h3>
           <p className="text-sm text-muted-foreground">
-            {students.length} students enrolled
+            {students.length} students enrolled • {selectedStudents.length} selected
           </p>
         </div>
         
@@ -226,6 +361,12 @@ export function StudentTable({ eventId, eventDate }: StudentTableProps) {
           </Button>
         </div>
       </div>
+
+      <BulkActions 
+        selectedStudents={selectedStudents}
+        eventId={eventId}
+        onClearSelection={() => setSelectedStudents([])}
+      />
 
       {isLoading ? (
         <div className="space-y-2">
