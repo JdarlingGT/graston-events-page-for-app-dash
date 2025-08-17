@@ -2,8 +2,8 @@ import { Pool } from "pg";
 import { getDbSecret } from "./aws-secrets";
 
 // Define a generic type for the Cloudflare environment context
-interface EventContext {
-  env: any;
+interface EventContext<Env = any, Params = any, Data = any> {
+  env: Env;
 }
 
 // Create a single, module-scoped pool to be reused across requests.
@@ -27,7 +27,7 @@ async function getPool(context: EventContext): Promise<Pool> {
       ssl: {
         rejectUnauthorized: true, // Enforce TLS connection to RDS
       },
-      max: 5, // Max number of clients in the pool
+      max: 5,
       idleTimeoutMillis: 30000,
       connectionTimeoutMillis: 2000,
     });
