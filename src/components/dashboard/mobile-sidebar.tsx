@@ -10,7 +10,7 @@ const navItems = [
   { href: '/dashboard/events', label: 'Events', icon: Calendar },
   { href: '/dashboard/tasks', label: 'Tasks', icon: CheckSquare },
   { href: '/dashboard/marketing', label: 'Marketing', icon: Megaphone },
-  { href: '/dashboard/sales/targeting', label: 'Sales Targeting', icon: Target },
+  { href: '/dashboard/sales', label: 'Sales', icon: Target },
   { href: '/dashboard/reports', label: 'Reports', icon: BarChart3 },
   { href: '/dashboard/knowledge', label: 'Knowledge Base', icon: BookOpen },
   { href: '/dashboard/settings', label: 'Settings', icon: Settings },
