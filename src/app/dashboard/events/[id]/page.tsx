@@ -1,153 +1,21 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Link from "next/link";
-import { toast } from "sonner";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Calendar, MapPin, User, Users, ShoppingCart, ArrowLeft } from "lucide-react";
-import { RosterTable } from "@/components/roster-table";
+import { EventDetail } from "@/components/events/event-detail";
 import { Button } from "@/components/ui/button";
-import { EventSummaryChart } from "@/components/dashboard/events/event-summary-chart";
-import { KitPurchaseRatioChart } from "@/components/dashboard/events/kit-purchase-ratio-chart";
-
-interface Event {
-  id: string;
-  name: string;
-  city: string;
-  state: string;
-  instructor: string;
-  enrolledStudents: number;
-  instrumentsPurchased: number;
-  date: string;
-  venue: {
-    name: string;
-    city: string;
-  };
-}
-
-const getDangerZoneStatus = (enrolledStudents: number) => {
-  if (enrolledStudents < 4) {
-    return { text: "At Risk", variant: "destructive" as const };
-  }
-  if (enrolledStudents < 10) {
-    return { text: "Warning", variant: "secondary" as const };
-  }
-  return { text: "OK", variant: "default" as const };
-};
+import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
 
 export default function EventDetailPage({ params }: { params: { id: string } }) {
-  const [event, setEvent] = useState<Event | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {    
-    async function fetchEvent() {
-      try {
-        const response = await fetch(`/api/events/${params.id}`);
-        if (!response.ok) {
-          throw new Error("Event not found");
-        }
-        const data = await response.json();
-        setEvent(data);
-      } catch (err) {
-        setError("Failed to load event data.");
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchEvent();
-  }, [params.id]);
-
-  if (loading) {
-    return (
-      <div className="space-y-4">
-        <Skeleton className="h-48 w-full" />
-        <Skeleton className="h-64 w-full" />
-        <Skeleton className="h-80 w-full" />
-      </div>
-    );
-  }
-
-  if (error) {
-    return <p className="text-destructive">{error}</p>;
-  }
-
-  if (!event) {
-    return <p className="text-destructive">Event data could not be loaded.</p>;
-  }
-
-  const dangerZone = getDangerZoneStatus(event.enrolledStudents);
-
   return (
     <div className="space-y-6">
       <Button variant="outline" asChild className="w-fit">
         <Link href="/dashboard/events">
           <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to All Events
+          Back to Events
         </Link>
       </Button>
-      <Card>
-        <CardHeader>
-          <div className="flex items-start justify-between">
-            <div>
-              <Badge variant={dangerZone.variant} className="mb-2">{dangerZone.text}</Badge>
-              <CardTitle className="text-3xl">{event.name}</CardTitle>
-            </div>
-            <div className="text-right">
-              {/* Assuming category might be derived or added later if needed */}
-              {/* <p className="text-lg font-semibold text-muted-foreground">{event.category}</p> */}
-            </div>
-          </div>
-        </CardHeader>
-        <CardContent className="grid grid-cols-2 gap-4 md:grid-cols-4">
-          <div className="flex items-center gap-2">
-            <Calendar className="h-5 w-5 text-muted-foreground" />
-            <span>{new Date(event.date).toLocaleDateString()}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <MapPin className="h-5 w-5 text-muted-foreground" />
-            <span>{event.venue.name}, {event.venue.city}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <User className="h-5 w-5 text-muted-foreground" />
-            <span>{event.instructor}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Users className="h-5 w-5 text-muted-foreground" />
-            <span>{event.enrolledStudents} Enrolled</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <ShoppingCart className="h-5 w-5 text-muted-foreground" />
-            <span>{event.instrumentsPurchased} Kits Purchased</span>
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Event Roster</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <RosterTable eventId={params.id} />
-        </CardContent>
-      </Card>
-
-      <div>
-        <h2 className="text-2xl font-bold tracking-tight mb-4">Analytics</h2>
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-          <EventSummaryChart
-            enrolledStudents={event.enrolledStudents}
-            instrumentsPurchased={event.instrumentsPurchased}
-          />
-          <KitPurchaseRatioChart
-            enrolledStudents={event.enrolledStudents}
-            instrumentsPurchased={event.instrumentsPurchased}
-          />
-        </div>
-      </div>
+      
+      <EventDetail eventId={params.id} />
     </div>
   );
 }
