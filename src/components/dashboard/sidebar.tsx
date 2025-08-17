@@ -36,7 +36,7 @@ export default function Sidebar() {
   const isDirectoryActive = pathname.startsWith('/dashboard/directory') || pathname.startsWith('/dashboard/archival-search');
 
   return (
-    <aside className="fixed inset-y-0 left-0 z-10 hidden w-64 flex-col border-r bg-background sm:flex">
+    <aside className="fixed inset-y-0 left-0 z-10 hidden w-64 flex-col border-r bg-background/80 backdrop-blur-xl sm:flex">
       <div className="border-b p-4">
         <Link href="/dashboard" className="flex items-center gap-2 font-semibold">
           <Home className="h-6 w-6" />

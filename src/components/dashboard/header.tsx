@@ -23,7 +23,7 @@ export default function Header() {
             <span className="sr-only">Toggle Menu</span>
           </Button>
         </SheetTrigger>
-        <SheetContent side="left" className="sm:max-w-xs">
+        <SheetContent side="left" className="sm:max-w-xs bg-background/80 backdrop-blur-xl">
           <MobileSidebar />
         </SheetContent>
       </Sheet>
