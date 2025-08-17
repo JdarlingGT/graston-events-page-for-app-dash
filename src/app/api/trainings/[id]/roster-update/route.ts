@@ -20,16 +20,22 @@ export async function POST(
 
         // 2. Dynamically generate a PDF certificate
         const doc = new jsPDF();
+        
+        // 2a. Choose template based on licenseType
+        const licenseType = student.licenseType || "Professional";
+        console.log(`Choosing certificate template for license type: ${licenseType}`);
+        
         doc.setFontSize(22);
         doc.text("Certificate of Completion", 105, 20, { align: "center" });
+        doc.setFontSize(12);
+        doc.text(`(${licenseType} Edition)`, 105, 30, { align: "center" });
         doc.setFontSize(16);
-        doc.text("This is to certify that", 105, 40, { align: "center" });
+        doc.text("This is to certify that", 105, 50, { align: "center" });
         doc.setFontSize(20);
-        doc.text(student.studentName, 105, 55, { align: "center" });
+        doc.text(student.studentName, 105, 65, { align: "center" });
         doc.setFontSize(16);
-        doc.text(`has successfully completed the training.`, 105, 70, { align: "center" });
-        // In a real app, you'd add event name, date, instructor, etc.
-        // And choose a template based on license type.
+        doc.text(`has successfully completed the training.`, 105, 80, { align: "center" });
+        
         const pdfOutput = doc.output('datauristring');
         
         // 3. Mock saving to R2 and attaching link to profile

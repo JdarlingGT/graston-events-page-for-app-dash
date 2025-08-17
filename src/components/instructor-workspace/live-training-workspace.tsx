@@ -11,11 +11,12 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { InstructorResourcePod } from "../instructor/instructor-resource-pod";
 import { QuickEmailModal } from "../instructor/quick-email-modal";
-import { Mail, MonitorPlay } from "lucide-react";
+import { Mail, MonitorPlay, Megaphone } from "lucide-react";
 import Link from "next/link";
 import { SkillsEvaluationModal } from "./skills-evaluation-modal";
 import { Badge } from "@/components/ui/badge";
 import { StudentProfileModal } from "./student-profile-modal";
+import { PromoteEventModal } from "./promote-event-modal";
 
 interface Student {
   id: string;
@@ -32,8 +33,10 @@ interface RosterState {
 }
 
 interface EventDetails {
+  id: string;
   name: string;
   date: string;
+  city: string;
 }
 
 export function LiveTrainingWorkspace({ eventId }: { eventId: string }) {
@@ -41,6 +44,7 @@ export function LiveTrainingWorkspace({ eventId }: { eventId: string }) {
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
   const [isEvaluationModalOpen, setIsEvaluationModalOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  const [isPromoteModalOpen, setIsPromoteModalOpen] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
 
   const { data: event, isLoading: eventLoading } = useQuery<EventDetails>({
@@ -102,6 +106,7 @@ export function LiveTrainingWorkspace({ eventId }: { eventId: string }) {
       studentId: student.id,
       studentName: student.name,
       studentEmail: student.email,
+      licenseType: "Professional", // Mocking this for now
       ...roster[student.id],
     }));
     submitRosterMutation.mutate(finalRoster);
@@ -186,6 +191,10 @@ export function LiveTrainingWorkspace({ eventId }: { eventId: string }) {
               <p className="text-muted-foreground">{event?.date ? new Date(event.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) : ''}</p>
             </div>
             <div className="flex gap-2">
+              <Button variant="outline" onClick={() => setIsPromoteModalOpen(true)}>
+                <Megaphone className="mr-2 h-4 w-4" />
+                Promote
+              </Button>
               <Button asChild variant="outline">
                 <Link href={`/kiosk/${eventId}`} target="_blank">
                   <MonitorPlay className="mr-2 h-4 w-4" />
@@ -251,6 +260,12 @@ export function LiveTrainingWorkspace({ eventId }: { eventId: string }) {
         onSaveNotes={(studentId, notes) => {
           updateRoster(studentId, { notes });
         }}
+      />
+      <PromoteEventModal
+        isOpen={isPromoteModalOpen}
+        onClose={() => setIsPromoteModalOpen(false)}
+        event={event || null}
+        instructorName={"Sarah Johnson"} // Mocking instructor name
       />
     </div>
   );

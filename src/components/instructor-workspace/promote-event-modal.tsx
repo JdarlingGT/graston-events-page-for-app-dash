@@ -14,10 +14,10 @@ import { Copy } from "lucide-react";
 import { toast } from "sonner";
 
 interface Event {
-  id: string;
   name: string;
   date: string;
   city: string;
+  id: string;
 }
 
 interface PromoteEventModalProps {

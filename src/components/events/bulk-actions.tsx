@@ -111,8 +111,10 @@ export function BulkActions({ selectedStudents, eventId, onClearSelection }: Bul
       if (!response.ok) throw new Error('Failed to add student');
       return response.json();
     },
-    onSuccess: () => {
+    onSuccess: async (newStudent) => {
       toast.success('Student added successfully');
+      await fetch(`/api/students/${newStudent.id}/send-welcome`, { method: 'POST' });
+      toast.info(`Welcome email simulation triggered for ${newStudent.name}.`);
       queryClient.invalidateQueries({ queryKey: ["event-students", eventId] });
       setIsAddStudentOpen(false);
     },
