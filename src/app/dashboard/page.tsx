@@ -1,57 +1,27 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { DataTable } from "@/components/ui/data-table";
-import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
-import { ColumnDef } from "@tanstack/react-table";
-import { Badge } from "@/components/ui/badge";
-import { ArrowUpDown, Building, CalendarDays, Users, ShieldCheck, Zap } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Building, CalendarDays, Users } from "lucide-react";
 import { StatCard } from "@/components/dashboard/stat-card";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Skeleton } from "@/components/ui/skeleton";
+import { DangerZoneCard } from "@/components/dashboard/danger-zone-card";
+import { UpcomingTasksCard } from "@/components/dashboard/upcoming-tasks-card";
+import { RecentNotificationsCard } from "@/components/dashboard/recent-notifications-card";
 
 interface Event {
   id: string;
-  name: string;
-  city: string;
-  state: string;
-  instructor: string;
   enrolledStudents: number;
-  instrumentsPurchased: number;
 }
 
 interface Venue {
-  id:string;
+  id: string;
 }
-
-const getDangerZoneStatus = (enrolledStudents: number) => {
-  if (enrolledStudents < 4) {
-    return { text: "At Risk", variant: "destructive" as const };
-  }
-  if (enrolledStudents < 10) {
-    return { text: "Warning", variant: "secondary" as const };
-  }
-  return { text: "OK", variant: "default" as const };
-};
 
 export default function DashboardPage() {
   const [events, setEvents] = useState<Event[]>([]);
   const [venues, setVenues] = useState<Venue[]>([]);
   const [loading, setLoading] = useState(true);
-  const [isChecking, setIsChecking] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -70,7 +40,8 @@ export default function DashboardPage() {
 
         setEvents(eventsData);
         setVenues(venuesData);
-      } catch (error) {
+      } catch (error)
+      {
         console.error(error);
         toast.error("Failed to load dashboard data.");
       } finally {
@@ -80,110 +51,13 @@ export default function DashboardPage() {
     fetchData();
   }, []);
 
-  const handleRunCheck = async () => {
-    setIsChecking(true);
-    toast.info("Running proactive danger zone check...");
-    try {
-      const response = await fetch("/api/events/check-danger-zone", {
-        method: "POST",
-      });
-      const result = await response.json();
-      if (!response.ok) {
-        throw new Error("Check failed");
-      }
-      if (result.atRiskCount > 0) {
-        toast.warning(
-          `${result.atRiskCount} at-risk event(s) found. Notifications sent.`
-        );
-      } else {
-        toast.success("All events are healthy. No issues found.");
-      }
-    } catch (error) {
-      toast.error("Failed to run the danger zone check.");
-    } finally {
-      setIsChecking(false);
-    }
-  };
-
   const totalEnrolled = events.reduce(
     (sum, event) => sum + event.enrolledStudents,
     0
   );
 
-  const columns: ColumnDef<Event>[] = [
-    {
-      accessorKey: "name",
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Event Name
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </Button>
-        )
-      },
-    },
-    {
-      accessorKey: "instructor",
-      header: "Instructor",
-    },
-    {
-      accessorKey: "city",
-      header: "City",
-    },
-    {
-      accessorKey: "enrolledStudents",
-      header: ({ column }) => {
-        return (
-          <div className="text-center">
-            <Button
-              variant="ghost"
-              onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-            >
-              Enrolled
-              <ArrowUpDown className="ml-2 h-4 w-4" />
-            </Button>
-          </div>
-        );
-      },
-      cell: ({ row }) => (
-        <div className="text-center">{row.original.enrolledStudents}</div>
-      ),
-    },
-    {
-      accessorKey: "instrumentsPurchased",
-      header: "Kits Purchased",
-       cell: ({ row }) => (
-        <div className="text-center">{row.original.instrumentsPurchased}</div>
-      ),
-    },
-    {
-      id: "dangerZone",
-      header: "Danger Zone",
-      cell: ({ row }) => {
-        const status = getDangerZoneStatus(row.original.enrolledStudents);
-        return (
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger>
-                <Badge variant={status.variant}>{status.text}</Badge>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>At Risk: &lt; 4 students</p>
-                <p>Warning: 4-9 students</p>
-                <p>OK: 10+ students</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        );
-      },
-    },
-  ];
-
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {loading ? (
           <>
@@ -209,47 +83,22 @@ export default function DashboardPage() {
               value={totalEnrolled.toString()}
               icon={Users}
             />
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">System Health</CardTitle>
-                <ShieldCheck className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <p className="text-xs text-muted-foreground">
-                  Manually check for at-risk events.
-                </p>
-                <Button
-                  size="sm"
-                  className="w-full mt-2"
-                  onClick={handleRunCheck}
-                  disabled={isChecking}
-                >
-                  <Zap className="mr-2 h-4 w-4" />
-                  {isChecking ? "Checking..." : "Run Danger Zone Check"}
-                </Button>
-              </CardContent>
-            </Card>
+             <StatCard
+              title="Projected Revenue"
+              value="$1.2M"
+              icon={Users}
+            />
           </>
         )}
       </div>
-      <Card>
-        <CardHeader>
-          <CardTitle>All Events</CardTitle>
-          <CardDescription>
-            A complete overview of all scheduled events.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          {loading ? (
-            <div className="space-y-4">
-              <Skeleton className="h-10 w-1/4" />
-              <Skeleton className="h-64 w-full" />
-            </div>
-          ) : (
-            <DataTable columns={columns} data={events} />
-          )}
-        </CardContent>
-      </Card>
+      
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <DangerZoneCard />
+        <div className="space-y-6">
+          <UpcomingTasksCard />
+          <RecentNotificationsCard />
+        </div>
+      </div>
     </div>
   );
 }
