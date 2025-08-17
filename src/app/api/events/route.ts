@@ -149,6 +149,23 @@ export async function POST(request: Request) {
 
     await writeEventFile(newEvent);
 
+    // Trigger task template creation
+    if (newEvent.mode) {
+      try {
+        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+        await fetch(`${baseUrl}/api/tasks/bulkCreate`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            eventType: newEvent.mode,
+            eventName: newEvent.name,
+          }),
+        });
+      } catch (taskError) {
+        console.error('Failed to trigger task creation for new event:', taskError);
+      }
+    }
+
     return NextResponse.json(newEvent, { status: 201 });
   } catch (error) {
     console.error(error);
