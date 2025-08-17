@@ -5,5 +5,12 @@
   "state": "CA",
   "instructor": "Michael Green",
   "enrolledStudents": 12,
-  "instrumentsPurchased": 10
+  "instrumentsPurchased": 10,
+  "capacity": 30,
+  "minViableEnrollment": 8,
+  "type": "Essential",
+  "mode": "In-Person",
+  "status": "ongoing",
+  "featuredImage": "https://picsum.photos/seed/26021561/800/400",
+  "date": "2024-08-01"
 }

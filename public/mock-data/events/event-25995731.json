@@ -5,5 +5,12 @@
   "state": "CA",
   "instructor": "Sarah Johnson",
   "enrolledStudents": 23,
-  "instrumentsPurchased": 18
+  "instrumentsPurchased": 18,
+  "capacity": 50,
+  "minViableEnrollment": 10,
+  "type": "Advanced",
+  "mode": "In-Person",
+  "status": "upcoming",
+  "featuredImage": "https://picsum.photos/seed/25995731/800/400",
+  "date": "2024-09-15"
 }

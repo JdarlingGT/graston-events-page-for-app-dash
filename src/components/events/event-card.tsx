@@ -22,7 +22,7 @@ import { cn } from "@/lib/utils";
 interface EventCardProps {
   event: {
     id: string;
-    title: string;
+    name: string; // Changed from title to name for consistency with API
     instructor: {
       name: string;
       avatar?: string;
@@ -33,6 +33,7 @@ interface EventCardProps {
     endDate?: string;
     enrolledStudents: number;
     capacity: number;
+    minViableEnrollment: number; // Added for danger zone logic
     type: "Essential" | "Advanced";
     mode: "In-Person" | "Virtual";
     status: "upcoming" | "ongoing" | "completed";
@@ -49,12 +50,12 @@ export function EventCard({ event, isHovered, onHover, className }: EventCardPro
   const enrollmentPercentage = (event.enrolledStudents / event.capacity) * 100;
   
   const getDangerZoneStatus = () => {
-    if (event.enrolledStudents < 4) {
+    if (event.enrolledStudents < event.minViableEnrollment) {
       return { 
         text: "At Risk", 
         variant: "destructive" as const, 
         icon: AlertTriangle,
-        description: "Low enrollment - may be cancelled"
+        description: `Below minimum viable enrollment of ${event.minViableEnrollment} students`
       };
     }
     if (enrollmentPercentage >= 90) {
@@ -65,7 +66,7 @@ export function EventCard({ event, isHovered, onHover, className }: EventCardPro
         description: "Limited spots remaining"
       };
     }
-    if (event.enrolledStudents >= 10) {
+    if (event.enrolledStudents >= event.minViableEnrollment) { // Healthy if above min viable
       return { 
         text: "Healthy", 
         variant: "default" as const, 
@@ -106,7 +107,7 @@ export function EventCard({ event, isHovered, onHover, className }: EventCardPro
         <div className="relative h-48 overflow-hidden rounded-t-lg">
           <img
             src={event.featuredImage}
-            alt={event.title}
+            alt={event.name}
             className={cn(
               "h-full w-full object-cover transition-all duration-300 group-hover:scale-105",
               !imageLoaded && "opacity-0"
@@ -137,7 +138,7 @@ export function EventCard({ event, isHovered, onHover, className }: EventCardPro
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1 min-w-0">
             <h3 className="font-semibold text-lg leading-tight line-clamp-2 group-hover:text-primary transition-colors">
-              {event.title}
+              {event.name}
             </h3>
             <div className="flex items-center gap-2 mt-2">
               <Avatar className="h-6 w-6">

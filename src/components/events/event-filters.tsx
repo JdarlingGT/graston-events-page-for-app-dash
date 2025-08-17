@@ -194,10 +194,239 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
             </PopoverContent>
           </Popover>
 
-          {/* ...rest of the component remains unchanged... */}
+          <Sheet open={isAdvancedOpen} onOpenChange={setIsAdvancedOpen}>
+            <SheetTrigger asChild>
+              <Button variant="outline" className="relative">
+                <Filter className="mr-2 h-4 w-4" />
+                Advanced Filters
+                {activeFiltersCount > 0 && (
+                  <Badge className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center p-0">
+                    {activeFiltersCount}
+                  </Badge>
+                )}
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-full sm:max-w-md overflow-y-auto">
+              <SheetHeader>
+                <SheetTitle>Advanced Filters</SheetTitle>
+              </SheetHeader>
+              <div className="grid gap-6 py-4">
+                {/* Status Filter */}
+                <div className="space-y-2">
+                  <h4 className="font-medium text-sm">Event Status</h4>
+                  <Select value={filters.status} onValueChange={(value) => updateFilter("status", value)}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Statuses</SelectItem>
+                      <SelectItem value="upcoming">Upcoming</SelectItem>
+                      <SelectItem value="ongoing">Ongoing</SelectItem>
+                      <SelectItem value="completed">Completed</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Danger Zone Filter */}
+                <div className="space-y-2">
+                  <h4 className="font-medium text-sm">Danger Zone</h4>
+                  <Select value={filters.dangerZone} onValueChange={(value) => updateFilter("dangerZone", value)}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select risk level" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Events</SelectItem>
+                      <SelectItem value="at-risk">At Risk (Low Enrollment)</SelectItem>
+                      <SelectItem value="almost-full">Almost Full</SelectItem>
+                      <SelectItem value="healthy">Healthy Enrollment</SelectItem>
+                      <SelectItem value="building">Enrollment Building</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Enrollment Range */}
+                <div className="space-y-2">
+                  <h4 className="font-medium text-sm flex items-center gap-2">
+                    <Users className="h-4 w-4" />
+                    Enrollment Range: {filters.enrollmentRange[0]} - {filters.enrollmentRange[1]}
+                  </h4>
+                  <Slider
+                    min={0}
+                    max={100}
+                    step={1}
+                    value={filters.enrollmentRange}
+                    onValueChange={(value: number[]) => updateFilter("enrollmentRange", value as [number, number])}
+                    className="w-full"
+                  />
+                </div>
+
+                {/* Revenue Range (Mocked, adjust max as needed) */}
+                <div className="space-y-2">
+                  <h4 className="font-medium text-sm flex items-center gap-2">
+                    <DollarSign className="h-4 w-4" />
+                    Revenue Range: ${filters.revenueRange[0].toLocaleString()} - ${filters.revenueRange[1].toLocaleString()}
+                  </h4>
+                  <Slider
+                    min={0}
+                    max={100000}
+                    step={1000}
+                    value={filters.revenueRange}
+                    onValueChange={(value: number[]) => updateFilter("revenueRange", value as [number, number])}
+                    className="w-full"
+                  />
+                </div>
+
+                {/* Cities Filter */}
+                <div className="space-y-2">
+                  <h4 className="font-medium text-sm">Cities</h4>
+                  <div className="grid grid-cols-2 gap-2">
+                    {availableOptions.cities.map((city) => (
+                      <div key={city} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={`city-${city}`}
+                          checked={filters.cities.includes(city)}
+                          onCheckedChange={(checked) => {
+                            const newCities = checked
+                              ? [...filters.cities, city]
+                              : filters.cities.filter((c) => c !== city);
+                            updateFilter("cities", newCities);
+                          }}
+                        />
+                        <label
+                          htmlFor={`city-${city}`}
+                          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        >
+                          {city}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Instructors Filter */}
+                <div className="space-y-2">
+                  <h4 className="font-medium text-sm">Instructors</h4>
+                  <div className="grid grid-cols-2 gap-2">
+                    {availableOptions.instructors.map((instructor) => (
+                      <div key={instructor} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={`instructor-${instructor}`}
+                          checked={filters.instructors.includes(instructor)}
+                          onCheckedChange={(checked) => {
+                            const newInstructors = checked
+                              ? [...filters.instructors, instructor]
+                              : filters.instructors.filter((i) => i !== instructor);
+                            updateFilter("instructors", newInstructors);
+                          }}
+                        />
+                        <label
+                          htmlFor={`instructor-${instructor}`}
+                          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        >
+                          {instructor}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {activeFiltersCount > 0 && (
+                  <Button variant="outline" onClick={clearAllFilters} className="mt-4">
+                    <X className="mr-2 h-4 w-4" />
+                    Clear All Filters
+                  </Button>
+                )}
+              </div>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
-      {/* ...rest of the component remains unchanged... */}
+      {/* Active Filters Display */}
+      {activeFiltersCount > 0 && (
+        <div className="flex flex-wrap gap-2 mt-4">
+          {filters.search && (
+            <Badge variant="secondary" className="flex items-center gap-1">
+              Search: "{filters.search}"
+              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("search")}>
+                <X className="h-3 w-3" />
+              </Button>
+            </Badge>
+          )}
+          {filters.type !== "all" && (
+            <Badge variant="secondary" className="flex items-center gap-1">
+              Type: {filters.type}
+              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("type")}>
+                <X className="h-3 w-3" />
+              </Button>
+            </Badge>
+          )}
+          {filters.mode !== "all" && (
+            <Badge variant="secondary" className="flex items-center gap-1">
+              Mode: {filters.mode}
+              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("mode")}>
+                <X className="h-3 w-3" />
+              </Button>
+            </Badge>
+          )}
+          {filters.status !== "all" && (
+            <Badge variant="secondary" className="flex items-center gap-1">
+              Status: {filters.status}
+              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("status")}>
+                <X className="h-3 w-3" />
+              </Button>
+            </Badge>
+          )}
+          {filters.dangerZone !== "all" && (
+            <Badge variant="secondary" className="flex items-center gap-1">
+              Risk: {filters.dangerZone}
+              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("dangerZone")}>
+                <X className="h-3 w-3" />
+              </Button>
+            </Badge>
+          )}
+          {(filters.dateRange.from || filters.dateRange.to) && (
+            <Badge variant="secondary" className="flex items-center gap-1">
+              Date: {filters.dateRange.from && format(filters.dateRange.from, "MMM dd")}
+              {filters.dateRange.to && ` - ${format(filters.dateRange.to, "MMM dd")}`}
+              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("dateRange")}>
+                <X className="h-3 w-3" />
+              </Button>
+            </Badge>
+          )}
+          {(filters.enrollmentRange[0] > 0 || filters.enrollmentRange[1] < 100) && (
+            <Badge variant="secondary" className="flex items-center gap-1">
+              Enrollment: {filters.enrollmentRange[0]} - {filters.enrollmentRange[1]}
+              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("enrollmentRange")}>
+                <X className="h-3 w-3" />
+              </Button>
+            </Badge>
+          )}
+          {(filters.revenueRange[0] > 0 || filters.revenueRange[1] < 100000) && (
+            <Badge variant="secondary" className="flex items-center gap-1">
+              Revenue: ${filters.revenueRange[0].toLocaleString()} - ${filters.revenueRange[1].toLocaleString()}
+              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("revenueRange")}>
+                <X className="h-3 w-3" />
+              </Button>
+            </Badge>
+          )}
+          {filters.cities.length > 0 && (
+            <Badge variant="secondary" className="flex items-center gap-1">
+              Cities: {filters.cities.join(", ")}
+              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("cities")}>
+                <X className="h-3 w-3" />
+              </Button>
+            </Badge>
+          )}
+          {filters.instructors.length > 0 && (
+            <Badge variant="secondary" className="flex items-center gap-1">
+              Instructors: {filters.instructors.join(", ")}
+              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("instructors")}>
+                <X className="h-3 w-3" />
+              </Button>
+            </Badge>
+          )}
+        </div>
+      )}
     </div>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
-import { EventDirectory } from "@/components/events/event-directory";
+import { EventMapCardView } from "@/components/events/event-map-card-view";
 
 export default function EventDirectoryPage() {
-  return <EventDirectory />;
+  return <EventMapCardView />;
 }

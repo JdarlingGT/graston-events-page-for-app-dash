@@ -5,5 +5,12 @@
   "state": "NY",
   "instructor": "Emily White",
   "enrolledStudents": 8,
-  "instrumentsPurchased": 5
+  "instrumentsPurchased": 5,
+  "capacity": 20,
+  "minViableEnrollment": 10,
+  "type": "Advanced",
+  "mode": "Virtual",
+  "status": "upcoming",
+  "featuredImage": "https://picsum.photos/seed/26017859/800/400",
+  "date": "2024-10-20"
 }

@@ -5,5 +5,12 @@
   "state": "TX",
   "instructor": "David Lee",
   "enrolledStudents": 35,
-  "instrumentsPurchased": 30
+  "instrumentsPurchased": 30,
+  "capacity": 40,
+  "minViableEnrollment": 15,
+  "type": "Essential",
+  "mode": "In-Person",
+  "status": "upcoming",
+  "featuredImage": "https://picsum.photos/seed/26012317/800/400",
+  "date": "2024-10-01"
 }
