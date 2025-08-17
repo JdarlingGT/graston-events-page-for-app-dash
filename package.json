@@ -1,12 +1,7 @@
 {
-  "name": "next-template",
-  "version": "0.1.0",
-  "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "generate-mock-data": "node scripts/generate-mock-data.js",
+    "postinstall": "npm run generate-mock-data"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
