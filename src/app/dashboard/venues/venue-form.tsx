@@ -93,7 +93,7 @@ export function VenueForm({ initialData }: VenueFormProps) {
             <FormField
               control={form.control}
               name="name"
-              render={({ field }) => (
+              render={({ field }: any) => (
                 <FormItem>
                   <FormLabel>Venue Name</FormLabel>
                   <FormControl>
@@ -106,7 +106,7 @@ export function VenueForm({ initialData }: VenueFormProps) {
             <FormField
               control={form.control}
               name="type"
-              render={({ field }) => (
+              render={({ field }: any) => (
                 <FormItem>
                   <FormLabel>Venue Type</FormLabel>
                   <FormControl>
@@ -119,7 +119,7 @@ export function VenueForm({ initialData }: VenueFormProps) {
             <FormField
               control={form.control}
               name="city"
-              render={({ field }) => (
+              render={({ field }: any) => (
                 <FormItem>
                   <FormLabel>City</FormLabel>
                   <FormControl>
@@ -132,7 +132,7 @@ export function VenueForm({ initialData }: VenueFormProps) {
             <FormField
               control={form.control}
               name="capacity"
-              render={({ field }) => (
+              render={({ field }: any) => (
                 <FormItem>
                   <FormLabel>Capacity</FormLabel>
                   <FormControl>

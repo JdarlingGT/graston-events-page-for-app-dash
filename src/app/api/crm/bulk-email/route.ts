@@ -16,7 +16,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ 
       success: true,
       message: `Bulk email sent to ${studentIds.length} students`,
-      emailIds: studentIds.map(id => `email-${id}-${Date.now()}`),
+      emailIds: studentIds.map((id: string) => `email-${id}-${Date.now()}`),
       sentCount: studentIds.length
     });
   } catch (error) {

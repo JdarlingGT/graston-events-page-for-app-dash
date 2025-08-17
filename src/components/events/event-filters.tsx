@@ -37,6 +37,7 @@ import {
 } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
+import { DateRange } from "react-day-picker";
 
 interface EventFiltersProps {
   filters: {
@@ -45,7 +46,7 @@ interface EventFiltersProps {
     mode: string;
     status: string;
     dangerZone: string;
-    dateRange: { from?: Date; to?: Date };
+    dateRange: DateRange | undefined;
     enrollmentRange: [number, number];
     revenueRange: [number, number];
     cities: string[];
@@ -74,7 +75,7 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
       mode: "all",
       status: "all",
       dangerZone: "all",
-      dateRange: {},
+      dateRange: undefined,
       enrollmentRange: [0, 100],
       revenueRange: [0, 100000],
       cities: [],
@@ -90,7 +91,7 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
       mode: "all",
       status: "all",
       dangerZone: "all",
-      dateRange: {},
+      dateRange: undefined,
       enrollmentRange: [0, 100],
       revenueRange: [0, 100000],
       cities: [],
@@ -105,7 +106,7 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
     if (filters.mode !== "all") count++;
     if (filters.status !== "all") count++;
     if (filters.dangerZone !== "all") count++;
-    if (filters.dateRange.from || filters.dateRange.to) count++;
+    if (filters.dateRange?.from || filters.dateRange?.to) count++;
     if (filters.enrollmentRange[0] > 0 || filters.enrollmentRange[1] < 100) count++;
     if (filters.revenueRange[0] > 0 || filters.revenueRange[1] < 100000) count++;
     if (filters.cities.length > 0) count++;
@@ -158,7 +159,7 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
             <PopoverTrigger asChild>
               <Button variant="outline" className="w-fit">
                 <CalendarIcon className="mr-2 h-4 w-4" />
-                {filters.dateRange.from ? (
+                {filters.dateRange?.from ? (
                   filters.dateRange.to ? (
                     <>
                       {format(filters.dateRange.from, "LLL dd")} -{" "}
@@ -176,9 +177,9 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
               <Calendar
                 initialFocus
                 mode="range"
-                defaultMonth={filters.dateRange.from}
+                defaultMonth={filters.dateRange?.from}
                 selected={filters.dateRange}
-                onSelect={(range) => updateFilter("dateRange", range || {})}
+                onSelect={(range) => updateFilter("dateRange", range)}
                 numberOfMonths={2}
               />
             </PopoverContent>
@@ -210,7 +211,7 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="all">All Events</SelectItem>
-                      <SelectItem value="at-risk">At Risk (< 4 students)</SelectItem>
+                      <SelectItem value="at-risk">At Risk (&lt; 4 students)</SelectItem>
                       <SelectItem value="healthy">Healthy (10+ students)</SelectItem>
                       <SelectItem value="almost-full">Almost Full (90%+ capacity)</SelectItem>
                     </SelectContent>
@@ -342,7 +343,7 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
               <X className="h-3 w-3 cursor-pointer" onClick={() => clearFilter("dangerZone")} />
             </Badge>
           )}
-          {(filters.dateRange.from || filters.dateRange.to) && (
+          {(filters.dateRange?.from || filters.dateRange?.to) && (
             <Badge variant="secondary" className="gap-1">
               Date Range
               <X className="h-3 w-3 cursor-pointer" onClick={() => clearFilter("dateRange")} />

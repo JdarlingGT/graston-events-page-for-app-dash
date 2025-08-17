@@ -45,29 +45,37 @@ interface EventAnalyticsProps {
   eventId: string;
 }
 
+interface EnrollmentTrendPoint {
+  date: string;
+  enrolled: number;
+  target: number;
+  revenue: number;
+}
+
+interface FunnelStage {
+  stage: string;
+  value: number;
+  fill: string;
+}
+
+interface TrafficSource {
+  source: string;
+  visitors: number;
+  conversions: number;
+  revenue: number;
+}
+
+interface Demographic {
+  category: string;
+  value: number;
+  fill: string;
+}
+
 interface AnalyticsData {
-  enrollmentTrend: Array<{
-    date: string;
-    enrolled: number;
-    target: number;
-    revenue: number;
-  }>;
-  conversionFunnel: Array<{
-    stage: string;
-    value: number;
-    fill: string;
-  }>;
-  trafficSources: Array<{
-    source: string;
-    visitors: number;
-    conversions: number;
-    revenue: number;
-  }>;
-  demographics: Array<{
-    category: string;
-    value: number;
-    fill: string;
-  }>;
+  enrollmentTrend: EnrollmentTrendPoint[];
+  conversionFunnel: FunnelStage[];
+  trafficSources: TrafficSource[];
+  demographics: Demographic[];
   performance: {
     totalViews: number;
     clickThroughRate: number;
@@ -83,7 +91,7 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8'];
 export function EventAnalytics({ eventId }: EventAnalyticsProps) {
   const [timeRange, setTimeRange] = useState("30d");
 
-  const { data: analytics, isLoading } = useQuery({
+  const { data: analytics, isLoading } = useQuery<AnalyticsData>({
     queryKey: ["event-analytics", eventId, timeRange],
     queryFn: async () => {
       const response = await fetch(`/api/events/${eventId}/analytics?range=${timeRange}`);
@@ -278,7 +286,7 @@ export function EventAnalytics({ eventId }: EventAnalyticsProps) {
                 </FunnelChart>
               </ResponsiveContainer>
               <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
-                {analytics.conversionFunnel.map((stage, index) => (
+                {analytics.conversionFunnel.map((stage: FunnelStage, index: number) => (
                   <div key={stage.stage} className="text-center">
                     <div className="text-2xl font-bold">{stage.value.toLocaleString()}</div>
                     <div className="text-sm text-muted-foreground">{stage.stage}</div>
@@ -312,7 +320,7 @@ export function EventAnalytics({ eventId }: EventAnalyticsProps) {
                 </BarChart>
               </ResponsiveContainer>
               <div className="mt-4 space-y-2">
-                {analytics.trafficSources.map((source) => (
+                {analytics.trafficSources.map((source: TrafficSource) => (
                   <div key={source.source} className="flex items-center justify-between p-3 bg-muted rounded-lg">
                     <div>
                       <div className="font-medium">{source.source}</div>
@@ -352,7 +360,7 @@ export function EventAnalytics({ eventId }: EventAnalyticsProps) {
                       fill="#8884d8"
                       dataKey="value"
                     >
-                      {analytics.demographics.map((entry, index) => (
+                      {analytics.demographics.map((entry: Demographic, index: number) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
                     </Pie>
@@ -414,7 +422,7 @@ export function EventAnalytics({ eventId }: EventAnalyticsProps) {
             </Card>
           </div>
         </TabsContent>
-      </tabs>
+      </Tabs>
     </div>
   );
 }

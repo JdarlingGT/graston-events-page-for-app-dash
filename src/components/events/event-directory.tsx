@@ -183,7 +183,7 @@ export function EventDirectory() {
         </div>
         
         <div className="flex gap-2">
-          <Select value={filters.type} onValueChange={(value) => setFilters(prev => ({ ...prev, type: value }))}>
+          <Select value={filters.type} onValueChange={(value: string) => setFilters(prev => ({ ...prev, type: value }))}>
             <SelectTrigger className="w-32">
               <SelectValue placeholder="Type" />
             </SelectTrigger>
@@ -194,7 +194,7 @@ export function EventDirectory() {
             </SelectContent>
           </Select>
 
-          <Select value={filters.mode} onValueChange={(value) => setFilters(prev => ({ ...prev, mode: value }))}>
+          <Select value={filters.mode} onValueChange={(value: string) => setFilters(prev => ({ ...prev, mode: value }))}>
             <SelectTrigger className="w-32">
               <SelectValue placeholder="Mode" />
             </SelectTrigger>
@@ -224,13 +224,13 @@ export function EventDirectory() {
               <div className="space-y-4 mt-6">
                 <div>
                   <label className="text-sm font-medium">Danger Zone</label>
-                  <Select value={filters.dangerZone} onValueChange={(value) => setFilters(prev => ({ ...prev, dangerZone: value }))}>
+                  <Select value={filters.dangerZone} onValueChange={(value: string) => setFilters(prev => ({ ...prev, dangerZone: value }))}>
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="all">All Events</SelectItem>
-                      <SelectItem value="at-risk">At Risk (< 4 students)</SelectItem>
+                      <SelectItem value="at-risk">At Risk (&lt; 4 students)</SelectItem>
                       <SelectItem value="healthy">Healthy (10+ students)</SelectItem>
                     </SelectContent>
                   </Select>
@@ -238,7 +238,7 @@ export function EventDirectory() {
                 
                 <div>
                   <label className="text-sm font-medium">Status</label>
-                  <Select value={filters.status} onValueChange={(value) => setFilters(prev => ({ ...prev, status: value }))}>
+                  <Select value={filters.status} onValueChange={(value: string) => setFilters(prev => ({ ...prev, status: value }))}>
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>

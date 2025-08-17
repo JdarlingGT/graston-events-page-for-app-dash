@@ -8,8 +8,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
-import { Checkbox } from "@/components/ui/checkbox";
-import { BulkActions } from "./bulk-actions";
 import { 
   ExternalLink, 
   Mail, 
@@ -27,6 +25,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
+import { Skeleton } from "../ui/skeleton";
 
 interface Student {
   id: string;
@@ -85,42 +84,7 @@ export function StudentTable({ eventId }: StudentTableProps) {
     }
   };
 
-  const handleSelectAll = (checked: boolean) => {
-    if (checked) {
-      setSelectedStudents(students.map((s: Student) => s.id));
-    } else {
-      setSelectedStudents([]);
-    }
-  };
-
-  const handleSelectStudent = (studentId: string, checked: boolean) => {
-    if (checked) {
-      setSelectedStudents(prev => [...prev, studentId]);
-    } else {
-      setSelectedStudents(prev => prev.filter(id => id !== studentId));
-    }
-  };
-
   const columns: ColumnDef<Student>[] = [
-    {
-      id: "select",
-      header: ({ table }) => (
-        <Checkbox
-          checked={selectedStudents.length === students.length && students.length > 0}
-          onCheckedChange={handleSelectAll}
-          aria-label="Select all"
-        />
-      ),
-      cell: ({ row }) => (
-        <Checkbox
-          checked={selectedStudents.includes(row.original.id)}
-          onCheckedChange={(checked) => handleSelectStudent(row.original.id, checked as boolean)}
-          aria-label="Select row"
-        />
-      ),
-      enableSorting: false,
-      enableHiding: false,
-    },
     {
       accessorKey: "name",
       header: "Student",
@@ -268,19 +232,28 @@ export function StudentTable({ eventId }: StudentTableProps) {
           </p>
         </div>
         
-        <BulkActions 
-          selectedStudents={selectedStudents}
-          eventId={eventId}
-          onClearSelection={() => setSelectedStudents([])}
-        />
+        <div className="flex gap-2">
+          <Button variant="outline" size="sm">
+            Import Students
+          </Button>
+          <Button size="sm">
+            Add Student
+          </Button>
+        </div>
       </div>
 
-      <DataTable 
-        columns={columns} 
-        data={students} 
-        searchPlaceholder="Search students..."
-        isLoading={isLoading}
-      />
+      {isLoading ? (
+        <div className="space-y-2">
+          <Skeleton className="h-8 w-1/3" />
+          <Skeleton className="h-64 w-full" />
+        </div>
+      ) : (
+        <DataTable 
+          columns={columns} 
+          data={students} 
+          searchPlaceholder="Search students..."
+        />
+      )}
     </div>
   );
 }

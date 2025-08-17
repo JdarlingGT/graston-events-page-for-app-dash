@@ -11,8 +11,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { StudentTable } from "./student-table";
 import { DangerZonePanel } from "./danger-zone-panel";
 import { TaskBoard } from "./task-board";
-import { EventAnalytics } from "./event-analytics";
-import { EventNotifications } from "./event-notifications";
 import { 
   Calendar, 
   MapPin, 
@@ -24,9 +22,7 @@ import {
   Phone,
   ExternalLink,
   Edit,
-  Share2,
-  Bell,
-  BarChart3
+  Share2
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -221,7 +217,7 @@ export function EventDetail({ eventId }: EventDetailProps) {
                 <Avatar className="h-10 w-10">
                   <AvatarImage src={event.instructor.avatar} />
                   <AvatarFallback>
-                    {event.instructor.name.split(' ').map(n => n[0]).join('')}
+                    {event.instructor.name.split(' ').map((n: string) => n[0]).join('')}
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex-1">
@@ -256,23 +252,13 @@ export function EventDetail({ eventId }: EventDetailProps) {
         }}
       />
 
-      {/* Notifications */}
-      <EventNotifications eventId={eventId} />
-
       {/* Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="grid w-full grid-cols-5">
+        <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="students">Students</TabsTrigger>
           <TabsTrigger value="tasks">Tasks</TabsTrigger>
-          <TabsTrigger value="analytics">
-            <BarChart3 className="h-4 w-4 mr-2" />
-            Analytics
-          </TabsTrigger>
-          <TabsTrigger value="notifications">
-            <Bell className="h-4 w-4 mr-2" />
-            Alerts
-          </TabsTrigger>
+          <TabsTrigger value="analytics">Analytics</TabsTrigger>
         </TabsList>
         
         <TabsContent value="overview" className="space-y-6">
@@ -306,11 +292,25 @@ export function EventDetail({ eventId }: EventDetailProps) {
         </TabsContent>
         
         <TabsContent value="analytics">
-          <EventAnalytics eventId={eventId} />
-        </TabsContent>
-        
-        <TabsContent value="notifications">
-          <EventNotifications eventId={eventId} showAll={true} />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Enrollment Funnel</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground">Analytics coming soon...</p>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>Revenue Tracking</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground">Revenue analytics coming soon...</p>
+              </CardContent>
+            </Card>
+          </div>
         </TabsContent>
       </Tabs>
     </div>
