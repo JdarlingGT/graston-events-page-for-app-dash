@@ -124,16 +124,16 @@ export function EventMapCardView() {
   }, [error]);
 
   // Map events to include coordinates for the map component
-  const eventsWithCoordinates = events.map((event: Event) => ({ // Explicitly type event
+  const eventsWithCoordinates = events.map((event: Event) => ({
     ...event,
     coordinates: cityCoordinates[event.city] || { lat: 0, lng: 0 } // Fallback for unknown cities
   }));
 
   const availableOptions = {
-    cities: Array.from(new Set(events.map((e: Event) => e.city))), // Explicitly type e
-    instructors: Array.from(new Set(events.map((e: Event) => e.instructor.name))), // Explicitly type e
-    types: Array.from(new Set(events.map((e: Event) => e.type))), // Explicitly type e
-    modes: Array.from(new Set(events.map((e: Event) => e.mode))), // Explicitly type e
+    cities: Array.from(new Set(events.map((e: Event) => e.city))),
+    instructors: Array.from(new Set(events.map((e: Event) => e.instructor.name))),
+    types: Array.from(new Set(events.map((e: Event) => e.type))),
+    modes: Array.from(new Set(events.map((e: Event) => e.mode))),
   };
 
   const handleCardHover = (eventId: string | null) => {
@@ -181,10 +181,10 @@ export function EventMapCardView() {
           No events found matching your criteria.
         </div>
       ) : (
-        eventsWithCoordinates.map((event: Event) => ( // Explicitly type event
+        eventsWithCoordinates.map((event) => (
           <div
             key={event.id}
-            ref={(el: HTMLDivElement | null) => { cardRefs.current[event.id] = el; }} // Corrected ref callback type
+            ref={(el) => { cardRefs.current[event.id] = el; }}
             onClick={() => handleCardClick(event.id)}
             onMouseEnter={() => handleCardMouseEnter(event.id)}
             onMouseLeave={() => handleCardHover(null)}

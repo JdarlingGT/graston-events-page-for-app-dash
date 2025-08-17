@@ -11,6 +11,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { StudentTable } from "./student-table";
 import { DangerZonePanel } from "./danger-zone-panel";
 import { TaskBoard } from "./task-board";
+import { EventAnalytics } from "./event-analytics";
 import { 
   Calendar, 
   MapPin, 
@@ -292,25 +293,7 @@ export function EventDetail({ eventId }: EventDetailProps) {
         </TabsContent>
         
         <TabsContent value="analytics">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Enrollment Funnel</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">Analytics coming soon...</p>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader>
-                <CardTitle>Revenue Tracking</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">Revenue analytics coming soon...</p>
-              </CardContent>
-            </Card>
-          </div>
+          <EventAnalytics eventId={eventId} />
         </TabsContent>
       </Tabs>
     </div>
