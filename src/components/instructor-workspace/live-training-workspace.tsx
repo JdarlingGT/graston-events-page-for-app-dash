@@ -11,17 +11,17 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { InstructorResourcePod } from "../instructor/instructor-resource-pod";
 import { QuickEmailModal } from "../instructor/quick-email-modal";
-import { AddNoteModal } from "../instructor/add-note-modal";
-import { Mail, Edit, MonitorPlay } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Mail, MonitorPlay } from "lucide-react";
 import Link from "next/link";
 import { SkillsEvaluationModal } from "./skills-evaluation-modal";
 import { Badge } from "@/components/ui/badge";
+import { StudentProfileModal } from "./student-profile-modal";
 
 interface Student {
   id: string;
   name: string;
   email: string;
+  avatar?: string;
   preCourseProgress: number;
 }
 
@@ -39,8 +39,8 @@ interface EventDetails {
 export function LiveTrainingWorkspace({ eventId }: { eventId: string }) {
   const [roster, setRoster] = useState<Record<string, RosterState>>({});
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
-  const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
   const [isEvaluationModalOpen, setIsEvaluationModalOpen] = useState(false);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
 
   const { data: event, isLoading: eventLoading } = useQuery<EventDetails>({
@@ -112,10 +112,16 @@ export function LiveTrainingWorkspace({ eventId }: { eventId: string }) {
       accessorKey: "name",
       header: "Student",
       cell: ({ row }) => (
-        <div>
-          <div className="font-medium">{row.original.name}</div>
-          <div className="text-sm text-muted-foreground">{row.original.email}</div>
-        </div>
+        <button
+          className="font-medium text-primary hover:underline text-left"
+          onClick={() => {
+            setSelectedStudent(row.original);
+            setIsProfileModalOpen(true);
+          }}
+        >
+          {row.original.name}
+          <div className="text-sm text-muted-foreground font-normal">{row.original.email}</div>
+        </button>
       ),
     },
     {
@@ -160,22 +166,6 @@ export function LiveTrainingWorkspace({ eventId }: { eventId: string }) {
           </div>
         );
       },
-    },
-    {
-      id: "actions",
-      cell: ({ row }) => (
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => {
-            setSelectedStudent(row.original);
-            setIsNoteModalOpen(true);
-          }}
-        >
-          <Edit className="mr-2 h-4 w-4" />
-          Note
-        </Button>
-      ),
     },
   ];
 
@@ -244,17 +234,6 @@ export function LiveTrainingWorkspace({ eventId }: { eventId: string }) {
         onClose={() => setIsEmailModalOpen(false)}
         studentEmails={students.map(s => s.email)}
       />
-      <AddNoteModal
-        isOpen={isNoteModalOpen}
-        onClose={() => setIsNoteModalOpen(false)}
-        studentName={selectedStudent?.name || ""}
-        initialNote={roster[selectedStudent?.id || ""]?.notes || ""}
-        onSave={(note: string) => {
-          if (selectedStudent) {
-            updateRoster(selectedStudent.id, { notes: note });
-          }
-        }}
-      />
       <SkillsEvaluationModal
         isOpen={isEvaluationModalOpen}
         onClose={() => setIsEvaluationModalOpen(false)}
@@ -262,6 +241,15 @@ export function LiveTrainingWorkspace({ eventId }: { eventId: string }) {
         onSave={(studentId, result) => {
           updateRoster(studentId, { skillsCheck: result.status, notes: result.notes });
           setIsEvaluationModalOpen(false);
+        }}
+      />
+      <StudentProfileModal
+        isOpen={isProfileModalOpen}
+        onClose={() => setIsProfileModalOpen(false)}
+        student={selectedStudent}
+        rosterState={selectedStudent ? roster[selectedStudent.id] : null}
+        onSaveNotes={(studentId, notes) => {
+          updateRoster(studentId, { notes });
         }}
       />
     </div>

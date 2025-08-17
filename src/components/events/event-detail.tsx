@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
@@ -31,7 +31,8 @@ import {
   CheckCircle,
   Activity,
   Trash,
-  Copy
+  Copy,
+  Send
 } from "lucide-react";
 import {
   AlertDialog,
@@ -109,6 +110,15 @@ export function EventDetail({ eventId }: EventDetailProps) {
       }
       return response.json();
     },
+  });
+
+  const reminderMutation = useMutation({
+    mutationFn: () => fetch(`/api/events/${eventId}/reminders`, { method: 'POST' }),
+    onSuccess: async (res) => {
+      const data = await res.json();
+      toast.success(data.message);
+    },
+    onError: () => toast.error("Failed to send reminders."),
   });
 
   const handleDelete = () => {
@@ -226,6 +236,16 @@ export function EventDetail({ eventId }: EventDetailProps) {
 
         {/* Right Column */}
         <div className="lg:col-span-1 space-y-6 lg:sticky lg:top-20">
+          <Card>
+            <CardHeader><CardTitle className="text-lg">Automations</CardTitle></CardHeader>
+            <CardContent>
+              <Button className="w-full" onClick={() => reminderMutation.mutate()} disabled={reminderMutation.isPending}>
+                <Send className="mr-2 h-4 w-4" />
+                {reminderMutation.isPending ? "Sending..." : "Send Pre-Course Reminders"}
+              </Button>
+            </CardContent>
+          </Card>
+
           <Card>
             <CardHeader>
               <CardTitle className="text-lg">Status & Capacity</CardTitle>
