@@ -48,11 +48,21 @@ interface EventFiltersState {
 }
 
 const cityCoordinates: { [key: string]: { lat: number; lng: number } } = {
-  "San Francisco": { lat: 37.7749, lng: -122.4194 }, "Austin": { lat: 30.2672, lng: -97.7431 },
-  "New York": { lat: 40.7128, lng: -74.0060 }, "Los Angeles": { lat: 34.0522, lng: -118.2437 },
-  "Chicago": { lat: 41.8781, lng: -87.6298 }, "Seattle": { lat: 47.6062, lng: -122.3321 },
-  "Miami": { lat: 25.7617, lng: -80.1918 }, "Denver": { lat: 39.7392, lng: -104.9903 },
-  "Boston": { lat: 42.3601, lng: -71.0589 }, "Dallas": { lat: 32.7767, lng: -96.7970 },
+  "San Francisco": { lat: 37.7749, lng: -122.4194 },
+  "Austin": { lat: 30.2672, lng: -97.7431 },
+  "New York": { lat: 40.7128, lng: -74.0060 },
+  "Los Angeles": { lat: 34.0522, lng: -118.2437 },
+  "Chicago": { lat: 41.8781, lng: -87.6298 },
+  "Seattle": { lat: 47.6062, lng: -122.3321 },
+  "Miami": { lat: 25.7617, lng: -80.1918 },
+  "Denver": { lat: 39.7392, lng: -104.9903 },
+  "Boston": { lat: 42.3601, lng: -71.0589 },
+  "Dallas": { lat: 32.7767, lng: -96.7970 },
+  "Phoenix": { lat: 33.4484, lng: -112.0740 },
+  "Portland": { lat: 45.5152, lng: -122.6784 },
+  "Atlanta": { lat: 33.7490, lng: -84.3880 },
+  "Las Vegas": { lat: 36.1699, lng: -115.1398 },
+  "Nashville": { lat: 36.1627, lng: -86.7816 },
 };
 
 export function EventDirectory() {
