@@ -12,6 +12,11 @@ let mockProjects = [
       "https://i.pravatar.cc/150?img=2",
       "https://i.pravatar.cc/150?img=3"
     ],
+    "memberEmails": [
+      "alice@example.com",
+      "bob@example.com",
+      "carol@example.com"
+    ],
     "progress": 75
   },
   {
@@ -21,6 +26,10 @@ let mockProjects = [
     "memberAvatars": [
       "https://i.pravatar.cc/150?img=4",
       "https://i.pravatar.cc/150?img=5"
+    ],
+    "memberEmails": [
+      "dave@example.com",
+      "eve@example.com"
     ],
     "progress": 40
   },
@@ -32,6 +41,11 @@ let mockProjects = [
       "https://i.pravatar.cc/150?img=6",
       "https://i.pravatar.cc/150?img=7",
       "https://i.pravatar.cc/150?img=8"
+    ],
+    "memberEmails": [
+      "frank@example.com",
+      "grace@example.com",
+      "heidi@example.com"
     ],
     "progress": 15
   }
@@ -54,7 +68,7 @@ export async function POST(request: Request) {
     const newProject = {
       id: `proj-${Date.now()}`,
       ...validation.data,
-      memberAvatars: [`https://i.pravatar.cc/150?u=${Date.now()}`],
+      memberAvatars: validation.data.memberAvatars || [`https://i.pravatar.cc/150?u=${Date.now()}`],
       progress: 0,
     };
 

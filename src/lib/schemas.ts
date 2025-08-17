@@ -1,68 +1,62 @@
 import { z } from 'zod';
 
-// Schema for creating/updating a venue
-export const venueSchema = z.object({
-  name: z.string().min(3, { message: "Venue name must be at least 3 characters long." }),
-  type: z.string().min(3, { message: "Venue type is required." }),
-  city: z.string().min(2, { message: "City is required." }),
-  state: z.string().min(2, { message: "State is required." }),
-  contactPerson: z.string().min(3, { message: "Contact person is required." }),
-  capacity: z.coerce.number().int().min(0, { message: "Capacity must be a positive number." }),
-});
-export type VenueFormValues = z.infer<typeof venueSchema>;
-
-// Schema for creating/updating an instructor
+// Instructor
 export const instructorSchema = z.object({
-  name: z.string().min(3, { message: "Instructor name is required." }),
-  email: z.string().email({ message: "Invalid email address." }),
-  bio: z.string().min(10, { message: "Bio must be at least 10 characters." }),
+  name: z.string().min(2, { message: "Name is required." }),
+  email: z.string().email({ message: "Valid email is required." }),
   phone: z.string().optional(),
-  specialties: z.string().min(3, { message: "Specialties are required." }),
+  bio: z.string().min(5, { message: "Bio is required." }),
+  specialties: z.string().min(2, { message: "Specialties are required." }),
 });
 export type InstructorFormValues = z.infer<typeof instructorSchema>;
 
-// Schema for creating/updating an event
+// Venue
+export const venueSchema = z.object({
+  name: z.string().min(2, { message: "Venue name is required." }),
+  type: z.string().min(2, { message: "Venue type is required." }),
+  city: z.string().min(2, { message: "City is required." }),
+  state: z.string().min(2, { message: "State is required." }),
+  contactPerson: z.string().min(2, { message: "Contact person is required." }),
+  capacity: z.coerce.number().min(1, { message: "Capacity is required." }),
+});
+export type VenueFormValues = z.infer<typeof venueSchema>;
+
+// Event
 export const eventSchema = z.object({
-  title: z.string().min(10, { message: "Title must be at least 10 characters." }),
+  title: z.string().min(2, { message: "Event title is required." }),
   status: z.enum(["Go", "At Risk", "Completed"]),
-  startDate: z.string(),
-  endDate: z.string(),
+  startDate: z.string().min(2, { message: "Start date is required." }),
+  endDate: z.string().min(2, { message: "End date is required." }),
   location: z.object({
-    city: z.string().min(2),
-    state: z.string().min(2),
+    city: z.string().min(2, { message: "City is required." }),
+    state: z.string().min(2, { message: "State is required." }),
     venueId: z.string().nullable(),
   }),
-  courseType: z.string().min(3),
-  capacity: z.coerce.number().int().min(1),
-  enrolledCount: z.coerce.number().int().min(0),
-  revenue: z.coerce.number().min(0),
-  instructorIds: z.array(z.string()).min(1),
+  courseType: z.string().min(2, { message: "Course type is required." }),
+  capacity: z.coerce.number().min(1, { message: "Capacity is required." }),
+  enrolledCount: z.coerce.number().optional(),
+  revenue: z.coerce.number().optional(),
+  instructorIds: z.array(z.string()).optional(),
 });
 export type EventFormValues = z.infer<typeof eventSchema>;
 
-// Schema for creating/updating a project
+// Task
+export const taskSchema = z.object({
+  title: z.string().min(2, { message: "Task title is required." }),
+  description: z.string().optional(),
+  status: z.enum(["todo", "in-progress", "done"]).default("todo"),
+  priority: z.enum(["low", "medium", "high"]).default("medium"),
+  dueDate: z.date().optional(),
+  assigneeName: z.string().optional(),
+  attachments: z.array(z.any()).optional(),
+});
+export type TaskFormValues = z.infer<typeof taskSchema>;
+
+// Project
 export const projectSchema = z.object({
   name: z.string().min(5, { message: "Project name must be at least 5 characters." }),
   description: z.string().min(10, { message: "Description must be at least 10 characters." }),
+  memberAvatars: z.array(z.string()).optional(),
+  memberEmails: z.array(z.string().email()).min(1, { message: "At least one team member email is required." }),
 });
 export type ProjectFormValues = z.infer<typeof projectSchema>;
-
-// Schema for task attachments from Google Drive
-export const attachmentSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  url: z.string().url(),
-  iconUrl: z.string().url(),
-});
-
-// Schema for creating/updating a task
-export const taskSchema = z.object({
-  title: z.string().min(3, { message: "Title must be at least 3 characters." }),
-  description: z.string().optional(),
-  status: z.enum(["todo", "in-progress", "done"]),
-  priority: z.enum(["low", "medium", "high"]),
-  dueDate: z.date().optional(),
-  assigneeName: z.string().optional(),
-  attachments: z.array(attachmentSchema).optional(),
-});
-export type TaskFormValues = z.infer<typeof taskSchema>;
