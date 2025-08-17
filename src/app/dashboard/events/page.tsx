@@ -15,25 +15,25 @@ export default function EventsPage() {
             Proactively manage and monitor all events.
           </p>
         </div>
-        <Tabs defaultValue="directory" className="mt-4 sm:mt-0">
-          <TabsList>
-            <TabsTrigger value="directory">
-              <List className="mr-2 h-4 w-4" />
-              Directory
-            </TabsTrigger>
-            <TabsTrigger value="map">
-              <Map className="mr-2 h-4 w-4" />
-              Map View
-            </TabsTrigger>
-          </TabsList>
-          <TabsContent value="directory" className="mt-4">
-            <EventsTable />
-          </TabsContent>
-          <TabsContent value="map" className="mt-4">
-            <EventDirectory />
-          </TabsContent>
-        </Tabs>
       </div>
+      <Tabs defaultValue="map" className="mt-4 sm:mt-0">
+        <TabsList>
+          <TabsTrigger value="directory">
+            <List className="mr-2 h-4 w-4" />
+            Directory
+          </TabsTrigger>
+          <TabsTrigger value="map">
+            <Map className="mr-2 h-4 w-4" />
+            Map View
+          </TabsTrigger>
+        </TabsList>
+        <TabsContent value="directory" className="mt-4">
+          <EventsTable />
+        </TabsContent>
+        <TabsContent value="map" className="mt-4">
+          <EventDirectory />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

@@ -28,6 +28,7 @@ import {
   Share2
 } from "lucide-react";
 import { toast } from "sonner";
+import Link from "next/link";
 
 interface EventDetailProps {
   eventId: string;
@@ -166,9 +167,11 @@ export function EventDetail({ eventId }: EventDetailProps) {
                   <Button variant="outline" size="sm" onClick={handleShare}>
                     <Share2 className="h-4 w-4" />
                   </Button>
-                  <Button variant="outline" size="sm">
-                    <Edit className="h-4 w-4 mr-2" />
-                    Edit
+                  <Button asChild variant="outline" size="sm">
+                    <Link href={`/dashboard/events/${event.id}/edit`}>
+                      <Edit className="h-4 w-4 mr-2" />
+                      Edit
+                    </Link>
                   </Button>
                 </div>
               </div>
@@ -229,11 +232,15 @@ export function EventDetail({ eventId }: EventDetailProps) {
                   <div className="text-sm text-muted-foreground">Instructor</div>
                 </div>
                 <div className="flex gap-2">
-                  <Button variant="outline" size="sm">
-                    <Mail className="h-4 w-4" />
+                  <Button asChild variant="outline" size="sm">
+                    <a href={`mailto:${event.instructor.email}`}>
+                      <Mail className="h-4 w-4" />
+                    </a>
                   </Button>
-                  <Button variant="outline" size="sm">
-                    <Phone className="h-4 w-4" />
+                  <Button asChild variant="outline" size="sm">
+                    <a href={`tel:${event.instructor.phone}`}>
+                      <Phone className="h-4 w-4" />
+                    </a>
                   </Button>
                 </div>
               </div>

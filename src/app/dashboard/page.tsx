@@ -48,7 +48,24 @@ export default function DashboardPage() {
         setLoading(false);
       }
     }
+
+    async function runProactiveCheck() {
+      try {
+        const response = await fetch('/api/events/check-danger-zone', { method: 'POST' });
+        const data = await response.json();
+        if (data.atRiskCount > 0) {
+          toast.warning(`Proactive check complete: ${data.atRiskCount} event(s) require attention.`);
+        } else {
+          toast.success("Proactive check complete: All events are on track.");
+        }
+      } catch (error) {
+        console.error("Proactive check failed:", error);
+        toast.error("Could not run proactive event check.");
+      }
+    }
+
     fetchData();
+    runProactiveCheck();
   }, []);
 
   const totalEnrolled = events.reduce(
