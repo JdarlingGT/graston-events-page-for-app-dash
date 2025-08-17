@@ -12,7 +12,7 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json() as Omit<Task, 'id'>;
-    const newTask = {
+    const newTask: Task = {
       id: `task-${Date.now()}`,
       ...body,
       status: 'todo', // New tasks always start in 'To Do'
