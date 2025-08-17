@@ -140,8 +140,6 @@ export async function POST(request: Request) {
       ...validation.data,
       capacity: body.capacity || 50, // Default capacity
       minViableEnrollment: body.minViableEnrollment || 10, // Default min viable enrollment
-      type: body.type || "Essential", // Default type
-      mode: body.mode || "In-Person", // Default mode
       status: body.status || "upcoming", // Default status
       featuredImage: body.featuredImage || `https://picsum.photos/seed/event-${Date.now()}/800/400`, // Default image
       date: body.date || new Date().toISOString().split('T')[0], // Default date

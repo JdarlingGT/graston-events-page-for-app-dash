@@ -12,6 +12,8 @@ interface Event {
   instructor: string;
   enrolledStudents: number;
   instrumentsPurchased: number;
+  type: "Essential" | "Advanced";
+  mode: "In-Person" | "Virtual";
 }
 
 export default function EditEventPage({ params }: { params: { id: string } }) {

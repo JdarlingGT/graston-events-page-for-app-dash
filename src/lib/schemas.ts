@@ -16,6 +16,8 @@ export const eventSchema = z.object({
   instructor: z.string().min(2, { message: "Instructor name is required." }),
   enrolledStudents: z.coerce.number().int().min(0, { message: "Enrolled students must be a non-negative number." }),
   instrumentsPurchased: z.coerce.number().int().min(0, { message: "Kits purchased must be a non-negative number." }),
+  type: z.enum(["Essential", "Advanced"], { required_error: "You must select an event type." }),
+  mode: z.enum(["In-Person", "Virtual"], { required_error: "You must select an event mode." }),
 });
 
 export type EventFormValues = z.infer<typeof eventSchema>;

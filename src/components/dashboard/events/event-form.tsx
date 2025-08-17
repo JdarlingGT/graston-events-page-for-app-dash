@@ -13,6 +13,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   Card,
   CardContent,
   CardHeader,
@@ -35,6 +42,8 @@ interface Event {
   instructor: string;
   enrolledStudents: number;
   instrumentsPurchased: number;
+  type: "Essential" | "Advanced";
+  mode: "In-Person" | "Virtual";
 }
 
 interface EventFormProps {
@@ -56,6 +65,8 @@ export function EventForm({ initialData }: EventFormProps) {
       instructor: "",
       enrolledStudents: 0,
       instrumentsPurchased: 0,
+      type: "Essential",
+      mode: "In-Person",
     },
   });
 
@@ -77,7 +88,9 @@ export function EventForm({ initialData }: EventFormProps) {
       }
 
       toast.success(`Event ${initialData ? "updated" : "created"} successfully!`);
-      // Here you would also trigger the marketing automations based on the toggles
+      if (!initialData) {
+        toast.info("Relevant setup tasks have been automatically created.");
+      }
       if (socialMediaContent) {
         toast.info("Social media posts have been scheduled.");
       }
@@ -159,26 +172,38 @@ export function EventForm({ initialData }: EventFormProps) {
                 />
                 <FormField
                   control={form.control}
-                  name="enrolledStudents"
+                  name="type"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Enrolled Students</FormLabel>
-                      <FormControl>
-                        <Input type="number" placeholder="e.g., 25" {...field} />
-                      </FormControl>
+                      <FormLabel>Event Type</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger><SelectValue placeholder="Select an event type" /></SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="Essential">Essential</SelectItem>
+                          <SelectItem value="Advanced">Advanced</SelectItem>
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
                 <FormField
                   control={form.control}
-                  name="instrumentsPurchased"
+                  name="mode"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Kits Purchased</FormLabel>
-                      <FormControl>
-                        <Input type="number" placeholder="e.g., 20" {...field} />
-                      </FormControl>
+                      <FormLabel>Event Mode</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger><SelectValue placeholder="Select an event mode" /></SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="In-Person">In-Person</SelectItem>
+                          <SelectItem value="Virtual">Virtual</SelectItem>
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}
