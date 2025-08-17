@@ -1,5 +1,3 @@
-"use client";
-
 import { LiveTrainingWorkspace } from "@/components/instructor-workspace/live-training-workspace";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";

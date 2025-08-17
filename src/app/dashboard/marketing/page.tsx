@@ -1,6 +1,5 @@
 "use client";
 
-import { AttributionDashboard } from "@/components/dashboard/marketing/attribution-dashboard";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Target, Sparkles, PlusCircle } from "lucide-react";
@@ -8,6 +7,9 @@ import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import { differenceInDays, parseISO } from "date-fns";
+import { CampaignManagement } from "@/components/dashboard/marketing/campaign-management";
+import { UtmLinkBuilder } from "@/components/dashboard/marketing/utm-link-builder";
+import { ContentIdeationCopilot } from "@/components/dashboard/marketing/content-ideation-copilot";
 
 interface AtRiskEvent {
   id: string;
@@ -128,7 +130,17 @@ export default function MarketingPage() {
         </p>
       </div>
       <MarketingActionCards />
-      <AttributionDashboard />
+      
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2">
+          <UtmLinkBuilder />
+        </div>
+        <div className="lg:col-span-1">
+          <ContentIdeationCopilot />
+        </div>
+      </div>
+
+      <CampaignManagement />
     </div>
   );
 }

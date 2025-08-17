@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import path from 'path';
 import { promises as fs } from 'fs';
 
@@ -20,14 +20,14 @@ async function saveCheckIns(data: any) {
 }
 
 // GET check-in data for an event
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   const allCheckIns = await getCheckIns();
   const eventCheckIns = allCheckIns[params.id] || {};
   return NextResponse.json(eventCheckIns);
 }
 
 // POST to update a student's check-in status
-export async function POST(request: Request, { params }: { params: { id: string } }) {
+export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
   const { studentId, period, timestamp } = await request.json();
   if (!studentId || !period || !timestamp) {
     return new NextResponse('Missing required fields', { status: 400 });

@@ -1,0 +1,42 @@
+[
+  {
+    "id": "camp-1",
+    "name": "Q3 Essential Training - Facebook",
+    "status": "Active",
+    "channel": "Facebook",
+    "budget": 5000,
+    "spend": 3250,
+    "conversions": 45,
+    "revenue": 26955
+  },
+  {
+    "id": "camp-2",
+    "name": "Advanced Workshop Search Ads",
+    "status": "Active",
+    "channel": "Google Ads",
+    "budget": 8000,
+    "spend": 6800,
+    "conversions": 62,
+    "revenue": 37138
+  },
+  {
+    "id": "camp-3",
+    "name": "Q2 Newsletter Promotion",
+    "status": "Completed",
+    "channel": "Email",
+    "budget": 500,
+    "spend": 150,
+    "conversions": 88,
+    "revenue": 52712
+  },
+  {
+    "id": "camp-4",
+    "name": "Early Bird Discount - LinkedIn",
+    "status": "Paused",
+    "channel": "Facebook",
+    "budget": 3000,
+    "spend": 1200,
+    "conversions": 18,
+    "revenue": 10782
+  }
+]
