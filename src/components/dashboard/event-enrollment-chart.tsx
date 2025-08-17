@@ -1,6 +1,6 @@
 "use client"
 
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Cell } from "recharts"
+import { Line, LineChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
 import {
   Card,
   CardContent,
@@ -10,71 +10,68 @@ import {
 } from "@/components/ui/card"
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
 
-interface Event {
-  id: string;
-  name: string;
-  enrolledStudents: number;
-}
-
-interface EventEnrollmentChartProps {
-  data: Event[];
-}
+const data = [
+  { date: "Jan 1", enrolled: 120, capacity: 200 },
+  { date: "Jan 8", enrolled: 145, capacity: 200 },
+  { date: "Jan 15", enrolled: 167, capacity: 200 },
+  { date: "Jan 22", enrolled: 189, capacity: 200 },
+  { date: "Jan 29", enrolled: 195, capacity: 200 },
+  { date: "Feb 5", enrolled: 198, capacity: 200 },
+  { date: "Feb 12", enrolled: 200, capacity: 200 },
+]
 
 const chartConfig = {
-  enrolledStudents: {
+  enrolled: {
     label: "Enrolled Students",
+    color: "hsl(var(--chart-1))",
+  },
+  capacity: {
+    label: "Total Capacity",
+    color: "hsl(var(--chart-2))",
   },
 } satisfies ChartConfig
 
-export function EventEnrollmentChart({ data }: EventEnrollmentChartProps) {
-  const chartData = data.map(event => {
-    let fill;
-    if (event.enrolledStudents < 4) {
-      fill = "hsl(var(--destructive))"; // At Risk
-    } else if (event.enrolledStudents < 10) {
-      fill = "hsl(var(--chart-4))"; // Warning
-    } else {
-      fill = "hsl(var(--chart-2))"; // OK
-    }
-    return {
-      name: event.name,
-      enrolledStudents: event.enrolledStudents,
-      fill: fill,
-    }
-  });
-
+export function EventEnrollmentChart() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Event Enrollment Overview</CardTitle>
-        <CardDescription>A visual breakdown of student enrollment per event.</CardDescription>
+        <CardTitle>Event Enrollment Trends</CardTitle>
+        <CardDescription>Student enrollment over time</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="min-h-[300px] w-full">
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={chartData} margin={{ top: 5, right: 20, left: -10, bottom: 75 }}>
-              <CartesianGrid strokeDasharray="3 3" vertical={false} />
-              <XAxis 
-                dataKey="name" 
+        <ChartContainer config={chartConfig}>
+          <ResponsiveContainer width="100%" height={350}>
+            <LineChart data={data}>
+              <XAxis
+                dataKey="date"
+                stroke="#888888"
+                fontSize={12}
                 tickLine={false}
                 axisLine={false}
-                tickMargin={10}
-                angle={-45}
-                textAnchor="end"
-                interval={0}
+              />
+              <YAxis
+                stroke="#888888"
                 fontSize={12}
+                tickLine={false}
+                axisLine={false}
               />
-              <YAxis />
-              <ChartTooltip
-                cursor={false}
-                content={<ChartTooltipContent indicator="dot" />}
+              <ChartTooltip content={<ChartTooltipContent />} />
+              <Line
+                type="monotone"
+                dataKey="enrolled"
+                stroke="var(--color-enrolled)"
+                strokeWidth={2}
+                dot={{ fill: "var(--color-enrolled)" }}
               />
-              <Bar dataKey="enrolledStudents" radius={4}>
-                {chartData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.fill} />
-                ))}
-              </Bar>
-            </BarChart>
+              <Line
+                type="monotone"
+                dataKey="capacity"
+                stroke="var(--color-capacity)"
+                strokeWidth={2}
+                strokeDasharray="5 5"
+                dot={{ fill: "var(--color-capacity)" }}
+              />
+            </LineChart>
           </ResponsiveContainer>
         </ChartContainer>
       </CardContent>

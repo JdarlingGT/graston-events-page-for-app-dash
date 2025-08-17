@@ -102,7 +102,7 @@ export function EventMap({ events, hoveredEventId, selectedEventId, onPinClick }
           <InfoWindow
             position={events.find(e => e.id === openInfoWindowId)?.coordinates}
             onCloseClick={() => setOpenInfoWindowId(null)}
-            pixelOffset={{ x: 0, y: -30 }} // Corrected property names to x and y
+            pixelOffset={[0, -30]} // Corrected to use array format [x, y]
           >
             {events.find(e => e.id === openInfoWindowId) && (() => {
               const event = events.find(e => e.id === openInfoWindowId)!;

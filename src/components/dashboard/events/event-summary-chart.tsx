@@ -1,6 +1,6 @@
 "use client"
 
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer } from "recharts"
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
 import {
   Card,
   CardContent,
@@ -10,52 +10,53 @@ import {
 } from "@/components/ui/card"
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
 
-interface EventSummaryChartProps {
-  enrolledStudents: number;
-  instrumentsPurchased: number;
-}
+const data = [
+  { status: "Upcoming", count: 15, fill: "var(--color-upcoming)" },
+  { status: "Ongoing", count: 8, fill: "var(--color-ongoing)" },
+  { status: "Completed", count: 23, fill: "var(--color-completed)" },
+]
 
 const chartConfig = {
-  value: {
-    label: "Count",
+  upcoming: {
+    label: "Upcoming",
     color: "hsl(var(--chart-1))",
+  },
+  ongoing: {
+    label: "Ongoing", 
+    color: "hsl(var(--chart-2))",
+  },
+  completed: {
+    label: "Completed",
+    color: "hsl(var(--chart-3))",
   },
 } satisfies ChartConfig
 
-export function EventSummaryChart({ enrolledStudents, instrumentsPurchased }: EventSummaryChartProps) {
-  const data = [
-    { category: "Enrolled Students", value: enrolledStudents },
-    { category: "Kits Purchased", value: instrumentsPurchased },
-  ];
-
+export function EventSummaryChart() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Enrollment & Kit Sales</CardTitle>
-        <CardDescription>Overview of student enrollment and instrument kit purchases for this event.</CardDescription>
+        <CardTitle>Event Summary</CardTitle>
+        <CardDescription>Events by status</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
-          <ResponsiveContainer width="100%" height={200}>
-            <BarChart data={data} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
-              <CartesianGrid vertical={false} />
+        <ChartContainer config={chartConfig}>
+          <ResponsiveContainer width="100%" height={350}>
+            <BarChart data={data}>
               <XAxis
-                dataKey="category"
+                dataKey="status"
+                stroke="#888888"
+                fontSize={12}
                 tickLine={false}
                 axisLine={false}
-                tickMargin={8}
+              />
+              <YAxis
+                stroke="#888888"
                 fontSize={12}
+                tickLine={false}
+                axisLine={false}
               />
-              <YAxis />
-              <ChartTooltip
-                cursor={false}
-                content={<ChartTooltipContent indicator="dot" />}
-              />
-              <Bar
-                dataKey="value"
-                fill="var(--color-value)"
-                radius={4}
-              />
+              <ChartTooltip content={<ChartTooltipContent />} />
+              <Bar dataKey="count" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </ChartContainer>

@@ -1,6 +1,6 @@
 "use client"
 
-import { Line, LineChart, CartesianGrid, XAxis, ResponsiveContainer } from "recharts"
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
 import {
   Card,
   CardContent,
@@ -10,20 +10,23 @@ import {
 } from "@/components/ui/card"
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
 
-// Mock data for the chart
-const chartData = [
-  { month: "January", enrolled: 186 },
-  { month: "February", enrolled: 305 },
-  { month: "March", enrolled: 237 },
-  { month: "April", enrolled: 273 },
-  { month: "May", enrolled: 209 },
-  { month: "June", enrolled: 214 },
+const data = [
+  { month: "Jan", revenue: 45000, events: 12 },
+  { month: "Feb", revenue: 52000, events: 15 },
+  { month: "Mar", revenue: 48000, events: 13 },
+  { month: "Apr", revenue: 61000, events: 18 },
+  { month: "May", revenue: 55000, events: 16 },
+  { month: "Jun", revenue: 67000, events: 20 },
 ]
 
 const chartConfig = {
-  enrolled: {
-    label: "Enrolled",
+  revenue: {
+    label: "Revenue",
     color: "hsl(var(--chart-1))",
+  },
+  events: {
+    label: "Events",
+    color: "hsl(var(--chart-2))",
   },
 } satisfies ChartConfig
 
@@ -32,32 +35,29 @@ export function SalesOverviewChart() {
     <Card>
       <CardHeader>
         <CardTitle>Sales Overview</CardTitle>
-        <CardDescription>Student enrollment trend for the last 6 months.</CardDescription>
+        <CardDescription>Monthly revenue and event count</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
           <ResponsiveContainer width="100%" height={350}>
-            <LineChart data={chartData}>
-              <CartesianGrid vertical={false} />
+            <BarChart data={data}>
               <XAxis
                 dataKey="month"
+                stroke="#888888"
+                fontSize={12}
                 tickLine={false}
                 axisLine={false}
-                tickMargin={8}
-                tickFormatter={(value: string) => value.slice(0, 3)} // Explicitly type value
               />
-              <ChartTooltip
-                cursor={false}
-                content={<ChartTooltipContent indicator="dot" />}
+              <YAxis
+                stroke="#888888"
+                fontSize={12}
+                tickLine={false}
+                axisLine={false}
+                tickFormatter={(value) => `$${value}`}
               />
-              <Line
-                dataKey="enrolled"
-                type="monotone"
-                stroke="var(--color-enrolled)"
-                strokeWidth={2}
-                dot={false}
-              />
-            </LineChart>
+              <ChartTooltip content={<ChartTooltipContent />} />
+              <Bar dataKey="revenue" fill="var(--color-revenue)" radius={[4, 4, 0, 0]} />
+            </BarChart>
           </ResponsiveContainer>
         </ChartContainer>
       </CardContent>

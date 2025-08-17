@@ -2,13 +2,13 @@
 
 import * as React from "react"
 import * as RechartsPrimitive from "recharts"
-import { ResponsiveContainer } from "recharts" // Explicitly import ResponsiveContainer
+import { ResponsiveContainer } from "recharts"
 
 import { cn } from "@/lib/utils"
 
 // Workaround for https://github.com/recharts/recharts/issues/3615
 const CartesianGrid = React.forwardRef<
-  SVGRectElement, // Corrected ref type to SVGRectElement
+  SVGRectElement,
   React.ComponentProps<typeof RechartsPrimitive.CartesianGrid>
 >(({ className, ...props }, ref) => (
   <RechartsPrimitive.CartesianGrid
@@ -20,10 +20,12 @@ const CartesianGrid = React.forwardRef<
 
 CartesianGrid.displayName = "CartesianGrid"
 
-interface ChartTooltipProps extends React.ComponentProps<typeof RechartsPrimitive.Tooltip> {
+interface ChartTooltipProps {
   hideIndicator?: boolean;
   indicator?: "dot" | "line" | "dashed";
-  className?: string; // Added className to props
+  className?: string;
+  active?: boolean;
+  payload?: any[];
 }
 
 const ChartTooltip = React.forwardRef<
@@ -69,10 +71,14 @@ const ChartTooltip = React.forwardRef<
 })
 ChartTooltip.displayName = "ChartTooltip"
 
-interface ChartTooltipContentProps extends React.ComponentProps<typeof RechartsPrimitive.Tooltip> {
+interface ChartTooltipContentProps {
   nameKey?: string;
-  hideLabel?: boolean; // Added hideLabel to props
-  active?: boolean; // Added active to props
+  hideLabel?: boolean;
+  hideIndicator?: boolean;
+  indicator?: "dot" | "line" | "dashed";
+  active?: boolean;
+  payload?: any[];
+  className?: string;
 }
 
 const ChartTooltipContent = React.forwardRef<
@@ -99,12 +105,12 @@ const ChartTooltipContent = React.forwardRef<
     >
       {!hideLabel && (
         <div className="text-muted-foreground text-sm mb-1">
-          {payload[0].payload[nameKey || payload[0].dataKey || '']} {/* Added || '' for safety */}
+          {payload[0].payload[nameKey || payload[0].dataKey || '']}
         </div>
       )}
       <div className="grid gap-1.5">
         {data.map((item: any, index: number) => {
-          const key = `${nameKey || item.name || item.dataKey || "value"}`
+          const key = `${nameKey || item.name || item.dataKey || "value"}-${index}`
           return (
             <div
               key={key}
@@ -131,11 +137,28 @@ const ChartTooltipContent = React.forwardRef<
 })
 ChartTooltipContent.displayName = "ChartTooltipContent"
 
+interface ChartConfig {
+  [key: string]: {
+    label: string;
+    color?: string;
+  };
+}
+
+const ChartContext = React.createContext<{ config: ChartConfig } | null>(null);
+
+function useChart() {
+  const context = React.useContext(ChartContext);
+  if (!context) {
+    throw new Error("useChart must be used within a <ChartContainer />");
+  }
+  return context;
+}
+
 const ChartContainer = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<"div"> & {
     config: ChartConfig
-    children: React.ReactElement<typeof ResponsiveContainer> // Corrected type
+    children: React.ReactElement
   }
 >(({ id, className, children, config, ...props }, ref) => {
   const uniqueId = React.useId()
@@ -154,7 +177,7 @@ const ChartContainer = React.forwardRef<
       <ChartContext.Provider value={{ config }}>
         {React.cloneElement(children, {
           id: chartId,
-          className: cn("max-h-[--container-height] w-full", children.props.className),
+          className: cn("max-h-[--container-height] w-full", children.props?.className),
         })}
       </ChartContext.Provider>
     </div>
@@ -169,22 +192,4 @@ export {
   CartesianGrid,
 }
 
-// Helper for ChartContext and ChartConfig (assuming these are defined elsewhere or need to be added)
-interface ChartConfig {
-  [key: string]: {
-    label: string;
-    color?: string;
-  };
-}
-
-const ChartContext = React.createContext<{ config: ChartConfig } | null>(null);
-
-function useChart() {
-  const context = React.useContext(ChartContext);
-  if (!context) {
-    throw new Error("useChart must be used within a <ChartContainer />");
-  }
-  return context;
-}
-
-export type { ChartConfig }; // Export ChartConfig
+export type { ChartConfig }

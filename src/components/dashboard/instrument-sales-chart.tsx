@@ -1,6 +1,6 @@
 "use client"
 
-import { Bar, BarChart, CartesianGrid, XAxis, ResponsiveContainer } from "recharts"
+import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
 import {
   Card,
   CardContent,
@@ -10,54 +10,68 @@ import {
 } from "@/components/ui/card"
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
 
-interface Event {
-  name: string;
-  instrumentsPurchased: number;
-}
-
-interface InstrumentSalesChartProps {
-  data: Event[];
-}
+const data = [
+  { month: "Jan", instruments: 89, accessories: 45 },
+  { month: "Feb", instruments: 95, accessories: 52 },
+  { month: "Mar", instruments: 87, accessories: 48 },
+  { month: "Apr", instruments: 102, accessories: 61 },
+  { month: "May", instruments: 98, accessories: 55 },
+  { month: "Jun", instruments: 115, accessories: 67 },
+]
 
 const chartConfig = {
-  instrumentsPurchased: {
-    label: "Instruments Purchased",
+  instruments: {
+    label: "Instruments",
+    color: "hsl(var(--chart-1))",
+  },
+  accessories: {
+    label: "Accessories",
     color: "hsl(var(--chart-2))",
   },
 } satisfies ChartConfig
 
-export function InstrumentSalesChart({ data }: InstrumentSalesChartProps) {
+export function InstrumentSalesChart() {
   return (
     <Card>
       <CardHeader>
         <CardTitle>Instrument Sales</CardTitle>
-        <CardDescription>A breakdown of instrument kits sold for each event.</CardDescription>
+        <CardDescription>Monthly instrument and accessory sales</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="min-h-[300px] w-full">
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={data} margin={{ top: 5, right: 20, left: -10, bottom: 75 }}>
-              <CartesianGrid strokeDasharray="3 3" vertical={false} />
+        <ChartContainer config={chartConfig}>
+          <ResponsiveContainer width="100%" height={350}>
+            <AreaChart data={data}>
               <XAxis
-                dataKey="name"
+                dataKey="month"
+                stroke="#888888"
+                fontSize={12}
                 tickLine={false}
                 axisLine={false}
-                tickMargin={10}
-                angle={-45}
-                textAnchor="end"
-                interval={0}
+              />
+              <YAxis
+                stroke="#888888"
                 fontSize={12}
+                tickLine={false}
+                axisLine={false}
               />
-              <ChartTooltip
-                cursor={false}
-                content={<ChartTooltipContent indicator="dot" />}
+              <ChartTooltip content={<ChartTooltipContent />} />
+              <Area
+                type="monotone"
+                dataKey="instruments"
+                stackId="1"
+                stroke="var(--color-instruments)"
+                fill="var(--color-instruments)"
+                fillOpacity={0.6}
               />
-              <Bar
-                dataKey="instrumentsPurchased"
-                fill="var(--color-instrumentsPurchased)"
-                radius={4}
+              <Area
+                type="monotone"
+                dataKey="accessories"
+                stackId="1"
+                stroke="var(--color-accessories)"
+                fill="var(--color-accessories)"
+                fillOpacity={0.6}
               />
-            </BarChart>
+            </AreaChart>
           </ResponsiveContainer>
         </ChartContainer>
       </CardContent>

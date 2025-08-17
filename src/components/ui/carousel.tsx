@@ -3,8 +3,8 @@
 import * as React from "react"
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
-  type EmblaOptionsType // Corrected import for EmblaOptionsType
 } from "embla-carousel-react"
+import type { EmblaOptionsType } from "embla-carousel" // Import from embla-carousel instead
 import { ArrowLeft, ArrowRight } from "lucide-react"
 
 import { cn } from "@/lib/utils"
@@ -17,7 +17,7 @@ type CarouselContextProps = {
   scrollPrev: () => void
   canScrollNext: boolean
   canScrollPrev: boolean
-  orientation: "horizontal" | "vertical" // Added orientation to context
+  orientation: "horizontal" | "vertical"
 } & React.ComponentPropsWithoutRef<"div">
 
 const CarouselContext = React.createContext<CarouselContextProps | null>(null)
@@ -33,7 +33,7 @@ function useCarousel() {
 }
 
 type CarouselProps = {
-  opts?: EmblaOptionsType // Corrected type for opts
+  opts?: EmblaOptionsType
   orientation?: "horizontal" | "vertical"
   setApi?: (api: UseEmblaCarouselType[1]) => void
 } & React.ComponentPropsWithoutRef<"div">
@@ -113,7 +113,7 @@ const Carousel = React.forwardRef<
           scrollPrev,
           canScrollNext,
           canScrollPrev,
-          orientation, // Pass orientation to context
+          orientation,
         }}
       >
         <div
@@ -251,7 +251,7 @@ CarouselNext.displayName = "CarouselNext"
 
 export {
   Carousel,
-  CarouselContent, // Export CarouselContent
+  CarouselContent,
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
