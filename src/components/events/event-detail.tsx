@@ -13,6 +13,7 @@ import { DangerZonePanel } from "./danger-zone-panel";
 import { TaskBoard } from "./task-board";
 import { EventAnalytics } from "./event-analytics";
 import { CommunicationsPanel } from "./communications-panel";
+import { MarketingRescueCopilotModal } from "./marketing-rescue-copilot-modal";
 import { 
   Calendar, 
   MapPin, 
@@ -78,6 +79,7 @@ interface EventDetailData {
 
 export function EventDetail({ eventId }: EventDetailProps) {
   const [activeTab, setActiveTab] = useState("overview");
+  const [isCopilotOpen, setIsCopilotOpen] = useState(false);
 
   const { data: event, isLoading, error } = useQuery<EventDetailData>({
     queryKey: ["event-detail", eventId],
@@ -252,6 +254,7 @@ export function EventDetail({ eventId }: EventDetailProps) {
           revenue: event.pricing.revenue,
           projectedRevenue: event.pricing.projectedRevenue,
         }}
+        onOpenCopilot={() => setIsCopilotOpen(true)}
       />
 
       {/* Tabs */}
@@ -302,6 +305,12 @@ export function EventDetail({ eventId }: EventDetailProps) {
           <EventAnalytics eventId={eventId} />
         </TabsContent>
       </Tabs>
+
+      <MarketingRescueCopilotModal
+        isOpen={isCopilotOpen}
+        onClose={() => setIsCopilotOpen(false)}
+        eventName={event.title}
+      />
     </div>
   );
 }

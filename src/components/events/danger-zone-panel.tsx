@@ -11,7 +11,8 @@ import {
   Users, 
   Calendar,
   DollarSign,
-  Mail
+  Mail,
+  Sparkles
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -26,9 +27,10 @@ interface DangerZonePanelProps {
     revenue: number;
     projectedRevenue: number;
   };
+  onOpenCopilot: () => void;
 }
 
-export function DangerZonePanel({ event }: DangerZonePanelProps) {
+export function DangerZonePanel({ event, onOpenCopilot }: DangerZonePanelProps) {
   const enrollmentPercentage = (event.enrolledStudents / event.capacity) * 100;
   const viabilityPercentage = (event.enrolledStudents / event.minViableEnrollment) * 100;
   const daysUntilDeadline = Math.ceil(
@@ -81,30 +83,7 @@ export function DangerZonePanel({ event }: DangerZonePanelProps) {
 
   const risk = getRiskLevel();
   const RiskIcon = risk.icon;
-
-  const getRecommendations = () => {
-    const recommendations = [];
-    
-    if (event.enrolledStudents < event.minViableEnrollment) {
-      recommendations.push("Launch targeted marketing campaign");
-      recommendations.push("Offer early bird discount");
-      recommendations.push("Contact past attendees");
-    }
-    
-    if (daysUntilDeadline < 21) {
-      recommendations.push("Send urgency-based emails");
-      recommendations.push("Activate social media promotion");
-    }
-    
-    if (enrollmentPercentage > 80) {
-      recommendations.push("Prepare waitlist system");
-      recommendations.push("Consider increasing capacity");
-    }
-
-    return recommendations;
-  };
-
-  const recommendations = getRecommendations();
+  const isAtRisk = risk.level === 'critical' || risk.level === 'high';
 
   return (
     <Card className={cn("border-2", risk.bgColor, risk.borderColor)}>
@@ -175,53 +154,22 @@ export function DangerZonePanel({ event }: DangerZonePanelProps) {
           </div>
         </div>
 
-        {/* Risk Assessment */}
-        <div className="space-y-3">
-          <h4 className="font-semibold flex items-center gap-2">
-            <AlertTriangle className="h-4 w-4" />
-            Risk Assessment
-          </h4>
-          <p className="text-sm text-muted-foreground">
-            {risk.description}
-          </p>
-          
-          {event.enrolledStudents < event.minViableEnrollment && (
-            <div className="p-3 rounded-lg bg-muted">
-              <p className="text-sm font-medium text-destructive">
-                ⚠️ Below minimum viable enrollment of {event.minViableEnrollment} students
-              </p>
-            </div>
-          )}
-        </div>
-
-        {/* Recommendations */}
-        {recommendations.length > 0 && (
-          <div className="space-y-3">
-            <h4 className="font-semibold">Recommended Actions</h4>
-            <ul className="space-y-2">
-              {recommendations.map((rec, index) => (
-                <li key={index} className="flex items-center gap-2 text-sm">
-                  <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-                  {rec}
-                </li>
-              ))}
-            </ul>
+        {/* AI-Powered Rescue Section */}
+        {isAtRisk && (
+          <div className="p-4 rounded-lg bg-background/50 border space-y-4">
+            <h4 className="font-semibold flex items-center gap-2">
+              <Sparkles className="h-5 w-5 text-primary" />
+              AI-Powered Rescue
+            </h4>
+            <p className="text-sm text-muted-foreground">
+              <span className="font-semibold text-foreground">AI Recommendation:</span> For past 'Essential Training' events, last-minute registrations were most driven by email campaigns. A targeted "Last Call" sequence is recommended.
+            </p>
+            <Button onClick={onOpenCopilot}>
+              <Sparkles className="mr-2 h-4 w-4" />
+              Consult Marketing Rescue Co-Pilot
+            </Button>
           </div>
         )}
-
-        {/* Quick Actions */}
-        <div className="flex flex-wrap gap-2 pt-2 border-t">
-          <Button size="sm" variant="outline">
-            <Mail className="h-4 w-4 mr-2" />
-            Send Reminder
-          </Button>
-          <Button size="sm" variant="outline">
-            Launch Campaign
-          </Button>
-          <Button size="sm" variant="outline">
-            Contact Support
-          </Button>
-        </div>
       </CardContent>
     </Card>
   );
