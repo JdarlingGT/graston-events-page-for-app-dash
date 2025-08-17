@@ -98,7 +98,7 @@ export function EventForm({ initialData }: EventFormProps) {
               <FormField
                 control={form.control}
                 name="name"
-                render={({ field }: any) => (
+                render={({ field }) => (
                   <FormItem>
                     <FormLabel>Event Name</FormLabel>
                     <FormControl>
@@ -111,7 +111,7 @@ export function EventForm({ initialData }: EventFormProps) {
               <FormField
                 control={form.control}
                 name="instructor"
-                render={({ field }: any) => (
+                render={({ field }) => (
                   <FormItem>
                     <FormLabel>Instructor</FormLabel>
                     <FormControl>
@@ -124,7 +124,7 @@ export function EventForm({ initialData }: EventFormProps) {
               <FormField
                 control={form.control}
                 name="city"
-                render={({ field }: any) => (
+                render={({ field }) => (
                   <FormItem>
                     <FormLabel>City</FormLabel>
                     <FormControl>
@@ -137,7 +137,7 @@ export function EventForm({ initialData }: EventFormProps) {
               <FormField
                 control={form.control}
                 name="state"
-                render={({ field }: any) => (
+                render={({ field }) => (
                   <FormItem>
                     <FormLabel>State</FormLabel>
                     <FormControl>
@@ -150,7 +150,7 @@ export function EventForm({ initialData }: EventFormProps) {
               <FormField
                 control={form.control}
                 name="enrolledStudents"
-                render={({ field }: any) => (
+                render={({ field }) => (
                   <FormItem>
                     <FormLabel>Enrolled Students</FormLabel>
                     <FormControl>
@@ -163,7 +163,7 @@ export function EventForm({ initialData }: EventFormProps) {
               <FormField
                 control={form.control}
                 name="instrumentsPurchased"
-                render={({ field }: any) => (
+                render={({ field }) => (
                   <FormItem>
                     <FormLabel>Kits Purchased</FormLabel>
                     <FormControl>

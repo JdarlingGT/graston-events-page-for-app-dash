@@ -69,7 +69,7 @@ const ChartTooltip = React.forwardRef<
 })
 ChartTooltip.displayName = "ChartTooltip"
 
-interface ChartTooltipContentProps extends React.ComponentProps<typeof ChartTooltip> {
+interface ChartTooltipContentProps extends React.ComponentProps<typeof RechartsPrimitive.Tooltip> {
   nameKey?: string;
   hideLabel?: boolean; // Added hideLabel to props
   active?: boolean; // Added active to props

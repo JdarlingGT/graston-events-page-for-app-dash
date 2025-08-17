@@ -17,13 +17,15 @@ interface KitPurchaseRatioChartProps {
 
 const chartConfig = {
   value: {
-    label: "Students",
+    label: "Count",
     color: "hsl(var(--chart-1))", // Added a default color for 'value'
   },
   "Kits Purchased": {
+    label: "Kits Purchased", // Added missing label
     color: "hsl(var(--chart-2))",
   },
   "No Kit": {
+    label: "No Kit", // Added missing label
     color: "hsl(var(--chart-4))",
   },
 } satisfies ChartConfig

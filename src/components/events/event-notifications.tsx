@@ -51,7 +51,7 @@ interface EventNotificationsProps {
 export function EventNotifications({ eventId, showAll = false }: EventNotificationsProps) {
   const [notifications, setNotifications] = useState<Notification[]>([]);
 
-  const { data: notificationsData, isLoading } = useQuery({
+  const { data: notificationsData, isLoading } = useQuery<Notification[]>({
     queryKey: ["notifications", eventId],
     queryFn: async () => {
       const url = eventId 
@@ -119,7 +119,7 @@ export function EventNotifications({ eventId, showAll = false }: EventNotificati
 
   const getNotificationColor = (type: string, priority: string) => {
     if (priority === "high") {
-      return "border-red-200 bg-red-50 dark:border-red-800 dark:bg-red-950/20";
+      return "border-red-200 bg-red-50 dark:bg-red-950/20";
     }
     switch (type) {
       case "warning": return "border-yellow-200 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-950/20";
@@ -188,7 +188,7 @@ export function EventNotifications({ eventId, showAll = false }: EventNotificati
           </div>
         ) : (
           <div className="space-y-3">
-            {notifications.slice(0, showAll ? undefined : 5).map((notification) => {
+            {notifications.slice(0, showAll ? undefined : 5).map((notification: Notification) => {
               const Icon = getNotificationIcon(notification.type);
               return (
                 <div

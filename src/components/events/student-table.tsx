@@ -51,7 +51,7 @@ interface StudentTableProps {
 export function StudentTable({ eventId }: StudentTableProps) {
   const [selectedStudents, setSelectedStudents] = useState<string[]>([]);
 
-  const { data: students = [], isLoading, error } = useQuery({
+  const { data: students = [], isLoading, error } = useQuery<Student[]>({
     queryKey: ["event-students", eventId],
     queryFn: async () => {
       const response = await fetch(`/api/events/${eventId}/students`);
@@ -95,7 +95,7 @@ export function StudentTable({ eventId }: StudentTableProps) {
             <Avatar className="h-8 w-8">
               <AvatarImage src={student.avatar} />
               <AvatarFallback>
-                {student.name.split(' ').map(n => n[0]).join('')}
+                {student.name.split(' ').map((n: string) => n[0]).join('')}
               </AvatarFallback>
             </Avatar>
             <div>
@@ -168,7 +168,7 @@ export function StudentTable({ eventId }: StudentTableProps) {
       header: "Tags",
       cell: ({ row }) => (
         <div className="flex flex-wrap gap-1">
-          {row.original.tags.slice(0, 2).map((tag) => (
+          {row.original.tags.slice(0, 2).map((tag: string) => (
             <Badge key={tag} variant="secondary" className="text-xs">
               {tag}
             </Badge>

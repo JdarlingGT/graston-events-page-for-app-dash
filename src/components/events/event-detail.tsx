@@ -30,7 +30,7 @@ interface EventDetailProps {
   eventId: string;
 }
 
-interface EventDetail {
+interface EventDetailData {
   id: string;
   title: string;
   description: string;
@@ -77,7 +77,7 @@ interface EventDetail {
 export function EventDetail({ eventId }: EventDetailProps) {
   const [activeTab, setActiveTab] = useState("overview");
 
-  const { data: event, isLoading, error } = useQuery({
+  const { data: event, isLoading, error } = useQuery<EventDetailData>({
     queryKey: ["event-detail", eventId],
     queryFn: async () => {
       const response = await fetch(`/api/events/${eventId}/detail`);
