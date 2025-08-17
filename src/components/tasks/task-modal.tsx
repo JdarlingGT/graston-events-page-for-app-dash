@@ -41,6 +41,7 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { useGooglePicker } from "@/hooks/use-google-picker";
 import { useEffect, useState } from "react";
+import { BrandedLoader } from "../ui/branded-loader";
 
 interface TaskModalProps {
   isOpen: boolean;
@@ -264,8 +265,8 @@ export function TaskModal({ isOpen, onClose, onSubmit, task, isLoading }: TaskMo
 
             <DialogFooter>
               <Button type="button" variant="outline" onClick={onClose}>Cancel</Button>
-              <Button type="submit" disabled={isLoading}>
-                {isLoading ? "Saving..." : "Save Task"}
+              <Button type="submit" disabled={isLoading} className="w-24">
+                {isLoading ? <BrandedLoader /> : "Save Task"}
               </Button>
             </DialogFooter>
           </form>

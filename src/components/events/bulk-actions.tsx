@@ -42,6 +42,7 @@ import {
   ChevronDown
 } from "lucide-react";
 import { toast } from "sonner";
+import { BrandedLoader } from "../ui/branded-loader";
 
 interface BulkActionsProps {
   selectedStudents: string[];
@@ -320,8 +321,8 @@ export function BulkActions({ selectedStudents, eventId, onClearSelection }: Bul
                 <Button type="button" variant="outline" onClick={() => setIsAddStudentOpen(false)}>
                   Cancel
                 </Button>
-                <Button type="submit" disabled={addStudentMutation.isPending}>
-                  {addStudentMutation.isPending ? "Adding..." : "Add Student"}
+                <Button type="submit" disabled={addStudentMutation.isPending} className="w-28">
+                  {addStudentMutation.isPending ? <BrandedLoader /> : "Add Student"}
                 </Button>
               </DialogFooter>
             </form>
@@ -369,8 +370,9 @@ export function BulkActions({ selectedStudents, eventId, onClearSelection }: Bul
             <Button 
               onClick={handleBulkEmail}
               disabled={bulkEmailMutation.isPending || !emailSubject || !emailTemplate}
+              className="w-28"
             >
-              {bulkEmailMutation.isPending ? "Sending..." : "Send Email"}
+              {bulkEmailMutation.isPending ? <BrandedLoader /> : "Send Email"}
             </Button>
           </DialogFooter>
         </DialogContent>
