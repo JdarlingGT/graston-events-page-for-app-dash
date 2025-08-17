@@ -81,22 +81,38 @@ export function EventMapCardView() {
   const queryClient = useQueryClient();
 
   const { data: events = [], isLoading, error } = useQuery<Event[]>({
-    queryKey: ["events"],
+    queryKey: ["events", filters], // Add filters to query key for re-fetching
     queryFn: async () => {
-      const response = await fetch("/api/events");
+      const params = new URLSearchParams();
+      if (filters.search) params.append('search', filters.search);
+      if (filters.type !== 'all') params.append('type', filters.type);
+      if (filters.mode !== 'all') params.append('mode', filters.mode);
+      if (filters.status !== 'all') params.append('status', filters.status);
+      if (filters.dangerZone !== 'all') params.append('dangerZone', filters.dangerZone);
+      if (filters.dateRange.from) params.append('fromDate', filters.dateRange.from.toISOString().split('T')[0]);
+      if (filters.dateRange.to) params.append('toDate', filters.dateRange.to.toISOString().split('T')[0]);
+      if (filters.enrollmentRange[0] !== 0) params.append('enrollmentMin', filters.enrollmentRange[0].toString());
+      if (filters.enrollmentRange[1] !== 100) params.append('enrollmentMax', filters.enrollmentRange[1].toString());
+      filters.cities.forEach(city => params.append('cities', city));
+      filters.instructors.forEach(instructor => params.append('instructors', instructor));
+
+      const queryString = params.toString();
+      const url = `/api/events${queryString ? `?${queryString}` : ''}`;
+
+      const response = await fetch(url);
       if (!response.ok) throw new Error("Failed to fetch events");
       const data = await response.json();
-      // Add mock instructor and date for demo purposes if missing
+      // Client-side mapping for instructor object and default values
       return data.map((event: any) => ({
         ...event,
         instructor: event.instructor ? { name: event.instructor, avatar: `https://i.pravatar.cc/150?u=${event.instructor}` } : { name: "N/A" },
-        date: event.date || new Date().toISOString().split('T')[0], // Mock date if not present
-        capacity: event.capacity || 50, // Mock capacity
-        minViableEnrollment: event.minViableEnrollment || 10, // Mock min viable
-        type: event.type || "Essential", // Mock type
-        mode: event.mode || "In-Person", // Mock mode
-        status: event.status || "upcoming", // Mock status
+        capacity: event.capacity || 50,
+        minViableEnrollment: event.minViableEnrollment || 10,
+        type: event.type || "Essential",
+        mode: event.mode || "In-Person",
+        status: event.status || "upcoming",
         featuredImage: event.featuredImage || `https://picsum.photos/seed/${event.id}/800/400`,
+        date: event.date || new Date().toISOString().split('T')[0],
       }));
     },
   });
@@ -107,68 +123,17 @@ export function EventMapCardView() {
     }
   }, [error]);
 
-  const getDangerZoneStatus = (event: Event) => {
-    if (event.enrolledStudents < event.minViableEnrollment) {
-      return "at-risk";
-    }
-    if ((event.enrolledStudents / event.capacity) * 100 >= 90) {
-      return "almost-full";
-    }
-    return "healthy";
-  };
-
-  const filteredEvents = events.filter((event) => {
-    const matchesSearch =
-      event.name.toLowerCase().includes(filters.search.toLowerCase()) ||
-      event.instructor.name.toLowerCase().includes(filters.search.toLowerCase()) ||
-      event.city.toLowerCase().includes(filters.search.toLowerCase());
-
-    const matchesType = filters.type === "all" || event.type === filters.type;
-    const matchesMode = filters.mode === "all" || event.mode === filters.mode;
-    const matchesStatus = filters.status === "all" || event.status === filters.status;
-
-    const matchesDangerZone =
-      filters.dangerZone === "all" || getDangerZoneStatus(event) === filters.dangerZone;
-
-    const eventDate = new Date(event.date);
-    const matchesDateRange =
-      (!filters.dateRange.from || eventDate >= filters.dateRange.from) &&
-      (!filters.dateRange.to || eventDate <= filters.dateRange.to);
-
-    const matchesEnrollment =
-      event.enrolledStudents >= filters.enrollmentRange[0] &&
-      event.enrolledStudents <= filters.enrollmentRange[1];
-
-    // Revenue filtering is not directly available in current mock event data,
-    // so we'll skip it for now or mock it if needed.
-    // const matchesRevenue = event.revenue >= filters.revenueRange[0] && event.revenue <= filters.revenueRange[1];
-
-    const matchesCity =
-      filters.cities.length === 0 || filters.cities.includes(event.city);
-    const matchesInstructor =
-      filters.instructors.length === 0 || filters.instructors.includes(event.instructor.name);
-
-    return (
-      matchesSearch &&
-      matchesType &&
-      matchesMode &&
-      matchesStatus &&
-      matchesDangerZone &&
-      matchesDateRange &&
-      matchesEnrollment &&
-      matchesCity &&
-      matchesInstructor
-    );
-  }).map(event => ({
+  // Map events to include coordinates for the map component
+  const eventsWithCoordinates = events.map((event: Event) => ({ // Explicitly type event
     ...event,
     coordinates: cityCoordinates[event.city] || { lat: 0, lng: 0 } // Fallback for unknown cities
   }));
 
   const availableOptions = {
-    cities: Array.from(new Set(events.map((e) => e.city))),
-    instructors: Array.from(new Set(events.map((e) => e.instructor.name))),
-    types: Array.from(new Set(events.map((e) => e.type))),
-    modes: Array.from(new Set(events.map((e) => e.mode))),
+    cities: Array.from(new Set(events.map((e: Event) => e.city))), // Explicitly type e
+    instructors: Array.from(new Set(events.map((e: Event) => e.instructor.name))), // Explicitly type e
+    types: Array.from(new Set(events.map((e: Event) => e.type))), // Explicitly type e
+    modes: Array.from(new Set(events.map((e: Event) => e.mode))), // Explicitly type e
   };
 
   const handleCardHover = (eventId: string | null) => {
@@ -211,15 +176,15 @@ export function EventMapCardView() {
         Array.from({ length: 8 }).map((_, i) => (
           <Skeleton key={i} className="h-[350px] w-full rounded-lg" />
         ))
-      ) : filteredEvents.length === 0 ? (
+      ) : eventsWithCoordinates.length === 0 ? (
         <div className="col-span-full text-center py-12 text-muted-foreground">
           No events found matching your criteria.
         </div>
       ) : (
-        filteredEvents.map((event) => (
+        eventsWithCoordinates.map((event: Event) => ( // Explicitly type event
           <div
             key={event.id}
-            ref={(el) => (cardRefs.current[event.id] = el)}
+            ref={(el: HTMLDivElement | null) => { cardRefs.current[event.id] = el; }} // Corrected ref callback type
             onClick={() => handleCardClick(event.id)}
             onMouseEnter={() => handleCardMouseEnter(event.id)}
             onMouseLeave={() => handleCardHover(null)}
@@ -254,7 +219,7 @@ export function EventMapCardView() {
               </SheetTrigger>
               <SheetContent side="bottom" className="h-[70vh] p-0">
                 <EventMap
-                  events={filteredEvents}
+                  events={eventsWithCoordinates}
                   hoveredEventId={hoveredEventId}
                   selectedEventId={selectedEventId}
                   onPinClick={handlePinClick}
@@ -272,7 +237,7 @@ export function EventMapCardView() {
       {!isMobile && (
         <div className="lg:w-2/5 xl:w-1/2 lg:h-auto h-[50vh] lg:sticky lg:top-0">
           <EventMap
-            events={filteredEvents}
+            events={eventsWithCoordinates}
             hoveredEventId={hoveredEventId}
             selectedEventId={selectedEventId}
             onPinClick={handlePinClick}

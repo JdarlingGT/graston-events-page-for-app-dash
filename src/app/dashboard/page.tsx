@@ -87,7 +87,17 @@ export default function DashboardPage() {
   const columns: ColumnDef<Event>[] = [
     {
       accessorKey: "name",
-      header: "Event Name",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Event Name
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        )
+      },
     },
     {
       accessorKey: "instructor",

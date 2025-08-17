@@ -89,6 +89,8 @@ export function EventMap({ events, hoveredEventId, selectedEventId, onPinClick }
                   status.variant === "destructive" && "bg-destructive border-destructive-foreground",
                   status.variant === "secondary" && "bg-secondary border-secondary-foreground"
                 )}
+                role="button"
+                aria-label={`View event ${event.name} on map`}
               >
                 <MapPin className="h-4 w-4" />
               </div>
@@ -100,7 +102,7 @@ export function EventMap({ events, hoveredEventId, selectedEventId, onPinClick }
           <InfoWindow
             position={events.find(e => e.id === openInfoWindowId)?.coordinates}
             onCloseClick={() => setOpenInfoWindowId(null)}
-            pixelOffset={{ width: 0, height: -30 }} // Adjust to position above marker
+            pixelOffset={{ x: 0, y: -30 }} // Corrected property names to x and y
           >
             {events.find(e => e.id === openInfoWindowId) && (() => {
               const event = events.find(e => e.id === openInfoWindowId)!;
