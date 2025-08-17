@@ -4,7 +4,7 @@ import { inPersonTrainingTasks, virtualTrainingTasks } from '@/lib/taskTemplates
 
 export async function POST(request: Request) {
   try {
-    const { eventType, eventName } = await request.json();
+    const { eventType, eventName } = await request.json() as { eventType: string, eventName: string };
 
     let templates = [];
     if (eventType === 'In-Person') {

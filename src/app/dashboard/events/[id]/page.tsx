@@ -5,7 +5,11 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
-export default function EventDetailPage({ params }: { params: { id: string } }) {
+interface EventDetailPageProps {
+  params: { id: string };
+}
+
+export default function EventDetailPage({ params }: EventDetailPageProps) {
   return (
     <div className="space-y-6">
       <Button variant="outline" asChild className="w-fit">

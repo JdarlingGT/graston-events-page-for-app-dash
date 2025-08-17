@@ -16,7 +16,7 @@ async function readEventFile(id: string) {
 }
 
 export async function POST(request: Request) {
-  const { providerId, eventId } = await request.json();
+  const { providerId, eventId } = await request.json() as { providerId: string, eventId: string };
 
   if (!providerId || !eventId) {
     return new NextResponse('Provider ID and Event ID are required', { status: 400 });

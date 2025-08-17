@@ -70,7 +70,7 @@ const mockTasks = [
 ];
 
 export async function GET(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   // Simulate API delay

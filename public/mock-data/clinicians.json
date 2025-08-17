@@ -1,0 +1,23 @@
+[
+  {
+    "id": "clin_001",
+    "name": "Dr. Evelyn Reed",
+    "email": "evelyn.reed@health.com",
+    "specialty": "Physical Therapist",
+    "location": "New York, NY"
+  },
+  {
+    "id": "clin_002",
+    "name": "Dr. Marcus Thorne",
+    "email": "marcus.thorne@clinic.net",
+    "specialty": "Chiropractor",
+    "location": "Chicago, IL"
+  },
+  {
+    "id": "clin_003",
+    "name": "Dr. Lena Petrova",
+    "email": "lena.petrova@sportsmed.org",
+    "specialty": "Athletic Trainer",
+    "location": "Los Angeles, CA"
+  }
+]

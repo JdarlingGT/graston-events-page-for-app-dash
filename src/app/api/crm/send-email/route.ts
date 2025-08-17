@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
   try {
-    const { studentId, eventId } = await request.json();
+    const { studentId, eventId } = await request.json() as { studentId: string, eventId: string };
     
     // Simulate API delay
     await new Promise(resolve => setTimeout(resolve, 1000));

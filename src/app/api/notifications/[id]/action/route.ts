@@ -5,7 +5,7 @@ export async function POST(
   { params }: { params: { id: string } }
 ) {
   try {
-    const { action, data } = await request.json();
+    const { action, data } = await request.json() as { action: string, data: any };
     
     // Simulate API delay
     await new Promise(resolve => setTimeout(resolve, 500));

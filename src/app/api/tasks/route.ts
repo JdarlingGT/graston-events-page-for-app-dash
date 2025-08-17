@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { mockTasks } from '@/lib/mock-data';
 import { createCalendarEvent, sendGmailNotification } from '@/lib/google';
+import { Task } from '@/components/tasks/task-board';
 
 export async function GET() {
   // Simulate API delay
@@ -10,7 +11,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    const body = await request.json() as Omit<Task, 'id'>;
     const newTask = {
       id: `task-${Date.now()}`,
       ...body,

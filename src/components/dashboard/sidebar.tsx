@@ -24,6 +24,7 @@ const navItems = [
     children: [
       { href: '/dashboard/directory/venues', label: 'Venues', icon: Building },
       { href: '/dashboard/directory/instructors', label: 'Instructors', icon: Users },
+      { href: '/dashboard/directory/clinicians', label: 'Clinicians', icon: Users },
       { href: '/dashboard/archival-search', label: 'Archival Search', icon: Archive },
     ]
   },

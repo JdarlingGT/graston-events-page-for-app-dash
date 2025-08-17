@@ -22,7 +22,11 @@ interface Event {
   instructorIds: string[];
 }
 
-export default function EditEventPage({ params }: { params: { id: string } }) {
+interface EditEventPageProps {
+  params: { id: string };
+}
+
+export default function EditEventPage({ params }: EditEventPageProps) {
   const [event, setEvent] = useState<Event | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
