@@ -1,0 +1,17 @@
+{
+  "id": "26012317",
+  "name": "Essential Training NYC June 23-24, 2025",
+  "city": "New York",
+  "state": "NY",
+  "instructor": "Dr. Sarah Chen",
+  "enrolledStudents": 22,
+  "instrumentsPurchased": 20,
+  "capacity": 30,
+  "minViableEnrollment": 12,
+  "type": "Essential",
+  "mode": "In-Person",
+  "status": "upcoming",
+  "featuredImage": "https://picsum.photos/seed/26012317/800/400",
+  "date": "2025-06-23",
+  "endDate": "2025-06-24"
+}

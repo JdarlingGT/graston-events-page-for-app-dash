@@ -1,0 +1,17 @@
+{
+  "id": "27398885",
+  "name": "Advanced Training Austin, TX Oct 6-7, 2025",
+  "city": "Austin",
+  "state": "TX",
+  "instructor": "Dr. Emily Carter",
+  "enrolledStudents": 15,
+  "instrumentsPurchased": 14,
+  "capacity": 20,
+  "minViableEnrollment": 8,
+  "type": "Advanced",
+  "mode": "In-Person",
+  "status": "upcoming",
+  "featuredImage": "https://picsum.photos/seed/27398885/800/400",
+  "date": "2025-10-06",
+  "endDate": "2025-10-07"
+}

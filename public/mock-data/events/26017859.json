@@ -1,0 +1,17 @@
+{
+  "id": "26017859",
+  "name": "Essential Training San Francisco, CA July 28-29, 2025",
+  "city": "San Francisco",
+  "state": "CA",
+  "instructor": "Dr. David Lee",
+  "enrolledStudents": 8,
+  "instrumentsPurchased": 7,
+  "capacity": 20,
+  "minViableEnrollment": 10,
+  "type": "Essential",
+  "mode": "In-Person",
+  "status": "upcoming",
+  "featuredImage": "https://picsum.photos/seed/26017859/800/400",
+  "date": "2025-07-28",
+  "endDate": "2025-07-29"
+}

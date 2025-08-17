@@ -1,14 +1,17 @@
 {
   "id": "25995731",
-  "name": "Essential Training - Eau Claire, WI",
-  "city": "Eau Claire",
-  "state": "WI",
-  "instructor": "GT Instructor",
-  "enrolledStudents": 35,
-  "instrumentsPurchased": 28,
-  "date": "2025-09-10",
-  "venue": {
-    "name": "Eau Claire Training Center",
-    "city": "Eau Claire"
-  }
+  "name": "Essential Training Austin, TX May 19-20, 2025",
+  "city": "Austin",
+  "state": "TX",
+  "instructor": "Dr. Michael Jones",
+  "enrolledStudents": 18,
+  "instrumentsPurchased": 15,
+  "capacity": 25,
+  "minViableEnrollment": 10,
+  "type": "Essential",
+  "mode": "In-Person",
+  "status": "upcoming",
+  "featuredImage": "https://picsum.photos/seed/25995731/800/400",
+  "date": "2025-05-19",
+  "endDate": "2025-05-20"
 }
