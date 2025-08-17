@@ -146,23 +146,41 @@ export function EventDirectory() {
                 <p>Try adjusting your search filters.</p>
               </div>
             ) : (
-              eventsWithCoordinates.map((event) => (
-                <motion.div
-                  key={event.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.3 }}
-                  ref={el => { cardRefs.current[event.id] = el; }}
-                >
-                  <EventCard
-                    event={event}
-                    isHovered={hoveredEventId === event.id || selectedEventId === event.id}
-                    onHover={setHoveredEventId}
-                  />
-                </motion.div>
-              ))
+              eventsWithCoordinates.map((event) => {
+                const eventForCard = {
+                  id: event.id,
+                  title: event.name,
+                  instructor: event.instructor,
+                  location: { city: event.city, state: event.state },
+                  schedule: { startDate: event.date, endDate: event.endDate },
+                  enrollment: {
+                    current: event.enrolledStudents,
+                    capacity: event.capacity,
+                    minViable: event.minViableEnrollment,
+                  },
+                  type: event.type,
+                  mode: event.mode,
+                  status: event.status,
+                  featuredImage: event.featuredImage,
+                };
+                return (
+                  <motion.div
+                    key={event.id}
+                    layout
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.3 }}
+                    ref={el => { cardRefs.current[event.id] = el; }}
+                  >
+                    <EventCard
+                      event={eventForCard}
+                      isHovered={hoveredEventId === event.id || selectedEventId === event.id}
+                      onHover={setHoveredEventId}
+                    />
+                  </motion.div>
+                )
+              })
             )}
           </motion.div>
         </AnimatePresence>

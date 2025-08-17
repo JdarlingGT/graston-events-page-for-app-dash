@@ -22,18 +22,24 @@ import { cn } from "@/lib/utils";
 interface EventCardProps {
   event: {
     id: string;
-    name: string; // Changed from title to name for consistency with API
+    title: string;
     instructor: {
       name: string;
       avatar?: string;
     };
-    city: string;
-    state: string;
-    date: string;
-    endDate?: string;
-    enrolledStudents: number;
-    capacity: number;
-    minViableEnrollment: number; // Added for danger zone logic
+    location: {
+      city: string;
+      state: string;
+    };
+    schedule: {
+      startDate: string;
+      endDate?: string;
+    };
+    enrollment: {
+      current: number;
+      capacity: number;
+      minViable: number;
+    };
     type: "Essential" | "Advanced";
     mode: "In-Person" | "Virtual";
     status: "upcoming" | "ongoing" | "completed";
@@ -47,15 +53,15 @@ interface EventCardProps {
 export function EventCard({ event, isHovered, onHover, className }: EventCardProps) {
   const [imageLoaded, setImageLoaded] = useState(false);
   
-  const enrollmentPercentage = (event.enrolledStudents / event.capacity) * 100;
+  const enrollmentPercentage = (event.enrollment.current / event.enrollment.capacity) * 100;
   
   const getDangerZoneStatus = () => {
-    if (event.enrolledStudents < event.minViableEnrollment) {
+    if (event.enrollment.current < event.enrollment.minViable) {
       return { 
         text: "At Risk", 
         variant: "destructive" as const, 
         icon: AlertTriangle,
-        description: `Below minimum viable enrollment of ${event.minViableEnrollment} students`
+        description: `Below minimum viable enrollment of ${event.enrollment.minViable} students`
       };
     }
     if (enrollmentPercentage >= 90) {
@@ -66,7 +72,7 @@ export function EventCard({ event, isHovered, onHover, className }: EventCardPro
         description: "Limited spots remaining"
       };
     }
-    if (event.enrolledStudents >= event.minViableEnrollment) { // Healthy if above min viable
+    if (event.enrollment.current >= event.enrollment.minViable) {
       return { 
         text: "Healthy", 
         variant: "default" as const, 
@@ -107,7 +113,7 @@ export function EventCard({ event, isHovered, onHover, className }: EventCardPro
         <div className="relative h-48 overflow-hidden rounded-t-lg">
           <img
             src={event.featuredImage}
-            alt={`Featured image for ${event.name}`}
+            alt={`Featured image for ${event.title}`}
             className={cn(
               "h-full w-full object-cover transition-all duration-300 group-hover:scale-105",
               !imageLoaded && "opacity-0"
@@ -138,7 +144,7 @@ export function EventCard({ event, isHovered, onHover, className }: EventCardPro
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1 min-w-0">
             <h3 className="font-semibold text-lg leading-tight line-clamp-2 group-hover:text-primary transition-colors">
-              {event.name}
+              {event.title}
             </h3>
             <div className="flex items-center gap-2 mt-2">
               <Avatar className="h-6 w-6">
@@ -159,15 +165,15 @@ export function EventCard({ event, isHovered, onHover, className }: EventCardPro
         <div className="space-y-2">
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Calendar className="h-4 w-4" />
-            <span>{formatDate(event.date)}</span>
-            {event.endDate && event.endDate !== event.date && (
-              <span>- {formatDate(event.endDate)}</span>
+            <span>{formatDate(event.schedule.startDate)}</span>
+            {event.schedule.endDate && event.schedule.endDate !== event.schedule.startDate && (
+              <span>- {formatDate(event.schedule.endDate)}</span>
             )}
           </div>
           
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <MapPin className="h-4 w-4" />
-            <span>{event.city}, {event.state}</span>
+            <span>{event.location.city}, {event.location.state}</span>
           </div>
         </div>
 
@@ -178,7 +184,7 @@ export function EventCard({ event, isHovered, onHover, className }: EventCardPro
               <span>Enrollment</span>
             </div>
             <span className="font-medium">
-              {event.enrolledStudents} / {event.capacity}
+              {event.enrollment.current} / {event.enrollment.capacity}
             </span>
           </div>
           <Progress 
