@@ -14,7 +14,7 @@ import React from "react";
 
 export function DashboardBreadcrumbs() {
   const pathname = usePathname();
-  const pathSegments = pathname.split("/").filter((i) => i);
+  const pathSegments = pathname.split("/").filter((i: string) => i);
 
   // Don't show breadcrumbs on the main dashboard page
   if (pathname === "/dashboard") {
@@ -29,7 +29,7 @@ export function DashboardBreadcrumbs() {
             <Link href="/dashboard">Dashboard</Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
-        {pathSegments.map((segment, index) => {
+        {pathSegments.map((segment: string, index: number) => {
           // Skip the 'dashboard' segment
           if (segment === 'dashboard') return null;
 
