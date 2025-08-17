@@ -2,8 +2,14 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, LayoutDashboard, Calendar, BarChart3, CheckSquare, Settings, BookOpen, Target, Megaphone } from 'lucide-react';
+import { Home, LayoutDashboard, Calendar, BarChart3, CheckSquare, Settings, BookOpen, Target, Megaphone, Building, Users } from 'lucide-react';
 import { cn } from '../../lib/utils';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -12,12 +18,21 @@ const navItems = [
   { href: '/dashboard/marketing', label: 'Marketing', icon: Megaphone },
   { href: '/dashboard/sales', label: 'Sales', icon: Target },
   { href: '/dashboard/reports', label: 'Reports', icon: BarChart3 },
-  { href: '/dashboard/knowledge', label: 'Knowledge Base', icon: BookOpen },
+  { 
+    label: 'Directory', 
+    icon: BookOpen,
+    children: [
+      { href: '/dashboard/directory/venues', label: 'Venues', icon: Building },
+      { href: '/dashboard/directory/instructors', label: 'Instructors', icon: Users },
+    ]
+  },
   { href: '/dashboard/settings', label: 'Settings', icon: Settings },
 ];
 
 export default function Sidebar() {
   const pathname = usePathname();
+
+  const isDirectoryActive = pathname.startsWith('/dashboard/directory');
 
   return (
     <aside className="fixed inset-y-0 left-0 z-10 hidden w-64 flex-col border-r bg-background sm:flex">
@@ -30,13 +45,46 @@ export default function Sidebar() {
       <nav className="flex-1 p-2">
         <ul className="space-y-1">
           {navItems.map((item) => {
+            if (item.children) {
+              return (
+                <Accordion key={item.label} type="single" collapsible defaultValue={isDirectoryActive ? "item-1" : ""}>
+                  <AccordionItem value="item-1" className="border-b-0">
+                    <AccordionTrigger className={cn(
+                      "flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:no-underline",
+                      isDirectoryActive && "bg-muted text-primary"
+                    )}>
+                      <item.icon className="h-4 w-4" />
+                      {item.label}
+                    </AccordionTrigger>
+                    <AccordionContent className="pl-8 pt-1">
+                      <ul className="space-y-1">
+                        {item.children.map((child) => (
+                          <li key={child.href}>
+                            <Link
+                              href={child.href}
+                              className={cn(
+                                'flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary',
+                                pathname === child.href && 'bg-muted text-primary'
+                              )}
+                            >
+                              <child.icon className="h-4 w-4" />
+                              {child.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              )
+            }
             const isActive = item.href === '/dashboard' 
               ? pathname === item.href 
-              : pathname.startsWith(item.href);
+              : pathname.startsWith(item.href!);
             return (
               <li key={item.href}>
                 <Link
-                  href={item.href}
+                  href={item.href!}
                   className={cn(
                     'flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary',
                     isActive && 'bg-muted text-primary'

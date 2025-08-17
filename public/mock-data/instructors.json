@@ -1,0 +1,26 @@
+[
+  {
+    "id": "inst-1",
+    "name": "Sarah Johnson",
+    "email": "sarah.j@example.com",
+    "phone": "555-123-4567",
+    "bio": "Sarah is a senior React developer with 8+ years of experience building scalable web applications. She's contributed to several open-source projects and speaks regularly at tech conferences.",
+    "specialties": "React, Frontend Architecture, TypeScript"
+  },
+  {
+    "id": "inst-2",
+    "name": "Mike Chen",
+    "email": "mike.c@example.com",
+    "phone": "555-987-6543",
+    "bio": "Mike is a full-stack developer specializing in Node.js and cloud infrastructure. He is passionate about building efficient and scalable backend systems.",
+    "specialties": "Node.js, AWS, DevOps, System Design"
+  },
+  {
+    "id": "inst-3",
+    "name": "Lisa Park",
+    "email": "lisa.p@example.com",
+    "phone": "555-555-1212",
+    "bio": "Lisa is a UX/UI expert with a background in design systems and accessibility. She ensures that applications are not only functional but also beautiful and easy to use.",
+    "specialties": "UX/UI Design, Accessibility, Design Systems"
+  }
+]

@@ -9,6 +9,16 @@ export const venueSchema = z.object({
 
 export type VenueFormValues = z.infer<typeof venueSchema>;
 
+export const instructorSchema = z.object({
+  name: z.string().min(3, { message: "Instructor name is required." }),
+  email: z.string().email({ message: "Invalid email address." }),
+  phone: z.string().optional(),
+  bio: z.string().min(10, { message: "Bio must be at least 10 characters." }),
+  specialties: z.string().min(3, { message: "Please list at least one specialty." }),
+});
+
+export type InstructorFormValues = z.infer<typeof instructorSchema>;
+
 export const eventSchema = z.object({
   name: z.string().min(3, { message: "Event name must be at least 3 characters long." }),
   city: z.string().min(2, { message: "City is required." }),
