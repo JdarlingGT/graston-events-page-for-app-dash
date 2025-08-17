@@ -15,6 +15,7 @@
     "@dnd-kit/core": "6.3.1",
     "@dnd-kit/sortable": "10.0.0",
     "@dnd-kit/utilities": "3.2.2",
+    "@faker-js/faker": "^9.9.0",
     "@hookform/resolvers": "5.0.1",
     "@radix-ui/react-accordion": "1.2.11",
     "@radix-ui/react-alert-dialog": "1.1.14",
@@ -81,7 +82,7 @@
     "zod": "3.25.28"
   },
   "devDependencies": {
-    "@dyad-sh/nextjs-webpack-component-tagger": "0.8.0",
+    "@dyad-sh/nextjs-webpack-component-tagger": "latest",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "19.1.5",
