@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import { DataTable } from '@/components/ui/data-table';
-import { ColumnDef } from '@tanstack/react-table';
+import { ColumnDef, ColumnFiltersState } from '@tanstack/react-table';
 import { Skeleton } from '@/components/ui/skeleton';
 import { toast } from 'sonner';
 import { Badge } from '@/components/ui/badge';
+import { Input } from './ui/input';
 
 interface Attendee {
   id: string;
@@ -42,6 +43,7 @@ const columns: ColumnDef<Attendee>[] = [
 export function RosterTable({ eventId }: { eventId: string }) {
   const [attendees, setAttendees] = useState<Attendee[]>([]);
   const [loading, setLoading] = useState(true);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   useEffect(() => {
     async function fetchAttendees() {
@@ -73,6 +75,23 @@ export function RosterTable({ eventId }: { eventId: string }) {
   }
 
   return (
-    <DataTable columns={columns} data={attendees} searchPlaceholder="Search attendees..." />
+    <div className="space-y-4">
+      <div className="flex items-center py-4">
+        <Input
+          placeholder="Search attendees by name..."
+          value={(columnFilters.find(f => f.id === 'name')?.value as string) ?? ''}
+          onChange={(event) =>
+            setColumnFilters([{ id: 'name', value: event.target.value }])
+          }
+          className="max-w-sm"
+        />
+      </div>
+      <DataTable 
+        columns={columns} 
+        data={attendees} 
+        columnFilters={columnFilters}
+        setColumnFilters={setColumnFilters}
+      />
+    </div>
   );
 }

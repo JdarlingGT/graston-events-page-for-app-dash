@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { DataTable } from "@/components/ui/data-table";
-import { ColumnDef, Row } from "@tanstack/react-table";
+import { ColumnDef, Row, ColumnFiltersState } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -29,6 +29,7 @@ import { toast } from "sonner";
 import { Skeleton } from "../ui/skeleton";
 import { differenceInDays, parseISO } from "date-fns";
 import { CheckInMode } from "./check-in-mode";
+import { Input } from "../ui/input";
 
 interface Student {
   id: string;
@@ -55,6 +56,7 @@ interface StudentTableProps {
 export function StudentTable({ eventId, eventDate }: StudentTableProps) {
   const [selectedStudents, setSelectedStudents] = useState<string[]>([]);
   const [isCheckInMode, setIsCheckInMode] = useState(false);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   const { data: students = [], isLoading, error } = useQuery<Student[]>({
     queryKey: ["event-students", eventId],
@@ -231,12 +233,25 @@ export function StudentTable({ eventId, eventDate }: StudentTableProps) {
           <Skeleton className="h-64 w-full" />
         </div>
       ) : (
-        <DataTable 
-          columns={columns} 
-          data={students} 
-          searchPlaceholder="Search students..."
-          getRowClassName={getRowClassName}
-        />
+        <div>
+          <div className="flex items-center py-4">
+            <Input
+              placeholder="Search students by name..."
+              value={(columnFilters.find(f => f.id === 'name')?.value as string) ?? ''}
+              onChange={(event) =>
+                setColumnFilters([{ id: 'name', value: event.target.value }])
+              }
+              className="max-w-sm"
+            />
+          </div>
+          <DataTable 
+            columns={columns} 
+            data={students} 
+            getRowClassName={getRowClassName}
+            columnFilters={columnFilters}
+            setColumnFilters={setColumnFilters}
+          />
+        </div>
       )}
     </div>
   );

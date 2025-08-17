@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { ColumnDef } from "@tanstack/react-table";
+import { ColumnDef, ColumnFiltersState } from "@tanstack/react-table";
 import { DataTable } from "@/components/ui/data-table";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { ArrowUpDown } from "lucide-react";
+import React from "react";
 
 interface Event {
   id: string;
@@ -92,7 +93,12 @@ export const columns: ColumnDef<Event>[] = [
   },
 ];
 
-export function EventsTable() {
+interface EventsTableProps {
+  columnFilters: ColumnFiltersState;
+  setColumnFilters: React.Dispatch<React.SetStateAction<ColumnFiltersState>>;
+}
+
+export function EventsTable({ columnFilters, setColumnFilters }: EventsTableProps) {
   const { data: events = [], isLoading, error } = useQuery<Event[]>({
     queryKey: ["events-table"],
     queryFn: fetchEvents,
@@ -102,17 +108,15 @@ export function EventsTable() {
     toast.error("Failed to load events data.");
   }
 
+  const upcomingEvents = isLoading ? [] : events.filter(event => differenceInDays(parseISO(event.date), new Date()) >= 0);
+
   if (isLoading) {
     return (
       <div className="space-y-4">
-        <Skeleton className="h-10 w-1/4" />
         <Skeleton className="h-64 w-full" />
       </div>
     );
   }
 
-  // Filter for upcoming events only
-  const upcomingEvents = events.filter(event => differenceInDays(parseISO(event.date), new Date()) >= 0);
-
-  return <DataTable columns={columns} data={upcomingEvents} searchPlaceholder="Search events..." />;
+  return <DataTable columns={columns} data={upcomingEvents} columnFilters={columnFilters} setColumnFilters={setColumnFilters} />;
 }
