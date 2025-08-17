@@ -75,7 +75,18 @@ export function EventDirectory() {
       const response = await fetch(`/api/events?${params.toString()}`);
       if (!response.ok) throw new Error("Failed to fetch events");
       const data = await response.json();
-      return data.map((event: any) => ({
+
+      // De-duplicate events to prevent React key errors
+      const uniqueEvents = [];
+      const seenIds = new Set();
+      for (const event of data) {
+        if (!seenIds.has(event.id)) {
+          seenIds.add(event.id);
+          uniqueEvents.push(event);
+        }
+      }
+
+      return uniqueEvents.map((event: any) => ({
         ...event,
         instructor: { name: event.instructor, avatar: `https://i.pravatar.cc/150?u=${event.instructor}` },
       }));
