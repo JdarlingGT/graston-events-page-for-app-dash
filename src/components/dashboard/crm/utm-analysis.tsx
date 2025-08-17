@@ -70,7 +70,8 @@ export function UTMAnalysis({ data }: UTMAnalysisProps) {
                 <ChartTooltip content={<ChartTooltipContent />} />
               </PieChart>
             </ResponsiveContainer>
-          </ChartContent>
+          </ChartContainer>
+        </CardContent>
       </Card>
       <Card className="lg:col-span-3">
         <CardHeader>
@@ -91,7 +92,8 @@ export function UTMAnalysis({ data }: UTMAnalysisProps) {
                 <Bar dataKey="revenue" fill="var(--color-revenue)" radius={4} /> {/* Added revenue bar */}
               </BarChart>
             </ResponsiveContainer>
-          </ChartContent>
+          </ChartContainer>
+        </CardContent>
       </Card>
     </div>
   );
