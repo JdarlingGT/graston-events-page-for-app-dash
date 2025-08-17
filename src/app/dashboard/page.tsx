@@ -4,6 +4,7 @@ import { StatCard } from "@/components/dashboard/stat-card";
 import { DangerZoneCard } from "@/components/dashboard/danger-zone-card";
 import { MyTasksCard } from "@/components/dashboard/my-tasks-card";
 import { UpcomingEventsCard } from "@/components/dashboard/upcoming-events-card";
+import { UpcomingEventsMapCard } from "@/components/dashboard/upcoming-events-map-card";
 import { TopSourcesCard } from "@/components/dashboard/top-sources-card";
 import { DollarSign, Calendar, AlertTriangle, CheckSquare } from "lucide-react";
 
@@ -27,12 +28,15 @@ export default function DashboardPage() {
       
       {/* Main Grid Layout for Actionable Insights */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Top row: Danger Zone and My Tasks - most prominent */}
+        {/* Top row: Danger Zone and Events Map - most prominent */}
         <DangerZoneCard />
-        <MyTasksCard />
+        <UpcomingEventsMapCard />
 
-        {/* Second row: Top Sources and Upcoming Events */}
+        {/* Second row: My Tasks and Top Sources */}
+        <MyTasksCard />
         <TopSourcesCard />
+
+        {/* Third row: Upcoming Events List */}
         <UpcomingEventsCard />
       </div>
     </div>
