@@ -25,19 +25,15 @@ export default function DashboardPage() {
         <StatCard title="My Open Tasks" value="5" icon={CheckSquare} />
       </div>
       
-      {/* Main Grid Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Main Content Area */}
-        <div className="lg:col-span-2 space-y-6">
-          <DangerZoneCard />
-          <TopSourcesCard />
-        </div>
+      {/* Main Grid Layout for Actionable Insights */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Top row: Danger Zone and My Tasks - most prominent */}
+        <DangerZoneCard />
+        <MyTasksCard />
 
-        {/* Sidebar Area */}
-        <div className="space-y-6">
-          <MyTasksCard />
-          <UpcomingEventsCard />
-        </div>
+        {/* Second row: Top Sources and Upcoming Events */}
+        <TopSourcesCard />
+        <UpcomingEventsCard />
       </div>
     </div>
   );

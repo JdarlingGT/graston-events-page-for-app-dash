@@ -113,6 +113,9 @@ importers:
       '@types/date-fns':
         specifier: 2.6.3
         version: 2.6.3
+      '@types/pg':
+        specifier: ^8.15.5
+        version: 8.15.5
       '@vis.gl/react-google-maps':
         specifier: 1.5.5
         version: 1.5.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -1476,6 +1479,9 @@ packages:
 
   '@types/node@20.17.50':
     resolution: {integrity: sha512-Mxiq0ULv/zo1OzOhwPqOA13I81CV/W3nvd3ChtQZRT5Cwz3cr0FKo/wMSsbTqL3EXpaBAEQhva2B8ByRkOIh9A==}
+
+  '@types/pg@8.15.5':
+    resolution: {integrity: sha512-LF7lF6zWEKxuT3/OR8wAZGzkg4ENGXFNyiV/JeOt9z5B+0ZVwbql9McqX5c/WStFq1GaGso7H1AzP/qSzmlCKQ==}
 
   '@types/react-dom@19.1.5':
     resolution: {integrity: sha512-CMCjrWucUBZvohgZxkjd6S9h0nZxXjzus6yDfUb+xLxYM7VvjKNH1tQrE9GWLql1XoOP4/Ds3bwFqShHUYraGg==}
@@ -4396,6 +4402,12 @@ snapshots:
   '@types/node@20.17.50':
     dependencies:
       undici-types: 6.19.8
+
+  '@types/pg@8.15.5':
+    dependencies:
+      '@types/node': 20.17.50
+      pg-protocol: 1.10.3
+      pg-types: 2.2.0
 
   '@types/react-dom@19.1.5(@types/react@19.1.5)':
     dependencies:
