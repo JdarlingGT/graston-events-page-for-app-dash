@@ -3,39 +3,6 @@ import { mockTasks } from '@/lib/mock-data';
 import { createCalendarEvent, sendGmailNotification } from '@/lib/google';
 import { Task } from '@/components/tasks/task-board';
 
-async function sendProjectNotification(type: string, task: any) {
-  if (!task.projectId) return;
-  // Fetch project info
-  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/projects`);
-  const projects = await res.json();
-  const project = projects.find((p: any) => p.id === task.projectId);
-  if (!project) return;
-
-  let recipientEmails: string[] = [];
-  if (type === "assigned" && task.assignee?.name) {
-    // For assignment, notify the assignee
-    // For demo, try to match assignee name to project member emails (mock logic)
-    recipientEmails = project.memberEmails || [];
-  } else {
-    // For other notifications, notify all project members
-    recipientEmails = project.memberEmails || [];
-  }
-
-  // Call the notification API
-  await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/projects/${project.id}/notify`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      type,
-      task: {
-        ...task,
-        projectName: project.name,
-      },
-      recipientEmails,
-    }),
-  });
-}
-
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const projectId = searchParams.get('projectId');
@@ -81,16 +48,8 @@ export async function POST(request: Request) {
         }
     }
 
-    // Project notification: assigned
-    await sendProjectNotification("assigned", newTask);
-
     return NextResponse.json(newTask, { status: 201 });
   } catch (error) {
     return new NextResponse('Internal Server Error', { status: 500 });
   }
-}
-
-export async function PATCH(request: Request) {
-  // Not implemented for PATCH on all tasks
-  return new NextResponse('Not Implemented', { status: 501 });
 }
