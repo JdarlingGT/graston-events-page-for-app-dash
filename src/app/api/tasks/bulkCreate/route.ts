@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { mockTasks } from '@/lib/mock-data';
 import { inPersonTrainingTasks, virtualTrainingTasks } from '@/lib/taskTemplates';
+import { createGoogleTask } from '@/lib/google';
 
 export async function POST(request: Request) {
   try {
@@ -12,7 +13,6 @@ export async function POST(request: Request) {
     } else if (eventType === 'Virtual') {
       templates = virtualTrainingTasks;
     } else {
-      // Don't create tasks for other types, but don't error either
       return NextResponse.json({ success: true, created: 0 }, { status: 200 });
     }
 
@@ -26,6 +26,11 @@ export async function POST(request: Request) {
     }));
 
     mockTasks.push(...newTasks);
+
+    // Also create tasks in Google Tasks
+    for (const task of newTasks) {
+      await createGoogleTask(task);
+    }
 
     return NextResponse.json({ success: true, created: newTasks.length }, { status: 201 });
   } catch (error) {

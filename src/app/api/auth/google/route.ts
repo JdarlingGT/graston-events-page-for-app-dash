@@ -8,6 +8,7 @@ export async function GET() {
     'https://www.googleapis.com/auth/calendar.events',
     'https://www.googleapis.com/auth/gmail.send',
     'https://www.googleapis.com/auth/drive.readonly',
+    'https://www.googleapis.com/auth/tasks', // Added Tasks scope
   ];
 
   const url = oauth2Client.generateAuthUrl({

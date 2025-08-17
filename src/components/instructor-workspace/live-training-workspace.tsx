@@ -9,13 +9,14 @@ import { Progress } from "@/components/ui/progress";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { InstructorResourcePod } from "./instructor-resource-pod";
-import { QuickEmailModal } from "./quick-email-modal";
-import { AddNoteModal } from "./add-note-modal";
-import { Mail, Edit, Badge, MonitorPlay } from "lucide-react";
+import { InstructorResourcePod } from "../instructor/instructor-resource-pod";
+import { QuickEmailModal } from "../instructor/quick-email-modal";
+import { AddNoteModal } from "../instructor/add-note-modal";
+import { Mail, Edit, MonitorPlay } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { SkillsEvaluationModal } from "./skills-evaluation-modal";
+import { Badge } from "@/components/ui/badge";
 
 interface Student {
   id: string;

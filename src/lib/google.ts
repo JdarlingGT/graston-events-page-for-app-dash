@@ -101,3 +101,32 @@ export async function sendGmailNotification(task: any) {
         console.error('Failed to send Gmail notification:', error);
     }
 }
+
+export async function createGoogleTask(task: { title: string; description?: string; dueDate?: string }) {
+  const tokens = await getStoredToken();
+  if (!tokens) {
+    console.log("No Google token found, skipping Google Task creation.");
+    return;
+  }
+
+  const oauth2Client = getOAuth2Client();
+  oauth2Client.setCredentials(tokens);
+
+  const tasks = (await import('googleapis')).google.tasks({ version: 'v1', auth: oauth2Client });
+
+  const taskResource = {
+    title: task.title,
+    notes: task.description,
+    due: task.dueDate ? new Date(task.dueDate).toISOString() : undefined,
+  };
+
+  try {
+    await tasks.tasks.insert({
+      tasklist: '@default', // Use the default task list
+      requestBody: taskResource,
+    });
+    console.log(`Google Task created: "${task.title}"`);
+  } catch (error) {
+    console.error('Failed to create Google Task:', error);
+  }
+}
