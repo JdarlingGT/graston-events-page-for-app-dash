@@ -34,11 +34,13 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
-import { Calendar as CalendarIcon } from "lucide-react";
-import { Task } from "./task-board";
+import { Calendar as CalendarIcon, Paperclip, X } from "lucide-react";
+import { Attachment, Task } from "./task-board";
 import { TaskFormValues, taskSchema } from "@/lib/schemas";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
+import { useGooglePicker } from "@/hooks/use-google-picker";
+import { useEffect, useState } from "react";
 
 interface TaskModalProps {
   isOpen: boolean;
@@ -48,7 +50,6 @@ interface TaskModalProps {
   isLoading: boolean;
 }
 
-// Mock assignees for the dropdown
 const assignees = [
   { name: "Sarah Johnson", avatar: "https://i.pravatar.cc/150?img=1" },
   { name: "Mike Chen", avatar: "https://i.pravatar.cc/150?img=2" },
@@ -57,6 +58,9 @@ const assignees = [
 ];
 
 export function TaskModal({ isOpen, onClose, onSubmit, task, isLoading }: TaskModalProps) {
+  const [attachments, setAttachments] = useState<Attachment[]>([]);
+  const { openPicker, isPickerReady } = useGooglePicker();
+
   const form = useForm<TaskFormValues>({
     resolver: zodResolver(taskSchema),
     defaultValues: {
@@ -66,16 +70,44 @@ export function TaskModal({ isOpen, onClose, onSubmit, task, isLoading }: TaskMo
       priority: task?.priority || "medium",
       dueDate: task?.dueDate ? new Date(task.dueDate) : undefined,
       assigneeName: task?.assignee?.name || "Unassigned",
+      attachments: task?.attachments || [],
     },
   });
 
+  useEffect(() => {
+    if (isOpen) {
+      const defaultValues = {
+        title: task?.title || "",
+        description: task?.description || "",
+        status: task?.status || "todo",
+        priority: task?.priority || "medium",
+        dueDate: task?.dueDate ? new Date(task.dueDate) : undefined,
+        assigneeName: task?.assignee?.name || "Unassigned",
+        attachments: task?.attachments || [],
+      };
+      form.reset(defaultValues);
+      setAttachments(task?.attachments || []);
+    }
+  }, [isOpen, task, form]);
+
   const handleFormSubmit = (values: TaskFormValues) => {
-    onSubmit(values, task?.id);
+    onSubmit({ ...values, attachments }, task?.id);
+  };
+
+  const handleAttachFiles = () => {
+    openPicker((docs) => {
+      const newAttachments = docs.filter(doc => !attachments.some(att => att.id === doc.id));
+      setAttachments(prev => [...prev, ...newAttachments]);
+    });
+  };
+
+  const handleRemoveAttachment = (id: string) => {
+    setAttachments(prev => prev.filter(att => att.id !== id));
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>{task ? "Edit Task" : "Create Task"}</DialogTitle>
           <DialogDescription>
@@ -84,6 +116,7 @@ export function TaskModal({ isOpen, onClose, onSubmit, task, isLoading }: TaskMo
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(handleFormSubmit)} className="space-y-4">
+            {/* ... other form fields ... */}
             <FormField
               control={form.control}
               name="title"
@@ -194,6 +227,41 @@ export function TaskModal({ isOpen, onClose, onSubmit, task, isLoading }: TaskMo
                 </FormItem>
               )}
             />
+            
+            <div className="space-y-2">
+              <FormLabel>Attachments</FormLabel>
+              <div className="space-y-2">
+                {attachments.map(file => (
+                  <div key={file.id} className="flex items-center justify-between rounded-md border p-2">
+                    <div className="flex items-center gap-2 overflow-hidden">
+                      <img src={file.iconUrl} alt="file icon" className="h-4 w-4 flex-shrink-0" />
+                      <span className="text-sm font-medium truncate">{file.name}</span>
+                    </div>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      className="h-6 w-6 flex-shrink-0"
+                      onClick={() => handleRemoveAttachment(file.id)}
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
+                ))}
+              </div>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={handleAttachFiles}
+                disabled={!isPickerReady}
+                className="w-full"
+              >
+                <Paperclip className="mr-2 h-4 w-4" />
+                Attach from Google Drive
+              </Button>
+              {!isPickerReady && <p className="text-xs text-muted-foreground text-center">Connect your Google account in Settings to enable attachments.</p>}
+            </div>
+
             <DialogFooter>
               <Button type="button" variant="outline" onClick={onClose}>Cancel</Button>
               <Button type="submit" disabled={isLoading}>
