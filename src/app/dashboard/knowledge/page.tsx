@@ -1,10 +1,10 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { CrmTagsTable } from "@/components/knowledge/crm-tags-table";
-import { AutomatorRecipesTable } from "@/components/knowledge/automator-recipes-table";
-import { GravityFormsTable } from "@/components/knowledge/gravity-forms-table";
-import { AcfFieldsTable } from "@/components/knowledge/acf-fields-table";
+import { CrmTagsTable } from "../../../components/knowledge/crm-tags-table";
+import { AutomatorRecipesTable } from "../../../components/knowledge/automator-recipes-table";
+import { GravityFormsTable } from "../../../components/knowledge/gravity-forms-table";
+import { AcfFieldsTable } from "../../../components/knowledge/acf-fields-table";
 
 export default function KnowledgeBasePage() {
   return (
