@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { mockTasks } from '@/lib/mock-data';
+import { createCalendarEvent, sendGmailNotification } from '@/lib/google';
 
 export async function PATCH(
   request: Request,
@@ -13,10 +14,24 @@ export async function PATCH(
       return new NextResponse('Task not found', { status: 404 });
     }
 
-    // Update the task in the array
-    mockTasks[taskIndex] = { ...mockTasks[taskIndex], ...updates };
+    const updatedTask = { ...mockTasks[taskIndex], ...updates };
+    mockTasks[taskIndex] = updatedTask;
     
-    // Simulate API delay
+    // Trigger Google integrations on update
+    await createCalendarEvent(updatedTask);
+    // We need to add an email to the assignee object for this to work
+    if (updatedTask.assignee) {
+        const assigneeEmails: { [key: string]: string } = {
+            "Sarah Johnson": "user@example.com", // Replace with actual emails
+            "Mike Chen": "user@example.com",
+            "Lisa Park": "user@example.com",
+        };
+        const email = assigneeEmails[updatedTask.assignee.name];
+        if (email) {
+            await sendGmailNotification({ ...updatedTask, assignee: { ...updatedTask, assignee, email } });
+        }
+    }
+
     await new Promise(resolve => setTimeout(resolve, 300));
 
     return NextResponse.json(mockTasks[taskIndex]);
