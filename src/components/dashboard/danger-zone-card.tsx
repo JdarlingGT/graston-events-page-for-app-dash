@@ -19,6 +19,7 @@ interface AtRiskEvent {
   id: string;
   name: string;
   enrolledStudents: number;
+  instrumentsPurchased: number;
   minViableEnrollment: number;
   date: string;
 }
@@ -28,9 +29,11 @@ async function fetchAtRiskEvents(): Promise<AtRiskEvent[]> {
   if (!response.ok) throw new Error("Failed to fetch events");
   const events = await response.json();
   return events.filter(
-    (event: AtRiskEvent) =>
-      event.enrolledStudents < event.minViableEnrollment &&
-      differenceInDays(parseISO(event.date), new Date()) >= 0
+    (event: AtRiskEvent) => {
+      const totalSignups = (event.enrolledStudents || 0) + (event.instrumentsPurchased || 0);
+      return totalSignups < event.minViableEnrollment &&
+             differenceInDays(parseISO(event.date), new Date()) >= 0;
+    }
   );
 }
 
@@ -59,37 +62,43 @@ export function DangerZoneCard() {
           </div>
         ) : atRiskEvents && atRiskEvents.length > 0 ? (
           <div className="space-y-4">
-            {atRiskEvents.map((event) => (
-              <div
-                key={event.id}
-                className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-lg border bg-background p-4"
-              >
-                <div className="flex-1">
-                  <p className="font-semibold">{event.name}</p>
-                  <p className="text-sm text-muted-foreground">
-                    {differenceInDays(parseISO(event.date), new Date())} days away
-                  </p>
-                </div>
-                <div className="w-full sm:w-48">
-                  <div className="flex justify-between text-sm">
-                    <span>{event.enrolledStudents} / {event.minViableEnrollment}</span>
-                    <span className="font-medium">
-                      {((event.enrolledStudents / event.minViableEnrollment) * 100).toFixed(0)}%
-                    </span>
+            {atRiskEvents.map((event) => {
+              const totalSignups = (event.enrolledStudents || 0) + (event.instrumentsPurchased || 0);
+              const needed = event.minViableEnrollment - totalSignups;
+              const progressPercentage = (totalSignups / event.minViableEnrollment) * 100;
+
+              return (
+                <div
+                  key={event.id}
+                  className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-lg border bg-background p-4"
+                >
+                  <div className="flex-1">
+                    <p className="font-semibold">{event.name}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {differenceInDays(parseISO(event.date), new Date())} days away • <span className="font-semibold text-destructive">Needs {needed} more signup{needed > 1 ? 's' : ''}</span>
+                    </p>
                   </div>
-                  <Progress
-                    value={(event.enrolledStudents / event.minViableEnrollment) * 100}
-                    className="h-2"
-                  />
+                  <div className="w-full sm:w-48">
+                    <div className="flex justify-between text-sm">
+                      <span>{totalSignups} / {event.minViableEnrollment}</span>
+                      <span className="font-medium">
+                        {progressPercentage.toFixed(0)}%
+                      </span>
+                    </div>
+                    <Progress
+                      value={progressPercentage}
+                      className="h-2"
+                    />
+                  </div>
+                  <Button asChild size="sm" variant="outline" className="w-full sm:w-auto">
+                    <Link href={`/dashboard/events/${event.id}`}>
+                      View & Rescue
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
                 </div>
-                <Button asChild size="sm" variant="outline" className="w-full sm:w-auto">
-                  <Link href={`/dashboard/events/${event.id}`}>
-                    View & Rescue
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-              </div>
-            ))}
+              );
+            })}
           </div>
         ) : (
           <div className="text-center py-8 text-muted-foreground">
