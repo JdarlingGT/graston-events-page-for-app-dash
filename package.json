@@ -53,6 +53,7 @@
     "embla-carousel": "^8.6.0",
     "embla-carousel-react": "8.6.0",
     "google-auth-library": "^10.2.1",
+    "googleapis": "^156.0.0",
     "input-otp": "1.4.2",
     "lucide-react": "0.511.0",
     "next": "15.3.4",
