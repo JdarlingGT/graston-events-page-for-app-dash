@@ -4,6 +4,7 @@ import { EventDirectory } from '@/components/events/event-directory';
 import { Button } from '@/components/ui/button';
 import { PlusCircle } from 'lucide-react';
 import Link from 'next/link';
+import { EventQuickView } from '@/components/events/event-quick-view';
 
 export default function EventsPage() {
   return (
@@ -23,6 +24,8 @@ export default function EventsPage() {
         </Button>
       </div>
       <EventDirectory />
+      {/* Global quick view dialog listener */}
+      <EventQuickView />
     </div>
   );
 }

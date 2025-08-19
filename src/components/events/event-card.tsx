@@ -99,6 +99,24 @@ export function EventCard({ event, isHovered, onHover, className }: EventCardPro
     });
   };
 
+  const handleQuickView = () => {
+    if (typeof window !== 'undefined') {
+      const payload = {
+        id: event.id,
+        title: event.title,
+        instructor: event.instructor,
+        location: event.location,
+        schedule: event.schedule,
+        enrollment: event.enrollment,
+        type: event.type,
+        mode: event.mode,
+        status: event.status,
+        featuredImage: event.featuredImage,
+      };
+      window.dispatchEvent(new CustomEvent('event-quick-view', { detail: payload }));
+    }
+  };
+
   return (
     <Card 
       className={cn(
@@ -197,7 +215,11 @@ export function EventCard({ event, isHovered, onHover, className }: EventCardPro
         </div>
 
         <div className="flex gap-2 pt-2">
-          <Button asChild size="sm" className="flex-1">
+          <Button size="sm" className="flex-1" onClick={handleQuickView} type="button">
+            <Eye className="h-4 w-4 mr-2" />
+            Quick View
+          </Button>
+          <Button asChild variant="outline" size="sm" className="flex-1">
             <Link href={`/dashboard/events/${event.id}`}>
               <Eye className="h-4 w-4 mr-2" />
               View Event
