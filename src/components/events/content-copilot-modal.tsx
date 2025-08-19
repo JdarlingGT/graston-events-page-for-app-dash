@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -8,19 +8,19 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Label } from "@/components/ui/label";
-import { Sparkles } from "lucide-react";
-import { toast } from "sonner";
+} from '@/components/ui/select';
+import { Label } from '@/components/ui/label';
+import { Sparkles } from 'lucide-react';
+import { toast } from 'sonner';
 
 interface ContentCopilotModalProps {
   isOpen: boolean;
@@ -52,8 +52,8 @@ export function ContentCopilotModal({
   onSave,
   eventName,
 }: ContentCopilotModalProps) {
-  const [tone, setTone] = useState("professional");
-  const [content, setContent] = useState("");
+  const [tone, setTone] = useState('professional');
+  const [content, setContent] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleGenerate = () => {
@@ -68,7 +68,7 @@ export function ContentCopilotModal({
 
   const handleSave = () => {
     onSave(content);
-    toast.success("Social media content saved!");
+    toast.success('Social media content saved!');
     onClose();
   };
 
@@ -99,7 +99,7 @@ export function ContentCopilotModal({
               </SelectContent>
             </Select>
             <Button onClick={handleGenerate} disabled={isLoading}>
-              {isLoading ? "Generating..." : "Generate"}
+              {isLoading ? 'Generating...' : 'Generate'}
             </Button>
           </div>
           <Textarea

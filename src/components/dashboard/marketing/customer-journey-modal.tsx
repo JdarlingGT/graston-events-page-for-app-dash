@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Dialog,
@@ -6,29 +6,29 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-} from "@/components/ui/dialog";
-import { Badge } from "@/components/ui/badge";
-import { ArrowRight, MousePointer, Mail, ShoppingCart } from "lucide-react";
+} from '@/components/ui/dialog';
+import { Badge } from '@/components/ui/badge';
+import { ArrowRight, MousePointer, Mail, ShoppingCart } from 'lucide-react';
 
 interface JourneyStep {
-  type: "Ad Click" | "Page View" | "Email Open" | "Purchase";
+  type: 'Ad Click' | 'Page View' | 'Email Open' | 'Purchase';
   title: string;
   timestamp: string;
 }
 
 const mockJourney: JourneyStep[] = [
-  { type: "Ad Click", title: "Google Ad: 'Advanced React Training'", timestamp: "2024-07-15 09:32 AM" },
-  { type: "Page View", title: "Visited Landing Page", timestamp: "2024-07-15 09:33 AM" },
-  { type: "Email Open", title: "Opened 'Webinar Reminder' Email", timestamp: "2024-07-18 02:15 PM" },
-  { type: "Purchase", title: "Purchased: Advanced React Patterns Workshop", timestamp: "2024-07-20 11:45 AM" },
+  { type: 'Ad Click', title: "Google Ad: 'Advanced React Training'", timestamp: '2024-07-15 09:32 AM' },
+  { type: 'Page View', title: 'Visited Landing Page', timestamp: '2024-07-15 09:33 AM' },
+  { type: 'Email Open', title: "Opened 'Webinar Reminder' Email", timestamp: '2024-07-18 02:15 PM' },
+  { type: 'Purchase', title: 'Purchased: Advanced React Patterns Workshop', timestamp: '2024-07-20 11:45 AM' },
 ];
 
-const getIcon = (type: JourneyStep["type"]) => {
+const getIcon = (type: JourneyStep['type']) => {
   switch (type) {
-    case "Ad Click": return <MousePointer className="h-5 w-5" />;
-    case "Page View": return <ArrowRight className="h-5 w-5" />;
-    case "Email Open": return <Mail className="h-5 w-5" />;
-    case "Purchase": return <ShoppingCart className="h-5 w-5" />;
+    case 'Ad Click': return <MousePointer className="h-5 w-5" />;
+    case 'Page View': return <ArrowRight className="h-5 w-5" />;
+    case 'Email Open': return <Mail className="h-5 w-5" />;
+    case 'Purchase': return <ShoppingCart className="h-5 w-5" />;
     default: return <div className="h-5 w-5" />;
   }
 };
@@ -54,7 +54,7 @@ export function CustomerJourneyModal({ isOpen, onClose }: { isOpen: boolean; onC
                   <p className="font-medium">{step.title}</p>
                   <p className="text-sm text-muted-foreground">{step.timestamp}</p>
                 </div>
-                <Badge variant={step.type === "Purchase" ? "default" : "outline"}>
+                <Badge variant={step.type === 'Purchase' ? 'default' : 'outline'}>
                   {step.type}
                 </Badge>
               </div>

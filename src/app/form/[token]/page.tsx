@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { ParticipantForm } from "@/components/participant-form";
+import { ParticipantForm } from '@/components/participant-form';
 
 export default function ParticipantFormPage({ params }: { params: { token: string } }) {
   return (

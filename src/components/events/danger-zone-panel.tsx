@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
-import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
+import { Button } from '@/components/ui/button';
 import { 
   AlertTriangle, 
   TrendingDown, 
@@ -12,9 +12,9 @@ import {
   Calendar,
   DollarSign,
   Mail,
-  Sparkles
-} from "lucide-react";
-import { cn } from "@/lib/utils";
+  Sparkles,
+} from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface DangerZonePanelProps {
   event: {
@@ -34,49 +34,49 @@ export function DangerZonePanel({ event, onOpenCopilot }: DangerZonePanelProps) 
   const enrollmentPercentage = (event.enrolledStudents / event.capacity) * 100;
   const viabilityPercentage = (event.enrolledStudents / event.minViableEnrollment) * 100;
   const daysUntilDeadline = Math.ceil(
-    (new Date(event.registrationDeadline).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)
+    (new Date(event.registrationDeadline).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24),
   );
 
   const getRiskLevel = () => {
     if (event.enrolledStudents < event.minViableEnrollment && daysUntilDeadline < 14) {
       return {
-        level: "critical",
-        color: "destructive",
+        level: 'critical',
+        color: 'destructive',
         icon: AlertTriangle,
-        title: "Critical Risk",
-        description: "Event may need to be cancelled",
-        bgColor: "bg-red-50 dark:bg-red-950/20",
-        borderColor: "border-red-200 dark:border-red-800"
+        title: 'Critical Risk',
+        description: 'Event may need to be cancelled',
+        bgColor: 'bg-red-50 dark:bg-red-950/20',
+        borderColor: 'border-red-200 dark:border-red-800',
       };
     } else if (event.enrolledStudents < event.minViableEnrollment) {
       return {
-        level: "high",
-        color: "secondary",
+        level: 'high',
+        color: 'secondary',
         icon: TrendingDown,
-        title: "High Risk",
-        description: "Below minimum viable enrollment",
-        bgColor: "bg-yellow-50 dark:bg-yellow-950/20",
-        borderColor: "border-yellow-200 dark:border-yellow-800"
+        title: 'High Risk',
+        description: 'Below minimum viable enrollment',
+        bgColor: 'bg-yellow-50 dark:bg-yellow-950/20',
+        borderColor: 'border-yellow-200 dark:border-yellow-800',
       };
     } else if (enrollmentPercentage < 60) {
       return {
-        level: "moderate",
-        color: "outline",
+        level: 'moderate',
+        color: 'outline',
         icon: TrendingUp,
-        title: "Moderate Risk",
-        description: "Enrollment building steadily",
-        bgColor: "bg-blue-50 dark:bg-blue-950/20",
-        borderColor: "border-blue-200 dark:border-blue-800"
+        title: 'Moderate Risk',
+        description: 'Enrollment building steadily',
+        bgColor: 'bg-blue-50 dark:bg-blue-950/20',
+        borderColor: 'border-blue-200 dark:border-blue-800',
       };
     } else {
       return {
-        level: "low",
-        color: "default",
+        level: 'low',
+        color: 'default',
         icon: TrendingUp,
-        title: "Low Risk",
-        description: "Healthy enrollment numbers",
-        bgColor: "bg-green-50 dark:bg-green-950/20",
-        borderColor: "border-green-200 dark:border-green-800"
+        title: 'Low Risk',
+        description: 'Healthy enrollment numbers',
+        bgColor: 'bg-green-50 dark:bg-green-950/20',
+        borderColor: 'border-green-200 dark:border-green-800',
       };
     }
   };
@@ -86,7 +86,7 @@ export function DangerZonePanel({ event, onOpenCopilot }: DangerZonePanelProps) 
   const isAtRisk = risk.level === 'critical' || risk.level === 'high';
 
   return (
-    <Card className={cn("border-2", risk.bgColor, risk.borderColor)}>
+    <Card className={cn('border-2', risk.bgColor, risk.borderColor)}>
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">

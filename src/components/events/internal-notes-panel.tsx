@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { Save } from "lucide-react";
-import { toast } from "sonner";
+import { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
+import { Save } from 'lucide-react';
+import { toast } from 'sonner';
 
 export function InternalNotesPanel() {
-  const [notes, setNotes] = useState("");
+  const [notes, setNotes] = useState('');
 
   const handleSaveNotes = () => {
-    toast.success("Notes saved successfully!");
+    toast.success('Notes saved successfully!');
   };
 
   return (

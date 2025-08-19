@@ -1,20 +1,20 @@
-"use client";
+'use client';
 
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { ColumnDef } from "@tanstack/react-table";
-import { DataTable } from "@/components/ui/data-table";
-import { Skeleton } from "@/components/ui/skeleton";
-import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { ColumnDef } from '@tanstack/react-table';
+import { DataTable } from '@/components/ui/data-table';
+import { Skeleton } from '@/components/ui/skeleton';
+import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { MoreHorizontal, Edit, Trash, Eye } from "lucide-react";
-import { useRouter } from "next/navigation";
+} from '@/components/ui/dropdown-menu';
+import { MoreHorizontal, Edit, Trash, Eye } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -25,9 +25,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import React from "react";
-import Link from "next/link";
+} from '@/components/ui/alert-dialog';
+import React from 'react';
+import Link from 'next/link';
 
 interface Instructor {
   id: string;
@@ -37,8 +37,10 @@ interface Instructor {
 }
 
 async function fetchInstructors(): Promise<Instructor[]> {
-  const response = await fetch("/api/instructors");
-  if (!response.ok) throw new Error("Failed to fetch instructors");
+  const response = await fetch('/api/instructors');
+  if (!response.ok) {
+throw new Error('Failed to fetch instructors');
+}
   return response.json();
 }
 
@@ -47,7 +49,7 @@ export function InstructorsTable() {
   const router = useRouter();
 
   const { data: instructors = [], isLoading } = useQuery<Instructor[]>({
-    queryKey: ["instructors"],
+    queryKey: ['instructors'],
     queryFn: fetchInstructors,
     staleTime: 1000 * 60 * 15, // 15 minutes
   });
@@ -55,35 +57,35 @@ export function InstructorsTable() {
   const deleteMutation = useMutation({
     mutationFn: async (instructorId: string) => {
       const response = await fetch(`/api/instructors/${instructorId}`, {
-        method: "DELETE",
+        method: 'DELETE',
       });
       if (!response.ok) {
-        throw new Error("Failed to delete instructor");
+        throw new Error('Failed to delete instructor');
       }
     },
     onSuccess: () => {
-      toast.success("Instructor deleted successfully.");
-      queryClient.invalidateQueries({ queryKey: ["instructors"] });
+      toast.success('Instructor deleted successfully.');
+      queryClient.invalidateQueries({ queryKey: ['instructors'] });
     },
     onError: () => {
-      toast.error("Failed to delete instructor.");
+      toast.error('Failed to delete instructor.');
     },
   });
 
   const columns: ColumnDef<Instructor>[] = [
     {
-      accessorKey: "name",
-      header: "Name",
+      accessorKey: 'name',
+      header: 'Name',
       cell: ({ row }) => (
         <Link href={`/dashboard/directory/instructors/${row.original.id}`} className="font-medium text-primary hover:underline">
           {row.original.name}
         </Link>
       ),
     },
-    { accessorKey: "email", header: "Email" },
-    { accessorKey: "specialties", header: "Specialties" },
+    { accessorKey: 'email', header: 'Email' },
+    { accessorKey: 'specialties', header: 'Specialties' },
     {
-      id: "actions",
+      id: 'actions',
       cell: ({ row }) => {
         const instructor = row.original;
         return (

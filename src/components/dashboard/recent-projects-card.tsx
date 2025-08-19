@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from '@tanstack/react-query';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import { FolderKanban, ArrowRight } from "lucide-react";
-import Link from "next/link";
-import { Progress } from "../ui/progress";
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
+import { FolderKanban, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
+import { Progress } from '../ui/progress';
 
 interface Project {
   id: string;
@@ -21,14 +21,16 @@ interface Project {
 }
 
 async function fetchRecentProjects(): Promise<Project[]> {
-  const response = await fetch("/api/projects?limit=3");
-  if (!response.ok) throw new Error("Failed to fetch projects");
+  const response = await fetch('/api/projects?limit=3');
+  if (!response.ok) {
+throw new Error('Failed to fetch projects');
+}
   return response.json();
 }
 
 export function RecentProjectsCard() {
   const { data: projects, isLoading } = useQuery<Project[]>({
-    queryKey: ["recent-projects"],
+    queryKey: ['recent-projects'],
     queryFn: fetchRecentProjects,
   });
 

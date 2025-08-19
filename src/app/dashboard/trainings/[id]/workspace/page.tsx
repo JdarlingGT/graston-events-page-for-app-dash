@@ -1,7 +1,7 @@
-import { LiveTrainingWorkspace } from "@/components/instructor-workspace/live-training-workspace";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
+import { LiveTrainingWorkspace } from '@/components/instructor-workspace/live-training-workspace';
+import { Button } from '@/components/ui/button';
+import { ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
 
 export default function TrainingWorkspacePage({ params }: { params: { id: string } }) {
   return (

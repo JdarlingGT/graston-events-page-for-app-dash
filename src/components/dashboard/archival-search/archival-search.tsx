@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { SearchFilters } from "./search-filters";
-import { SearchResultCard } from "./search-result-card";
-import { Skeleton } from "@/components/ui/skeleton";
-import { toast } from "sonner";
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { SearchFilters } from './search-filters';
+import { SearchResultCard } from './search-result-card';
+import { Skeleton } from '@/components/ui/skeleton';
+import { toast } from 'sonner';
 import {
   Pagination,
   PaginationContent,
   PaginationItem,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+} from '@/components/ui/pagination';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export interface SearchResult {
   id: string;
@@ -34,8 +34,8 @@ export interface Filters {
 
 export function ArchivalSearch() {
   const [filters, setFilters] = useState<Filters>({
-    q: "",
-    type: "all",
+    q: '',
+    type: 'all',
     page: 1,
     pageSize: 10,
   });
@@ -44,7 +44,7 @@ export function ArchivalSearch() {
   const [activeFilters, setActiveFilters] = useState<Filters>(filters);
 
   const { data, isLoading, isError, isFetching } = useQuery({
-    queryKey: ["archival-search", activeFilters],
+    queryKey: ['archival-search', activeFilters],
     queryFn: async () => {
       const params = new URLSearchParams({
         q: activeFilters.q,
@@ -52,13 +52,17 @@ export function ArchivalSearch() {
         page: activeFilters.page.toString(),
         pageSize: activeFilters.pageSize.toString(),
       });
-      if (activeFilters.start) params.append("start", activeFilters.start.toISOString().split('T')[0]);
-      if (activeFilters.end) params.append("end", activeFilters.end.toISOString().split('T')[0]);
+      if (activeFilters.start) {
+params.append('start', activeFilters.start.toISOString().split('T')[0]);
+}
+      if (activeFilters.end) {
+params.append('end', activeFilters.end.toISOString().split('T')[0]);
+}
 
       const response = await fetch(`/api/archival/search?${params.toString()}`);
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to fetch search results.");
+        throw new Error(errorData.error || 'Failed to fetch search results.');
       }
       return response.json();
     },
@@ -66,7 +70,7 @@ export function ArchivalSearch() {
   });
 
   if (isError) {
-    toast.error("Search failed. Please check the connection and try again.");
+    toast.error('Search failed. Please check the connection and try again.');
   }
 
   const handleSearch = () => {
@@ -109,15 +113,19 @@ export function ArchivalSearch() {
                 <PaginationItem>
                   <PaginationPrevious
                     href="#"
-                    onClick={(e) => { e.preventDefault(); handlePageChange(pagination.page - 1); }}
-                    className={pagination.page <= 1 ? "pointer-events-none opacity-50" : ""}
+                    onClick={(e) => {
+ e.preventDefault(); handlePageChange(pagination.page - 1); 
+}}
+                    className={pagination.page <= 1 ? 'pointer-events-none opacity-50' : ''}
                   />
                 </PaginationItem>
                 <PaginationItem>
                   <PaginationNext
                     href="#"
-                    onClick={(e) => { e.preventDefault(); handlePageChange(pagination.page + 1); }}
-                    className={pagination.page >= pagination.totalPages ? "pointer-events-none opacity-50" : ""}
+                    onClick={(e) => {
+ e.preventDefault(); handlePageChange(pagination.page + 1); 
+}}
+                    className={pagination.page >= pagination.totalPages ? 'pointer-events-none opacity-50' : ''}
                   />
                 </PaginationItem>
               </PaginationContent>

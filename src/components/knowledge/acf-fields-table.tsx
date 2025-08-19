@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useQuery } from "@tanstack/react-query";
-import { ColumnDef } from "@tanstack/react-table";
-import { DataTable } from "@/components/ui/data-table";
-import { Skeleton } from "@/components/ui/skeleton";
+import { useQuery } from '@tanstack/react-query';
+import { ColumnDef } from '@tanstack/react-table';
+import { DataTable } from '@/components/ui/data-table';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface AcfFieldGroup {
   id: string;
@@ -12,14 +12,16 @@ interface AcfFieldGroup {
 }
 
 const columns: ColumnDef<AcfFieldGroup>[] = [
-  { accessorKey: "id", header: "ID" },
-  { accessorKey: "name", header: "Group Name" },
-  { accessorKey: "description", header: "Description" },
+  { accessorKey: 'id', header: 'ID' },
+  { accessorKey: 'name', header: 'Group Name' },
+  { accessorKey: 'description', header: 'Description' },
 ];
 
 async function fetchAcfFields(): Promise<AcfFieldGroup[]> {
   const res = await fetch('/api/knowledge/acf-fields');
-  if (!res.ok) throw new Error('Failed to fetch ACF Fields');
+  if (!res.ok) {
+throw new Error('Failed to fetch ACF Fields');
+}
   return res.json();
 }
 
@@ -29,7 +31,9 @@ export function AcfFieldsTable() {
     queryFn: fetchAcfFields,
   });
 
-  if (isLoading) return <Skeleton className="h-64 w-full" />;
+  if (isLoading) {
+return <Skeleton className="h-64 w-full" />;
+}
 
   return <DataTable columns={columns} data={data || []} />;
 }

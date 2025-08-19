@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -36,16 +36,16 @@ export function MobileSidebar() {
           <Link
             key={item.href}
             href={item.href}
-            aria-current={isActive ? "page" : undefined}
+            aria-current={isActive ? 'page' : undefined}
             className={cn(
-              "flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground",
-              isActive && "text-foreground"
+              'flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground',
+              isActive && 'text-foreground',
             )}
           >
             <item.icon className="h-5 w-5" />
             {item.label}
           </Link>
-        )
+        );
       })}
     </nav>
   );

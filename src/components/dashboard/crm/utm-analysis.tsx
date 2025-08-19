@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Pie, PieChart, Cell, Legend } from "recharts";
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Pie, PieChart, Cell, Legend } from 'recharts';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+} from '@/components/ui/card';
+import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 
 interface UtmSource {
   source: string;
@@ -22,25 +22,25 @@ interface UTMAnalysisProps {
 }
 
 const pieChartColors = [
-  "hsl(var(--chart-1))",
-  "hsl(var(--chart-2))",
-  "hsl(var(--chart-3))",
-  "hsl(var(--chart-4))",
-  "hsl(var(--chart-5))",
+  'hsl(var(--chart-1))',
+  'hsl(var(--chart-2))',
+  'hsl(var(--chart-3))',
+  'hsl(var(--chart-4))',
+  'hsl(var(--chart-5))',
 ];
 
 const barChartConfig = {
   leads: {
-    label: "Leads",
-    color: "hsl(var(--chart-1))",
+    label: 'Leads',
+    color: 'hsl(var(--chart-1))',
   },
   converted: {
-    label: "Converted",
-    color: "hsl(var(--chart-2))",
+    label: 'Converted',
+    color: 'hsl(var(--chart-2))',
   },
   revenue: { // Added revenue to chart config
-    label: "Revenue",
-    color: "hsl(var(--chart-3))",
+    label: 'Revenue',
+    color: 'hsl(var(--chart-3))',
   },
 } satisfies ChartConfig;
 

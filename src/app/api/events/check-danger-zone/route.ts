@@ -11,7 +11,7 @@ interface Event {
   name: string;
   enrolledStudents: number;
   instrumentsPurchased: number;
-  mode: "In-Person" | "Virtual";
+  mode: 'In-Person' | 'Virtual';
   date: string;
 }
 
@@ -46,11 +46,11 @@ export async function POST() {
       
       if (isBelowThreshold) {
         const daysAway = differenceInDays(parseISO(event.date), new Date());
-        let urgency = "At Risk";
+        let urgency = 'At Risk';
         if (daysAway < DANGER_ZONE_CONFIG.URGENCY_DAYS.URGENT) {
-          urgency = "CRITICAL";
+          urgency = 'CRITICAL';
         } else if (daysAway <= DANGER_ZONE_CONFIG.URGENCY_DAYS.WARNING) {
-          urgency = "Warning";
+          urgency = 'Warning';
         }
         
         atRiskEvents.push({
@@ -65,11 +65,11 @@ export async function POST() {
 
     // Simulate sending notifications
     if (atRiskEvents.length > 0) {
-      console.log("--- Proactive Alert Simulation ---");
+      console.log('--- Proactive Alert Simulation ---');
       atRiskEvents.forEach(event => {
         console.log(`[ALERT] Event "${event.name}" is ${event.urgency}. ${event.signups}/${event.threshold} signups, ${event.daysAway} days away.`);
       });
-      console.log("------------------------------------");
+      console.log('------------------------------------');
     }
 
     return NextResponse.json({
@@ -80,7 +80,7 @@ export async function POST() {
     });
 
   } catch (error) {
-    console.error("Failed to run danger zone check:", error);
+    console.error('Failed to run danger zone check:', error);
     return new NextResponse('Internal Server Error', { status: 500 });
   }
 }

@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { SalesOverviewChart } from "@/components/dashboard/sales-overview-chart";
-import { EventEnrollmentChart } from "@/components/dashboard/event-enrollment-chart";
-import { InstrumentSalesChart } from "@/components/dashboard/instrument-sales-chart";
-import { PipelineFunnel } from "@/components/dashboard/crm/pipeline-funnel";
-import { UTMAnalysis } from "@/components/dashboard/crm/utm-analysis";
-import { AutomatorLogTable } from "@/components/dashboard/crm/automator-log-table";
-import { SalesRepLeaderboard } from "@/components/dashboard/crm/sales-rep-leaderboard";
-import { useQuery } from "@tanstack/react-query";
-import { toast } from "sonner";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { SalesOverviewChart } from '@/components/dashboard/sales-overview-chart';
+import { EventEnrollmentChart } from '@/components/dashboard/event-enrollment-chart';
+import { InstrumentSalesChart } from '@/components/dashboard/instrument-sales-chart';
+import { PipelineFunnel } from '@/components/dashboard/crm/pipeline-funnel';
+import { UTMAnalysis } from '@/components/dashboard/crm/utm-analysis';
+import { AutomatorLogTable } from '@/components/dashboard/crm/automator-log-table';
+import { SalesRepLeaderboard } from '@/components/dashboard/crm/sales-rep-leaderboard';
+import { useQuery } from '@tanstack/react-query';
+import { toast } from 'sonner';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface FunnelData {
   stages: Array<{ stage: string; count: number }>;
@@ -26,20 +26,24 @@ interface UtmSource {
 
 function CrmInsightsContent() {
   const { data: funnelData, isLoading: funnelLoading } = useQuery<FunnelData>({
-    queryKey: ["crm-funnel"],
+    queryKey: ['crm-funnel'],
     queryFn: async () => {
-      const res = await fetch("/api/crm/funnel");
-      if (!res.ok) throw new Error("Failed to fetch funnel data");
+      const res = await fetch('/api/crm/funnel');
+      if (!res.ok) {
+throw new Error('Failed to fetch funnel data');
+}
       return res.json();
     },
     staleTime: 1000 * 60 * 15, // 15 minutes
   });
 
   const { data: utmData, isLoading: utmLoading } = useQuery<UtmSource[]>({
-    queryKey: ["crm-utm"],
+    queryKey: ['crm-utm'],
     queryFn: async () => {
-      const res = await fetch("/api/crm/utm");
-      if (!res.ok) throw new Error("Failed to fetch UTM data");
+      const res = await fetch('/api/crm/utm');
+      if (!res.ok) {
+throw new Error('Failed to fetch UTM data');
+}
       const json = await res.json();
       return json.utm_sources;
     },

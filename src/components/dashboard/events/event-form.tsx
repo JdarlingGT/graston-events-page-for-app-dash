@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Button } from "@/components/ui/button";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -10,34 +10,34 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
   CardDescription,
-} from "@/components/ui/card";
-import { Switch } from "@/components/ui/switch";
-import { EventFormValues, eventSchema } from "@/lib/schemas";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
-import { useState } from "react";
-import { Sparkles } from "lucide-react";
-import { ContentCopilotModal } from "@/components/events/content-copilot-modal";
+} from '@/components/ui/card';
+import { Switch } from '@/components/ui/switch';
+import { EventFormValues, eventSchema } from '@/lib/schemas';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
+import { useState } from 'react';
+import { Sparkles } from 'lucide-react';
+import { ContentCopilotModal } from '@/components/events/content-copilot-modal';
 
 interface Event {
   id: string;
   title: string;
-  status: "Go" | "At Risk" | "Completed";
+  status: 'Go' | 'At Risk' | 'Completed';
   startDate: string;
   endDate: string;
   location: {
@@ -60,17 +60,17 @@ export function EventForm({ initialData }: EventFormProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [isCopilotOpen, setIsCopilotOpen] = useState(false);
-  const [socialMediaContent, setSocialMediaContent] = useState("");
+  const [socialMediaContent, setSocialMediaContent] = useState('');
 
   const form = useForm<EventFormValues>({
     resolver: zodResolver(eventSchema),
     defaultValues: initialData || {
-      title: "",
-      status: "Go",
-      startDate: "",
-      endDate: "",
-      location: { city: "", state: "", venueId: null },
-      courseType: "",
+      title: '',
+      status: 'Go',
+      startDate: '',
+      endDate: '',
+      location: { city: '', state: '', venueId: null },
+      courseType: '',
       capacity: 25,
       enrolledCount: 0,
       revenue: 0,
@@ -81,40 +81,40 @@ export function EventForm({ initialData }: EventFormProps) {
   const onSubmit = async (values: EventFormValues) => {
     setLoading(true);
     try {
-      const method = initialData ? "PUT" : "POST";
+      const method = initialData ? 'PUT' : 'POST';
       const url = initialData
         ? `/api/events/${initialData.id}`
-        : "/api/events";
+        : '/api/events';
       const response = await fetch(url, {
         method,
-        headers: { "Content-Type": "application/json" },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values),
       });
 
       if (!response.ok) {
-        throw new Error(`Failed to ${initialData ? "update" : "create"} event`);
+        throw new Error(`Failed to ${initialData ? 'update' : 'create'} event`);
       }
 
-      toast.success(`Event ${initialData ? "updated" : "created"} successfully!`);
+      toast.success(`Event ${initialData ? 'updated' : 'created'} successfully!`);
       
       if (!initialData) {
-        const eventType = values.courseType.includes("In-Person") ? "In-Person" : "Virtual";
+        const eventType = values.courseType.includes('In-Person') ? 'In-Person' : 'Virtual';
         await fetch('/api/tasks/bulkCreate', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ eventType, eventName: values.title })
+            body: JSON.stringify({ eventType, eventName: values.title }),
         });
-        toast.info("Relevant setup tasks have been automatically created.");
+        toast.info('Relevant setup tasks have been automatically created.');
       }
 
       if (socialMediaContent) {
-        toast.info("Social media posts have been scheduled.");
+        toast.info('Social media posts have been scheduled.');
       }
-      router.push("/dashboard/events");
+      router.push('/dashboard/events');
       router.refresh();
     } catch (error) {
       console.error(error);
-      toast.error("Something went wrong. Please try again.");
+      toast.error('Something went wrong. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -124,9 +124,9 @@ export function EventForm({ initialData }: EventFormProps) {
     <>
       <Card>
         <CardHeader>
-          <CardTitle>{initialData ? "Edit Event" : "Create Event"}</CardTitle>
+          <CardTitle>{initialData ? 'Edit Event' : 'Create Event'}</CardTitle>
           <CardDescription>
-            Fill in the details below to {initialData ? "update the" : "add a new"}{" "}
+            Fill in the details below to {initialData ? 'update the' : 'add a new'}{' '}
             event.
           </CardDescription>
         </CardHeader>
@@ -266,13 +266,13 @@ export function EventForm({ initialData }: EventFormProps) {
                 <Button
                   type="button"
                   variant="outline"
-                  onClick={() => router.push("/dashboard/events")}
+                  onClick={() => router.push('/dashboard/events')}
                   disabled={loading}
                 >
                   Cancel
                 </Button>
                 <Button type="submit" disabled={loading}>
-                  {loading ? "Saving..." : "Save Changes"}
+                  {loading ? 'Saving...' : 'Save Changes'}
                 </Button>
               </div>
             </form>
@@ -283,7 +283,7 @@ export function EventForm({ initialData }: EventFormProps) {
         isOpen={isCopilotOpen}
         onClose={() => setIsCopilotOpen(false)}
         onSave={setSocialMediaContent}
-        eventName={form.getValues("title") || "this amazing event"}
+        eventName={form.getValues('title') || 'this amazing event'}
       />
     </>
   );

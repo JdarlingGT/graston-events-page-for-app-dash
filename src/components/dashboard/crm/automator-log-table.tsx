@@ -1,23 +1,23 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { DataTable } from "@/components/ui/data-table";
-import { ColumnDef } from "@tanstack/react-table";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Download, ExternalLink, Filter, Search, Clock } from "lucide-react";
-import { toast } from "sonner";
-import { format } from "date-fns";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Calendar } from "@/components/ui/calendar";
+} from '@/components/ui/card';
+import { DataTable } from '@/components/ui/data-table';
+import { ColumnDef } from '@tanstack/react-table';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Download, ExternalLink, Filter, Search, Clock } from 'lucide-react';
+import { toast } from 'sonner';
+import { format } from 'date-fns';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Calendar } from '@/components/ui/calendar';
 
 interface AutomatorLog {
   id: string;
@@ -31,21 +31,21 @@ interface AutomatorLog {
 
 const columns: ColumnDef<AutomatorLog>[] = [
   {
-    accessorKey: "timestamp",
-    header: "Date",
-    cell: ({ row }) => format(new Date(row.original.timestamp), "MMM dd, yyyy HH:mm"),
+    accessorKey: 'timestamp',
+    header: 'Date',
+    cell: ({ row }) => format(new Date(row.original.timestamp), 'MMM dd, yyyy HH:mm'),
   },
   {
-    accessorKey: "recipeName",
-    header: "Recipe",
+    accessorKey: 'recipeName',
+    header: 'Recipe',
   },
   {
-    accessorKey: "action",
-    header: "Action",
+    accessorKey: 'action',
+    header: 'Action',
   },
   {
-    accessorKey: "user",
-    header: "User",
+    accessorKey: 'user',
+    header: 'User',
     cell: ({ row }) => (
       <Button variant="link" className="p-0 h-auto" onClick={() => {
         // Simulate opening FluentCRM contact
@@ -57,20 +57,22 @@ const columns: ColumnDef<AutomatorLog>[] = [
     ),
   },
   {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: 'status',
+    header: 'Status',
   },
 ];
 
 export function AutomatorLogTable() {
-  const [searchFilter, setSearchFilter] = useState("");
+  const [searchFilter, setSearchFilter] = useState('');
   const [dateRange, setDateRange] = useState<{ from?: Date; to?: Date }>({});
 
   const { data: logs = [], isLoading, error } = useQuery<AutomatorLog[]>({
-    queryKey: ["automator-logs"],
+    queryKey: ['automator-logs'],
     queryFn: async () => {
-      const response = await fetch("/api/automator/logs");
-      if (!response.ok) throw new Error("Failed to fetch automator logs");
+      const response = await fetch('/api/automator/logs');
+      if (!response.ok) {
+throw new Error('Failed to fetch automator logs');
+}
       return response.json();
     },
   });
@@ -79,36 +81,40 @@ export function AutomatorLogTable() {
     (log) =>
       log.recipeName.toLowerCase().includes(searchFilter.toLowerCase()) ||
       log.action.toLowerCase().includes(searchFilter.toLowerCase()) ||
-      log.user.toLowerCase().includes(searchFilter.toLowerCase())
+      log.user.toLowerCase().includes(searchFilter.toLowerCase()),
   ).filter(log => {
     const logDate = new Date(log.timestamp);
-    if (dateRange.from && logDate < dateRange.from) return false;
-    if (dateRange.to && logDate > dateRange.to) return false;
+    if (dateRange.from && logDate < dateRange.from) {
+return false;
+}
+    if (dateRange.to && logDate > dateRange.to) {
+return false;
+}
     return true;
   });
 
   const handleExport = () => {
-    const headers = columns.map(col => (col as any).accessorKey).join(",");
+    const headers = columns.map(col => (col as any).accessorKey).join(',');
     const rows = filteredLogs.map(row => 
       columns.map(col => {
         const key = (col as any).accessorKey as keyof AutomatorLog;
         let value = row[key];
-        if (key === "timestamp") {
-          value = format(new Date(value as string), "yyyy-MM-dd HH:mm:ss");
+        if (key === 'timestamp') {
+          value = format(new Date(value as string), 'yyyy-MM-dd HH:mm:ss');
         }
         return `"${value}"`;
-      }).join(",")
+      }).join(','),
     );
-    const csvContent = "data:text/csv;charset=utf-8," + [headers, ...rows].join("\n");
+    const csvContent = 'data:text/csv;charset=utf-8,' + [headers, ...rows].join('\n');
 
     const encodedUri = encodeURI(csvContent);
-    const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "automator_activity_log.csv");
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', 'automator_activity_log.csv');
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    toast.success("Activity log exported successfully!");
+    toast.success('Activity log exported successfully!');
   };
 
   return (
@@ -135,14 +141,14 @@ export function AutomatorLogTable() {
                   {dateRange.from ? (
                     dateRange.to ? (
                       <>
-                        {format(dateRange.from, "LLL dd")} -{" "}
-                        {format(dateRange.to, "LLL dd")}
+                        {format(dateRange.from, 'LLL dd')} -{' '}
+                        {format(dateRange.to, 'LLL dd')}
                       </>
                     ) : (
-                      format(dateRange.from, "LLL dd, y")
+                      format(dateRange.from, 'LLL dd, y')
                     )
                   ) : (
-                    "Date Range"
+                    'Date Range'
                   )}
                 </Button>
               </PopoverTrigger>

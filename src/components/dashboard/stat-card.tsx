@@ -1,6 +1,6 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { type LucideIcon, TrendingUp, TrendingDown } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { type LucideIcon, TrendingUp, TrendingDown } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface StatCardProps {
   title: string;
@@ -23,8 +23,8 @@ export function StatCard({ title, value, icon: Icon, change, changeDescription }
           <div className="flex items-center text-xs text-muted-foreground">
             <span
               className={cn(
-                "flex items-center gap-1",
-                change >= 0 ? "text-green-600" : "text-red-600"
+                'flex items-center gap-1',
+                change >= 0 ? 'text-green-600' : 'text-red-600',
               )}
             >
               {change >= 0 ? <TrendingUp className="h-3 w-3" /> : <TrendingDown className="h-3 w-3" />}

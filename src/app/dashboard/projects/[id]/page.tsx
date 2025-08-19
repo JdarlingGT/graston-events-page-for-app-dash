@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useQuery } from "@tanstack/react-query";
-import { TaskBoard } from "@/components/tasks/task-board";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ProjectOverview } from "@/components/projects/project-overview";
+import { useQuery } from '@tanstack/react-query';
+import { TaskBoard } from '@/components/tasks/task-board';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Button } from '@/components/ui/button';
+import { ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { ProjectOverview } from '@/components/projects/project-overview';
 
 interface Project {
   id: string;
@@ -19,10 +19,12 @@ interface Project {
 
 export default function ProjectDetailPage({ params }: { params: { id: string } }) {
   const { data: project, isLoading } = useQuery<Project>({
-    queryKey: ["project", params.id],
+    queryKey: ['project', params.id],
     queryFn: async () => {
       const response = await fetch(`/api/projects/${params.id}`);
-      if (!response.ok) throw new Error("Failed to fetch project details");
+      if (!response.ok) {
+throw new Error('Failed to fetch project details');
+}
       return response.json();
     },
   });

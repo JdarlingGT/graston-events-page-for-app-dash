@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import * as React from "react";
+import * as React from 'react';
 import {
   CommandDialog,
   CommandEmpty,
@@ -9,12 +9,12 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@/components/ui/command";
-import { DialogTitle } from "@/components/ui/dialog";
-import { useQuery } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
-import { Calendar, CheckSquare, Building, Users, LayoutDashboard } from "lucide-react";
-import { useCommandPalette } from "@/hooks/use-command-palette";
+} from '@/components/ui/command';
+import { DialogTitle } from '@/components/ui/dialog';
+import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+import { Calendar, CheckSquare, Building, Users, LayoutDashboard } from 'lucide-react';
+import { useCommandPalette } from '@/hooks/use-command-palette';
 
 // Simplified types for search results
 interface SearchResult {
@@ -28,17 +28,17 @@ export function CommandPalette() {
 
   // Fetch data for search
   const { data: events = [] } = useQuery<SearchResult[]>({
-    queryKey: ["search-events"],
+    queryKey: ['search-events'],
     queryFn: async () => {
-      const res = await fetch("/api/events");
+      const res = await fetch('/api/events');
       return res.json();
     },
   });
 
   const { data: tasks = [] } = useQuery<SearchResult[]>({
-    queryKey: ["search-tasks"],
+    queryKey: ['search-tasks'],
     queryFn: async () => {
-      const res = await fetch("/api/tasks");
+      const res = await fetch('/api/tasks');
       const tasksData = await res.json();
       // The task API returns 'title', not 'name'
       return tasksData.map((task: any) => ({ id: task.id, name: task.title }));
@@ -46,30 +46,30 @@ export function CommandPalette() {
   });
   
   const { data: venues = [] } = useQuery<SearchResult[]>({
-    queryKey: ["search-venues"],
+    queryKey: ['search-venues'],
     queryFn: async () => {
-      const res = await fetch("/api/venues");
+      const res = await fetch('/api/venues');
       return res.json();
     },
   });
 
   const { data: instructors = [] } = useQuery<SearchResult[]>({
-    queryKey: ["search-instructors"],
+    queryKey: ['search-instructors'],
     queryFn: async () => {
-      const res = await fetch("/api/instructors");
+      const res = await fetch('/api/instructors');
       return res.json();
     },
   });
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
-      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+      if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
         setIsOpen(!isOpen);
       }
     };
-    document.addEventListener("keydown", down);
-    return () => document.removeEventListener("keydown", down);
+    document.addEventListener('keydown', down);
+    return () => document.removeEventListener('keydown', down);
   }, [isOpen, setIsOpen]);
 
   const runCommand = (command: () => unknown) => {
@@ -85,7 +85,7 @@ export function CommandPalette() {
         <CommandEmpty>No results found.</CommandEmpty>
         
         <CommandGroup heading="Navigation">
-          <CommandItem onSelect={() => runCommand(() => router.push("/dashboard"))}>
+          <CommandItem onSelect={() => runCommand(() => router.push('/dashboard'))}>
             <LayoutDashboard className="mr-2 h-4 w-4" />
             <span>Dashboard</span>
           </CommandItem>
@@ -111,7 +111,7 @@ export function CommandPalette() {
             {tasks.map((task) => (
               <CommandItem
                 key={task.id}
-                onSelect={() => runCommand(() => router.push(`/dashboard/tasks`))}
+                onSelect={() => runCommand(() => router.push('/dashboard/tasks'))}
               >
                 <CheckSquare className="mr-2 h-4 w-4" />
                 <span>{task.name}</span>
@@ -125,7 +125,7 @@ export function CommandPalette() {
             {venues.map((venue) => (
               <CommandItem
                 key={venue.id}
-                onSelect={() => runCommand(() => router.push(`/dashboard/directory/venues`))}
+                onSelect={() => runCommand(() => router.push('/dashboard/directory/venues'))}
               >
                 <Building className="mr-2 h-4 w-4" />
                 <span>{venue.name}</span>
@@ -139,7 +139,7 @@ export function CommandPalette() {
             {instructors.map((instructor) => (
               <CommandItem
                 key={instructor.id}
-                onSelect={() => runCommand(() => router.push(`/dashboard/directory/instructors`))}
+                onSelect={() => runCommand(() => router.push('/dashboard/directory/instructors'))}
               >
                 <Users className="mr-2 h-4 w-4" />
                 <span>{instructor.name}</span>

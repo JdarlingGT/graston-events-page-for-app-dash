@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Skeleton } from "@/components/ui/skeleton";
-import { MarketingRescueCopilotModal } from "./marketing-rescue-copilot-modal";
+import { useState } from 'react';
+import { useQuery, useMutation } from '@tanstack/react-query';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Skeleton } from '@/components/ui/skeleton';
+import { MarketingRescueCopilotModal } from './marketing-rescue-copilot-modal';
 import { 
   Calendar, 
   MapPin, 
@@ -24,8 +24,8 @@ import {
   Activity,
   Trash,
   Copy,
-  Send
-} from "lucide-react";
+  Send,
+} from 'lucide-react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -36,34 +36,34 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { toast } from "sonner";
-import Link from "next/link";
-import { Progress } from "../ui/progress";
-import dynamic from "next/dynamic";
+} from '@/components/ui/alert-dialog';
+import { toast } from 'sonner';
+import Link from 'next/link';
+import { Progress } from '../ui/progress';
+import dynamic from 'next/dynamic';
 
-const StudentTable = dynamic(() => import("./student-table").then(mod => mod.StudentTable), {
+const StudentTable = dynamic(() => import('./student-table').then(mod => mod.StudentTable), {
   loading: () => <Skeleton className="h-96 w-full" />,
 });
-const TaskBoard = dynamic(() => import("./task-board").then(mod => mod.TaskBoard), {
+const TaskBoard = dynamic(() => import('./task-board').then(mod => mod.TaskBoard), {
   loading: () => <Skeleton className="h-96 w-full" />,
 });
-const LogisticsTab = dynamic(() => import("./logistics-tab").then(mod => mod.LogisticsTab), {
+const LogisticsTab = dynamic(() => import('./logistics-tab').then(mod => mod.LogisticsTab), {
   loading: () => <Skeleton className="h-64 w-full" />,
 });
-const PostMortemTab = dynamic(() => import("./post-mortem-tab").then(mod => mod.PostMortemTab), {
+const PostMortemTab = dynamic(() => import('./post-mortem-tab').then(mod => mod.PostMortemTab), {
   loading: () => <Skeleton className="h-96 w-full" />,
 });
-const InternalNotesPanel = dynamic(() => import("./internal-notes-panel").then(mod => mod.InternalNotesPanel), {
+const InternalNotesPanel = dynamic(() => import('./internal-notes-panel').then(mod => mod.InternalNotesPanel), {
   loading: () => <Skeleton className="h-64 w-full" />,
 });
-const BulkEmailPanel = dynamic(() => import("./bulk-email-panel").then(mod => mod.BulkEmailPanel), {
+const BulkEmailPanel = dynamic(() => import('./bulk-email-panel').then(mod => mod.BulkEmailPanel), {
   loading: () => <Skeleton className="h-64 w-full" />,
 });
-const EventScheduleTimeline = dynamic(() => import("./event-schedule-timeline").then(mod => mod.EventScheduleTimeline), {
+const EventScheduleTimeline = dynamic(() => import('./event-schedule-timeline').then(mod => mod.EventScheduleTimeline), {
   loading: () => <Skeleton className="h-96 w-full" />,
 });
-const ActivityLogTab = dynamic(() => import("./activity-log-tab").then(mod => mod.ActivityLogTab), {
+const ActivityLogTab = dynamic(() => import('./activity-log-tab').then(mod => mod.ActivityLogTab), {
   loading: () => <Skeleton className="h-96 w-full" />,
 });
 
@@ -110,22 +110,22 @@ interface EventDetailData {
     revenue: number;
     projectedRevenue: number;
   };
-  type: "Essential" | "Advanced";
-  mode: "In-Person" | "Virtual";
-  status: "draft" | "published" | "cancelled";
+  type: 'Essential' | 'Advanced';
+  mode: 'In-Person' | 'Virtual';
+  status: 'draft' | 'published' | 'cancelled';
   tags: string[];
 }
 
 export function EventDetail({ eventId }: EventDetailProps) {
-  const [activeTab, setActiveTab] = useState("overview");
+  const [activeTab, setActiveTab] = useState('overview');
   const [isCopilotOpen, setIsCopilotOpen] = useState(false);
 
   const { data: event, isLoading, error } = useQuery<EventDetailData>({
-    queryKey: ["event-detail", eventId],
+    queryKey: ['event-detail', eventId],
     queryFn: async () => {
       const response = await fetch(`/api/events/${eventId}/details`);
       if (!response.ok) {
-        throw new Error("Failed to fetch event details");
+        throw new Error('Failed to fetch event details');
       }
       return response.json();
     },
@@ -138,19 +138,19 @@ export function EventDetail({ eventId }: EventDetailProps) {
       const data = await res.json();
       toast.success(data.message);
     },
-    onError: () => toast.error("Failed to send reminders."),
+    onError: () => toast.error('Failed to send reminders.'),
   });
 
   const handleDelete = () => {
     toast.promise(new Promise(resolve => setTimeout(resolve, 1000)), {
-      loading: "Deleting event...",
-      success: "Event deleted successfully.",
-      error: "Failed to delete event.",
+      loading: 'Deleting event...',
+      success: 'Event deleted successfully.',
+      error: 'Failed to delete event.',
     });
   };
 
   const handleDuplicate = () => {
-    toast.info("Duplicate feature coming soon!");
+    toast.info('Duplicate feature coming soon!');
   };
 
   if (isLoading) {
@@ -261,7 +261,7 @@ export function EventDetail({ eventId }: EventDetailProps) {
             <CardContent>
               <Button className="w-full" onClick={() => reminderMutation.mutate()} disabled={reminderMutation.isPending}>
                 <Send className="mr-2 h-4 w-4" />
-                {reminderMutation.isPending ? "Sending..." : "Send Pre-Course Reminders"}
+                {reminderMutation.isPending ? 'Sending...' : 'Send Pre-Course Reminders'}
               </Button>
             </CardContent>
           </Card>

@@ -6,12 +6,12 @@ const TOKEN_PATH = path.join(process.cwd(), 'token.json');
 
 export function getOAuth2Client(): OAuth2Client {
   if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET || !process.env.NEXT_PUBLIC_APP_URL) {
-    throw new Error("Google API credentials are not configured in environment variables.");
+    throw new Error('Google API credentials are not configured in environment variables.');
   }
   return new OAuth2Client(
     process.env.GOOGLE_CLIENT_ID,
     process.env.GOOGLE_CLIENT_SECRET,
-    `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/google/callback`
+    `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/google/callback`,
   );
 }
 
@@ -30,7 +30,9 @@ export async function getStoredToken() {
 
 export async function createCalendarEvent(task: any) {
   const tokens = await getStoredToken();
-  if (!tokens || !task.dueDate || !task.assignee) return;
+  if (!tokens || !task.dueDate || !task.assignee) {
+return;
+}
 
   const oauth2Client = getOAuth2Client();
   oauth2Client.setCredentials(tokens);
@@ -64,7 +66,9 @@ export async function createCalendarEvent(task: any) {
 
 export async function sendGmailNotification(task: any) {
     const tokens = await getStoredToken();
-    if (!tokens || !task.assignee || !task.assignee.email) return;
+    if (!tokens || !task.assignee || !task.assignee.email) {
+return;
+}
 
     const oauth2Client = getOAuth2Client();
     oauth2Client.setCredentials(tokens);
@@ -74,13 +78,13 @@ export async function sendGmailNotification(task: any) {
     const subject = `New Task Assigned: ${task.title}`;
     const utf8Subject = `=?utf-8?B?${Buffer.from(subject).toString('base64')}?=`;
     const messageParts = [
-        `From: Me <me>`,
+        'From: Me <me>',
         `To: ${task.assignee.name} <${task.assignee.email}>`,
         'Content-Type: text/html; charset=utf-8',
         'MIME-Version: 1.0',
         `Subject: ${utf8Subject}`,
         '',
-        `A new task has been assigned to you:`,
+        'A new task has been assigned to you:',
         `<b>Title:</b> ${task.title}`,
         `<b>Description:</b> ${task.description || 'N/A'}`,
         `<b>Due Date:</b> ${task.dueDate ? new Date(task.dueDate).toLocaleDateString() : 'N/A'}`,
@@ -105,7 +109,7 @@ export async function sendGmailNotification(task: any) {
 export async function createGoogleTask(task: { title: string; description?: string; dueDate?: string }) {
   const tokens = await getStoredToken();
   if (!tokens) {
-    console.log("No Google token found, skipping Google Task creation.");
+    console.log('No Google token found, skipping Google Task creation.');
     return;
   }
 

@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { ProjectList } from "@/components/projects/project-list";
-import { Button } from "@/components/ui/button";
-import { PlusCircle } from "lucide-react";
-import Link from "next/link";
+import { ProjectList } from '@/components/projects/project-list';
+import { Button } from '@/components/ui/button';
+import { PlusCircle } from 'lucide-react';
+import Link from 'next/link';
 
 export default function ProjectsPage() {
   return (

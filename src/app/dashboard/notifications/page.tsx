@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { EventNotifications } from "@/components/events/event-notifications";
+import { EventNotifications } from '@/components/events/event-notifications';
 
 export default function NotificationsPage() {
   return (

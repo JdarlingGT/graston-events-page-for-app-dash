@@ -1,9 +1,9 @@
-"use client"
+'use client';
 
-import * as React from "react"
-import * as RechartsPrimitive from "recharts"
+import * as React from 'react';
+import * as RechartsPrimitive from 'recharts';
 
-import { cn } from "@/lib/utils"
+import { cn } from '@/lib/utils';
 
 // Workaround for https://github.com/recharts/recharts/issues/3615
 const CartesianGrid = React.forwardRef<
@@ -12,19 +12,19 @@ const CartesianGrid = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <RechartsPrimitive.CartesianGrid
     ref={ref}
-    className={cn("stroke-border stroke-1", className)}
+    className={cn('stroke-border stroke-1', className)}
     {...props}
   />
-))
-CartesianGrid.displayName = "CartesianGrid"
+));
+CartesianGrid.displayName = 'CartesianGrid';
 
-const ChartTooltip = RechartsPrimitive.Tooltip
+const ChartTooltip = RechartsPrimitive.Tooltip;
 
 interface ChartTooltipContentProps {
   nameKey?: string;
   hideLabel?: boolean;
   hideIndicator?: boolean;
-  indicator?: "dot" | "line" | "dashed";
+  indicator?: 'dot' | 'line' | 'dashed';
   active?: boolean;
   payload?: any[];
   className?: string;
@@ -33,22 +33,24 @@ interface ChartTooltipContentProps {
 const ChartTooltipContent = React.forwardRef<
   HTMLDivElement,
   ChartTooltipContentProps
->(({ className, payload, nameKey, hideLabel = false, hideIndicator = false, indicator = "dot", active, ...props }, ref) => {
-  if (!(active && payload && payload.length)) return null
+>(({ className, payload, nameKey, hideLabel = false, hideIndicator = false, indicator = 'dot', active, ...props }, ref) => {
+  if (!(active && payload && payload.length)) {
+return null;
+}
 
   const data = payload.map((item: any) => ({
     color: item.color || item.payload.fill,
     value: item.value,
     name: item.name || item.dataKey,
     payload: item.payload,
-  }))
+  }));
 
   return (
     <div
       ref={ref}
       className={cn(
-        "rounded-lg border bg-background px-3 py-2 text-sm shadow-md",
-        className
+        'rounded-lg border bg-background px-3 py-2 text-sm shadow-md',
+        className,
       )}
       {...props}
     >
@@ -59,7 +61,7 @@ const ChartTooltipContent = React.forwardRef<
       )}
       <div className="grid gap-1.5">
         {data.map((item: any, index: number) => {
-          const key = `${nameKey || item.name || item.dataKey || "value"}-${index}`
+          const key = `${nameKey || item.name || item.dataKey || 'value'}-${index}`;
           return (
             <div
               key={key}
@@ -68,7 +70,7 @@ const ChartTooltipContent = React.forwardRef<
               <span className="flex items-center gap-x-2" data-testid="chart-tooltip-item-name">
                 {!hideIndicator && (
                   <span
-                    className={cn("flex h-2 w-2 rounded-full", item.color)}
+                    className={cn('flex h-2 w-2 rounded-full', item.color)}
                     style={{ backgroundColor: item.color }}
                   />
                 )}
@@ -78,13 +80,13 @@ const ChartTooltipContent = React.forwardRef<
                 {item.value}
               </span>
             </div>
-          )
+          );
         })}
       </div>
     </div>
-  )
-})
-ChartTooltipContent.displayName = "ChartTooltipContent"
+  );
+});
+ChartTooltipContent.displayName = 'ChartTooltipContent';
 
 interface ChartConfig {
   [key: string]: {
@@ -98,20 +100,20 @@ const ChartContext = React.createContext<{ config: ChartConfig } | null>(null);
 function useChart() {
   const context = React.useContext(ChartContext);
   if (!context) {
-    throw new Error("useChart must be used within a <ChartContainer />");
+    throw new Error('useChart must be used within a <ChartContainer />');
   }
   return context;
 }
 
 const ChartContainer = React.forwardRef<
   HTMLDivElement,
-  React.ComponentProps<"div"> & {
+  React.ComponentProps<'div'> & {
     config: ChartConfig
     children: React.ReactElement
   }
 >(({ id, className, children, config, ...props }, ref) => {
-  const uniqueId = React.useId()
-  const chartId = `chart-${id || uniqueId}`
+  const uniqueId = React.useId();
+  const chartId = `chart-${id || uniqueId}`;
 
   return (
     <ChartContext.Provider value={{ config }}>
@@ -119,25 +121,25 @@ const ChartContainer = React.forwardRef<
         ref={ref}
         data-chart={chartId}
         className={cn(
-          "flex aspect-video justify-center text-foreground",
-          className
+          'flex aspect-video justify-center text-foreground',
+          className,
         )}
         {...props}
       >
         {React.cloneElement(children, {
-          className: cn("max-h-[--container-height] w-full", (children.props as any)?.className),
+          className: cn('max-h-[--container-height] w-full', (children.props as any)?.className),
         } as React.HTMLAttributes<HTMLElement>)}
       </div>
     </ChartContext.Provider>
-  )
-})
-ChartContainer.displayName = "ChartContainer"
+  );
+});
+ChartContainer.displayName = 'ChartContainer';
 
 export {
   ChartTooltip,
   ChartTooltipContent,
   ChartContainer,
   CartesianGrid,
-}
+};
 
-export type { ChartConfig }
+export type { ChartConfig };

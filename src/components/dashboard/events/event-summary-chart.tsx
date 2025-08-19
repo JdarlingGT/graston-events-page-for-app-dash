@@ -1,35 +1,35 @@
-"use client"
+'use client';
 
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
+} from '@/components/ui/card';
+import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 
 const data = [
-  { status: "Upcoming", count: 15, fill: "var(--color-upcoming)" },
-  { status: "Ongoing", count: 8, fill: "var(--color-ongoing)" },
-  { status: "Completed", count: 23, fill: "var(--color-completed)" },
-]
+  { status: 'Upcoming', count: 15, fill: 'var(--color-upcoming)' },
+  { status: 'Ongoing', count: 8, fill: 'var(--color-ongoing)' },
+  { status: 'Completed', count: 23, fill: 'var(--color-completed)' },
+];
 
 const chartConfig = {
   upcoming: {
-    label: "Upcoming",
-    color: "hsl(var(--chart-1))",
+    label: 'Upcoming',
+    color: 'hsl(var(--chart-1))',
   },
   ongoing: {
-    label: "Ongoing", 
-    color: "hsl(var(--chart-2))",
+    label: 'Ongoing', 
+    color: 'hsl(var(--chart-2))',
   },
   completed: {
-    label: "Completed",
-    color: "hsl(var(--chart-3))",
+    label: 'Completed',
+    color: 'hsl(var(--chart-3))',
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 export function EventSummaryChart() {
   return (
@@ -62,5 +62,5 @@ export function EventSummaryChart() {
         </ChartContainer>
       </CardContent>
     </Card>
-  )
+  );
 }

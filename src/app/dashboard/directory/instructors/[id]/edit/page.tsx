@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { InstructorForm } from "@/components/directory/instructors/instructor-form";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useEffect, useState } from "react";
+import { InstructorForm } from '@/components/directory/instructors/instructor-form';
+import { Skeleton } from '@/components/ui/skeleton';
+import { useEffect, useState } from 'react';
 
 interface Instructor {
   id: string;
@@ -23,12 +23,12 @@ export default function EditInstructorPage({ params }: { params: { id: string } 
       try {
         const response = await fetch(`/api/instructors/${params.id}`);
         if (!response.ok) {
-          throw new Error("Instructor not found");
+          throw new Error('Instructor not found');
         }
         const data = await response.json();
         setInstructor(data);
       } catch (err) {
-        setError("Failed to load instructor data.");
+        setError('Failed to load instructor data.');
         console.error(err);
       } finally {
         setLoading(false);

@@ -2,29 +2,29 @@ import { z } from 'zod';
 
 // Schema for creating/updating a venue
 export const venueSchema = z.object({
-  name: z.string().min(3, { message: "Venue name must be at least 3 characters long." }),
-  type: z.string().min(3, { message: "Venue type is required." }),
-  city: z.string().min(2, { message: "City is required." }),
-  state: z.string().min(2, { message: "State is required." }),
-  contactPerson: z.string().min(3, { message: "Contact person is required." }),
-  capacity: z.coerce.number().int().min(0, { message: "Capacity must be a positive number." }),
+  name: z.string().min(3, { message: 'Venue name must be at least 3 characters long.' }),
+  type: z.string().min(3, { message: 'Venue type is required.' }),
+  city: z.string().min(2, { message: 'City is required.' }),
+  state: z.string().min(2, { message: 'State is required.' }),
+  contactPerson: z.string().min(3, { message: 'Contact person is required.' }),
+  capacity: z.coerce.number().int().min(0, { message: 'Capacity must be a positive number.' }),
 });
 export type VenueFormValues = z.infer<typeof venueSchema>;
 
 // Schema for creating/updating an instructor
 export const instructorSchema = z.object({
-  name: z.string().min(3, { message: "Instructor name is required." }),
-  email: z.string().email({ message: "Invalid email address." }),
-  bio: z.string().min(10, { message: "Bio must be at least 10 characters." }),
+  name: z.string().min(3, { message: 'Instructor name is required.' }),
+  email: z.string().email({ message: 'Invalid email address.' }),
+  bio: z.string().min(10, { message: 'Bio must be at least 10 characters.' }),
   phone: z.string().optional(),
-  specialties: z.string().min(3, { message: "Specialties are required." }),
+  specialties: z.string().min(3, { message: 'Specialties are required.' }),
 });
 export type InstructorFormValues = z.infer<typeof instructorSchema>;
 
 // Schema for creating/updating an event
 export const eventSchema = z.object({
-  title: z.string().min(10, { message: "Title must be at least 10 characters." }),
-  status: z.enum(["Go", "At Risk", "Completed"]),
+  title: z.string().min(10, { message: 'Title must be at least 10 characters.' }),
+  status: z.enum(['Go', 'At Risk', 'Completed']),
   startDate: z.string(),
   endDate: z.string(),
   location: z.object({
@@ -42,8 +42,8 @@ export type EventFormValues = z.infer<typeof eventSchema>;
 
 // Schema for creating/updating a project
 export const projectSchema = z.object({
-  name: z.string().min(5, { message: "Project name must be at least 5 characters." }),
-  description: z.string().min(10, { message: "Description must be at least 10 characters." }),
+  name: z.string().min(5, { message: 'Project name must be at least 5 characters.' }),
+  description: z.string().min(10, { message: 'Description must be at least 10 characters.' }),
 });
 export type ProjectFormValues = z.infer<typeof projectSchema>;
 
@@ -57,10 +57,10 @@ export const attachmentSchema = z.object({
 
 // Schema for creating/updating a task
 export const taskSchema = z.object({
-  title: z.string().min(3, { message: "Title must be at least 3 characters." }),
+  title: z.string().min(3, { message: 'Title must be at least 3 characters.' }),
   description: z.string().optional(),
-  status: z.enum(["todo", "in-progress", "done"]),
-  priority: z.enum(["low", "medium", "high"]),
+  status: z.enum(['todo', 'in-progress', 'done']),
+  priority: z.enum(['low', 'medium', 'high']),
   dueDate: z.date().optional(),
   assigneeName: z.string().optional(),
   attachments: z.array(attachmentSchema).optional(),

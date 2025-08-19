@@ -45,7 +45,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
       return new NextResponse(JSON.stringify(validation.error.format()), { status: 400 });
     }
 
-    let venues = await getVenues();
+    const venues = await getVenues();
     const venueIndex = venues.findIndex((v: any) => v.id === params.id);
 
     if (venueIndex === -1) {
@@ -69,7 +69,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
 
 export async function DELETE(request: Request, { params }: { params: { id: string } }) {
   try {
-    let venues = await getVenues();
+    const venues = await getVenues();
     const venueExists = venues.some((v: any) => v.id === params.id);
 
     if (!venueExists) {

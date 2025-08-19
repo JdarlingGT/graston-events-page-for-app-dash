@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import Link from "next/link";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Progress } from "@/components/ui/progress";
+import { useState } from 'react';
+import Link from 'next/link';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Progress } from '@/components/ui/progress';
 import { 
   Calendar, 
   MapPin, 
@@ -15,9 +15,9 @@ import {
   Edit, 
   AlertTriangle,
   CheckCircle,
-  Clock
-} from "lucide-react";
-import { cn } from "@/lib/utils";
+  Clock,
+} from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface EventCardProps {
   event: {
@@ -40,9 +40,9 @@ interface EventCardProps {
       capacity: number;
       minViable: number;
     };
-    type: "Essential" | "Advanced";
-    mode: "In-Person" | "Virtual";
-    status: "upcoming" | "ongoing" | "completed";
+    type: 'Essential' | 'Advanced';
+    mode: 'In-Person' | 'Virtual';
+    status: 'upcoming' | 'ongoing' | 'completed';
     featuredImage?: string;
   };
   isHovered?: boolean;
@@ -58,33 +58,33 @@ export function EventCard({ event, isHovered, onHover, className }: EventCardPro
   const getDangerZoneStatus = () => {
     if (event.enrollment.current < event.enrollment.minViable) {
       return { 
-        text: "At Risk", 
-        variant: "destructive" as const, 
+        text: 'At Risk', 
+        variant: 'destructive' as const, 
         icon: AlertTriangle,
-        description: `Below minimum viable enrollment of ${event.enrollment.minViable} students`
+        description: `Below minimum viable enrollment of ${event.enrollment.minViable} students`,
       };
     }
     if (enrollmentPercentage >= 90) {
       return { 
-        text: "Almost Full", 
-        variant: "secondary" as const, 
+        text: 'Almost Full', 
+        variant: 'secondary' as const, 
         icon: Clock,
-        description: "Limited spots remaining"
+        description: 'Limited spots remaining',
       };
     }
     if (event.enrollment.current >= event.enrollment.minViable) {
       return { 
-        text: "Healthy", 
-        variant: "default" as const, 
+        text: 'Healthy', 
+        variant: 'default' as const, 
         icon: CheckCircle,
-        description: "Good enrollment numbers"
+        description: 'Good enrollment numbers',
       };
     }
     return { 
-      text: "Building", 
-      variant: "outline" as const, 
+      text: 'Building', 
+      variant: 'outline' as const, 
       icon: Users,
-      description: "Enrollment in progress"
+      description: 'Enrollment in progress',
     };
   };
 
@@ -95,16 +95,16 @@ export function EventCard({ event, isHovered, onHover, className }: EventCardPro
     return new Date(dateString).toLocaleDateString('en-US', {
       month: 'short',
       day: 'numeric',
-      year: 'numeric'
+      year: 'numeric',
     });
   };
 
   return (
     <Card 
       className={cn(
-        "group cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1",
-        isHovered && "ring-2 ring-primary shadow-lg -translate-y-1",
-        className
+        'group cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1',
+        isHovered && 'ring-2 ring-primary shadow-lg -translate-y-1',
+        className,
       )}
       onMouseEnter={() => onHover?.(event.id)}
       onMouseLeave={() => onHover?.(null)}
@@ -115,8 +115,8 @@ export function EventCard({ event, isHovered, onHover, className }: EventCardPro
             src={event.featuredImage}
             alt={`Featured image for ${event.title}`}
             className={cn(
-              "h-full w-full object-cover transition-all duration-300 group-hover:scale-105",
-              !imageLoaded && "opacity-0"
+              'h-full w-full object-cover transition-all duration-300 group-hover:scale-105',
+              !imageLoaded && 'opacity-0',
             )}
             onLoad={() => setImageLoaded(true)}
           />

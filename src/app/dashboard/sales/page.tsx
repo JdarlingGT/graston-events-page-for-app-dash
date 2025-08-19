@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { StatCard } from "@/components/dashboard/stat-card";
-import { SalesRepLeaderboard } from "@/components/dashboard/crm/sales-rep-leaderboard";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Target, TrendingUp, Users, DollarSign } from "lucide-react";
-import Link from "next/link";
+import { StatCard } from '@/components/dashboard/stat-card';
+import { SalesRepLeaderboard } from '@/components/dashboard/crm/sales-rep-leaderboard';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { ArrowRight, Target, TrendingUp, Users, DollarSign } from 'lucide-react';
+import Link from 'next/link';
 
 export default function SalesDashboardPage() {
   return (

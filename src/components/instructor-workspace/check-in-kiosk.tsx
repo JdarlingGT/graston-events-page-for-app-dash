@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Search, Clock, Coffee, LogOut, LogIn } from "lucide-react";
-import { format } from "date-fns";
-import { toast } from "sonner";
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useState, useEffect } from 'react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Search, Clock, Coffee, LogOut, LogIn } from 'lucide-react';
+import { format } from 'date-fns';
+import { toast } from 'sonner';
 
 interface Student {
   id: string;
@@ -24,23 +24,27 @@ interface CheckInRecord {
 
 export function CheckInKiosk({ eventId }: { eventId: string }) {
   const queryClient = useQueryClient();
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const [currentTime, setCurrentTime] = useState(new Date());
 
   const { data: students = [], isLoading: studentsLoading } = useQuery<Student[]>({
-    queryKey: ["event-students-kiosk", eventId],
+    queryKey: ['event-students-kiosk', eventId],
     queryFn: async () => {
       const res = await fetch(`/api/events/${eventId}/students`);
-      if (!res.ok) throw new Error("Failed to fetch students");
+      if (!res.ok) {
+throw new Error('Failed to fetch students');
+}
       return res.json();
     },
   });
 
   const { data: checkIns = {}, isLoading: checkInsLoading } = useQuery<Record<string, CheckInRecord>>({
-    queryKey: ["checkins", eventId],
+    queryKey: ['checkins', eventId],
     queryFn: async () => {
       const res = await fetch(`/api/events/${eventId}/checkin`);
-      if (!res.ok) throw new Error("Failed to fetch check-in data");
+      if (!res.ok) {
+throw new Error('Failed to fetch check-in data');
+}
       return res.json();
     },
   });
@@ -53,10 +57,10 @@ export function CheckInKiosk({ eventId }: { eventId: string }) {
         body: JSON.stringify({ studentId, period, timestamp: new Date().toISOString() }),
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["checkins", eventId] });
-      toast.success("Check-in recorded!");
+      queryClient.invalidateQueries({ queryKey: ['checkins', eventId] });
+      toast.success('Check-in recorded!');
     },
-    onError: () => toast.error("Failed to record check-in."),
+    onError: () => toast.error('Failed to record check-in.'),
   });
 
   useEffect(() => {
@@ -65,10 +69,12 @@ export function CheckInKiosk({ eventId }: { eventId: string }) {
   }, []);
 
   const filteredStudents = students.filter(s =>
-    s.name.toLowerCase().includes(searchTerm.toLowerCase())
+    s.name.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
-  if (studentsLoading || checkInsLoading) return <Skeleton className="h-screen w-full" />;
+  if (studentsLoading || checkInsLoading) {
+return <Skeleton className="h-screen w-full" />;
+}
 
   return (
     <div className="min-h-screen bg-muted/40 p-4 sm:p-8">
@@ -80,8 +86,8 @@ export function CheckInKiosk({ eventId }: { eventId: string }) {
               <CardDescription>Please find your name to sign in or out.</CardDescription>
             </div>
             <div className="text-right">
-              <p className="font-semibold text-lg">{format(currentTime, "eeee, LLL do")}</p>
-              <p className="text-3xl font-bold">{format(currentTime, "h:mm:ss a")}</p>
+              <p className="font-semibold text-lg">{format(currentTime, 'eeee, LLL do')}</p>
+              <p className="text-3xl font-bold">{format(currentTime, 'h:mm:ss a')}</p>
             </div>
           </div>
           <div className="relative pt-4">
@@ -101,10 +107,10 @@ export function CheckInKiosk({ eventId }: { eventId: string }) {
                 <p className="font-medium text-lg">{student.name}</p>
               </div>
               <div className="sm:col-span-3 grid grid-cols-2 sm:grid-cols-4 gap-2">
-                <Button variant={checkIns[student.id]?.morningIn ? "default" : "outline"} onClick={() => checkInMutation.mutate({ studentId: student.id, period: 'morningIn' })} aria-label={`Check in for morning session for ${student.name}`}><LogIn className="mr-2 h-4 w-4" /> Morning</Button>
-                <Button variant={checkIns[student.id]?.lunchOut ? "default" : "outline"} onClick={() => checkInMutation.mutate({ studentId: student.id, period: 'lunchOut' })} aria-label={`Check out for lunch for ${student.name}`}><Coffee className="mr-2 h-4 w-4" /> Lunch</Button>
-                <Button variant={checkIns[student.id]?.lunchIn ? "default" : "outline"} onClick={() => checkInMutation.mutate({ studentId: student.id, period: 'lunchIn' })} aria-label={`Check in from lunch for ${student.name}`}><LogIn className="mr-2 h-4 w-4" /> Return</Button>
-                <Button variant={checkIns[student.id]?.afternoonOut ? "default" : "outline"} onClick={() => checkInMutation.mutate({ studentId: student.id, period: 'afternoonOut' })} aria-label={`Check out for the day for ${student.name}`}><LogOut className="mr-2 h-4 w-4" /> End</Button>
+                <Button variant={checkIns[student.id]?.morningIn ? 'default' : 'outline'} onClick={() => checkInMutation.mutate({ studentId: student.id, period: 'morningIn' })} aria-label={`Check in for morning session for ${student.name}`}><LogIn className="mr-2 h-4 w-4" /> Morning</Button>
+                <Button variant={checkIns[student.id]?.lunchOut ? 'default' : 'outline'} onClick={() => checkInMutation.mutate({ studentId: student.id, period: 'lunchOut' })} aria-label={`Check out for lunch for ${student.name}`}><Coffee className="mr-2 h-4 w-4" /> Lunch</Button>
+                <Button variant={checkIns[student.id]?.lunchIn ? 'default' : 'outline'} onClick={() => checkInMutation.mutate({ studentId: student.id, period: 'lunchIn' })} aria-label={`Check in from lunch for ${student.name}`}><LogIn className="mr-2 h-4 w-4" /> Return</Button>
+                <Button variant={checkIns[student.id]?.afternoonOut ? 'default' : 'outline'} onClick={() => checkInMutation.mutate({ studentId: student.id, period: 'afternoonOut' })} aria-label={`Check out for the day for ${student.name}`}><LogOut className="mr-2 h-4 w-4" /> End</Button>
               </div>
             </div>
           ))}

@@ -1,52 +1,54 @@
-"use client";
+'use client';
 
-import { useQuery } from "@tanstack/react-query";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Calendar } from "@/components/ui/calendar";
-import { Skeleton } from "@/components/ui/skeleton";
-import { parseISO } from "date-fns";
-import { Calendar as CalendarIcon } from "lucide-react";
+import { useQuery } from '@tanstack/react-query';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Calendar } from '@/components/ui/calendar';
+import { Skeleton } from '@/components/ui/skeleton';
+import { parseISO } from 'date-fns';
+import { Calendar as CalendarIcon } from 'lucide-react';
 
 interface Event {
   id: string;
   name: string;
   date: string;
-  mode: "In-Person" | "Virtual";
-  type: "Essential" | "Advanced";
+  mode: 'In-Person' | 'Virtual';
+  type: 'Essential' | 'Advanced';
 }
 
 async function fetchAllEvents(): Promise<Event[]> {
-  const response = await fetch("/api/events");
-  if (!response.ok) throw new Error("Failed to fetch events");
+  const response = await fetch('/api/events');
+  if (!response.ok) {
+throw new Error('Failed to fetch events');
+}
   return response.json();
 }
 
 export function EventCalendarCard() {
   const { data: events, isLoading } = useQuery<Event[]>({
-    queryKey: ["all-events-calendar"],
+    queryKey: ['all-events-calendar'],
     queryFn: fetchAllEvents,
   });
 
   const modifiers = {
     inPersonEssential: events
-      ?.filter(e => e.mode === "In-Person" && e.type === "Essential")
+      ?.filter(e => e.mode === 'In-Person' && e.type === 'Essential')
       .map(e => parseISO(e.date)) || [],
     inPersonAdvanced: events
-      ?.filter(e => e.mode === "In-Person" && e.type === "Advanced")
+      ?.filter(e => e.mode === 'In-Person' && e.type === 'Advanced')
       .map(e => parseISO(e.date)) || [],
     virtualEssential: events
-      ?.filter(e => e.mode === "Virtual" && e.type === "Essential")
+      ?.filter(e => e.mode === 'Virtual' && e.type === 'Essential')
       .map(e => parseISO(e.date)) || [],
     virtualAdvanced: events
-      ?.filter(e => e.mode === "Virtual" && e.type === "Advanced")
+      ?.filter(e => e.mode === 'Virtual' && e.type === 'Advanced')
       .map(e => parseISO(e.date)) || [],
   };
 
   const modifiersClassNames = {
-    inPersonEssential: "day-in-person-essential",
-    inPersonAdvanced: "day-in-person-advanced",
-    virtualEssential: "day-virtual-essential",
-    virtualAdvanced: "day-virtual-advanced",
+    inPersonEssential: 'day-in-person-essential',
+    inPersonAdvanced: 'day-in-person-advanced',
+    virtualEssential: 'day-virtual-essential',
+    virtualAdvanced: 'day-virtual-advanced',
   };
 
   return (

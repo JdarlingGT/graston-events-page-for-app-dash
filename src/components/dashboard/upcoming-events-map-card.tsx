@@ -1,21 +1,21 @@
-"use client";
+'use client';
 
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from '@tanstack/react-query';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import { MapPin, ArrowRight } from "lucide-react";
-import Link from "next/link";
-import { differenceInDays, parseISO } from "date-fns";
-import dynamic from "next/dynamic";
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
+import { MapPin, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
+import { differenceInDays, parseISO } from 'date-fns';
+import dynamic from 'next/dynamic';
 
-const EventMap = dynamic(() => import("./events/EventMap").then((mod) => mod.EventMap), {
+const EventMap = dynamic(() => import('./events/EventMap').then((mod) => mod.EventMap), {
   loading: () => <Skeleton className="h-96 w-full rounded-lg" />,
   ssr: false,
 });
@@ -29,7 +29,7 @@ interface RawEvent {
   state: string;
   enrolledStudents: number;
   capacity: number;
-  status: "upcoming" | "ongoing" | "completed";
+  status: 'upcoming' | 'ongoing' | 'completed';
   minViableEnrollment: number;
 }
 
@@ -44,28 +44,30 @@ interface MappedEvent {
   };
   enrolledCount: number;
   capacity: number;
-  status: "Go" | "At Risk" | "Completed";
+  status: 'Go' | 'At Risk' | 'Completed';
 }
 
 async function fetchUpcomingEvents(): Promise<MappedEvent[]> {
-  const response = await fetch("/api/events");
-  if (!response.ok) throw new Error("Failed to fetch events");
+  const response = await fetch('/api/events');
+  if (!response.ok) {
+throw new Error('Failed to fetch events');
+}
   const rawEvents: RawEvent[] = await response.json();
   
   // Filter to only upcoming events (not completed)
   const upcomingRawEvents = rawEvents.filter((event) => 
-    event.status !== "completed" && 
-    differenceInDays(parseISO(event.date), new Date()) >= -1
+    event.status !== 'completed' && 
+    differenceInDays(parseISO(event.date), new Date()) >= -1,
   );
 
   // Map to the structure expected by EventMap
   return upcomingRawEvents.map(event => {
-    let status: "Go" | "At Risk" | "Completed" = "Go";
+    let status: 'Go' | 'At Risk' | 'Completed' = 'Go';
     if (event.enrolledStudents < event.minViableEnrollment) {
-      status = "At Risk";
+      status = 'At Risk';
     }
-    if (event.status === "completed") {
-      status = "Completed";
+    if (event.status === 'completed') {
+      status = 'Completed';
     }
 
     return {
@@ -85,7 +87,7 @@ async function fetchUpcomingEvents(): Promise<MappedEvent[]> {
 
 export function UpcomingEventsMapCard() {
   const { data: events, isLoading } = useQuery<MappedEvent[]>({
-    queryKey: ["upcoming-events-map"],
+    queryKey: ['upcoming-events-map'],
     queryFn: fetchUpcomingEvents,
   });
 

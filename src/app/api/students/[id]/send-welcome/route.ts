@@ -11,11 +11,11 @@ export async function POST(request: Request, { params }: { params: { id: string 
     // 1. Save the uniqueToken to the student's record in the database.
     // 2. Use the Gmail API to send a welcome email containing the formUrl.
     
-    console.log(`--- Welcome Email Simulation ---`);
+    console.log('--- Welcome Email Simulation ---');
     console.log(`Student ID: ${studentId}`);
     console.log(`Generated unique form URL: ${formUrl}`);
-    console.log(`Simulating sending welcome email...`);
-    console.log(`-----------------------------`);
+    console.log('Simulating sending welcome email...');
+    console.log('-----------------------------');
 
     await new Promise(resolve => setTimeout(resolve, 500));
 
@@ -25,7 +25,7 @@ export async function POST(request: Request, { params }: { params: { id: string 
       url: formUrl,
     });
   } catch (error) {
-    console.error("Failed to send welcome email:", error);
+    console.error('Failed to send welcome email:', error);
     return new NextResponse('Internal Server Error', { status: 500 });
   }
 }

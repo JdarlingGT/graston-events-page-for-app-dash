@@ -44,12 +44,12 @@ export async function POST(request: Request) {
   if (lastCourse) {
     body += `I hope you're doing well. I saw that you previously attended our "${lastCourse}" course and wanted to personally reach out about an upcoming opportunity.\n\n`;
   } else {
-    body += `I hope this email finds you well. I'm reaching out because we have an exciting training opportunity in your area.\n\n`;
+    body += 'I hope this email finds you well. I\'m reaching out because we have an exciting training opportunity in your area.\n\n';
   }
 
   body += `We're hosting our "${event.name}" event in ${event.city} on ${new Date(event.date).toLocaleDateString()}. As a ${provider.providerType}, we believe this ${event.type} course would be a great next step to enhance your skills.\n\n`;
-  body += `You can find more details and register here: [Link to Event Page]\n\n`;
-  body += `Let me know if you have any questions.\n\nBest regards,\n\nThe Sales Team`;
+  body += 'You can find more details and register here: [Link to Event Page]\n\n';
+  body += 'Let me know if you have any questions.\n\nBest regards,\n\nThe Sales Team';
 
   return NextResponse.json({ subject, body });
 }

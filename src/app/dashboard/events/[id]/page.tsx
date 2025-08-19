@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { EventDetail } from "@/components/events/event-detail";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
+import { EventDetail } from '@/components/events/event-detail';
+import { Button } from '@/components/ui/button';
+import { ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
 
 type EventDetailPageProps = {
   params: { id: string };

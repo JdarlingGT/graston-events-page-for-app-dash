@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import React, { useState, useMemo, useEffect } from "react";
-import { APIProvider, Map, AdvancedMarker, InfoWindow, useAdvancedMarkerRef } from "@vis.gl/react-google-maps";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
-import { Users, Eye, MapPin } from "lucide-react";
-import Link from "next/link";
-import { cn } from "@/lib/utils";
+import React, { useState, useMemo, useEffect } from 'react';
+import { APIProvider, Map, AdvancedMarker, InfoWindow, useAdvancedMarkerRef } from '@vis.gl/react-google-maps';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
+import { Users, Eye, MapPin } from 'lucide-react';
+import Link from 'next/link';
+import { cn } from '@/lib/utils';
 
 interface Event {
   id: string;
@@ -28,7 +28,7 @@ interface EventMapProps {
 }
 
 // IMPORTANT: Replace with your actual Google Maps API Key
-const GOOGLE_MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "YOUR_GOOGLE_MAPS_API_KEY";
+const GOOGLE_MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || 'YOUR_GOOGLE_MAPS_API_KEY';
 
 export function EventMap({ events, hoveredEventId, selectedEventId, onPinClick }: EventMapProps) {
   const [openInfoWindowId, setOpenInfoWindowId] = useState<string | null>(null);
@@ -51,12 +51,12 @@ export function EventMap({ events, hoveredEventId, selectedEventId, onPinClick }
 
   const getDangerZoneStatus = (event: Event) => {
     if (event.enrolledStudents < event.minViableEnrollment) {
-      return { text: "At Risk", variant: "destructive" as const };
+      return { text: 'At Risk', variant: 'destructive' as const };
     }
     if ((event.enrolledStudents / event.capacity) * 100 >= 90) {
-      return { text: "Almost Full", variant: "secondary" as const };
+      return { text: 'Almost Full', variant: 'secondary' as const };
     }
-    return { text: "Healthy", variant: "default" as const };
+    return { text: 'Healthy', variant: 'default' as const };
   };
 
   return (
@@ -64,9 +64,9 @@ export function EventMap({ events, hoveredEventId, selectedEventId, onPinClick }
       <Map
         defaultZoom={4}
         defaultCenter={defaultCenter}
-        mapId={"event_directory_map"}
+        mapId={'event_directory_map'}
         className="w-full h-full rounded-lg shadow-md"
-        gestureHandling={"greedy"}
+        gestureHandling={'greedy'}
         disableDefaultUI={true}
         zoomControl={true}
       >
@@ -83,11 +83,11 @@ export function EventMap({ events, hoveredEventId, selectedEventId, onPinClick }
             >
               <div
                 className={cn(
-                  "relative flex items-center justify-center w-8 h-8 rounded-full border-2 transition-all duration-200",
-                  "bg-primary text-primary-foreground border-primary-foreground",
-                  isHighlighted && "scale-125 ring-4 ring-primary/50",
-                  status.variant === "destructive" && "bg-destructive border-destructive-foreground",
-                  status.variant === "secondary" && "bg-secondary border-secondary-foreground"
+                  'relative flex items-center justify-center w-8 h-8 rounded-full border-2 transition-all duration-200',
+                  'bg-primary text-primary-foreground border-primary-foreground',
+                  isHighlighted && 'scale-125 ring-4 ring-primary/50',
+                  status.variant === 'destructive' && 'bg-destructive border-destructive-foreground',
+                  status.variant === 'secondary' && 'bg-secondary border-secondary-foreground',
                 )}
                 role="button"
                 aria-label={`View event ${event.name} on map`}

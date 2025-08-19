@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from '@tanstack/react-query';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
-import { ArrowRight, BarChart } from "lucide-react";
-import { Progress } from "../ui/progress";
-import { Button } from "../ui/button";
-import Link from "next/link";
+} from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
+import { ArrowRight, BarChart } from 'lucide-react';
+import { Progress } from '../ui/progress';
+import { Button } from '../ui/button';
+import Link from 'next/link';
 
 interface UtmSource {
   source: string;
@@ -20,15 +20,17 @@ interface UtmSource {
 }
 
 async function fetchTopSources(): Promise<UtmSource[]> {
-  const response = await fetch("/api/crm/utm");
-  if (!response.ok) throw new Error("Failed to fetch UTM data");
+  const response = await fetch('/api/crm/utm');
+  if (!response.ok) {
+throw new Error('Failed to fetch UTM data');
+}
   const data = await response.json();
   return data.utm_sources || [];
 }
 
 export function TopSourcesCard() {
   const { data: sources, isLoading } = useQuery<UtmSource[]>({
-    queryKey: ["top-sources"],
+    queryKey: ['top-sources'],
     queryFn: fetchTopSources,
   });
 

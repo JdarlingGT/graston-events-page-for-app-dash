@@ -47,7 +47,7 @@ export function useGooglePicker() {
     }
 
     const view = new window.google.picker.View(window.google.picker.ViewId.DOCS);
-    view.setMimeTypes("application/vnd.google-apps.document,application/vnd.google-apps.spreadsheet,application/vnd.google-apps.presentation,application/pdf,image/jpeg,image/png");
+    view.setMimeTypes('application/vnd.google-apps.document,application/vnd.google-apps.spreadsheet,application/vnd.google-apps.presentation,application/pdf,image/jpeg,image/png');
 
     const picker = new window.google.picker.PickerBuilder()
       .enableFeature(window.google.picker.Feature.NAV_HIDDEN)

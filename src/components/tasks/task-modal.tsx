@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Button } from "@/components/ui/button";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -10,9 +10,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import {
   Dialog,
   DialogContent,
@@ -20,28 +20,28 @@ import {
   DialogTitle,
   DialogFooter,
   DialogDescription,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import { Calendar } from "@/components/ui/calendar";
-import { Calendar as CalendarIcon, Paperclip, X } from "lucide-react";
-import { Attachment, Task } from "./task-board";
-import { TaskFormValues, taskSchema } from "@/lib/schemas";
-import { cn } from "@/lib/utils";
-import { format } from "date-fns";
-import { useGooglePicker } from "@/hooks/use-google-picker";
-import { useEffect, useState } from "react";
-import { BrandedLoader } from "../ui/branded-loader";
+} from '@/components/ui/popover';
+import { Calendar } from '@/components/ui/calendar';
+import { Calendar as CalendarIcon, Paperclip, X } from 'lucide-react';
+import { Attachment, Task } from './task-board';
+import { TaskFormValues, taskSchema } from '@/lib/schemas';
+import { cn } from '@/lib/utils';
+import { format } from 'date-fns';
+import { useGooglePicker } from '@/hooks/use-google-picker';
+import { useEffect, useState } from 'react';
+import { BrandedLoader } from '../ui/branded-loader';
 
 interface TaskModalProps {
   isOpen: boolean;
@@ -52,10 +52,10 @@ interface TaskModalProps {
 }
 
 const assignees = [
-  { name: "Sarah Johnson", avatar: "https://i.pravatar.cc/150?img=1" },
-  { name: "Mike Chen", avatar: "https://i.pravatar.cc/150?img=2" },
-  { name: "Lisa Park", avatar: "https://i.pravatar.cc/150?img=3" },
-  { name: "Unassigned", avatar: "" },
+  { name: 'Sarah Johnson', avatar: 'https://i.pravatar.cc/150?img=1' },
+  { name: 'Mike Chen', avatar: 'https://i.pravatar.cc/150?img=2' },
+  { name: 'Lisa Park', avatar: 'https://i.pravatar.cc/150?img=3' },
+  { name: 'Unassigned', avatar: '' },
 ];
 
 export function TaskModal({ isOpen, onClose, onSubmit, task, isLoading }: TaskModalProps) {
@@ -65,12 +65,12 @@ export function TaskModal({ isOpen, onClose, onSubmit, task, isLoading }: TaskMo
   const form = useForm<TaskFormValues>({
     resolver: zodResolver(taskSchema),
     defaultValues: {
-      title: task?.title || "",
-      description: task?.description || "",
-      status: task?.status || "todo",
-      priority: task?.priority || "medium",
+      title: task?.title || '',
+      description: task?.description || '',
+      status: task?.status || 'todo',
+      priority: task?.priority || 'medium',
       dueDate: task?.dueDate ? new Date(task.dueDate) : undefined,
-      assigneeName: task?.assignee?.name || "Unassigned",
+      assigneeName: task?.assignee?.name || 'Unassigned',
       attachments: task?.attachments || [],
     },
   });
@@ -78,12 +78,12 @@ export function TaskModal({ isOpen, onClose, onSubmit, task, isLoading }: TaskMo
   useEffect(() => {
     if (isOpen) {
       const defaultValues = {
-        title: task?.title || "",
-        description: task?.description || "",
-        status: task?.status || "todo",
-        priority: task?.priority || "medium",
+        title: task?.title || '',
+        description: task?.description || '',
+        status: task?.status || 'todo',
+        priority: task?.priority || 'medium',
         dueDate: task?.dueDate ? new Date(task.dueDate) : undefined,
-        assigneeName: task?.assignee?.name || "Unassigned",
+        assigneeName: task?.assignee?.name || 'Unassigned',
         attachments: task?.attachments || [],
       };
       form.reset(defaultValues);
@@ -110,9 +110,9 @@ export function TaskModal({ isOpen, onClose, onSubmit, task, isLoading }: TaskMo
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>{task ? "Edit Task" : "Create Task"}</DialogTitle>
+          <DialogTitle>{task ? 'Edit Task' : 'Create Task'}</DialogTitle>
           <DialogDescription>
-            {task ? "Update the details of your task." : "Fill in the details for a new task."}
+            {task ? 'Update the details of your task.' : 'Fill in the details for a new task.'}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -200,14 +200,14 @@ export function TaskModal({ isOpen, onClose, onSubmit, task, isLoading }: TaskMo
                     <PopoverTrigger asChild>
                       <FormControl>
                         <Button
-                          variant={"outline"}
+                          variant={'outline'}
                           className={cn(
-                            "w-full pl-3 text-left font-normal",
-                            !field.value && "text-muted-foreground"
+                            'w-full pl-3 text-left font-normal',
+                            !field.value && 'text-muted-foreground',
                           )}
                         >
                           {field.value ? (
-                            format(field.value, "PPP")
+                            format(field.value, 'PPP')
                           ) : (
                             <span>Pick a date</span>
                           )}
@@ -267,7 +267,7 @@ export function TaskModal({ isOpen, onClose, onSubmit, task, isLoading }: TaskMo
             <DialogFooter>
               <Button type="button" variant="outline" onClick={onClose}>Cancel</Button>
               <Button type="submit" disabled={isLoading} className="w-24">
-                {isLoading ? <BrandedLoader /> : "Save Task"}
+                {isLoading ? <BrandedLoader /> : 'Save Task'}
               </Button>
             </DialogFooter>
           </form>

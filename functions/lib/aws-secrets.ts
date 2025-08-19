@@ -1,7 +1,7 @@
 import {
   SecretsManagerClient,
   GetSecretValueCommand,
-} from "@aws-sdk/client-secrets-manager";
+} from '@aws-sdk/client-secrets-manager';
 
 // Define the shape of the secret we expect from AWS Secrets Manager
 interface DbSecret {
@@ -34,7 +34,7 @@ export async function getDbSecret(context: EventContext<{ AWS_ACCESS_KEY_ID: str
   const { AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION, SECRET_NAME } = context.env;
 
   if (!AWS_ACCESS_KEY_ID || !AWS_SECRET_ACCESS_KEY || !AWS_REGION || !SECRET_NAME) {
-    throw new Error("Missing required AWS environment variables for Secrets Manager.");
+    throw new Error('Missing required AWS environment variables for Secrets Manager.');
   }
 
   const client = new SecretsManagerClient({
@@ -50,14 +50,14 @@ export async function getDbSecret(context: EventContext<{ AWS_ACCESS_KEY_ID: str
   try {
     const response = await client.send(command);
     if (!response.SecretString) {
-      throw new Error("SecretString is empty in AWS Secrets Manager response.");
+      throw new Error('SecretString is empty in AWS Secrets Manager response.');
     }
     
     const secret = JSON.parse(response.SecretString) as DbSecret;
     cachedSecret = secret; // Cache the successfully fetched secret
     return secret;
   } catch (error) {
-    console.error("Failed to fetch secret from AWS Secrets Manager:", error);
-    throw new Error("Could not retrieve database credentials.");
+    console.error('Failed to fetch secret from AWS Secrets Manager:', error);
+    throw new Error('Could not retrieve database credentials.');
   }
 }

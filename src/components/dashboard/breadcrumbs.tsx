@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { usePathname } from "next/navigation";
-import Link from "next/link";
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,15 +9,15 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import React from "react";
+} from '@/components/ui/breadcrumb';
+import React from 'react';
 
 export function DashboardBreadcrumbs() {
   const pathname = usePathname();
-  const pathSegments = pathname.split("/").filter((i: string) => i);
+  const pathSegments = pathname.split('/').filter((i: string) => i);
 
   // Don't show breadcrumbs on the main dashboard page
-  if (pathname === "/dashboard") {
+  if (pathname === '/dashboard') {
     return null;
   }
 
@@ -31,9 +31,11 @@ export function DashboardBreadcrumbs() {
         </BreadcrumbItem>
         {pathSegments.map((segment: string, index: number) => {
           // Skip the 'dashboard' segment
-          if (segment === 'dashboard') return null;
+          if (segment === 'dashboard') {
+return null;
+}
 
-          const href = "/" + pathSegments.slice(0, index + 1).join("/");
+          const href = '/' + pathSegments.slice(0, index + 1).join('/');
           const isLast = index === pathSegments.length - 1;
           const capitalizedSegment = segment.charAt(0).toUpperCase() + segment.slice(1);
 

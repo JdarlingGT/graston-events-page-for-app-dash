@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { VenuesTable } from "@/components/directory/venues/venues-table";
-import { Button } from "@/components/ui/button";
-import { PlusCircle } from "lucide-react";
-import Link from "next/link";
+import { VenuesTable } from '@/components/directory/venues/venues-table';
+import { Button } from '@/components/ui/button';
+import { PlusCircle } from 'lucide-react';
+import Link from 'next/link';
 
 export default function VenuesPage() {
   return (

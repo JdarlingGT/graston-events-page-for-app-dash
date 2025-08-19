@@ -1,31 +1,31 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { Calendar } from "@/components/ui/calendar";
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
+import { Calendar } from '@/components/ui/calendar';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from '@/components/ui/popover';
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
-import { Slider } from "@/components/ui/slider";
-import { Checkbox } from "@/components/ui/checkbox";
+} from '@/components/ui/sheet';
+import { Slider } from '@/components/ui/slider';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   Search,
   Filter,
@@ -33,10 +33,10 @@ import {
   MapPin,
   Users,
   DollarSign,
-  X
-} from "lucide-react";
-import { format } from "date-fns";
-import { cn } from "@/lib/utils";
+  X,
+} from 'lucide-react';
+import { format } from 'date-fns';
+import { cn } from '@/lib/utils';
 
 type DateRange = { from: Date; to?: Date };
 
@@ -71,11 +71,11 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
 
   const clearFilter = (key: string) => {
     const defaultValues: any = {
-      search: "",
-      type: "all",
-      mode: "all",
-      status: "all",
-      dangerZone: "all",
+      search: '',
+      type: 'all',
+      mode: 'all',
+      status: 'all',
+      dangerZone: 'all',
       dateRange: {},
       enrollmentRange: [0, 100],
       revenueRange: [0, 100000],
@@ -87,11 +87,11 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
 
   const clearAllFilters = () => {
     onFiltersChange({
-      search: "",
-      type: "all",
-      mode: "all",
-      status: "all",
-      dangerZone: "all",
+      search: '',
+      type: 'all',
+      mode: 'all',
+      status: 'all',
+      dangerZone: 'all',
       dateRange: {},
       enrollmentRange: [0, 100],
       revenueRange: [0, 100000],
@@ -102,16 +102,36 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
 
   const getActiveFiltersCount = () => {
     let count = 0;
-    if (filters.search) count++;
-    if (filters.type !== "all") count++;
-    if (filters.mode !== "all") count++;
-    if (filters.status !== "all") count++;
-    if (filters.dangerZone !== "all") count++;
-    if (filters.dateRange.from || filters.dateRange.to) count++;
-    if (filters.enrollmentRange[0] > 0 || filters.enrollmentRange[1] < 100) count++;
-    if (filters.revenueRange[0] > 0 || filters.revenueRange[1] < 100000) count++;
-    if (filters.cities.length > 0) count++;
-    if (filters.instructors.length > 0) count++;
+    if (filters.search) {
+count++;
+}
+    if (filters.type !== 'all') {
+count++;
+}
+    if (filters.mode !== 'all') {
+count++;
+}
+    if (filters.status !== 'all') {
+count++;
+}
+    if (filters.dangerZone !== 'all') {
+count++;
+}
+    if (filters.dateRange.from || filters.dateRange.to) {
+count++;
+}
+    if (filters.enrollmentRange[0] > 0 || filters.enrollmentRange[1] < 100) {
+count++;
+}
+    if (filters.revenueRange[0] > 0 || filters.revenueRange[1] < 100000) {
+count++;
+}
+    if (filters.cities.length > 0) {
+count++;
+}
+    if (filters.instructors.length > 0) {
+count++;
+}
     return count;
   };
 
@@ -134,13 +154,13 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
           <Input
             placeholder="Search events, instructors, or cities..."
             value={filters.search}
-            onChange={(e) => updateFilter("search", e.target.value)}
+            onChange={(e) => updateFilter('search', e.target.value)}
             className="pl-10"
           />
         </div>
         
         <div className="flex gap-2">
-          <Select value={filters.type} onValueChange={(value) => updateFilter("type", value)}>
+          <Select value={filters.type} onValueChange={(value) => updateFilter('type', value)}>
             <SelectTrigger className="w-32">
               <SelectValue placeholder="Type" />
             </SelectTrigger>
@@ -152,7 +172,7 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
             </SelectContent>
           </Select>
 
-          <Select value={filters.mode} onValueChange={(value) => updateFilter("mode", value)}>
+          <Select value={filters.mode} onValueChange={(value) => updateFilter('mode', value)}>
             <SelectTrigger className="w-32">
               <SelectValue placeholder="Mode" />
             </SelectTrigger>
@@ -171,14 +191,14 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
                 {filters.dateRange.from ? (
                   filters.dateRange.to ? (
                     <>
-                      {format(filters.dateRange.from, "LLL dd")} -{" "}
-                      {format(filters.dateRange.to, "LLL dd")}
+                      {format(filters.dateRange.from, 'LLL dd')} -{' '}
+                      {format(filters.dateRange.to, 'LLL dd')}
                     </>
                   ) : (
-                    format(filters.dateRange.from, "LLL dd, y")
+                    format(filters.dateRange.from, 'LLL dd, y')
                   )
                 ) : (
-                  "Date Range"
+                  'Date Range'
                 )}
               </Button>
             </PopoverTrigger>
@@ -188,7 +208,7 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
                 mode="range"
                 defaultMonth={filters.dateRange.from}
                 selected={getDateRange()}
-                onSelect={(range) => updateFilter("dateRange", range || {})}
+                onSelect={(range) => updateFilter('dateRange', range || {})}
                 numberOfMonths={2}
               />
             </PopoverContent>
@@ -214,7 +234,7 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
                 {/* Status Filter */}
                 <div className="space-y-2">
                   <h4 className="font-medium text-sm">Event Status</h4>
-                  <Select value={filters.status} onValueChange={(value) => updateFilter("status", value)}>
+                  <Select value={filters.status} onValueChange={(value) => updateFilter('status', value)}>
                     <SelectTrigger>
                       <SelectValue placeholder="Select status" />
                     </SelectTrigger>
@@ -230,7 +250,7 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
                 {/* Danger Zone Filter */}
                 <div className="space-y-2">
                   <h4 className="font-medium text-sm">Danger Zone</h4>
-                  <Select value={filters.dangerZone} onValueChange={(value) => updateFilter("dangerZone", value)}>
+                  <Select value={filters.dangerZone} onValueChange={(value) => updateFilter('dangerZone', value)}>
                     <SelectTrigger>
                       <SelectValue placeholder="Select risk level" />
                     </SelectTrigger>
@@ -255,7 +275,7 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
                     max={100}
                     step={1}
                     value={filters.enrollmentRange}
-                    onValueChange={(value: number[]) => updateFilter("enrollmentRange", value as [number, number])}
+                    onValueChange={(value: number[]) => updateFilter('enrollmentRange', value as [number, number])}
                     className="w-full"
                   />
                 </div>
@@ -271,7 +291,7 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
                     max={100000}
                     step={1000}
                     value={filters.revenueRange}
-                    onValueChange={(value: number[]) => updateFilter("revenueRange", value as [number, number])}
+                    onValueChange={(value: number[]) => updateFilter('revenueRange', value as [number, number])}
                     className="w-full"
                   />
                 </div>
@@ -289,7 +309,7 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
                             const newCities = checked
                               ? [...filters.cities, city]
                               : filters.cities.filter((c) => c !== city);
-                            updateFilter("cities", newCities);
+                            updateFilter('cities', newCities);
                           }}
                         />
                         <label
@@ -316,7 +336,7 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
                             const newInstructors = checked
                               ? [...filters.instructors, instructor]
                               : filters.instructors.filter((i) => i !== instructor);
-                            updateFilter("instructors", newInstructors);
+                            updateFilter('instructors', newInstructors);
                           }}
                         />
                         <label
@@ -347,48 +367,48 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
           {filters.search && (
             <Badge variant="secondary" className="flex items-center gap-1">
               Search: "{filters.search}"
-              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("search")} aria-label="Clear search filter">
+              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter('search')} aria-label="Clear search filter">
                 <X className="h-3 w-3" />
               </Button>
             </Badge>
           )}
-          {filters.type !== "all" && (
+          {filters.type !== 'all' && (
             <Badge variant="secondary" className="flex items-center gap-1">
               Type: {filters.type}
-              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("type")} aria-label="Clear type filter">
+              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter('type')} aria-label="Clear type filter">
                 <X className="h-3 w-3" />
               </Button>
             </Badge>
           )}
-          {filters.mode !== "all" && (
+          {filters.mode !== 'all' && (
             <Badge variant="secondary" className="flex items-center gap-1">
               Mode: {filters.mode}
-              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("mode")} aria-label="Clear mode filter">
+              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter('mode')} aria-label="Clear mode filter">
                 <X className="h-3 w-3" />
               </Button>
             </Badge>
           )}
-          {filters.status !== "all" && (
+          {filters.status !== 'all' && (
             <Badge variant="secondary" className="flex items-center gap-1">
               Status: {filters.status}
-              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("status")} aria-label="Clear status filter">
+              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter('status')} aria-label="Clear status filter">
                 <X className="h-3 w-3" />
               </Button>
             </Badge>
           )}
-          {filters.dangerZone !== "all" && (
+          {filters.dangerZone !== 'all' && (
             <Badge variant="secondary" className="flex items-center gap-1">
               Risk: {filters.dangerZone}
-              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("dangerZone")} aria-label="Clear risk filter">
+              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter('dangerZone')} aria-label="Clear risk filter">
                 <X className="h-3 w-3" />
               </Button>
             </Badge>
           )}
           {(filters.dateRange.from || filters.dateRange.to) && (
             <Badge variant="secondary" className="flex items-center gap-1">
-              Date: {filters.dateRange.from && format(filters.dateRange.from, "MMM dd")}
-              {filters.dateRange.to && ` - ${format(filters.dateRange.to, "MMM dd")}`}
-              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("dateRange")} aria-label="Clear date range filter">
+              Date: {filters.dateRange.from && format(filters.dateRange.from, 'MMM dd')}
+              {filters.dateRange.to && ` - ${format(filters.dateRange.to, 'MMM dd')}`}
+              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter('dateRange')} aria-label="Clear date range filter">
                 <X className="h-3 w-3" />
               </Button>
             </Badge>
@@ -396,7 +416,7 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
           {(filters.enrollmentRange[0] > 0 || filters.enrollmentRange[1] < 100) && (
             <Badge variant="secondary" className="flex items-center gap-1">
               Enrollment: {filters.enrollmentRange[0]} - {filters.enrollmentRange[1]}
-              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("enrollmentRange")} aria-label="Clear enrollment range filter">
+              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter('enrollmentRange')} aria-label="Clear enrollment range filter">
                 <X className="h-3 w-3" />
               </Button>
             </Badge>
@@ -404,23 +424,23 @@ export function EventFilters({ filters, onFiltersChange, availableOptions }: Eve
           {(filters.revenueRange[0] > 0 || filters.revenueRange[1] < 100000) && (
             <Badge variant="secondary" className="flex items-center gap-1">
               Revenue: ${filters.revenueRange[0].toLocaleString()} - ${filters.revenueRange[1].toLocaleString()}
-              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("revenueRange")} aria-label="Clear revenue range filter">
+              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter('revenueRange')} aria-label="Clear revenue range filter">
                 <X className="h-3 w-3" />
               </Button>
             </Badge>
           )}
           {filters.cities.length > 0 && (
             <Badge variant="secondary" className="flex items-center gap-1">
-              Cities: {filters.cities.join(", ")}
-              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("cities")} aria-label="Clear cities filter">
+              Cities: {filters.cities.join(', ')}
+              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter('cities')} aria-label="Clear cities filter">
                 <X className="h-3 w-3" />
               </Button>
             </Badge>
           )}
           {filters.instructors.length > 0 && (
             <Badge variant="secondary" className="flex items-center gap-1">
-              Instructors: {filters.instructors.join(", ")}
-              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter("instructors")} aria-label="Clear instructors filter">
+              Instructors: {filters.instructors.join(', ')}
+              <Button variant="ghost" size="icon" className="h-4 w-4 p-0" onClick={() => clearFilter('instructors')} aria-label="Clear instructors filter">
                 <X className="h-3 w-3" />
               </Button>
             </Badge>

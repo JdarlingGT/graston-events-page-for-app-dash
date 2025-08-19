@@ -1,25 +1,25 @@
-"use client";
+'use client';
 
-import { Input } from "@/components/ui/input";
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Calendar } from "@/components/ui/calendar";
+} from '@/components/ui/select';
+import { Button } from '@/components/ui/button';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Calendar } from '@/components/ui/calendar';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
-import { CalendarIcon, Search } from "lucide-react";
-import { format } from "date-fns";
-import { Filters } from "./archival-search";
+} from '@/components/ui/accordion';
+import { CalendarIcon, Search } from 'lucide-react';
+import { format } from 'date-fns';
+import { Filters } from './archival-search';
 
 interface SearchFiltersProps {
   filters: Filters;
@@ -75,9 +75,9 @@ export function SearchFilters({ filters, onFiltersChange, onSearch }: SearchFilt
                     <CalendarIcon className="mr-2 h-4 w-4" />
                     {filters.start ? (
                       filters.end ? (
-                        `${format(filters.start, "LLL dd, y")} - ${format(filters.end, "LLL dd, y")}`
+                        `${format(filters.start, 'LLL dd, y')} - ${format(filters.end, 'LLL dd, y')}`
                       ) : (
-                        format(filters.start, "LLL dd, y")
+                        format(filters.start, 'LLL dd, y')
                       )
                     ) : (
                       <span>Pick a date range</span>

@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
 import { PanelLeft, Search } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
   SheetTrigger,
-} from "../ui/sheet";
-import { Button } from "../ui/button";
+} from '../ui/sheet';
+import { Button } from '../ui/button';
 import { MobileSidebar } from './mobile-sidebar';
 import { ThemeToggle } from '../theme-toggle';
 import { useCommandPalette } from '@/hooks/use-command-palette';

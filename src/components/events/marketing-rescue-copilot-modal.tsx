@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from 'react';
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogDescription,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Send, Sparkles } from "lucide-react";
-import { cn } from "@/lib/utils";
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Send, Sparkles } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface MarketingRescueCopilotModalProps {
   isOpen: boolean;
@@ -22,13 +22,13 @@ interface MarketingRescueCopilotModalProps {
 }
 
 interface Message {
-  sender: "user" | "ai";
+  sender: 'user' | 'ai';
   text: string;
 }
 
 const initialMessages: Message[] = [
   {
-    sender: "ai",
+    sender: 'ai',
     text: "Hello! I'm the Marketing Rescue Co-Pilot. This event is currently at risk. How can I help you formulate a rescue plan?",
   },
 ];
@@ -44,7 +44,7 @@ export function MarketingRescueCopilotModal({
   eventName,
 }: MarketingRescueCopilotModalProps) {
   const [messages, setMessages] = useState<Message[]>(initialMessages);
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
@@ -55,17 +55,19 @@ export function MarketingRescueCopilotModal({
   }, [messages]);
 
   const handleSendMessage = () => {
-    if (!inputValue.trim()) return;
+    if (!inputValue.trim()) {
+return;
+}
 
-    const userMessage: Message = { sender: "user", text: inputValue };
+    const userMessage: Message = { sender: 'user', text: inputValue };
     setMessages((prev) => [...prev, userMessage]);
-    setInputValue("");
+    setInputValue('');
     setIsLoading(true);
 
     // Simulate AI response
     setTimeout(() => {
-      const responseKey = inputValue.toLowerCase().includes("options") ? "options" : "default";
-      const aiMessage: Message = { sender: "ai", text: aiResponses[responseKey] };
+      const responseKey = inputValue.toLowerCase().includes('options') ? 'options' : 'default';
+      const aiMessage: Message = { sender: 'ai', text: aiResponses[responseKey] };
       setMessages((prev) => [...prev, aiMessage]);
       setIsLoading(false);
     }, 1500);
@@ -90,11 +92,11 @@ export function MarketingRescueCopilotModal({
                 <div
                   key={index}
                   className={cn(
-                    "flex items-start gap-3",
-                    message.sender === "user" && "justify-end"
+                    'flex items-start gap-3',
+                    message.sender === 'user' && 'justify-end',
                   )}
                 >
-                  {message.sender === "ai" && (
+                  {message.sender === 'ai' && (
                     <Avatar className="bg-primary text-primary-foreground">
                       <AvatarFallback>
                         <Sparkles className="h-5 w-5" />
@@ -103,10 +105,10 @@ export function MarketingRescueCopilotModal({
                   )}
                   <div
                     className={cn(
-                      "p-3 rounded-lg max-w-md whitespace-pre-wrap",
-                      message.sender === "ai"
-                        ? "bg-muted"
-                        : "bg-primary text-primary-foreground"
+                      'p-3 rounded-lg max-w-md whitespace-pre-wrap',
+                      message.sender === 'ai'
+                        ? 'bg-muted'
+                        : 'bg-primary text-primary-foreground',
                     )}
                   >
                     {message.text}

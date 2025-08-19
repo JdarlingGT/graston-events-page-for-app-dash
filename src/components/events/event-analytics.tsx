@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Progress } from '@/components/ui/progress';
 import {
   LineChart,
   Line,
@@ -25,8 +25,8 @@ import {
   ResponsiveContainer,
   FunnelChart,
   Funnel,
-  LabelList
-} from "recharts";
+  LabelList,
+} from 'recharts';
 import {
   TrendingUp,
   TrendingDown,
@@ -37,9 +37,9 @@ import {
   Mail,
   MousePointer,
   CreditCard,
-  Award
-} from "lucide-react";
-import { cn } from "@/lib/utils";
+  Award,
+} from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface EventAnalyticsProps {
   eventId: string;
@@ -89,13 +89,15 @@ interface AnalyticsData {
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8'];
 
 export function EventAnalytics({ eventId }: EventAnalyticsProps) {
-  const [timeRange, setTimeRange] = useState("30d");
+  const [timeRange, setTimeRange] = useState('30d');
 
   const { data: analytics, isLoading } = useQuery<AnalyticsData>({
-    queryKey: ["event-analytics", eventId, timeRange],
+    queryKey: ['event-analytics', eventId, timeRange],
     queryFn: async () => {
       const response = await fetch(`/api/events/${eventId}/analytics?range=${timeRange}`);
-      if (!response.ok) throw new Error("Failed to fetch analytics");
+      if (!response.ok) {
+throw new Error('Failed to fetch analytics');
+}
       return response.json();
     },
   });
@@ -113,25 +115,27 @@ export function EventAnalytics({ eventId }: EventAnalyticsProps) {
     );
   }
 
-  if (!analytics) return null;
+  if (!analytics) {
+return null;
+}
 
   const MetricCard = ({ 
     title, 
     value, 
     change, 
     icon: Icon, 
-    format = "number" 
+    format = 'number', 
   }: {
     title: string;
     value: number;
     change: number;
     icon: any;
-    format?: "number" | "currency" | "percentage";
+    format?: 'number' | 'currency' | 'percentage';
   }) => {
     const formatValue = (val: number) => {
       switch (format) {
-        case "currency": return `$${val.toLocaleString()}`;
-        case "percentage": return `${val.toFixed(1)}%`;
+        case 'currency': return `$${val.toLocaleString()}`;
+        case 'percentage': return `${val.toFixed(1)}%`;
         default: return val.toLocaleString();
       }
     };
@@ -153,10 +157,10 @@ export function EventAnalytics({ eventId }: EventAnalyticsProps) {
               <TrendingDown className="h-4 w-4 text-red-500 mr-1" />
             )}
             <span className={cn(
-              "text-sm font-medium",
-              change > 0 ? "text-green-500" : "text-red-500"
+              'text-sm font-medium',
+              change > 0 ? 'text-green-500' : 'text-red-500',
             )}>
-              {change > 0 ? "+" : ""}{change.toFixed(1)}%
+              {change > 0 ? '+' : ''}{change.toFixed(1)}%
             </span>
             <span className="text-sm text-muted-foreground ml-1">vs last period</span>
           </div>
@@ -171,10 +175,10 @@ export function EventAnalytics({ eventId }: EventAnalyticsProps) {
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold">Event Analytics</h3>
         <div className="flex gap-2">
-          {["7d", "30d", "90d", "1y"].map((range) => (
+          {['7d', '30d', '90d', '1y'].map((range) => (
             <Button
               key={range}
-              variant={timeRange === range ? "default" : "outline"}
+              variant={timeRange === range ? 'default' : 'outline'}
               size="sm"
               onClick={() => setTimeRange(range)}
             >

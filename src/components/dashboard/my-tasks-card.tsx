@@ -1,45 +1,47 @@
-"use client";
+'use client';
 
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from '@tanstack/react-query';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import { CheckSquare, ArrowRight, Clock } from "lucide-react";
-import Link from "next/link";
-import { formatDistanceToNow, parseISO } from "date-fns";
-import { Badge } from "../ui/badge";
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
+import { CheckSquare, ArrowRight, Clock } from 'lucide-react';
+import Link from 'next/link';
+import { formatDistanceToNow, parseISO } from 'date-fns';
+import { Badge } from '../ui/badge';
 
 interface Task {
   id: string;
   title: string;
   dueDate?: string;
-  priority: "low" | "medium" | "high";
-  status: "todo" | "in-progress" | "done";
+  priority: 'low' | 'medium' | 'high';
+  status: 'todo' | 'in-progress' | 'done';
   assignee?: { name: string };
 }
 
 // Mocking the current user
-const CURRENT_USER = "Sarah Johnson";
+const CURRENT_USER = 'Sarah Johnson';
 
 async function fetchMyTasks(): Promise<Task[]> {
-  const response = await fetch("/api/tasks");
-  if (!response.ok) throw new Error("Failed to fetch tasks");
+  const response = await fetch('/api/tasks');
+  if (!response.ok) {
+throw new Error('Failed to fetch tasks');
+}
   const tasks = await response.json();
   return tasks
-    .filter((task: Task) => task.status !== "done" && task.assignee?.name === CURRENT_USER)
+    .filter((task: Task) => task.status !== 'done' && task.assignee?.name === CURRENT_USER)
     .sort((a: Task, b: Task) => new Date(a.dueDate!).getTime() - new Date(b.dueDate!).getTime())
     .slice(0, 5);
 }
 
 export function MyTasksCard() {
   const { data: tasks, isLoading } = useQuery<Task[]>({
-    queryKey: ["my-tasks"],
+    queryKey: ['my-tasks'],
     queryFn: fetchMyTasks,
   });
 

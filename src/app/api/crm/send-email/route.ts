@@ -13,7 +13,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ 
       success: true,
       message: 'Email sent successfully',
-      emailId: `email-${Date.now()}`
+      emailId: `email-${Date.now()}`,
     });
   } catch (error) {
     return new NextResponse('Internal Server Error', { status: 500 });

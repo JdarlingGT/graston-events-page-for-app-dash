@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { EventDirectory } from "@/components/events/event-directory";
-import { Button } from "@/components/ui/button";
-import { PlusCircle } from "lucide-react";
-import Link from "next/link";
+import { EventDirectory } from '@/components/events/event-directory';
+import { Button } from '@/components/ui/button';
+import { PlusCircle } from 'lucide-react';
+import Link from 'next/link';
 
 export default function EventsPage() {
   return (

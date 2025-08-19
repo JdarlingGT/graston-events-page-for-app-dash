@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { EventForm } from "@/components/dashboard/events/event-form";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useEffect, useState } from "react";
+import { EventForm } from '@/components/dashboard/events/event-form';
+import { Skeleton } from '@/components/ui/skeleton';
+import { useEffect, useState } from 'react';
 
 interface Event {
   id: string;
   title: string;
-  status: "Go" | "At Risk" | "Completed";
+  status: 'Go' | 'At Risk' | 'Completed';
   startDate: string;
   endDate: string;
   location: {
@@ -36,12 +36,12 @@ export default function EditEventPage({ params }: EditEventPageProps) {
       try {
         const response = await fetch(`/api/events/${params.id}`);
         if (!response.ok) {
-          throw new Error("Event not found");
+          throw new Error('Event not found');
         }
         const data = await response.json();
         setEvent(data);
       } catch (err) {
-        setError("Failed to load event data.");
+        setError('Failed to load event data.');
         console.error(err);
       } finally {
         setLoading(false);

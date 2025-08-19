@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Dialog,
@@ -6,12 +6,12 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Copy } from "lucide-react";
-import { toast } from "sonner";
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Copy } from 'lucide-react';
+import { toast } from 'sonner';
 
 interface Event {
   name: string;
@@ -28,7 +28,9 @@ interface PromoteEventModalProps {
 }
 
 export function PromoteEventModal({ isOpen, onClose, event, instructorName }: PromoteEventModalProps) {
-  if (!event) return null;
+  if (!event) {
+return null;
+}
 
   const eventDate = new Date(event.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
   const eventUrl = `https://example.com/events/${event.id}`;
@@ -40,7 +42,7 @@ export function PromoteEventModal({ isOpen, onClose, event, instructorName }: Pr
 
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
-    toast.success("Copied to clipboard!");
+    toast.success('Copied to clipboard!');
   };
 
   return (

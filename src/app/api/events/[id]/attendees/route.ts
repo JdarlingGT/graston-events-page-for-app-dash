@@ -17,7 +17,7 @@ async function getAttendees() {
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {
   const eventId = params.id;
   const allAttendees = await getAttendees();

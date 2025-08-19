@@ -1,20 +1,20 @@
-"use client";
+'use client';
 
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation } from '@tanstack/react-query';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import { AlertTriangle, ArrowRight, RefreshCw } from "lucide-react";
-import Link from "next/link";
-import { differenceInDays, parseISO } from "date-fns";
-import { Progress } from "../ui/progress";
-import { toast } from "sonner";
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
+import { AlertTriangle, ArrowRight, RefreshCw } from 'lucide-react';
+import Link from 'next/link';
+import { differenceInDays, parseISO } from 'date-fns';
+import { Progress } from '../ui/progress';
+import { toast } from 'sonner';
 
 interface AtRiskEvent {
   id: string;
@@ -26,21 +26,23 @@ interface AtRiskEvent {
 }
 
 async function fetchAtRiskEvents(): Promise<AtRiskEvent[]> {
-  const response = await fetch("/api/events");
-  if (!response.ok) throw new Error("Failed to fetch events");
+  const response = await fetch('/api/events');
+  if (!response.ok) {
+throw new Error('Failed to fetch events');
+}
   const events = await response.json();
   return events.filter(
     (event: AtRiskEvent) => {
       const totalSignups = (event.enrolledStudents || 0) + (event.instrumentsPurchased || 0);
       return totalSignups < event.minViableEnrollment &&
              differenceInDays(parseISO(event.date), new Date()) >= 0;
-    }
+    },
   );
 }
 
 export function DangerZoneCard() {
   const { data: atRiskEvents, isLoading, refetch } = useQuery<AtRiskEvent[]>({
-    queryKey: ["at-risk-events"],
+    queryKey: ['at-risk-events'],
     queryFn: fetchAtRiskEvents,
   });
 
@@ -52,7 +54,7 @@ export function DangerZoneCard() {
       refetch(); // Refetch the at-risk events to update the card
     },
     onError: () => {
-      toast.error("Failed to run Danger Zone check.");
+      toast.error('Failed to run Danger Zone check.');
     },
   });
 

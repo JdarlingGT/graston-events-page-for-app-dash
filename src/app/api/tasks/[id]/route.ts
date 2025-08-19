@@ -4,7 +4,7 @@ import { createCalendarEvent, sendGmailNotification } from '@/lib/google';
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {
   try {
     const updates = await request.json();
@@ -22,9 +22,9 @@ export async function PATCH(
     // We need to add an email to the assignee object for this to work
     if (updatedTask.assignee) {
         const assigneeEmails: { [key: string]: string } = {
-            "Sarah Johnson": "user@example.com", // Replace with actual emails
-            "Mike Chen": "user@example.com",
-            "Lisa Park": "user@example.com",
+            'Sarah Johnson': 'user@example.com', // Replace with actual emails
+            'Mike Chen': 'user@example.com',
+            'Lisa Park': 'user@example.com',
         };
         const email = assigneeEmails[updatedTask.assignee.name];
         if (email) {

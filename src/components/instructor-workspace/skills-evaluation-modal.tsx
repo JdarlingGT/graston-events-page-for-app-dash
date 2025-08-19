@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Dialog,
@@ -7,13 +7,13 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useState, useEffect } from "react";
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { useState, useEffect } from 'react';
 
 interface Student {
   id: string;
@@ -24,27 +24,27 @@ interface SkillsEvaluationModalProps {
   isOpen: boolean;
   onClose: () => void;
   student: Student | null;
-  onSave: (studentId: string, result: { status: "Passed" | "Needs Review"; notes: string }) => void;
+  onSave: (studentId: string, result: { status: 'Passed' | 'Needs Review'; notes: string }) => void;
 }
 
 const skills = [
-  "Demonstrates proper tool handling",
-  "Identifies correct treatment areas",
-  "Applies appropriate pressure",
-  "Maintains patient comfort",
-  "Completes full protocol sequence",
+  'Demonstrates proper tool handling',
+  'Identifies correct treatment areas',
+  'Applies appropriate pressure',
+  'Maintains patient comfort',
+  'Completes full protocol sequence',
 ];
 
 export function SkillsEvaluationModal({ isOpen, onClose, student, onSave }: SkillsEvaluationModalProps) {
   const [checkedSkills, setCheckedSkills] = useState<Record<string, boolean>>({});
-  const [finalStatus, setFinalStatus] = useState<"Passed" | "Needs Review">("Passed");
-  const [notes, setNotes] = useState("");
+  const [finalStatus, setFinalStatus] = useState<'Passed' | 'Needs Review'>('Passed');
+  const [notes, setNotes] = useState('');
 
   useEffect(() => {
     if (isOpen) {
       setCheckedSkills({});
-      setFinalStatus("Passed");
-      setNotes("");
+      setFinalStatus('Passed');
+      setNotes('');
     }
   }, [isOpen]);
 
@@ -83,7 +83,7 @@ export function SkillsEvaluationModal({ isOpen, onClose, student, onSave }: Skil
           </div>
           <div className="space-y-3">
             <Label>Final Assessment</Label>
-            <RadioGroup value={finalStatus} onValueChange={(value: "Passed" | "Needs Review") => setFinalStatus(value)}>
+            <RadioGroup value={finalStatus} onValueChange={(value: 'Passed' | 'Needs Review') => setFinalStatus(value)}>
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="Passed" id="passed" />
                 <Label htmlFor="passed">Passed</Label>

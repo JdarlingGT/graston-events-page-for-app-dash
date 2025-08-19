@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Task } from "./task-board";
-import { cn } from "@/lib/utils";
-import { Clock, Flag, MoreHorizontal, Edit, Paperclip } from "lucide-react";
-import { differenceInDays, parseISO } from "date-fns";
-import Link from "next/link";
+} from '@/components/ui/dropdown-menu';
+import { Task } from './task-board';
+import { cn } from '@/lib/utils';
+import { Clock, Flag, MoreHorizontal, Edit, Paperclip } from 'lucide-react';
+import { differenceInDays, parseISO } from 'date-fns';
+import Link from 'next/link';
 
 interface TaskCardProps {
   task: Task;
@@ -32,7 +32,7 @@ export function TaskCard({ task, isOverlay, onEdit }: TaskCardProps) {
     transform,
     transition,
     isDragging,
-  } = useSortable({ id: task.id, data: { type: "Task", task } });
+  } = useSortable({ id: task.id, data: { type: 'Task', task } });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -43,9 +43,9 @@ export function TaskCard({ task, isOverlay, onEdit }: TaskCardProps) {
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case "high": return "destructive";
-      case "medium": return "secondary";
-      default: return "outline";
+      case 'high': return 'destructive';
+      case 'medium': return 'secondary';
+      default: return 'outline';
     }
   };
 
@@ -54,9 +54,9 @@ export function TaskCard({ task, isOverlay, onEdit }: TaskCardProps) {
       ref={setNodeRef}
       style={style}
       className={cn(
-        "cursor-grab active:cursor-grabbing transition-shadow hover:shadow-md",
-        isDragging && "opacity-50 ring-2 ring-primary",
-        isOverlay && "shadow-xl"
+        'cursor-grab active:cursor-grabbing transition-shadow hover:shadow-md',
+        isDragging && 'opacity-50 ring-2 ring-primary',
+        isOverlay && 'shadow-xl',
       )}
     >
       <CardHeader className="p-4 pb-2 flex-row items-start justify-between">

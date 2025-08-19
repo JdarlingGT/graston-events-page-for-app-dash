@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Button } from "@/components/ui/button";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -10,20 +10,20 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
   CardDescription,
-} from "@/components/ui/card";
-import { ProjectFormValues, projectSchema } from "@/lib/schemas";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
-import { useState } from "react";
+} from '@/components/ui/card';
+import { ProjectFormValues, projectSchema } from '@/lib/schemas';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
+import { useState } from 'react';
 
 export function ProjectForm() {
   const router = useRouter();
@@ -32,30 +32,30 @@ export function ProjectForm() {
   const form = useForm<ProjectFormValues>({
     resolver: zodResolver(projectSchema),
     defaultValues: {
-      name: "",
-      description: "",
+      name: '',
+      description: '',
     },
   });
 
   const onSubmit = async (values: ProjectFormValues) => {
     setLoading(true);
     try {
-      const response = await fetch("/api/projects", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const response = await fetch('/api/projects', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values),
       });
 
       if (!response.ok) {
-        throw new Error("Failed to create project");
+        throw new Error('Failed to create project');
       }
 
-      toast.success("Project created successfully!");
-      router.push("/dashboard/projects");
+      toast.success('Project created successfully!');
+      router.push('/dashboard/projects');
       router.refresh();
     } catch (error) {
       console.error(error);
-      toast.error("Something went wrong. Please try again.");
+      toast.error('Something went wrong. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -106,13 +106,13 @@ export function ProjectForm() {
               <Button
                 type="button"
                 variant="outline"
-                onClick={() => router.push("/dashboard/projects")}
+                onClick={() => router.push('/dashboard/projects')}
                 disabled={loading}
               >
                 Cancel
               </Button>
               <Button type="submit" disabled={loading}>
-                {loading ? "Creating..." : "Create Project"}
+                {loading ? 'Creating...' : 'Create Project'}
               </Button>
             </div>
           </form>

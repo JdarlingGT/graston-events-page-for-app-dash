@@ -11,7 +11,7 @@ export async function POST(request: Request) {
       success: true,
       message: `Bulk email sent to ${studentIds.length} students`,
       emailIds: (studentIds as string[]).map((id: string) => `email-${id}-${Date.now()}`),
-      sentCount: studentIds.length
+      sentCount: studentIds.length,
     });
   } catch (error) {
     return new NextResponse('Internal Server Error', { status: 500 });

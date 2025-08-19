@@ -1,4 +1,4 @@
-import { ProjectForm } from "@/components/projects/project-form";
+import { ProjectForm } from '@/components/projects/project-form';
 
 export default function CreateProjectPage() {
   return <ProjectForm />;

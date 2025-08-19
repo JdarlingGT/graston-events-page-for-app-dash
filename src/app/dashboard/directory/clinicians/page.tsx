@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { CliniciansTable } from "@/components/directory/clinicians/clinicians-table";
+import { CliniciansTable } from '@/components/directory/clinicians/clinicians-table';
 
 export default function CliniciansPage() {
   return (

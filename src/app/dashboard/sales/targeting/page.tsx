@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { TargetingReport } from "@/components/dashboard/sales/targeting-report";
+import { TargetingReport } from '@/components/dashboard/sales/targeting-report';
 
 export default function SalesTargetingPage() {
   return (

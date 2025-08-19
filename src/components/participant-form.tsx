@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { Button } from "@/components/ui/button";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -11,17 +11,17 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import SignatureCanvas from "react-signature-canvas";
-import { useRef } from "react";
-import { toast } from "sonner";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import SignatureCanvas from 'react-signature-canvas';
+import { useRef } from 'react';
+import { toast } from 'sonner';
 
 const formSchema = z.object({
-  licenseNumber: z.string().min(5, "License number is required."),
-  clinicName: z.string().min(3, "Clinic name is required."),
-  clinicAddress: z.string().min(10, "Clinic address is required."),
+  licenseNumber: z.string().min(5, 'License number is required.'),
+  clinicName: z.string().min(3, 'Clinic name is required.'),
+  clinicAddress: z.string().min(10, 'Clinic address is required.'),
 });
 
 export function ParticipantForm({ token }: { token: string }) {
@@ -30,15 +30,15 @@ export function ParticipantForm({ token }: { token: string }) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      licenseNumber: "",
-      clinicName: "",
-      clinicAddress: "",
+      licenseNumber: '',
+      clinicName: '',
+      clinicAddress: '',
     },
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     if (sigCanvas.current?.isEmpty()) {
-      toast.error("Signature is required.");
+      toast.error('Signature is required.');
       return;
     }
     const signature = sigCanvas.current?.toDataURL();
@@ -46,7 +46,7 @@ export function ParticipantForm({ token }: { token: string }) {
     // In a real app, you'd send this data to your backend
     console.log({ ...values, signature });
     
-    toast.success("Profile updated successfully!");
+    toast.success('Profile updated successfully!');
     // Here you might redirect or show a success message
   };
 
@@ -100,7 +100,7 @@ export function ParticipantForm({ token }: { token: string }) {
                 <SignatureCanvas
                   ref={sigCanvas}
                   penColor="black"
-                  canvasProps={{ className: "w-full h-32" }}
+                  canvasProps={{ className: 'w-full h-32' }}
                 />
               </div>
               <Button type="button" variant="outline" size="sm" onClick={() => sigCanvas.current?.clear()}>

@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { useQuery } from "@tanstack/react-query";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Mail, Phone, User, MapPin, BookOpen } from "lucide-react";
-import { VoucherManagement } from "@/components/directory/clinicians/voucher-management";
-import { DataTable } from "@/components/ui/data-table";
-import { ColumnDef } from "@tanstack/react-table";
-import Link from "next/link";
+import { useQuery } from '@tanstack/react-query';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Mail, Phone, User, MapPin, BookOpen } from 'lucide-react';
+import { VoucherManagement } from '@/components/directory/clinicians/voucher-management';
+import { DataTable } from '@/components/ui/data-table';
+import { ColumnDef } from '@tanstack/react-table';
+import Link from 'next/link';
 
 interface Clinician {
   id: string;
@@ -27,8 +27,8 @@ interface TrainingHistory {
 
 const historyColumns: ColumnDef<TrainingHistory>[] = [
   {
-    accessorKey: "eventName",
-    header: "Event",
+    accessorKey: 'eventName',
+    header: 'Event',
     cell: ({ row }) => (
       <Link href={`/dashboard/events/${row.original.eventId}`} className="font-medium text-primary hover:underline">
         {row.original.eventName}
@@ -36,37 +36,43 @@ const historyColumns: ColumnDef<TrainingHistory>[] = [
     ),
   },
   {
-    accessorKey: "date",
-    header: "Date",
+    accessorKey: 'date',
+    header: 'Date',
     cell: ({ row }) => new Date(row.original.date).toLocaleDateString(),
   },
   {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: 'status',
+    header: 'Status',
   },
 ];
 
 function TrainingHistoryTab({ clinicianId }: { clinicianId: string }) {
   const { data: history, isLoading } = useQuery<TrainingHistory[]>({
-    queryKey: ["clinician-history", clinicianId],
+    queryKey: ['clinician-history', clinicianId],
     queryFn: async () => {
       const res = await fetch(`/api/clinicians/${clinicianId}/history`);
-      if (!res.ok) throw new Error("Failed to fetch training history");
+      if (!res.ok) {
+throw new Error('Failed to fetch training history');
+}
       return res.json();
     },
   });
 
-  if (isLoading) return <Skeleton className="h-64 w-full" />;
+  if (isLoading) {
+return <Skeleton className="h-64 w-full" />;
+}
 
   return <DataTable columns={historyColumns} data={history || []} />;
 }
 
 export default function ClinicianDetailPage({ params }: { params: { id: string } }) {
   const { data: clinician, isLoading } = useQuery<Clinician>({
-    queryKey: ["clinician", params.id],
+    queryKey: ['clinician', params.id],
     queryFn: async () => {
       const res = await fetch(`/api/clinicians/${params.id}`);
-      if (!res.ok) throw new Error("Failed to fetch clinician details");
+      if (!res.ok) {
+throw new Error('Failed to fetch clinician details');
+}
       return res.json();
     },
   });

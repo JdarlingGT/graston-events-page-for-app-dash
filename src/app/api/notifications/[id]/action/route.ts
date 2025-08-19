@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 export async function POST(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {
   try {
     const { action, data } = await request.json() as { action: string, data: any };
@@ -21,7 +21,7 @@ export async function POST(
       success: true,
       action,
       notificationId: params.id,
-      result: `Action '${action}' completed successfully`
+      result: `Action '${action}' completed successfully`,
     });
   } catch (error) {
     return new NextResponse('Internal Server Error', { status: 500 });

@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 export async function POST(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {
   try {
     const formData = await request.formData();
@@ -28,9 +28,9 @@ export async function POST(
       count: 25,
       errors: [],
       warnings: [
-        "2 students already existed and were skipped",
-        "1 student had invalid license number format"
-      ]
+        '2 students already existed and were skipped',
+        '1 student had invalid license number format',
+      ],
     };
     
     return NextResponse.json(mockImportResult);

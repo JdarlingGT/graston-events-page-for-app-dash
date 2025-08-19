@@ -38,9 +38,9 @@ export async function POST(request: Request) {
     // We need to add an email to the assignee object for this to work
     if (newTask.assignee) {
         const assigneeEmails: { [key: string]: string } = {
-            "Sarah Johnson": "user@example.com", // Replace with actual emails
-            "Mike Chen": "user@example.com",
-            "Lisa Park": "user@example.com",
+            'Sarah Johnson': 'user@example.com', // Replace with actual emails
+            'Mike Chen': 'user@example.com',
+            'Lisa Park': 'user@example.com',
         };
         const email = assigneeEmails[newTask.assignee.name];
         if (email) {

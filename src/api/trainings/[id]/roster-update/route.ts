@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { jsPDF } from "jspdf";
+import { jsPDF } from 'jspdf';
 
 interface RosterEntry {
   studentId: string;
@@ -12,7 +12,7 @@ interface RosterEntry {
 
 export async function POST(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {
   try {
     const rosterData = await request.json() as RosterEntry[];
@@ -31,19 +31,19 @@ export async function POST(
         const doc = new jsPDF();
         
         // 2a. Choose template based on licenseType
-        const licenseType = student.licenseType || "Professional";
+        const licenseType = student.licenseType || 'Professional';
         console.log(`Choosing certificate template for license type: ${licenseType}`);
         
         doc.setFontSize(22);
-        doc.text("Certificate of Completion", 105, 20, { align: "center" });
+        doc.text('Certificate of Completion', 105, 20, { align: 'center' });
         doc.setFontSize(12);
-        doc.text(`(${licenseType} Edition)`, 105, 30, { align: "center" });
+        doc.text(`(${licenseType} Edition)`, 105, 30, { align: 'center' });
         doc.setFontSize(16);
-        doc.text("This is to certify that", 105, 50, { align: "center" });
+        doc.text('This is to certify that', 105, 50, { align: 'center' });
         doc.setFontSize(20);
-        doc.text(student.studentName, 105, 65, { align: "center" });
+        doc.text(student.studentName, 105, 65, { align: 'center' });
         doc.setFontSize(16);
-        doc.text(`has successfully completed the training.`, 105, 80, { align: "center" });
+        doc.text('has successfully completed the training.', 105, 80, { align: 'center' });
         
         const pdfOutput = doc.output('datauristring');
         
@@ -55,7 +55,7 @@ export async function POST(
       }
     }
 
-    console.log("--- End of Roster Processing ---");
+    console.log('--- End of Roster Processing ---');
 
     await new Promise(resolve => setTimeout(resolve, 1000));
 
@@ -65,7 +65,7 @@ export async function POST(
       processed: rosterData.length,
     });
   } catch (error) {
-    console.error("Failed to process roster update:", error);
+    console.error('Failed to process roster update:', error);
     return new NextResponse('Internal Server Error', { status: 500 });
   }
 }

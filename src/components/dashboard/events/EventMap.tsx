@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import React, { useMemo } from "react";
-import { APIProvider, Map, AdvancedMarker, InfoWindow, useAdvancedMarkerRef } from "@vis.gl/react-google-maps";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Calendar, MapPin, Users, Eye } from "lucide-react";
-import Link from "next/link";
-import { cn } from "@/lib/utils";
+import React, { useMemo } from 'react';
+import { APIProvider, Map, AdvancedMarker, InfoWindow, useAdvancedMarkerRef } from '@vis.gl/react-google-maps';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Calendar, MapPin, Users, Eye } from 'lucide-react';
+import Link from 'next/link';
+import { cn } from '@/lib/utils';
 
 interface Event {
   id: string;
@@ -18,7 +18,7 @@ interface Event {
   };
   enrolledCount: number;
   capacity: number;
-  status: "Go" | "At Risk" | "Completed";
+  status: 'Go' | 'At Risk' | 'Completed';
 }
 
 interface EventMapProps {
@@ -30,24 +30,24 @@ interface EventMapProps {
 
 // City coordinates mapping
 const cityCoordinates: { [key: string]: { lat: number; lng: number } } = {
-  "San Francisco": { lat: 37.7749, lng: -122.4194 },
-  "Austin": { lat: 30.2672, lng: -97.7431 },
-  "New York": { lat: 40.7128, lng: -74.0060 },
-  "Los Angeles": { lat: 34.0522, lng: -118.2437 },
-  "Chicago": { lat: 41.8781, lng: -87.6298 },
-  "Seattle": { lat: 47.6062, lng: -122.3321 },
-  "Miami": { lat: 25.7617, lng: -80.1918 },
-  "Denver": { lat: 39.7392, lng: -104.9903 },
-  "Boston": { lat: 42.3601, lng: -71.0589 },
-  "Dallas": { lat: 32.7767, lng: -96.7970 },
-  "Phoenix": { lat: 33.4484, lng: -112.0740 },
-  "Portland": { lat: 45.5152, lng: -122.6784 },
-  "Atlanta": { lat: 33.7490, lng: -84.3880 },
-  "Las Vegas": { lat: 36.1699, lng: -115.1398 },
-  "Nashville": { lat: 36.1627, lng: -86.7816 },
+  'San Francisco': { lat: 37.7749, lng: -122.4194 },
+  'Austin': { lat: 30.2672, lng: -97.7431 },
+  'New York': { lat: 40.7128, lng: -74.0060 },
+  'Los Angeles': { lat: 34.0522, lng: -118.2437 },
+  'Chicago': { lat: 41.8781, lng: -87.6298 },
+  'Seattle': { lat: 47.6062, lng: -122.3321 },
+  'Miami': { lat: 25.7617, lng: -80.1918 },
+  'Denver': { lat: 39.7392, lng: -104.9903 },
+  'Boston': { lat: 42.3601, lng: -71.0589 },
+  'Dallas': { lat: 32.7767, lng: -96.7970 },
+  'Phoenix': { lat: 33.4484, lng: -112.0740 },
+  'Portland': { lat: 45.5152, lng: -122.6784 },
+  'Atlanta': { lat: 33.7490, lng: -84.3880 },
+  'Las Vegas': { lat: 36.1699, lng: -115.1398 },
+  'Nashville': { lat: 36.1627, lng: -86.7816 },
 };
 
-const GOOGLE_MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
+const GOOGLE_MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '';
 
 export function EventMap({ events, selectedEventId, onEventSelect, className }: EventMapProps) {
   const [markerRef, marker] = useAdvancedMarkerRef();
@@ -62,7 +62,7 @@ export function EventMap({ events, selectedEventId, onEventSelect, className }: 
       })
       .map(event => ({
         ...event,
-        coordinates: cityCoordinates[event.location.city]
+        coordinates: cityCoordinates[event.location.city],
       }));
   }, [events]);
 
@@ -83,21 +83,21 @@ export function EventMap({ events, selectedEventId, onEventSelect, className }: 
     return { lat: avgLat, lng: avgLng };
   }, [eventsWithCoordinates]);
 
-  const getStatusColor = (status: Event["status"]) => {
+  const getStatusColor = (status: Event['status']) => {
     switch (status) {
-      case "Go": return "bg-green-500 border-green-600";
-      case "At Risk": return "bg-yellow-500 border-yellow-600";
-      case "Completed": return "bg-gray-500 border-gray-600";
-      default: return "bg-blue-500 border-blue-600";
+      case 'Go': return 'bg-green-500 border-green-600';
+      case 'At Risk': return 'bg-yellow-500 border-yellow-600';
+      case 'Completed': return 'bg-gray-500 border-gray-600';
+      default: return 'bg-blue-500 border-blue-600';
     }
   };
 
-  const getStatusBadgeVariant = (status: Event["status"]) => {
+  const getStatusBadgeVariant = (status: Event['status']) => {
     switch (status) {
-      case "Go": return "default";
-      case "At Risk": return "secondary";
-      case "Completed": return "outline";
-      default: return "default";
+      case 'Go': return 'default';
+      case 'At Risk': return 'secondary';
+      case 'Completed': return 'outline';
+      default: return 'default';
     }
   };
 
@@ -110,13 +110,13 @@ export function EventMap({ events, selectedEventId, onEventSelect, className }: 
     return new Date(dateString).toLocaleDateString('en-US', {
       month: 'short',
       day: 'numeric',
-      year: 'numeric'
+      year: 'numeric',
     });
   };
 
   if (!GOOGLE_MAPS_API_KEY) {
     return (
-      <div className={cn("flex items-center justify-center h-96 bg-muted rounded-lg", className)}>
+      <div className={cn('flex items-center justify-center h-96 bg-muted rounded-lg', className)}>
         <div className="text-center">
           <MapPin className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
           <p className="text-muted-foreground">Google Maps API key not configured</p>
@@ -127,7 +127,7 @@ export function EventMap({ events, selectedEventId, onEventSelect, className }: 
 
   if (eventsWithCoordinates.length === 0) {
     return (
-      <div className={cn("flex items-center justify-center h-96 bg-muted rounded-lg", className)}>
+      <div className={cn('flex items-center justify-center h-96 bg-muted rounded-lg', className)}>
         <div className="text-center">
           <MapPin className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
           <p className="text-muted-foreground">No events with valid locations to display</p>
@@ -137,7 +137,7 @@ export function EventMap({ events, selectedEventId, onEventSelect, className }: 
   }
 
   return (
-    <div className={cn("h-96 w-full rounded-lg overflow-hidden border", className)}>
+    <div className={cn('h-96 w-full rounded-lg overflow-hidden border', className)}>
       <APIProvider apiKey={GOOGLE_MAPS_API_KEY}>
         <Map
           defaultZoom={4}
@@ -160,9 +160,9 @@ export function EventMap({ events, selectedEventId, onEventSelect, className }: 
               >
                 <div
                   className={cn(
-                    "relative flex items-center justify-center w-8 h-8 rounded-full border-2 transition-all duration-200 cursor-pointer",
+                    'relative flex items-center justify-center w-8 h-8 rounded-full border-2 transition-all duration-200 cursor-pointer',
                     getStatusColor(event.status),
-                    isSelected && "scale-125 ring-4 ring-primary/50"
+                    isSelected && 'scale-125 ring-4 ring-primary/50',
                   )}
                   role="button"
                   aria-label={`View event ${event.title}`}

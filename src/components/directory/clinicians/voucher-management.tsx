@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { ColumnDef } from "@tanstack/react-table";
-import { DataTable } from "@/components/ui/data-table";
-import { Button } from "@/components/ui/button";
+import { useState } from 'react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { ColumnDef } from '@tanstack/react-table';
+import { DataTable } from '@/components/ui/data-table';
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -13,7 +13,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -24,22 +24,22 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+} from '@/components/ui/alert-dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton";
-import { toast } from "sonner";
-import { PlusCircle, Trash } from "lucide-react";
-import { format } from "date-fns";
-import { cn } from "@/lib/utils";
+} from '@/components/ui/select';
+import { Badge } from '@/components/ui/badge';
+import { Skeleton } from '@/components/ui/skeleton';
+import { toast } from 'sonner';
+import { PlusCircle, Trash } from 'lucide-react';
+import { format } from 'date-fns';
+import { cn } from '@/lib/utils';
 
 interface Voucher {
   voucherId: string;
@@ -62,10 +62,12 @@ export function VoucherManagement({ clinicianId }: VoucherManagementProps) {
   const [expirationDate, setExpirationDate] = useState('');
 
   const { data: vouchers = [], isLoading } = useQuery<Voucher[]>({
-    queryKey: ["vouchers", clinicianId],
+    queryKey: ['vouchers', clinicianId],
     queryFn: async () => {
       const res = await fetch(`/api/clinicians/${clinicianId}/vouchers`);
-      if (!res.ok) throw new Error("Failed to fetch vouchers");
+      if (!res.ok) {
+throw new Error('Failed to fetch vouchers');
+}
       return res.json();
     },
   });
@@ -78,13 +80,13 @@ export function VoucherManagement({ clinicianId }: VoucherManagementProps) {
         body: JSON.stringify(newVoucher),
       }).then(res => res.json()),
     onSuccess: () => {
-      toast.success("Voucher issued successfully!");
-      queryClient.invalidateQueries({ queryKey: ["vouchers", clinicianId] });
+      toast.success('Voucher issued successfully!');
+      queryClient.invalidateQueries({ queryKey: ['vouchers', clinicianId] });
       setIsIssueDialogOpen(false);
       setVoucherValue('');
       setExpirationDate('');
     },
-    onError: () => toast.error("Failed to issue voucher."),
+    onError: () => toast.error('Failed to issue voucher.'),
   });
 
   const revokeMutation = useMutation({
@@ -93,10 +95,10 @@ export function VoucherManagement({ clinicianId }: VoucherManagementProps) {
         method: 'PATCH',
       }),
     onSuccess: () => {
-      toast.success("Voucher revoked successfully!");
-      queryClient.invalidateQueries({ queryKey: ["vouchers", clinicianId] });
+      toast.success('Voucher revoked successfully!');
+      queryClient.invalidateQueries({ queryKey: ['vouchers', clinicianId] });
     },
-    onError: () => toast.error("Failed to revoke voucher."),
+    onError: () => toast.error('Failed to revoke voucher.'),
   });
 
   const handleIssueVoucher = () => {
@@ -109,20 +111,20 @@ export function VoucherManagement({ clinicianId }: VoucherManagementProps) {
   };
 
   const columns: ColumnDef<Voucher>[] = [
-    { accessorKey: "code", header: "Voucher Code" },
+    { accessorKey: 'code', header: 'Voucher Code' },
     {
-      accessorKey: "value",
-      header: "Value",
+      accessorKey: 'value',
+      header: 'Value',
       cell: ({ row }) => row.original.type === 'fixed' ? `$${row.original.value}` : `${row.original.value}%`,
     },
     {
-      accessorKey: "expirationDate",
-      header: "Expires",
-      cell: ({ row }) => format(new Date(row.original.expirationDate), "MMM dd, yyyy"),
+      accessorKey: 'expirationDate',
+      header: 'Expires',
+      cell: ({ row }) => format(new Date(row.original.expirationDate), 'MMM dd, yyyy'),
     },
     {
-      accessorKey: "status",
-      header: "Status",
+      accessorKey: 'status',
+      header: 'Status',
       cell: ({ row }) => {
         const status = row.original.status;
         return (
@@ -137,7 +139,7 @@ export function VoucherManagement({ clinicianId }: VoucherManagementProps) {
       },
     },
     {
-      id: "actions",
+      id: 'actions',
       cell: ({ row }) => (
         <AlertDialog>
           <AlertDialogTrigger asChild>

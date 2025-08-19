@@ -1,34 +1,34 @@
-"use client"
+'use client';
 
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
+} from '@/components/ui/card';
+import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 
 const data = [
-  { month: "Jan", revenue: 45000, events: 12 },
-  { month: "Feb", revenue: 52000, events: 15 },
-  { month: "Mar", revenue: 48000, events: 13 },
-  { month: "Apr", revenue: 61000, events: 18 },
-  { month: "May", revenue: 55000, events: 16 },
-  { month: "Jun", revenue: 67000, events: 20 },
-]
+  { month: 'Jan', revenue: 45000, events: 12 },
+  { month: 'Feb', revenue: 52000, events: 15 },
+  { month: 'Mar', revenue: 48000, events: 13 },
+  { month: 'Apr', revenue: 61000, events: 18 },
+  { month: 'May', revenue: 55000, events: 16 },
+  { month: 'Jun', revenue: 67000, events: 20 },
+];
 
 const chartConfig = {
   revenue: {
-    label: "Revenue",
-    color: "hsl(var(--chart-1))",
+    label: 'Revenue',
+    color: 'hsl(var(--chart-1))',
   },
   events: {
-    label: "Events",
-    color: "hsl(var(--chart-2))",
+    label: 'Events',
+    color: 'hsl(var(--chart-2))',
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 export function SalesOverviewChart() {
   return (
@@ -62,5 +62,5 @@ export function SalesOverviewChart() {
         </ChartContainer>
       </CardContent>
     </Card>
-  )
+  );
 }

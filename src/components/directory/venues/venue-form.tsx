@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Button } from "@/components/ui/button";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -10,19 +10,19 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
   CardDescription,
-} from "@/components/ui/card";
-import { VenueFormValues, venueSchema } from "@/lib/schemas";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
-import { useState } from "react";
+} from '@/components/ui/card';
+import { VenueFormValues, venueSchema } from '@/lib/schemas';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
+import { useState } from 'react';
 
 interface Venue {
   id: string;
@@ -45,11 +45,11 @@ export function VenueForm({ initialData }: VenueFormProps) {
   const form = useForm<VenueFormValues>({
     resolver: zodResolver(venueSchema),
     defaultValues: initialData || {
-      name: "",
-      type: "",
-      city: "",
-      state: "",
-      contactPerson: "",
+      name: '',
+      type: '',
+      city: '',
+      state: '',
+      contactPerson: '',
       capacity: 0,
     },
   });
@@ -57,26 +57,26 @@ export function VenueForm({ initialData }: VenueFormProps) {
   const onSubmit = async (values: VenueFormValues) => {
     setLoading(true);
     try {
-      const method = initialData ? "PUT" : "POST";
+      const method = initialData ? 'PUT' : 'POST';
       const url = initialData
         ? `/api/venues/${initialData.id}`
-        : "/api/venues";
+        : '/api/venues';
       const response = await fetch(url, {
         method,
-        headers: { "Content-Type": "application/json" },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values),
       });
 
       if (!response.ok) {
-        throw new Error(`Failed to ${initialData ? "update" : "create"} venue`);
+        throw new Error(`Failed to ${initialData ? 'update' : 'create'} venue`);
       }
 
-      toast.success(`Venue ${initialData ? "updated" : "created"} successfully!`);
-      router.push("/dashboard/directory/venues");
+      toast.success(`Venue ${initialData ? 'updated' : 'created'} successfully!`);
+      router.push('/dashboard/directory/venues');
       router.refresh();
     } catch (error) {
       console.error(error);
-      toast.error("Something went wrong. Please try again.");
+      toast.error('Something went wrong. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -85,9 +85,9 @@ export function VenueForm({ initialData }: VenueFormProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{initialData ? "Edit Venue" : "Create Venue"}</CardTitle>
+        <CardTitle>{initialData ? 'Edit Venue' : 'Create Venue'}</CardTitle>
         <CardDescription>
-          Fill in the details below to {initialData ? "update the" : "add a new"}{" "}
+          Fill in the details below to {initialData ? 'update the' : 'add a new'}{' '}
           venue.
         </CardDescription>
       </CardHeader>
@@ -176,13 +176,13 @@ export function VenueForm({ initialData }: VenueFormProps) {
               <Button
                 type="button"
                 variant="outline"
-                onClick={() => router.push("/dashboard/directory/venues")}
+                onClick={() => router.push('/dashboard/directory/venues')}
                 disabled={loading}
               >
                 Cancel
               </Button>
               <Button type="submit" disabled={loading}>
-                {loading ? "Saving..." : "Save Changes"}
+                {loading ? 'Saving...' : 'Save Changes'}
               </Button>
             </div>
           </form>

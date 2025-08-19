@@ -3,16 +3,16 @@ import { sendGmailNotification } from '@/lib/google';
 
 // In a real app, you'd fetch this from your database
 const mockStudents = [
-  { id: "student-1", name: "Alice Johnson", email: "user@example.com", preCourseCompleted: true },
-  { id: "student-2", name: "Bob Smith", email: "user@example.com", preCourseCompleted: false },
-  { id: "student-3", name: "Carol Davis", email: "user@example.com", preCourseCompleted: false },
+  { id: 'student-1', name: 'Alice Johnson', email: 'user@example.com', preCourseCompleted: true },
+  { id: 'student-2', name: 'Bob Smith', email: 'user@example.com', preCourseCompleted: false },
+  { id: 'student-3', name: 'Carol Davis', email: 'user@example.com', preCourseCompleted: false },
 ];
 
 export async function POST(request: Request, { params }: { params: { id: string } }) {
   try {
     const eventId = params.id;
     // In a real app, you'd fetch event details too
-    const eventName = "Advanced React Patterns Workshop"; 
+    const eventName = 'Advanced React Patterns Workshop'; 
 
     const studentsToRemind = mockStudents.filter(s => !s.preCourseCompleted);
 
@@ -32,7 +32,7 @@ export async function POST(request: Request, { params }: { params: { id: string 
       message: `Reminder emails sent to ${studentsToRemind.length} students.`,
     });
   } catch (error) {
-    console.error("Failed to send reminders:", error);
+    console.error('Failed to send reminders:', error);
     return new NextResponse('Internal Server Error', { status: 500 });
   }
 }

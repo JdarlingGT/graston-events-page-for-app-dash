@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
-import { MapPin, User, Mail, Phone } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
+import { MapPin, User, Mail, Phone } from 'lucide-react';
 
 interface LogisticsTabProps {
   venue: { name: string; address: string; city: string; state: string; };
@@ -11,11 +11,11 @@ interface LogisticsTabProps {
 }
 
 const shippingItems = [
-  "Training Manuals (50x)",
-  "Instrument Sets (25x)",
-  "Welcome Packets & Swag",
-  "AV Kit (Projector, Cables)",
-  "Sign-in Sheets & Pens",
+  'Training Manuals (50x)',
+  'Instrument Sets (25x)',
+  'Welcome Packets & Swag',
+  'AV Kit (Projector, Cables)',
+  'Sign-in Sheets & Pens',
 ];
 
 export function LogisticsTab({ venue, instructor }: LogisticsTabProps) {

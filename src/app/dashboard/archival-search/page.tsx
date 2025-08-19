@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { ArchivalSearch } from "@/components/dashboard/archival-search/archival-search";
+import { ArchivalSearch } from '@/components/dashboard/archival-search/archival-search';
 
 export default function ArchivalSearchPage() {
   return (

@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -8,15 +8,15 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Sparkles, Send, User, Building, History } from "lucide-react";
-import { toast } from "sonner";
-import { Provider } from "@/lib/mock-data";
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Sparkles, Send, User, Building, History } from 'lucide-react';
+import { toast } from 'sonner';
+import { Provider } from '@/lib/mock-data';
 
 interface OutreachCopilotModalProps {
   isOpen: boolean;
@@ -26,7 +26,7 @@ interface OutreachCopilotModalProps {
 }
 
 export function OutreachCopilotModal({ isOpen, onClose, provider, event }: OutreachCopilotModalProps) {
-  const [email, setEmail] = useState({ subject: "", body: "" });
+  const [email, setEmail] = useState({ subject: '', body: '' });
   const [isLoading, setIsLoading] = useState(false);
   const [isSending, setIsSending] = useState(false);
 
@@ -40,11 +40,13 @@ export function OutreachCopilotModal({ isOpen, onClose, provider, event }: Outre
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ providerId: provider.id, eventId: event.id }),
           });
-          if (!response.ok) throw new Error('Failed to generate email');
+          if (!response.ok) {
+throw new Error('Failed to generate email');
+}
           const data = await response.json();
           setEmail(data);
         } catch (error) {
-          toast.error("AI failed to generate email draft.");
+          toast.error('AI failed to generate email draft.');
           onClose();
         } finally {
           setIsLoading(false);
@@ -137,7 +139,7 @@ export function OutreachCopilotModal({ isOpen, onClose, provider, event }: Outre
             <Button variant="outline" onClick={onClose}>Cancel</Button>
             <Button onClick={handleSend} disabled={isLoading || isSending}>
               <Send className="mr-2 h-4 w-4" />
-              {isSending ? "Sending..." : "Send Email"}
+              {isSending ? 'Sending...' : 'Send Email'}
             </Button>
           </DialogFooter>
         </div>

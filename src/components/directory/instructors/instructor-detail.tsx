@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useQuery } from "@tanstack/react-query";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { DataTable } from "@/components/ui/data-table";
-import { ColumnDef } from "@tanstack/react-table";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Mail, Phone, BookOpen } from "lucide-react";
-import Link from "next/link";
+import { useQuery } from '@tanstack/react-query';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { DataTable } from '@/components/ui/data-table';
+import { ColumnDef } from '@tanstack/react-table';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Mail, Phone, BookOpen } from 'lucide-react';
+import Link from 'next/link';
 
 interface Instructor {
   id: string;
@@ -28,8 +28,8 @@ interface Event {
 
 const eventColumns: ColumnDef<Event>[] = [
   {
-    accessorKey: "name",
-    header: "Event",
+    accessorKey: 'name',
+    header: 'Event',
     cell: ({ row }) => (
       <Link href={`/dashboard/events/${row.original.id}`} className="font-medium text-primary hover:underline">
         {row.original.name}
@@ -37,28 +37,32 @@ const eventColumns: ColumnDef<Event>[] = [
     ),
   },
   {
-    accessorKey: "date",
-    header: "Date",
+    accessorKey: 'date',
+    header: 'Date',
     cell: ({ row }) => new Date(row.original.date).toLocaleDateString(),
   },
-  { accessorKey: "city", header: "Location" },
+  { accessorKey: 'city', header: 'Location' },
 ];
 
 export function InstructorDetail({ instructorId }: { instructorId: string }) {
   const { data: instructor, isLoading: instructorLoading } = useQuery<Instructor>({
-    queryKey: ["instructor", instructorId],
+    queryKey: ['instructor', instructorId],
     queryFn: async () => {
       const res = await fetch(`/api/instructors/${instructorId}`);
-      if (!res.ok) throw new Error("Failed to fetch instructor");
+      if (!res.ok) {
+throw new Error('Failed to fetch instructor');
+}
       return res.json();
     },
   });
 
   const { data: events, isLoading: eventsLoading } = useQuery<Event[]>({
-    queryKey: ["instructor-events", instructorId],
+    queryKey: ['instructor-events', instructorId],
     queryFn: async () => {
       const res = await fetch(`/api/instructors/${instructorId}/events`);
-      if (!res.ok) throw new Error("Failed to fetch events");
+      if (!res.ok) {
+throw new Error('Failed to fetch events');
+}
       return res.json();
     },
   });
@@ -72,7 +76,9 @@ export function InstructorDetail({ instructorId }: { instructorId: string }) {
     );
   }
 
-  if (!instructor) return <p>Instructor not found.</p>;
+  if (!instructor) {
+return <p>Instructor not found.</p>;
+}
 
   return (
     <div className="space-y-6">

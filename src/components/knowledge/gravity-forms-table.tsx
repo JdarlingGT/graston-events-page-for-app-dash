@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useQuery } from "@tanstack/react-query";
-import { ColumnDef } from "@tanstack/react-table";
-import { DataTable } from "@/components/ui/data-table";
-import { Skeleton } from "@/components/ui/skeleton";
+import { useQuery } from '@tanstack/react-query';
+import { ColumnDef } from '@tanstack/react-table';
+import { DataTable } from '@/components/ui/data-table';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface GravityForm {
   id: number;
@@ -12,14 +12,16 @@ interface GravityForm {
 }
 
 const columns: ColumnDef<GravityForm>[] = [
-  { accessorKey: "id", header: "ID" },
-  { accessorKey: "name", header: "Form Name" },
-  { accessorKey: "description", header: "Description" },
+  { accessorKey: 'id', header: 'ID' },
+  { accessorKey: 'name', header: 'Form Name' },
+  { accessorKey: 'description', header: 'Description' },
 ];
 
 async function fetchForms(): Promise<GravityForm[]> {
   const res = await fetch('/api/knowledge/gravity-forms');
-  if (!res.ok) throw new Error('Failed to fetch Gravity Forms');
+  if (!res.ok) {
+throw new Error('Failed to fetch Gravity Forms');
+}
   return res.json();
 }
 
@@ -29,7 +31,9 @@ export function GravityFormsTable() {
     queryFn: fetchForms,
   });
 
-  if (isLoading) return <Skeleton className="h-64 w-full" />;
+  if (isLoading) {
+return <Skeleton className="h-64 w-full" />;
+}
 
   return <DataTable columns={columns} data={data || []} />;
 }

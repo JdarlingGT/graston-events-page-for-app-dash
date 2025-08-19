@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useState } from 'react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   DndContext,
   DragEndEvent,
@@ -10,15 +10,15 @@ import {
   PointerSensor,
   useSensor,
   useSensors,
-} from "@dnd-kit/core";
-import { toast } from "sonner";
-import { TaskColumn } from "./task-column";
-import { TaskCard } from "./task-card";
-import { TaskModal } from "./task-modal";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Button } from "../ui/button";
-import { PlusCircle } from "lucide-react";
-import { TaskFormValues } from "@/lib/schemas";
+} from '@dnd-kit/core';
+import { toast } from 'sonner';
+import { TaskColumn } from './task-column';
+import { TaskCard } from './task-card';
+import { TaskModal } from './task-modal';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Button } from '../ui/button';
+import { PlusCircle } from 'lucide-react';
+import { TaskFormValues } from '@/lib/schemas';
 
 export interface Attachment {
   id: string;
@@ -38,8 +38,8 @@ export interface Task {
   id: string;
   title: string;
   description?: string;
-  status: "todo" | "in-progress" | "done";
-  priority: "low" | "medium" | "high";
+  status: 'todo' | 'in-progress' | 'done';
+  priority: 'low' | 'medium' | 'high';
   assignee?: {
     name: string;
     avatar?: string;
@@ -52,17 +52,17 @@ export interface Task {
 }
 
 const columns = [
-  { id: "todo", title: "To Do" },
-  { id: "in-progress", title: "In Progress" },
-  { id: "done", title: "Done" },
+  { id: 'todo', title: 'To Do' },
+  { id: 'in-progress', title: 'In Progress' },
+  { id: 'done', title: 'Done' },
 ];
 
 // Mock assignees for the dropdown
 const assignees = [
-  { name: "Sarah Johnson", avatar: "https://i.pravatar.cc/150?img=1" },
-  { name: "Mike Chen", avatar: "https://i.pravatar.cc/150?img=2" },
-  { name: "Lisa Park", avatar: "https://i.pravatar.cc/150?img=3" },
-  { name: "Unassigned", avatar: "" },
+  { name: 'Sarah Johnson', avatar: 'https://i.pravatar.cc/150?img=1' },
+  { name: 'Mike Chen', avatar: 'https://i.pravatar.cc/150?img=2' },
+  { name: 'Lisa Park', avatar: 'https://i.pravatar.cc/150?img=3' },
+  { name: 'Unassigned', avatar: '' },
 ];
 
 export function TaskBoard({ projectId }: { projectId?: string }) {
@@ -76,24 +76,26 @@ export function TaskBoard({ projectId }: { projectId?: string }) {
       activationConstraint: {
         distance: 8,
       },
-    })
+    }),
   );
 
-  const queryKey = projectId ? ["tasks", projectId] : ["tasks"];
-  const apiUrl = projectId ? `/api/tasks?projectId=${projectId}` : "/api/tasks";
+  const queryKey = projectId ? ['tasks', projectId] : ['tasks'];
+  const apiUrl = projectId ? `/api/tasks?projectId=${projectId}` : '/api/tasks';
 
   const { data: tasks = [], isLoading } = useQuery<Task[]>({
     queryKey,
     queryFn: async () => {
       const response = await fetch(apiUrl);
-      if (!response.ok) throw new Error("Failed to fetch tasks");
+      if (!response.ok) {
+throw new Error('Failed to fetch tasks');
+}
       return response.json();
     },
   });
 
   const handleOptimisticUpdate = (updatedTask: Partial<Task> & { id: string }) => {
     queryClient.setQueryData<Task[]>(queryKey, (old = []) =>
-      old.map(task => task.id === updatedTask.id ? { ...task, ...updatedTask } : task)
+      old.map(task => task.id === updatedTask.id ? { ...task, ...updatedTask } : task),
     );
   };
 
@@ -104,14 +106,16 @@ export function TaskBoard({ projectId }: { projectId?: string }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newTask),
       });
-      if (!response.ok) throw new Error('Failed to create task');
+      if (!response.ok) {
+throw new Error('Failed to create task');
+}
       return response.json();
     },
     onSuccess: () => {
-      toast.success("Task created successfully!");
+      toast.success('Task created successfully!');
       queryClient.invalidateQueries({ queryKey });
     },
-    onError: () => toast.error("Failed to create task"),
+    onError: () => toast.error('Failed to create task'),
   });
 
   const updateTaskMutation = useMutation({
@@ -122,11 +126,13 @@ export function TaskBoard({ projectId }: { projectId?: string }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updates),
       });
-      if (!response.ok) throw new Error('Failed to update task');
+      if (!response.ok) {
+throw new Error('Failed to update task');
+}
       return response.json();
     },
-    onSuccess: () => toast.success("Task updated successfully!"),
-    onError: () => toast.error("Failed to update task"),
+    onSuccess: () => toast.success('Task updated successfully!'),
+    onError: () => toast.error('Failed to update task'),
     onSettled: () => queryClient.invalidateQueries({ queryKey }),
   });
 
@@ -138,7 +144,9 @@ export function TaskBoard({ projectId }: { projectId?: string }) {
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     setActiveTask(null);
-    if (!over || active.id === over.id) return;
+    if (!over || active.id === over.id) {
+return;
+}
     const activeTask = tasks.find((t) => t.id === active.id);
     const newStatus = columns.find(col => over.id.toString().includes(col.id))?.id as Task['status'];
     if (activeTask && newStatus && activeTask.status !== newStatus) {
@@ -164,7 +172,7 @@ export function TaskBoard({ projectId }: { projectId?: string }) {
       priority: values.priority,
       status: values.status,
       dueDate: values.dueDate?.toISOString(),
-      assignee: assigneeData && assigneeData.name !== "Unassigned" ? assigneeData : undefined,
+      assignee: assigneeData && assigneeData.name !== 'Unassigned' ? assigneeData : undefined,
       projectId: projectId, // Add projectId to new tasks
     };
 

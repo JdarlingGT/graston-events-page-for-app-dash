@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from '@tanstack/react-query';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Users, DollarSign, TrendingUp, Crown } from "lucide-react";
-import { Skeleton } from "@/components/ui/skeleton";
-import { toast } from "sonner";
+} from '@/components/ui/card';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Users, DollarSign, TrendingUp, Crown } from 'lucide-react';
+import { Skeleton } from '@/components/ui/skeleton';
+import { toast } from 'sonner';
 
 interface SalesRep {
   id: string;
@@ -24,10 +24,12 @@ interface SalesRep {
 
 export function SalesRepLeaderboard() {
   const { data: salesReps = [], isLoading, error } = useQuery<SalesRep[]>({
-    queryKey: ["sales-reps"],
+    queryKey: ['sales-reps'],
     queryFn: async () => {
-      const response = await fetch("/api/crm/sales-reps");
-      if (!response.ok) throw new Error("Failed to fetch sales reps");
+      const response = await fetch('/api/crm/sales-reps');
+      if (!response.ok) {
+throw new Error('Failed to fetch sales reps');
+}
       return response.json();
     },
     staleTime: 1000 * 60 * 5, // 5 minutes
@@ -56,7 +58,7 @@ export function SalesRepLeaderboard() {
   }
 
   if (error) {
-    toast.error("Failed to load sales rep data.");
+    toast.error('Failed to load sales rep data.');
     return (
       <Card>
         <CardHeader>

@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { ArrowRight, Users } from "lucide-react";
-import { FunnelChart, Funnel, LabelList, Tooltip, ResponsiveContainer } from "recharts";
-import { ChartTooltipContent } from "@/components/ui/chart";
-import { cn } from "@/lib/utils";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { ArrowRight, Users } from 'lucide-react';
+import { FunnelChart, Funnel, LabelList, Tooltip, ResponsiveContainer } from 'recharts';
+import { ChartTooltipContent } from '@/components/ui/chart';
+import { cn } from '@/lib/utils';
 
 interface Stage {
   stage: string;
@@ -17,10 +17,10 @@ interface PipelineFunnelProps {
 }
 
 const conversionRateKeys = [
-  "GTU_to_Essential",
-  "Essential_to_Completed",
-  "Completed_to_Advanced",
-  "Advanced_to_Completed",
+  'GTU_to_Essential',
+  'Essential_to_Completed',
+  'Completed_to_Advanced',
+  'Advanced_to_Completed',
 ];
 
 export function PipelineFunnel({ stages, conversionRates }: PipelineFunnelProps) {

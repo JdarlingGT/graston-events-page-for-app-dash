@@ -1,30 +1,36 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Copy, Link as LinkIcon } from "lucide-react";
-import { toast } from "sonner";
+import { useState, useEffect } from 'react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { Copy, Link as LinkIcon } from 'lucide-react';
+import { toast } from 'sonner';
 
 export function UtmLinkBuilder() {
-  const [url, setUrl] = useState("");
-  const [source, setSource] = useState("");
-  const [medium, setMedium] = useState("");
-  const [campaign, setCampaign] = useState("");
-  const [generatedUrl, setGeneratedUrl] = useState("");
+  const [url, setUrl] = useState('');
+  const [source, setSource] = useState('');
+  const [medium, setMedium] = useState('');
+  const [campaign, setCampaign] = useState('');
+  const [generatedUrl, setGeneratedUrl] = useState('');
 
   useEffect(() => {
     const buildUrl = () => {
       if (!url) {
-        setGeneratedUrl("");
+        setGeneratedUrl('');
         return;
       }
-      const urlObject = new URL(url.startsWith("http") ? url : `https://${url}`);
-      if (source) urlObject.searchParams.set("utm_source", source);
-      if (medium) urlObject.searchParams.set("utm_medium", medium);
-      if (campaign) urlObject.searchParams.set("utm_campaign", campaign);
+      const urlObject = new URL(url.startsWith('http') ? url : `https://${url}`);
+      if (source) {
+urlObject.searchParams.set('utm_source', source);
+}
+      if (medium) {
+urlObject.searchParams.set('utm_medium', medium);
+}
+      if (campaign) {
+urlObject.searchParams.set('utm_campaign', campaign);
+}
       setGeneratedUrl(urlObject.toString());
     };
     buildUrl();
@@ -33,7 +39,7 @@ export function UtmLinkBuilder() {
   const handleCopy = () => {
     if (generatedUrl) {
       navigator.clipboard.writeText(generatedUrl);
-      toast.success("UTM link copied to clipboard!");
+      toast.success('UTM link copied to clipboard!');
     }
   };
 

@@ -1,50 +1,52 @@
-"use client";
+'use client';
 
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from '@tanstack/react-query';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Bell, ArrowRight, AlertTriangle, CheckCircle } from "lucide-react";
-import Link from "next/link";
-import { formatDistanceToNow, parseISO } from "date-fns";
-import { cn } from "@/lib/utils";
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Bell, ArrowRight, AlertTriangle, CheckCircle } from 'lucide-react';
+import Link from 'next/link';
+import { formatDistanceToNow, parseISO } from 'date-fns';
+import { cn } from '@/lib/utils';
 
 interface Notification {
   id: string;
-  type: "warning" | "success" | "info" | "error";
+  type: 'warning' | 'success' | 'info' | 'error';
   title: string;
   timestamp: string;
   read: boolean;
-  priority: "low" | "medium" | "high";
+  priority: 'low' | 'medium' | 'high';
 }
 
 async function fetchRecentNotifications(): Promise<Notification[]> {
-  const response = await fetch("/api/notifications");
-  if (!response.ok) throw new Error("Failed to fetch notifications");
+  const response = await fetch('/api/notifications');
+  if (!response.ok) {
+throw new Error('Failed to fetch notifications');
+}
   const notifications = await response.json();
   return notifications
-    .filter((n: Notification) => !n.read && n.priority === "high")
+    .filter((n: Notification) => !n.read && n.priority === 'high')
     .sort((a: Notification, b: Notification) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
     .slice(0, 5);
 }
 
 export function RecentNotificationsCard() {
   const { data: notifications, isLoading } = useQuery<Notification[]>({
-    queryKey: ["recent-notifications"],
+    queryKey: ['recent-notifications'],
     queryFn: fetchRecentNotifications,
   });
 
   const getNotificationIcon = (type: string) => {
     switch (type) {
-      case "warning": return <AlertTriangle className="h-4 w-4 text-yellow-500" />;
-      case "success": return <CheckCircle className="h-4 w-4 text-green-500" />;
-      case "error": return <AlertTriangle className="h-4 w-4 text-red-500" />;
+      case 'warning': return <AlertTriangle className="h-4 w-4 text-yellow-500" />;
+      case 'success': return <CheckCircle className="h-4 w-4 text-green-500" />;
+      case 'error': return <AlertTriangle className="h-4 w-4 text-red-500" />;
       default: return <Bell className="h-4 w-4 text-blue-500" />;
     }
   };

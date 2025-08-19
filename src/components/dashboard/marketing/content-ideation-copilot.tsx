@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Sparkles, Lightbulb } from "lucide-react";
-import { toast } from "sonner";
+import { useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Sparkles, Lightbulb } from 'lucide-react';
+import { toast } from 'sonner';
 
 interface ContentIdea {
   type: string;
@@ -15,20 +15,22 @@ interface ContentIdea {
 }
 
 export function ContentIdeationCopilot() {
-  const [topic, setTopic] = useState("");
+  const [topic, setTopic] = useState('');
   const [ideas, setIdeas] = useState<ContentIdea[]>([]);
 
   const mutation = useMutation({
     mutationFn: async (newTopic: string) => {
       const response = await fetch(`/api/marketing/generate-content-ideas?topic=${encodeURIComponent(newTopic)}`);
-      if (!response.ok) throw new Error("Failed to generate ideas");
+      if (!response.ok) {
+throw new Error('Failed to generate ideas');
+}
       return response.json();
     },
     onSuccess: (data) => {
       setIdeas(data);
     },
     onError: () => {
-      toast.error("AI Co-pilot failed to generate ideas.");
+      toast.error('AI Co-pilot failed to generate ideas.');
     },
   });
 

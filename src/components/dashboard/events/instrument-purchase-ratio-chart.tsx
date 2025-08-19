@@ -1,14 +1,14 @@
-"use client"
+'use client';
 
-import { Pie, PieChart, ResponsiveContainer, Cell, Legend } from "recharts"
+import { Pie, PieChart, ResponsiveContainer, Cell, Legend } from 'recharts';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
+} from '@/components/ui/card';
+import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 
 interface InstrumentPurchaseRatioChartProps {
   enrolledStudents: number;
@@ -17,23 +17,23 @@ interface InstrumentPurchaseRatioChartProps {
 
 const chartConfig = {
   value: {
-    label: "Count",
-    color: "hsl(var(--chart-1))",
+    label: 'Count',
+    color: 'hsl(var(--chart-1))',
   },
-  "Instrument Set Purchased": {
-    label: "Instrument Set Purchased",
-    color: "hsl(var(--chart-2))",
+  'Instrument Set Purchased': {
+    label: 'Instrument Set Purchased',
+    color: 'hsl(var(--chart-2))',
   },
-  "No Instrument Set": {
-    label: "No Instrument Set",
-    color: "hsl(var(--chart-4))",
+  'No Instrument Set': {
+    label: 'No Instrument Set',
+    color: 'hsl(var(--chart-4))',
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 export function InstrumentPurchaseRatioChart({ enrolledStudents, instrumentsPurchased }: InstrumentPurchaseRatioChartProps) {
   const data = [
-    { name: "Instrument Set Purchased", value: instrumentsPurchased },
-    { name: "No Instrument Set", value: enrolledStudents - instrumentsPurchased },
+    { name: 'Instrument Set Purchased', value: instrumentsPurchased },
+    { name: 'No Instrument Set', value: enrolledStudents - instrumentsPurchased },
   ].filter(item => item.value > 0);
 
   return (
@@ -62,7 +62,7 @@ export function InstrumentPurchaseRatioChart({ enrolledStudents, instrumentsPurc
                 {data.map((entry, index) => (
                   <Cell
                     key={`cell-${index}`}
-                    fill={chartConfig[entry.name as keyof typeof chartConfig]?.color || "hsl(var(--chart-1))"}
+                    fill={chartConfig[entry.name as keyof typeof chartConfig]?.color || 'hsl(var(--chart-1))'}
                   />
                 ))}
               </Pie>
@@ -95,5 +95,5 @@ export function InstrumentPurchaseRatioChart({ enrolledStudents, instrumentsPurc
         </ChartContainer>
       </CardContent>
     </Card>
-  )
+  );
 }

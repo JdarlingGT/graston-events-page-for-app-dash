@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useQuery } from "@tanstack/react-query";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Progress } from "@/components/ui/progress";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Task } from "@/components/tasks/task-board";
-import { CheckSquare, ListTodo, AlertCircle } from "lucide-react";
+import { useQuery } from '@tanstack/react-query';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Progress } from '@/components/ui/progress';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Task } from '@/components/tasks/task-board';
+import { CheckSquare, ListTodo, AlertCircle } from 'lucide-react';
 
 interface Project {
   id: string;
@@ -22,10 +22,12 @@ interface ProjectOverviewProps {
 
 export function ProjectOverview({ project }: ProjectOverviewProps) {
   const { data: tasks = [], isLoading } = useQuery<Task[]>({
-    queryKey: ["tasks", project.id],
+    queryKey: ['tasks', project.id],
     queryFn: async () => {
       const response = await fetch(`/api/tasks?projectId=${project.id}`);
-      if (!response.ok) throw new Error("Failed to fetch tasks");
+      if (!response.ok) {
+throw new Error('Failed to fetch tasks');
+}
       return response.json();
     },
   });

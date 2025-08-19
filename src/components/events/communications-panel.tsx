@@ -1,21 +1,21 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { Mail, Save } from "lucide-react";
-import { toast } from "sonner";
+import { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
+import { Mail, Save } from 'lucide-react';
+import { toast } from 'sonner';
 
 interface CommunicationsPanelProps {
   eventId: string;
 }
 
 export function CommunicationsPanel({ eventId }: CommunicationsPanelProps) {
-  const [notes, setNotes] = useState("");
+  const [notes, setNotes] = useState('');
 
   const handleSendSequence = async () => {
-    toast.info("Sending email sequence...");
+    toast.info('Sending email sequence...');
     // Mock API call
     await new Promise(resolve => setTimeout(resolve, 1500));
     toast.success("'Last Call' email sequence sent to interested leads.");
@@ -23,7 +23,7 @@ export function CommunicationsPanel({ eventId }: CommunicationsPanelProps) {
 
   const handleSaveNotes = () => {
     // In a real app, you would save this to your backend
-    toast.success("Notes saved successfully!");
+    toast.success('Notes saved successfully!');
   };
 
   return (

@@ -1,30 +1,30 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { Mail } from "lucide-react";
-import { toast } from "sonner";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
+import { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
+import { Mail } from 'lucide-react';
+import { toast } from 'sonner';
+import { Input } from '../ui/input';
+import { Label } from '../ui/label';
 
 interface BulkEmailPanelProps {
   attendeeCount: number;
 }
 
 export function BulkEmailPanel({ attendeeCount }: BulkEmailPanelProps) {
-  const [subject, setSubject] = useState("");
-  const [body, setBody] = useState("");
+  const [subject, setSubject] = useState('');
+  const [body, setBody] = useState('');
 
   const handleSendEmail = async () => {
     if (!subject || !body) {
-      toast.error("Subject and body are required.");
+      toast.error('Subject and body are required.');
       return;
     }
     toast.info(`Sending email to ${attendeeCount} attendees...`);
     await new Promise(resolve => setTimeout(resolve, 1500));
-    toast.success("Bulk email sent successfully!");
+    toast.success('Bulk email sent successfully!');
   };
 
   return (

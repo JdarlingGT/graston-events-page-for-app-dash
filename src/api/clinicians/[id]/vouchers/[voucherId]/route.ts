@@ -20,7 +20,7 @@ async function saveVouchers(vouchers: any) {
 
 // PATCH - Revoke a voucher
 export async function PATCH(request: Request, { params }: { params: { id: string; voucherId: string } }) {
-  let allVouchers = await getVouchers();
+  const allVouchers = await getVouchers();
   const voucherIndex = allVouchers.findIndex((v: any) => v.voucherId === params.voucherId && v.clinicianId === params.id);
 
   if (voucherIndex === -1) {

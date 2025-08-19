@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Target, Sparkles, PlusCircle } from "lucide-react";
-import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
-import { Skeleton } from "@/components/ui/skeleton";
-import { differenceInDays, parseISO } from "date-fns";
-import { CampaignManagement } from "@/components/dashboard/marketing/campaign-management";
-import { UtmLinkBuilder } from "@/components/dashboard/marketing/utm-link-builder";
-import { ContentIdeationCopilot } from "@/components/dashboard/marketing/content-ideation-copilot";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { ArrowRight, Target, Sparkles, PlusCircle } from 'lucide-react';
+import Link from 'next/link';
+import { useQuery } from '@tanstack/react-query';
+import { Skeleton } from '@/components/ui/skeleton';
+import { differenceInDays, parseISO } from 'date-fns';
+import { CampaignManagement } from '@/components/dashboard/marketing/campaign-management';
+import { UtmLinkBuilder } from '@/components/dashboard/marketing/utm-link-builder';
+import { ContentIdeationCopilot } from '@/components/dashboard/marketing/content-ideation-copilot';
 
 interface AtRiskEvent {
   id: string;
@@ -20,19 +20,21 @@ interface AtRiskEvent {
 }
 
 async function fetchAtRiskEvents(): Promise<AtRiskEvent[]> {
-  const response = await fetch("/api/events");
-  if (!response.ok) throw new Error("Failed to fetch events");
+  const response = await fetch('/api/events');
+  if (!response.ok) {
+throw new Error('Failed to fetch events');
+}
   const events = await response.json();
   return events.filter(
     (event: AtRiskEvent) =>
       event.enrolledStudents < event.minViableEnrollment &&
-      differenceInDays(parseISO(event.date), new Date()) >= 0
+      differenceInDays(parseISO(event.date), new Date()) >= 0,
   );
 }
 
 function MarketingActionCards() {
   const { data: atRiskEvents, isLoading } = useQuery<AtRiskEvent[]>({
-    queryKey: ["at-risk-events-marketing"],
+    queryKey: ['at-risk-events-marketing'],
     queryFn: fetchAtRiskEvents,
   });
 

@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Download, BookOpen, ClipboardCheck } from "lucide-react";
-import Link from "next/link";
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Download, BookOpen, ClipboardCheck } from 'lucide-react';
+import Link from 'next/link';
 
 const resources = [
-  { name: "Class Sign-in Sheet", icon: ClipboardCheck, href: "/resources/sign-in-sheet.pdf" },
-  { name: "Training Manual PDF", icon: BookOpen, href: "/resources/training-manual.pdf" },
-  { name: "Skills Checklist Criteria", icon: ClipboardCheck, href: "/resources/skills-checklist.pdf" },
+  { name: 'Class Sign-in Sheet', icon: ClipboardCheck, href: '/resources/sign-in-sheet.pdf' },
+  { name: 'Training Manual PDF', icon: BookOpen, href: '/resources/training-manual.pdf' },
+  { name: 'Skills Checklist Criteria', icon: ClipboardCheck, href: '/resources/skills-checklist.pdf' },
 ];
 
 export function InstructorResourcePod() {

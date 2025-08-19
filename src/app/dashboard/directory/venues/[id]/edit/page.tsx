@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { VenueForm } from "@/components/directory/venues/venue-form";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useEffect, useState } from "react";
+import { VenueForm } from '@/components/directory/venues/venue-form';
+import { Skeleton } from '@/components/ui/skeleton';
+import { useEffect, useState } from 'react';
 
 interface Venue {
   id: string;
@@ -24,12 +24,12 @@ export default function EditVenuePage({ params }: { params: { id: string } }) {
       try {
         const response = await fetch(`/api/venues/${params.id}`);
         if (!response.ok) {
-          throw new Error("Venue not found");
+          throw new Error('Venue not found');
         }
         const data = await response.json();
         setVenue(data);
       } catch (err) {
-        setError("Failed to load venue data.");
+        setError('Failed to load venue data.');
         console.error(err);
       } finally {
         setLoading(false);

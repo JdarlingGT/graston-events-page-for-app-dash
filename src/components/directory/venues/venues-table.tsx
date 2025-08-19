@@ -1,20 +1,20 @@
-"use client";
+'use client';
 
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { ColumnDef } from "@tanstack/react-table";
-import { DataTable } from "@/components/ui/data-table";
-import { Skeleton } from "@/components/ui/skeleton";
-import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { ColumnDef } from '@tanstack/react-table';
+import { DataTable } from '@/components/ui/data-table';
+import { Skeleton } from '@/components/ui/skeleton';
+import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { MoreHorizontal, Edit, Trash } from "lucide-react";
-import { useRouter } from "next/navigation";
+} from '@/components/ui/dropdown-menu';
+import { MoreHorizontal, Edit, Trash } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -25,8 +25,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import React from "react";
+} from '@/components/ui/alert-dialog';
+import React from 'react';
 
 interface Venue {
   id: string;
@@ -37,8 +37,10 @@ interface Venue {
 }
 
 async function fetchVenues(): Promise<Venue[]> {
-  const response = await fetch("/api/venues");
-  if (!response.ok) throw new Error("Failed to fetch venues");
+  const response = await fetch('/api/venues');
+  if (!response.ok) {
+throw new Error('Failed to fetch venues');
+}
   return response.json();
 }
 
@@ -47,7 +49,7 @@ export function VenuesTable() {
   const router = useRouter();
 
   const { data: venues = [], isLoading } = useQuery<Venue[]>({
-    queryKey: ["venues"],
+    queryKey: ['venues'],
     queryFn: fetchVenues,
     staleTime: 1000 * 60 * 15, // 15 minutes
   });
@@ -55,28 +57,28 @@ export function VenuesTable() {
   const deleteMutation = useMutation({
     mutationFn: async (venueId: string) => {
       const response = await fetch(`/api/venues/${venueId}`, {
-        method: "DELETE",
+        method: 'DELETE',
       });
       if (!response.ok) {
-        throw new Error("Failed to delete venue");
+        throw new Error('Failed to delete venue');
       }
     },
     onSuccess: () => {
-      toast.success("Venue deleted successfully.");
-      queryClient.invalidateQueries({ queryKey: ["venues"] });
+      toast.success('Venue deleted successfully.');
+      queryClient.invalidateQueries({ queryKey: ['venues'] });
     },
     onError: () => {
-      toast.error("Failed to delete venue.");
+      toast.error('Failed to delete venue.');
     },
   });
 
   const columns: ColumnDef<Venue>[] = [
-    { accessorKey: "name", header: "Name" },
-    { accessorKey: "type", header: "Type" },
-    { accessorKey: "city", header: "City" },
-    { accessorKey: "capacity", header: "Capacity" },
+    { accessorKey: 'name', header: 'Name' },
+    { accessorKey: 'type', header: 'Type' },
+    { accessorKey: 'city', header: 'City' },
+    { accessorKey: 'capacity', header: 'Capacity' },
     {
-      id: "actions",
+      id: 'actions',
       cell: ({ row }) => {
         const venue = row.original;
         return (

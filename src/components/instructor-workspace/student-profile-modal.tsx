@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Dialog,
@@ -7,14 +7,14 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Progress } from "@/components/ui/progress";
-import { Badge } from "@/components/ui/badge";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { useState, useEffect } from "react";
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Progress } from '@/components/ui/progress';
+import { Badge } from '@/components/ui/badge';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { useState, useEffect } from 'react';
 
 interface Student {
   id: string;
@@ -26,7 +26,7 @@ interface Student {
 
 interface RosterState {
   attendance: boolean;
-  skillsCheck: "Not Started" | "Passed" | "Needs Review";
+  skillsCheck: 'Not Started' | 'Passed' | 'Needs Review';
   notes: string;
 }
 
@@ -39,7 +39,7 @@ interface StudentProfileModalProps {
 }
 
 export function StudentProfileModal({ isOpen, onClose, student, rosterState, onSaveNotes }: StudentProfileModalProps) {
-  const [notes, setNotes] = useState("");
+  const [notes, setNotes] = useState('');
 
   useEffect(() => {
     if (isOpen && rosterState) {
@@ -54,7 +54,9 @@ export function StudentProfileModal({ isOpen, onClose, student, rosterState, onS
     }
   };
 
-  if (!student || !rosterState) return null;
+  if (!student || !rosterState) {
+return null;
+}
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -77,13 +79,13 @@ export function StudentProfileModal({ isOpen, onClose, student, rosterState, onS
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label>Attendance</Label>
-              <Badge variant={rosterState.attendance ? "default" : "secondary"}>
-                {rosterState.attendance ? "Present" : "Absent"}
+              <Badge variant={rosterState.attendance ? 'default' : 'secondary'}>
+                {rosterState.attendance ? 'Present' : 'Absent'}
               </Badge>
             </div>
             <div className="space-y-2">
               <Label>Skills Check</Label>
-              <Badge variant={rosterState.skillsCheck === "Passed" ? "default" : rosterState.skillsCheck === "Needs Review" ? "secondary" : "outline"}>
+              <Badge variant={rosterState.skillsCheck === 'Passed' ? 'default' : rosterState.skillsCheck === 'Needs Review' ? 'secondary' : 'outline'}>
                 {rosterState.skillsCheck}
               </Badge>
             </div>

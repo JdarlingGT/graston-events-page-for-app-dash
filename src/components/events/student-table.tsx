@@ -1,33 +1,33 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { DataTable } from "@/components/ui/data-table";
-import { ColumnDef, Row, ColumnFiltersState } from "@tanstack/react-table";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Progress } from "@/components/ui/progress";
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { DataTable } from '@/components/ui/data-table';
+import { ColumnDef, Row, ColumnFiltersState } from '@tanstack/react-table';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Progress } from '@/components/ui/progress';
 import { 
   ExternalLink, 
   Mail, 
   MoreHorizontal,
   Check,
   User,
-  AlertTriangle
-} from "lucide-react";
+  AlertTriangle,
+} from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { toast } from "sonner";
-import { Skeleton } from "../ui/skeleton";
-import { differenceInDays, parseISO, isAfter, setHours, setMinutes } from "date-fns";
-import { CheckInMode } from "./check-in-mode";
-import { Input } from "../ui/input";
-import { BulkActions } from "./bulk-actions";
+} from '@/components/ui/dropdown-menu';
+import { toast } from 'sonner';
+import { Skeleton } from '../ui/skeleton';
+import { differenceInDays, parseISO, isAfter, setHours, setMinutes } from 'date-fns';
+import { CheckInMode } from './check-in-mode';
+import { Input } from '../ui/input';
+import { BulkActions } from './bulk-actions';
 
 interface Student {
   id: string;
@@ -59,26 +59,30 @@ export function StudentTable({ eventId, eventDate }: StudentTableProps) {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   const { data: students = [], isLoading: studentsLoading, error: studentsError } = useQuery<Student[]>({
-    queryKey: ["event-students", eventId],
+    queryKey: ['event-students', eventId],
     queryFn: async () => {
       const response = await fetch(`/api/events/${eventId}/students`);
-      if (!response.ok) throw new Error("Failed to fetch students");
+      if (!response.ok) {
+throw new Error('Failed to fetch students');
+}
       const data = await response.json();
       return data.map((student: any) => ({
         ...student,
         courseProgress: Math.floor(Math.random() * 100),
-        licenseType: student.providerType.includes("Nurse") ? "RN License" : "Professional License",
-        crmTags: ["New Student", student.preCourseCompleted ? "Pre-Course Complete" : "Pre-Course Incomplete"],
+        licenseType: student.providerType.includes('Nurse') ? 'RN License' : 'Professional License',
+        crmTags: ['New Student', student.preCourseCompleted ? 'Pre-Course Complete' : 'Pre-Course Incomplete'],
       }));
     },
     staleTime: 1000 * 60 * 5, // 5 minutes
   });
 
   const { data: checkIns = {}, isLoading: checkInsLoading } = useQuery<Record<string, CheckInRecord>>({
-    queryKey: ["checkins", eventId],
+    queryKey: ['checkins', eventId],
     queryFn: async () => {
       const res = await fetch(`/api/events/${eventId}/checkin`);
-      if (!res.ok) throw new Error("Failed to fetch check-in data");
+      if (!res.ok) {
+throw new Error('Failed to fetch check-in data');
+}
       return res.json();
     },
     refetchInterval: 5000, // Poll every 5 seconds
@@ -92,17 +96,17 @@ export function StudentTable({ eventId, eventDate }: StudentTableProps) {
     const student = row.original;
     const daysUntilEvent = differenceInDays(parseISO(eventDate), new Date());
     if (!student.preCourseCompleted && daysUntilEvent < 7 && daysUntilEvent >= 0) {
-      return "bg-red-50 dark:bg-red-900/20";
+      return 'bg-red-50 dark:bg-red-900/20';
     }
     if (!student.preCourseCompleted && daysUntilEvent <= 14 && daysUntilEvent >= 0) {
-      return "bg-yellow-50 dark:bg-yellow-900/20";
+      return 'bg-yellow-50 dark:bg-yellow-900/20';
     }
-    return "";
+    return '';
   };
 
   const columns: ColumnDef<Student>[] = [
     {
-      id: "select",
+      id: 'select',
       header: ({ table }) => (
         <input
           type="checkbox"
@@ -123,7 +127,7 @@ export function StudentTable({ eventId, eventDate }: StudentTableProps) {
           onChange={(e) => {
             row.toggleSelected(e.target.checked);
             setSelectedStudents(prev => 
-              e.target.checked ? [...prev, row.original.id] : prev.filter(id => id !== row.original.id)
+              e.target.checked ? [...prev, row.original.id] : prev.filter(id => id !== row.original.id),
             );
           }}
           aria-label={`Select row for ${row.original.name}`}
@@ -132,8 +136,8 @@ export function StudentTable({ eventId, eventDate }: StudentTableProps) {
       ),
     },
     {
-      accessorKey: "name",
-      header: "Student",
+      accessorKey: 'name',
+      header: 'Student',
       cell: ({ row }) => {
         const student = row.original;
         return (
@@ -148,22 +152,22 @@ export function StudentTable({ eventId, eventDate }: StudentTableProps) {
       },
     },
     {
-      accessorKey: "licenseNumber",
-      header: "License #",
+      accessorKey: 'licenseNumber',
+      header: 'License #',
     },
     {
-      accessorKey: "preCourseProgress",
-      header: "Pre-Course",
+      accessorKey: 'preCourseProgress',
+      header: 'Pre-Course',
       cell: ({ row }) => <Progress value={row.original.preCourseProgress} className="h-2" />,
     },
     {
-      accessorKey: "courseProgress",
-      header: "Course Progress",
+      accessorKey: 'courseProgress',
+      header: 'Course Progress',
       cell: ({ row }) => <Progress value={row.original.courseProgress} className="h-2" />,
     },
     {
-      id: "status",
-      header: "Status",
+      id: 'status',
+      header: 'Status',
       cell: ({ row }) => {
         const studentId = row.original.id;
         const hasCheckedIn = !!checkIns[studentId]?.morningIn;
@@ -175,11 +179,11 @@ export function StudentTable({ eventId, eventDate }: StudentTableProps) {
         if (isAbsent) {
           return <Badge variant="destructive" className="flex items-center gap-1"><AlertTriangle className="h-3 w-3" /> Absent</Badge>;
         }
-        return <Badge variant={hasCheckedIn ? "default" : "secondary"}>{hasCheckedIn ? "Checked In" : "Not Arrived"}</Badge>;
+        return <Badge variant={hasCheckedIn ? 'default' : 'secondary'}>{hasCheckedIn ? 'Checked In' : 'Not Arrived'}</Badge>;
       },
     },
     {
-      id: "actions",
+      id: 'actions',
       cell: ({ row }) => (
         <DropdownMenu>
           <DropdownMenuTrigger asChild><Button variant="ghost" className="h-8 w-8 p-0" aria-label={`Actions for ${row.original.name}`}><MoreHorizontal className="h-4 w-4" /></Button></DropdownMenuTrigger>

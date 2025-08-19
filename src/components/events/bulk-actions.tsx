@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { useState } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import {
   Dialog,
   DialogContent,
@@ -12,24 +12,24 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+} from '@/components/ui/dropdown-menu';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 import {
   Upload,
   Download,
@@ -37,10 +37,10 @@ import {
   UserPlus,
   Tag,
   MessageSquare,
-  ChevronDown
-} from "lucide-react";
-import { toast } from "sonner";
-import { BrandedLoader } from "../ui/branded-loader";
+  ChevronDown,
+} from 'lucide-react';
+import { toast } from 'sonner';
+import { BrandedLoader } from '../ui/branded-loader';
 
 interface BulkActionsProps {
   selectedStudents: string[];
@@ -52,18 +52,20 @@ export function BulkActions({ selectedStudents, eventId, onClearSelection }: Bul
   const [isImportOpen, setIsImportOpen] = useState(false);
   const [isEmailOpen, setIsEmailOpen] = useState(false);
   const [isAddStudentOpen, setIsAddStudentOpen] = useState(false);
-  const [emailTemplate, setEmailTemplate] = useState("");
-  const [emailSubject, setEmailSubject] = useState("");
+  const [emailTemplate, setEmailTemplate] = useState('');
+  const [emailSubject, setEmailSubject] = useState('');
   const queryClient = useQueryClient();
 
   const bulkEmailMutation = useMutation({
     mutationFn: async (data: { studentIds: string[]; subject: string; template: string }) => {
-      const response = await fetch(`/api/crm/bulk-email`, {
+      const response = await fetch('/api/crm/bulk-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
-      if (!response.ok) throw new Error('Failed to send bulk email');
+      if (!response.ok) {
+throw new Error('Failed to send bulk email');
+}
       return response.json();
     },
     onSuccess: () => {
@@ -86,12 +88,14 @@ export function BulkActions({ selectedStudents, eventId, onClearSelection }: Bul
         method: 'POST',
         body: formData,
       });
-      if (!response.ok) throw new Error('Failed to import students');
+      if (!response.ok) {
+throw new Error('Failed to import students');
+}
       return response.json();
     },
     onSuccess: (data) => {
       toast.success(`Successfully imported ${data.count} students`);
-      queryClient.invalidateQueries({ queryKey: ["event-students", eventId] });
+      queryClient.invalidateQueries({ queryKey: ['event-students', eventId] });
       setIsImportOpen(false);
     },
     onError: () => {
@@ -111,7 +115,7 @@ export function BulkActions({ selectedStudents, eventId, onClearSelection }: Bul
       toast.success('Student added successfully');
       await fetch(`/api/students/${newStudent.id}/send-welcome`, { method: 'POST' });
       toast.info(`Welcome email simulation triggered for ${newStudent.name}.`);
-      queryClient.invalidateQueries({ queryKey: ["event-students", eventId] });
+      queryClient.invalidateQueries({ queryKey: ['event-students', eventId] });
       setIsAddStudentOpen(false);
     },
     onError: () => {
@@ -320,7 +324,7 @@ export function BulkActions({ selectedStudents, eventId, onClearSelection }: Bul
                   Cancel
                 </Button>
                 <Button type="submit" disabled={addStudentMutation.isPending} className="w-28">
-                  {addStudentMutation.isPending ? <BrandedLoader /> : "Add Student"}
+                  {addStudentMutation.isPending ? <BrandedLoader /> : 'Add Student'}
                 </Button>
               </DialogFooter>
             </form>
@@ -358,7 +362,7 @@ export function BulkActions({ selectedStudents, eventId, onClearSelection }: Bul
               />
             </div>
             <div className="text-sm text-muted-foreground">
-              Available variables: {"{name}"}, {"{email}"}, {"{event_name}"}, {"{event_date}"}
+              Available variables: {'{name}'}, {'{email}'}, {'{event_name}'}, {'{event_date}'}
             </div>
           </div>
           <DialogFooter>
@@ -370,7 +374,7 @@ export function BulkActions({ selectedStudents, eventId, onClearSelection }: Bul
               disabled={bulkEmailMutation.isPending || !emailSubject || !emailTemplate}
               className="w-28"
             >
-              {bulkEmailMutation.isPending ? <BrandedLoader /> : "Send Email"}
+              {bulkEmailMutation.isPending ? <BrandedLoader /> : 'Send Email'}
             </Button>
           </DialogFooter>
         </DialogContent>

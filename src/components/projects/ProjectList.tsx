@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useQuery } from "@tanstack/react-query";
-import { Skeleton } from "@/components/ui/skeleton";
-import { ProjectCard } from "./project-card";
+import { useQuery } from '@tanstack/react-query';
+import { Skeleton } from '@/components/ui/skeleton';
+import { ProjectCard } from './project-card';
 
 interface Project {
   id: string;
@@ -14,10 +14,12 @@ interface Project {
 
 export function ProjectList() {
   const { data: projects = [], isLoading } = useQuery<Project[]>({
-    queryKey: ["projects"],
+    queryKey: ['projects'],
     queryFn: async () => {
-      const response = await fetch("/api/projects");
-      if (!response.ok) throw new Error("Failed to fetch projects");
+      const response = await fetch('/api/projects');
+      if (!response.ok) {
+throw new Error('Failed to fetch projects');
+}
       return response.json();
     },
   });

@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Button } from "@/components/ui/button";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -10,20 +10,20 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
   CardDescription,
-} from "@/components/ui/card";
-import { InstructorFormValues, instructorSchema } from "@/lib/schemas";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
-import { useState } from "react";
+} from '@/components/ui/card';
+import { InstructorFormValues, instructorSchema } from '@/lib/schemas';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
+import { useState } from 'react';
 
 interface Instructor {
   id: string;
@@ -45,37 +45,37 @@ export function InstructorForm({ initialData }: InstructorFormProps) {
   const form = useForm<InstructorFormValues>({
     resolver: zodResolver(instructorSchema),
     defaultValues: initialData || {
-      name: "",
-      email: "",
-      phone: "",
-      bio: "",
-      specialties: "",
+      name: '',
+      email: '',
+      phone: '',
+      bio: '',
+      specialties: '',
     },
   });
 
   const onSubmit = async (values: InstructorFormValues) => {
     setLoading(true);
     try {
-      const method = initialData ? "PUT" : "POST";
+      const method = initialData ? 'PUT' : 'POST';
       const url = initialData
         ? `/api/instructors/${initialData.id}`
-        : "/api/instructors";
+        : '/api/instructors';
       const response = await fetch(url, {
         method,
-        headers: { "Content-Type": "application/json" },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values),
       });
 
       if (!response.ok) {
-        throw new Error(`Failed to ${initialData ? "update" : "create"} instructor`);
+        throw new Error(`Failed to ${initialData ? 'update' : 'create'} instructor`);
       }
 
-      toast.success(`Instructor ${initialData ? "updated" : "created"} successfully!`);
-      router.push("/dashboard/directory/instructors");
+      toast.success(`Instructor ${initialData ? 'updated' : 'created'} successfully!`);
+      router.push('/dashboard/directory/instructors');
       router.refresh();
     } catch (error) {
       console.error(error);
-      toast.error("Something went wrong. Please try again.");
+      toast.error('Something went wrong. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -84,9 +84,9 @@ export function InstructorForm({ initialData }: InstructorFormProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{initialData ? "Edit Instructor" : "Create Instructor"}</CardTitle>
+        <CardTitle>{initialData ? 'Edit Instructor' : 'Create Instructor'}</CardTitle>
         <CardDescription>
-          Fill in the details below to {initialData ? "update the" : "add a new"}{" "}
+          Fill in the details below to {initialData ? 'update the' : 'add a new'}{' '}
           instructor.
         </CardDescription>
       </CardHeader>
@@ -164,13 +164,13 @@ export function InstructorForm({ initialData }: InstructorFormProps) {
               <Button
                 type="button"
                 variant="outline"
-                onClick={() => router.push("/dashboard/directory/instructors")}
+                onClick={() => router.push('/dashboard/directory/instructors')}
                 disabled={loading}
               >
                 Cancel
               </Button>
               <Button type="submit" disabled={loading}>
-                {loading ? "Saving..." : "Save Changes"}
+                {loading ? 'Saving...' : 'Save Changes'}
               </Button>
             </div>
           </form>

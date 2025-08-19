@@ -1,40 +1,42 @@
-"use client";
+'use client';
 
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from '@tanstack/react-query';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Calendar, ArrowRight, MapPin } from "lucide-react";
-import Link from "next/link";
-import { parseISO } from "date-fns";
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Calendar, ArrowRight, MapPin } from 'lucide-react';
+import Link from 'next/link';
+import { parseISO } from 'date-fns';
 
 interface UpcomingEvent {
   id: string;
   name: string;
   date: string;
   city: string;
-  status: "upcoming" | "ongoing" | "completed";
+  status: 'upcoming' | 'ongoing' | 'completed';
 }
 
 async function fetchUpcomingEvents(): Promise<UpcomingEvent[]> {
-  const response = await fetch("/api/events");
-  if (!response.ok) throw new Error("Failed to fetch events");
+  const response = await fetch('/api/events');
+  if (!response.ok) {
+throw new Error('Failed to fetch events');
+}
   const events = await response.json();
   return events
-    .filter((event: UpcomingEvent) => event.status !== "completed")
+    .filter((event: UpcomingEvent) => event.status !== 'completed')
     .sort((a: UpcomingEvent, b: UpcomingEvent) => new Date(a.date).getTime() - new Date(b.date).getTime())
     .slice(0, 5);
 }
 
 export function UpcomingEventsCard() {
   const { data: events, isLoading } = useQuery<UpcomingEvent[]>({
-    queryKey: ["upcoming-events"],
+    queryKey: ['upcoming-events'],
     queryFn: fetchUpcomingEvents,
   });
 

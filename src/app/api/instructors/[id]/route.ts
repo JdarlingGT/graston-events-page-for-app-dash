@@ -45,7 +45,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
       return new NextResponse(JSON.stringify(validation.error.format()), { status: 400 });
     }
 
-    let instructors = await getInstructors();
+    const instructors = await getInstructors();
     const instructorIndex = instructors.findIndex((v: any) => v.id === params.id);
 
     if (instructorIndex === -1) {
@@ -69,7 +69,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
 
 export async function DELETE(request: Request, { params }: { params: { id: string } }) {
   try {
-    let instructors = await getInstructors();
+    const instructors = await getInstructors();
     const updatedInstructors = instructors.filter((v: any) => v.id !== params.id);
 
     if (instructors.length === updatedInstructors.length) {

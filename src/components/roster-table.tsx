@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useState, useEffect } from 'react';
 import { DataTable } from '@/components/ui/data-table';
@@ -18,24 +18,24 @@ interface Attendee {
 
 const columns: ColumnDef<Attendee>[] = [
   {
-    accessorKey: "name",
-    header: "Name",
+    accessorKey: 'name',
+    header: 'Name',
   },
   {
-    accessorKey: "email",
-    header: "Email",
+    accessorKey: 'email',
+    header: 'Email',
   },
   {
-    accessorKey: "registrationDate",
-    header: "Registered On",
+    accessorKey: 'registrationDate',
+    header: 'Registered On',
     cell: ({ row }) => new Date(row.original.registrationDate).toLocaleDateString(),
   },
   {
-    accessorKey: "instrumentSetPurchased",
-    header: "Instrument Set Purchased",
+    accessorKey: 'instrumentSetPurchased',
+    header: 'Instrument Set Purchased',
     cell: ({ row }) => {
       const purchased = row.original.instrumentSetPurchased;
-      return <Badge variant={purchased ? "default" : "secondary"}>{purchased ? "Yes" : "No"}</Badge>;
+      return <Badge variant={purchased ? 'default' : 'secondary'}>{purchased ? 'Yes' : 'No'}</Badge>;
     },
   },
 ];
@@ -50,7 +50,9 @@ export function RosterTable({ eventId }: { eventId: string }) {
       setLoading(true);
       try {
         const response = await fetch(`/api/events/${eventId}/attendees`);
-        if (!response.ok) throw new Error('Failed to fetch attendees');
+        if (!response.ok) {
+throw new Error('Failed to fetch attendees');
+}
         const data = await response.json();
         setAttendees(data);
       } catch (error) {

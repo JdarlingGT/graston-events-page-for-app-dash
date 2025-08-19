@@ -1,49 +1,51 @@
-"use client";
+'use client';
 
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from '@tanstack/react-query';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import { CheckSquare, ArrowRight, Clock } from "lucide-react";
-import Link from "next/link";
-import { formatDistanceToNow, parseISO } from "date-fns";
-import { Badge } from "../ui/badge";
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
+import { CheckSquare, ArrowRight, Clock } from 'lucide-react';
+import Link from 'next/link';
+import { formatDistanceToNow, parseISO } from 'date-fns';
+import { Badge } from '../ui/badge';
 
 interface Task {
   id: string;
   title: string;
   dueDate?: string;
-  priority: "low" | "medium" | "high";
-  status: "todo" | "in-progress" | "done";
+  priority: 'low' | 'medium' | 'high';
+  status: 'todo' | 'in-progress' | 'done';
 }
 
 async function fetchUpcomingTasks(): Promise<Task[]> {
-  const response = await fetch("/api/tasks");
-  if (!response.ok) throw new Error("Failed to fetch tasks");
+  const response = await fetch('/api/tasks');
+  if (!response.ok) {
+throw new Error('Failed to fetch tasks');
+}
   const tasks = await response.json();
   return tasks
-    .filter((task: Task) => task.status !== "done" && task.dueDate)
+    .filter((task: Task) => task.status !== 'done' && task.dueDate)
     .sort((a: Task, b: Task) => new Date(a.dueDate!).getTime() - new Date(b.dueDate!).getTime())
     .slice(0, 5);
 }
 
 export function UpcomingTasksCard() {
   const { data: tasks, isLoading } = useQuery<Task[]>({
-    queryKey: ["upcoming-tasks"],
+    queryKey: ['upcoming-tasks'],
     queryFn: fetchUpcomingTasks,
   });
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case "high": return "destructive";
-      case "medium": return "secondary";
-      default: return "outline";
+      case 'high': return 'destructive';
+      case 'medium': return 'secondary';
+      default: return 'outline';
     }
   };
 

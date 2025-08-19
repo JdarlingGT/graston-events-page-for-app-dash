@@ -1,28 +1,30 @@
-"use client";
+'use client';
 
-import { useQuery } from "@tanstack/react-query";
-import { DataTable } from "@/components/ui/data-table";
-import { ColumnDef } from "@tanstack/react-table";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Badge } from "@/components/ui/badge";
-import Link from "next/link";
-import { Button } from "../ui/button";
-import { ArrowRight } from "lucide-react";
+import { useQuery } from '@tanstack/react-query';
+import { DataTable } from '@/components/ui/data-table';
+import { ColumnDef } from '@tanstack/react-table';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Badge } from '@/components/ui/badge';
+import Link from 'next/link';
+import { Button } from '../ui/button';
+import { ArrowRight } from 'lucide-react';
 
 interface Training {
   id: string;
   name: string;
   date: string;
   city: string;
-  status: "upcoming" | "ongoing" | "completed";
+  status: 'upcoming' | 'ongoing' | 'completed';
 }
 
 // Hardcoding the instructor for demonstration purposes
-const CURRENT_INSTRUCTOR_NAME = "Sarah Johnson";
+const CURRENT_INSTRUCTOR_NAME = 'Sarah Johnson';
 
 async function fetchInstructorTrainings(): Promise<Training[]> {
   const res = await fetch('/api/events');
-  if (!res.ok) throw new Error('Failed to fetch trainings');
+  if (!res.ok) {
+throw new Error('Failed to fetch trainings');
+}
   const allEvents = await res.json();
   // The mock data has instructor as a string, not an object. Adjusting filter.
   return allEvents.filter((event: any) => event.instructor === CURRENT_INSTRUCTOR_NAME);
@@ -30,8 +32,8 @@ async function fetchInstructorTrainings(): Promise<Training[]> {
 
 const columns: ColumnDef<Training>[] = [
   {
-    accessorKey: "name",
-    header: "Event Name",
+    accessorKey: 'name',
+    header: 'Event Name',
     cell: ({ row }) => (
       <Link href={`/dashboard/trainings/${row.original.id}/workspace`} className="font-medium text-primary hover:underline">
         {row.original.name}
@@ -39,18 +41,18 @@ const columns: ColumnDef<Training>[] = [
     ),
   },
   {
-    accessorKey: "date",
-    header: "Date",
+    accessorKey: 'date',
+    header: 'Date',
     cell: ({ row }) => new Date(row.original.date).toLocaleDateString(),
   },
-  { accessorKey: "city", header: "Location" },
+  { accessorKey: 'city', header: 'Location' },
   {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: 'status',
+    header: 'Status',
     cell: ({ row }) => <Badge className="capitalize">{row.original.status}</Badge>,
   },
   {
-    id: "actions",
+    id: 'actions',
     cell: ({ row }) => (
       <Button asChild variant="outline" size="sm">
         <Link href={`/dashboard/trainings/${row.original.id}/workspace`}>
@@ -63,11 +65,13 @@ const columns: ColumnDef<Training>[] = [
 
 export function InstructorDashboard() {
   const { data: trainings, isLoading } = useQuery<Training[]>({
-    queryKey: ["instructor-trainings", CURRENT_INSTRUCTOR_NAME],
+    queryKey: ['instructor-trainings', CURRENT_INSTRUCTOR_NAME],
     queryFn: fetchInstructorTrainings,
   });
 
-  if (isLoading) return <Skeleton className="h-96 w-full" />;
+  if (isLoading) {
+return <Skeleton className="h-96 w-full" />;
+}
 
   return <DataTable columns={columns} data={trainings || []} />;
 }

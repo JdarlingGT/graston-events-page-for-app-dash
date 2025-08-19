@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -9,7 +9,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
+} from '@/components/ui/accordion';
 
 const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -27,7 +27,7 @@ const navItems = [
       { href: '/dashboard/directory/venues', label: 'Venues', icon: Building },
       { href: '/dashboard/directory/instructors', label: 'Instructors', icon: Users },
       { href: '/dashboard/directory/clinicians', label: 'Clinicians', icon: Users },
-    ]
+    ],
   },
   { href: '/dashboard/archival-search', label: 'Archival Search', icon: Archive },
   { href: '/dashboard/settings', label: 'Settings', icon: Settings },
@@ -51,11 +51,11 @@ export default function Sidebar() {
           {navItems.map((item) => {
             if (item.children) {
               return (
-                <Accordion key={item.label} type="single" collapsible defaultValue={isDirectoryActive ? "item-1" : ""}>
+                <Accordion key={item.label} type="single" collapsible defaultValue={isDirectoryActive ? 'item-1' : ''}>
                   <AccordionItem value="item-1" className="border-b-0">
                     <AccordionTrigger className={cn(
-                      "flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:no-underline",
-                      isDirectoryActive && "bg-muted text-primary"
+                      'flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:no-underline',
+                      isDirectoryActive && 'bg-muted text-primary',
                     )}>
                       <item.icon className="h-4 w-4" />
                       {item.label}
@@ -66,10 +66,10 @@ export default function Sidebar() {
                           <li key={child.href}>
                             <Link
                               href={child.href}
-                              aria-current={pathname.startsWith(child.href) ? "page" : undefined}
+                              aria-current={pathname.startsWith(child.href) ? 'page' : undefined}
                               className={cn(
                                 'flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary',
-                                pathname.startsWith(child.href) && 'bg-muted text-primary'
+                                pathname.startsWith(child.href) && 'bg-muted text-primary',
                               )}
                             >
                               <child.icon className="h-4 w-4" />
@@ -81,7 +81,7 @@ export default function Sidebar() {
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
-              )
+              );
             }
             const isActive = item.href === '/dashboard' 
               ? pathname === item.href 
@@ -90,17 +90,17 @@ export default function Sidebar() {
               <li key={item.href}>
                 <Link
                   href={item.href!}
-                  aria-current={isActive ? "page" : undefined}
+                  aria-current={isActive ? 'page' : undefined}
                   className={cn(
                     'flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary',
-                    isActive && 'bg-muted text-primary'
+                    isActive && 'bg-muted text-primary',
                   )}
                 >
                   <item.icon className="h-4 w-4" />
                   {item.label}
                 </Link>
               </li>
-            )
+            );
           })}
         </ul>
       </nav>

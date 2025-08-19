@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Dialog,
@@ -7,13 +7,13 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { toast } from "sonner";
-import { useState } from "react";
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { toast } from 'sonner';
+import { useState } from 'react';
 
 interface QuickEmailModalProps {
   isOpen: boolean;
@@ -22,12 +22,12 @@ interface QuickEmailModalProps {
 }
 
 export function QuickEmailModal({ isOpen, onClose, studentEmails }: QuickEmailModalProps) {
-  const [subject, setSubject] = useState("");
-  const [body, setBody] = useState("");
+  const [subject, setSubject] = useState('');
+  const [body, setBody] = useState('');
 
   const handleSend = () => {
     // Mock sending email
-    toast.success("Email sent to the class!");
+    toast.success('Email sent to the class!');
     onClose();
   };
 
