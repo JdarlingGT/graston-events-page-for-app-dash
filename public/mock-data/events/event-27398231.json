@@ -1,0 +1,46 @@
+{
+  "id": "evt-27398231",
+  "name": "Essential In-Person | Portland, OR",
+  "title": "Essential In-Person | Portland, OR",
+  "city": "Portland",
+  "state": "OR",
+  "instructor": "Michael Dillon",
+  "enrolledStudents": 1,
+  "instrumentsPurchased": 0,
+  "capacity": 25,
+  "minViableEnrollment": 8,
+  "type": "Essential",
+  "mode": "In-Person",
+  "status": "upcoming",
+  "featuredImage": "https://picsum.photos/seed/evt-27398231/800/400",
+  "date": "2025-11-08T08:00:00-07:00",
+  "startDate": "2025-11-08T08:00:00-07:00",
+  "endDate": "2025-11-08T18:00:00-07:00",
+  "location": {
+    "city": "Portland",
+    "state": "OR"
+  },
+  "enrolledCount": 1,
+  "learndashGroup": "27398231",
+  "venue": {
+    "name": "Providence Northeast Rehabilitation",
+    "address": "507 NE 47th Avenue",
+    "address2": "",
+    "city": "Portland",
+    "state": "OR",
+    "zipcode": "97213",
+    "fullAddress": "507 NE 47th Avenue  Portland, OR 97213"
+  },
+  "schedule": {
+    "day1": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    },
+    "day2": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    }
+  },
+  "headline": "Essential Hybrid Training, which includes an online pre-course/intro.",
+  "evaluationForm": "Portland, OR-2025-11-08: Michael Dillon"
+}

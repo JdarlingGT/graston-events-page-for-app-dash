@@ -1,0 +1,46 @@
+{
+  "id": "evt-26012320",
+  "name": "Essential Hybrid | Portland, ME",
+  "title": "Essential Hybrid | Portland, ME",
+  "city": "Portland",
+  "state": "ME",
+  "instructor": "Kelsey Taylor",
+  "enrolledStudents": 3,
+  "instrumentsPurchased": 0,
+  "capacity": 25,
+  "minViableEnrollment": 8,
+  "type": "Essential",
+  "mode": "Hybrid",
+  "status": "upcoming",
+  "featuredImage": "https://picsum.photos/seed/evt-26012320/800/400",
+  "date": "2025-09-06T08:00:00-04:00",
+  "startDate": "2025-09-06T08:00:00-04:00",
+  "endDate": "2025-09-06T18:00:00-04:00",
+  "location": {
+    "city": "Portland",
+    "state": "ME"
+  },
+  "enrolledCount": 3,
+  "learndashGroup": "26012320",
+  "venue": {
+    "name": "Holiday Inn by the Bay",
+    "address": "88 Spring St",
+    "address2": "",
+    "city": "Portland",
+    "state": "ME",
+    "zipcode": "4101",
+    "fullAddress": "88 Spring St Portland, ME 04101"
+  },
+  "schedule": {
+    "day1": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    },
+    "day2": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    }
+  },
+  "headline": "Essential Hybrid Training, which includes an online pre-course/intro. 45 minutes south of August, ME.",
+  "evaluationForm": "Portland, ME -9/06/2025: Kelsey Taylor"
+}

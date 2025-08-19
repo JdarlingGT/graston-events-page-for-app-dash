@@ -1,0 +1,46 @@
+{
+  "id": "evt-ploski-09202025-adva",
+  "name": "Advanced Virtual | Online, Virtual",
+  "title": "Advanced Virtual | Online, Virtual",
+  "city": "Online",
+  "state": "Virtual",
+  "instructor": "Mike Ploski",
+  "enrolledStudents": 1,
+  "instrumentsPurchased": 0,
+  "capacity": 30,
+  "minViableEnrollment": 12,
+  "type": "Advanced",
+  "mode": "Virtual",
+  "status": "upcoming",
+  "featuredImage": "https://picsum.photos/seed/evt-ploski-09202025-adva/800/400",
+  "date": "2025-09-20T11:00:00-05:00",
+  "startDate": "2025-09-20T11:00:00-05:00",
+  "endDate": "2025-09-21T16:00:00-05:00",
+  "location": {
+    "city": "Online",
+    "state": "Virtual"
+  },
+  "enrolledCount": 1,
+  "learndashGroup": "",
+  "venue": {
+    "name": "Virtual Platform",
+    "address": "",
+    "address2": "",
+    "city": "",
+    "state": "",
+    "zipcode": "",
+    "fullAddress": ""
+  },
+  "schedule": {
+    "day1": {
+      "startTime": "11:00 AM",
+      "endTime": "4:00 PM"
+    },
+    "day2": {
+      "startTime": "11:00 AM",
+      "endTime": "4:00 PM"
+    }
+  },
+  "headline": "Live Online Advanced Training",
+  "evaluationForm": "Advanced Virtual-2025-09-20: Mike Ploski"
+}

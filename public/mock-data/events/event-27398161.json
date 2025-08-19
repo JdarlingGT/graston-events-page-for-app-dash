@@ -1,0 +1,46 @@
+{
+  "id": "evt-27398161",
+  "name": "Essential In-Person | Santa Monica, CA",
+  "title": "Essential In-Person | Santa Monica, CA",
+  "city": "Santa Monica",
+  "state": "CA",
+  "instructor": "Larry Munger",
+  "enrolledStudents": 0,
+  "instrumentsPurchased": 0,
+  "capacity": 25,
+  "minViableEnrollment": 8,
+  "type": "Essential",
+  "mode": "In-Person",
+  "status": "upcoming",
+  "featuredImage": "https://picsum.photos/seed/evt-27398161/800/400",
+  "date": "2025-12-13T08:00:00-07:00",
+  "startDate": "2025-12-13T08:00:00-07:00",
+  "endDate": "2025-12-13T18:00:00-07:00",
+  "location": {
+    "city": "Santa Monica",
+    "state": "CA"
+  },
+  "enrolledCount": 0,
+  "learndashGroup": "27398161",
+  "venue": {
+    "name": "Sadhana Health",
+    "address": "2701 Ocean Park Boulevard",
+    "address2": "Suite 111",
+    "city": "Santa Monica",
+    "state": "CA",
+    "zipcode": "90405",
+    "fullAddress": "2701 Ocean Park Boulevard Suite 111 Santa Monica, CA 90405"
+  },
+  "schedule": {
+    "day1": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    },
+    "day2": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    }
+  },
+  "headline": "Essential Hybrid Training that includes an online pre-course/intro.",
+  "evaluationForm": "Santa Monica, CA-2025-12-13: Larry Munger"
+}

@@ -1,0 +1,46 @@
+{
+  "id": "evt-26025951",
+  "name": "Essential Virtual | Online, Virtual",
+  "title": "Essential Virtual | Online, Virtual",
+  "city": "Online",
+  "state": "Virtual",
+  "instructor": "Randall Lazicki",
+  "enrolledStudents": 0,
+  "instrumentsPurchased": 0,
+  "capacity": 50,
+  "minViableEnrollment": 8,
+  "type": "Essential",
+  "mode": "Virtual",
+  "status": "cancelled",
+  "featuredImage": "https://picsum.photos/seed/evt-26025951/800/400",
+  "date": "2025-08-16T11:00:00-05:00",
+  "startDate": "2025-08-16T11:00:00-05:00",
+  "endDate": "2025-08-17T15:30:00-05:00",
+  "location": {
+    "city": "Online",
+    "state": "Virtual"
+  },
+  "enrolledCount": 0,
+  "learndashGroup": "26025951",
+  "venue": {
+    "name": "Virtual Platform",
+    "address": "",
+    "address2": "",
+    "city": "",
+    "state": "",
+    "zipcode": "",
+    "fullAddress": ","
+  },
+  "schedule": {
+    "day1": {
+      "startTime": "11:00 AM",
+      "endTime": "3:30 PM"
+    },
+    "day2": {
+      "startTime": "11:00 AM",
+      "endTime": "3:30 PM"
+    }
+  },
+  "headline": "Live Online Essential Training",
+  "evaluationForm": "Essential Virtual -2025-08-16: Randall Lazicki"
+}

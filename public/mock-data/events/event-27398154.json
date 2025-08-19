@@ -1,0 +1,46 @@
+{
+  "id": "evt-27398154",
+  "name": "Essential In-Person | Indianapolis, IN",
+  "title": "Essential In-Person | Indianapolis, IN",
+  "city": "Indianapolis",
+  "state": "IN",
+  "instructor": "Mike Ploski",
+  "enrolledStudents": 0,
+  "instrumentsPurchased": 0,
+  "capacity": 25,
+  "minViableEnrollment": 8,
+  "type": "Essential",
+  "mode": "In-Person",
+  "status": "upcoming",
+  "featuredImage": "https://picsum.photos/seed/evt-27398154/800/400",
+  "date": "2025-11-22T08:00:00-05:00",
+  "startDate": "2025-11-22T08:00:00-05:00",
+  "endDate": "2025-11-22T18:00:00-05:00",
+  "location": {
+    "city": "Indianapolis",
+    "state": "IN"
+  },
+  "enrolledCount": 0,
+  "learndashGroup": "27398154",
+  "venue": {
+    "name": "Graston Technique",
+    "address": "7801 East 88th Street",
+    "address2": "",
+    "city": "Indianapolis",
+    "state": "IN",
+    "zipcode": "46256",
+    "fullAddress": "7801 East 88th Street  Indianapolis, IN 46256"
+  },
+  "schedule": {
+    "day1": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    },
+    "day2": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    }
+  },
+  "headline": "Essential Hybrid Training, which includes an online pre-course/intro.",
+  "evaluationForm": "Indianapolis, IN-2025-11-22: Mike Ploski"
+}

@@ -1,0 +1,46 @@
+{
+  "id": "evt-27398058",
+  "name": "Advanced In-Person | Des Plaines, IL",
+  "title": "Advanced In-Person | Des Plaines, IL",
+  "city": "Des Plaines",
+  "state": "IL",
+  "instructor": "Mike Ploski",
+  "enrolledStudents": 0,
+  "instrumentsPurchased": 0,
+  "capacity": 30,
+  "minViableEnrollment": 12,
+  "type": "Advanced",
+  "mode": "In-Person",
+  "status": "upcoming",
+  "featuredImage": "https://picsum.photos/seed/evt-27398058/800/400",
+  "date": "2026-01-24T08:00:00-05:00",
+  "startDate": "2026-01-24T08:00:00-05:00",
+  "endDate": "2026-01-25T13:30:00-05:00",
+  "location": {
+    "city": "Des Plaines",
+    "state": "IL"
+  },
+  "enrolledCount": 0,
+  "learndashGroup": "27398058",
+  "venue": {
+    "name": "",
+    "address": "2250 East Devon Avenue",
+    "address2": "Suite 244",
+    "city": "Des Plaines",
+    "state": "IL",
+    "zipcode": "60018",
+    "fullAddress": "2250 East Devon Avenue Suite 244 Des Plaines, IL 60018"
+  },
+  "schedule": {
+    "day1": {
+      "startTime": "8:00 AM",
+      "endTime": "5:30 PM"
+    },
+    "day2": {
+      "startTime": "8:00 AM",
+      "endTime": "1:30 PM"
+    }
+  },
+  "headline": "2-Day Advanced Training.  Chicago area.",
+  "evaluationForm": "Des Plaines, IL-2026-01-24: Mike Ploski"
+}

@@ -1,0 +1,46 @@
+{
+  "id": "evt-27397142",
+  "name": "Essential In-Person | Emmetsburg, IA",
+  "title": "Essential In-Person | Emmetsburg, IA",
+  "city": "Emmetsburg",
+  "state": "IA",
+  "instructor": "Ryan Lystad",
+  "enrolledStudents": 0,
+  "instrumentsPurchased": 0,
+  "capacity": 20,
+  "minViableEnrollment": 8,
+  "type": "Essential",
+  "mode": "In-Person",
+  "status": "upcoming",
+  "featuredImage": "https://picsum.photos/seed/evt-27397142/800/400",
+  "date": "2025-10-15T08:00:00-05:00",
+  "startDate": "2025-10-15T08:00:00-05:00",
+  "endDate": "2025-10-15T18:00:00-05:00",
+  "location": {
+    "city": "Emmetsburg",
+    "state": "IA"
+  },
+  "enrolledCount": 0,
+  "learndashGroup": "27397142",
+  "venue": {
+    "name": "",
+    "address": "3201 1st Street",
+    "address2": "",
+    "city": "Emmetsburg",
+    "state": "IA",
+    "zipcode": "50536",
+    "fullAddress": "3201 1st Street  Emmetsburg, IA 50536"
+  },
+  "schedule": {
+    "day1": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    },
+    "day2": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    }
+  },
+  "headline": "Essential Hybrid Private Onsite for Mercy Health - Palo Alto County",
+  "evaluationForm": "Emmetsburg, IA-2025-10-15: Ryan Lystad"
+}

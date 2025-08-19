@@ -1,0 +1,46 @@
+{
+  "id": "evt-26031996",
+  "name": "Essential In-Person | Terre Haute, IN",
+  "title": "Essential In-Person | Terre Haute, IN",
+  "city": "Terre Haute",
+  "state": "IN",
+  "instructor": "Tim Demchak",
+  "enrolledStudents": 16,
+  "instrumentsPurchased": 0,
+  "capacity": 20,
+  "minViableEnrollment": 8,
+  "type": "Essential",
+  "mode": "In-Person",
+  "status": "upcoming",
+  "featuredImage": "https://picsum.photos/seed/evt-26031996/800/400",
+  "date": "2025-08-23T08:00:00-05:00",
+  "startDate": "2025-08-23T08:00:00-05:00",
+  "endDate": "2025-08-23T18:00:00-05:00",
+  "location": {
+    "city": "Terre Haute",
+    "state": "IN"
+  },
+  "enrolledCount": 16,
+  "learndashGroup": "26031996",
+  "venue": {
+    "name": "",
+    "address": "567 North 5th Street",
+    "address2": "",
+    "city": "Terre Haute",
+    "state": "IN",
+    "zipcode": "47809",
+    "fullAddress": "567 North 5th Street  Terre Haute, IN 47809"
+  },
+  "schedule": {
+    "day1": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    },
+    "day2": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    }
+  },
+  "headline": "Essential Hybrid Onsite for DPT students at Indiana State University",
+  "evaluationForm": "Terre Haute, IN-2025-08-23: Tim Demchak"
+}

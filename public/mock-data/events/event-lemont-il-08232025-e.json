@@ -1,0 +1,46 @@
+{
+  "id": "evt-lemont-il-08232025-e",
+  "name": "Essential Hybrid | Lemont, IL",
+  "title": "Essential Hybrid | Lemont, IL",
+  "city": "Lemont",
+  "state": "IL",
+  "instructor": "Kristin White",
+  "enrolledStudents": 0,
+  "instrumentsPurchased": 0,
+  "capacity": 25,
+  "minViableEnrollment": 8,
+  "type": "Essential",
+  "mode": "Hybrid",
+  "status": "cancelled",
+  "featuredImage": "https://picsum.photos/seed/evt-lemont-il-08232025-e/800/400",
+  "date": "2025-08-23T08:00:00-05:00",
+  "startDate": "2025-08-23T08:00:00-05:00",
+  "endDate": "2025-08-23T18:00:00-05:00",
+  "location": {
+    "city": "Lemont",
+    "state": "IL"
+  },
+  "enrolledCount": 0,
+  "learndashGroup": "",
+  "venue": {
+    "name": "Duly Health and Care",
+    "address": "13462 Archer Avenue",
+    "address2": "",
+    "city": "Lemont",
+    "state": "IL",
+    "zipcode": "60439",
+    "fullAddress": "13462 Archer Avenue Lemont, IL 60439"
+  },
+  "schedule": {
+    "day1": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    },
+    "day2": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    }
+  },
+  "headline": "Essential Hybrid Training, which includes an online pre-course/intro. Chicago area.",
+  "evaluationForm": "Lemont, IL -8/23/2025: Kristin White"
+}

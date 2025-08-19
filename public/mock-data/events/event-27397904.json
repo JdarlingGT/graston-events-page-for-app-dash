@@ -1,0 +1,46 @@
+{
+  "id": "evt-27397904",
+  "name": "Advanced In-Person | West Boylston, MA",
+  "title": "Advanced In-Person | West Boylston, MA",
+  "city": "West Boylston",
+  "state": "MA",
+  "instructor": "Jackie Shakar",
+  "enrolledStudents": 2,
+  "instrumentsPurchased": 0,
+  "capacity": 30,
+  "minViableEnrollment": 12,
+  "type": "Advanced",
+  "mode": "In-Person",
+  "status": "upcoming",
+  "featuredImage": "https://picsum.photos/seed/evt-27397904/800/400",
+  "date": "2025-12-06T08:00:00-04:00",
+  "startDate": "2025-12-06T08:00:00-04:00",
+  "endDate": "2025-12-07T13:30:00-04:00",
+  "location": {
+    "city": "West Boylston",
+    "state": "MA"
+  },
+  "enrolledCount": 2,
+  "learndashGroup": "27397904",
+  "venue": {
+    "name": "",
+    "address": "342 West Boylston Street",
+    "address2": "Suite 111",
+    "city": "West Boylston",
+    "state": "MA",
+    "zipcode": "1583",
+    "fullAddress": "342 West Boylston Street Suite 111 West Boylston, MA 01583"
+  },
+  "schedule": {
+    "day1": {
+      "startTime": "8:00 AM",
+      "endTime": "5:30 PM"
+    },
+    "day2": {
+      "startTime": "8:00 AM",
+      "endTime": "1:30 PM"
+    }
+  },
+  "headline": "Advanced 2-Day training in the Boston area.",
+  "evaluationForm": "West Boylston, MA-2025-12-06: Jackie Shakar"
+}

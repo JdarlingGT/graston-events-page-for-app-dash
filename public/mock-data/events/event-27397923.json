@@ -1,0 +1,46 @@
+{
+  "id": "evt-27397923",
+  "name": "Upper Quadrant In-Person | Cranford, NJ",
+  "title": "Upper Quadrant In-Person | Cranford, NJ",
+  "city": "Cranford",
+  "state": "NJ",
+  "instructor": "Mike Ploski",
+  "enrolledStudents": 8,
+  "instrumentsPurchased": 0,
+  "capacity": 20,
+  "minViableEnrollment": 8,
+  "type": "Upper Quadrant",
+  "mode": "In-Person",
+  "status": "upcoming",
+  "featuredImage": "https://picsum.photos/seed/evt-27397923/800/400",
+  "date": "2025-11-06T09:00:00-04:00",
+  "startDate": "2025-11-06T09:00:00-04:00",
+  "endDate": "2025-11-06T15:00:00-04:00",
+  "location": {
+    "city": "Cranford",
+    "state": "NJ"
+  },
+  "enrolledCount": 8,
+  "learndashGroup": "27397923",
+  "venue": {
+    "name": "Ivy Rehaab",
+    "address": "210 North Avenue East",
+    "address2": "",
+    "city": "Cranford",
+    "state": "NJ",
+    "zipcode": "7016",
+    "fullAddress": "210 North Avenue East  Cranford, NJ 07016"
+  },
+  "schedule": {
+    "day1": {
+      "startTime": "9:00 AM",
+      "endTime": "3:00 PM"
+    },
+    "day2": {
+      "startTime": "9:00 AM",
+      "endTime": "3:00 PM"
+    }
+  },
+  "headline": "Private Upper Quadrant Training for Ivy Rehab",
+  "evaluationForm": "Cranford, NJ-2025-11-06: Mike Ploski"
+}

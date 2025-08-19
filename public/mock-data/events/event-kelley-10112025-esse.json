@@ -1,0 +1,46 @@
+{
+  "id": "evt-kelley-10112025-esse",
+  "name": "Essential Virtual | Online, Virtual",
+  "title": "Essential Virtual | Online, Virtual",
+  "city": "Online",
+  "state": "Virtual",
+  "instructor": "Greg Kelley",
+  "enrolledStudents": 0,
+  "instrumentsPurchased": 0,
+  "capacity": 50,
+  "minViableEnrollment": 8,
+  "type": "Essential",
+  "mode": "Virtual",
+  "status": "upcoming",
+  "featuredImage": "https://picsum.photos/seed/evt-kelley-10112025-esse/800/400",
+  "date": "2025-10-11T11:00:00-05:00",
+  "startDate": "2025-10-11T11:00:00-05:00",
+  "endDate": "2025-10-12T15:30:00-05:00",
+  "location": {
+    "city": "Online",
+    "state": "Virtual"
+  },
+  "enrolledCount": 0,
+  "learndashGroup": "",
+  "venue": {
+    "name": "Virtual Platform",
+    "address": "",
+    "address2": "",
+    "city": "",
+    "state": "",
+    "zipcode": "",
+    "fullAddress": ""
+  },
+  "schedule": {
+    "day1": {
+      "startTime": "11:00 AM",
+      "endTime": "3:30 PM"
+    },
+    "day2": {
+      "startTime": "11:00 AM",
+      "endTime": "3:30 PM"
+    }
+  },
+  "headline": "Live Online 2-Day Advanced Training",
+  "evaluationForm": "Essential Virtual-2025-10-11: Greg Kelley"
+}

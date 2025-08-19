@@ -1,0 +1,46 @@
+{
+  "id": "evt-26025571",
+  "name": "Essential In-Person | Merritt Island, FL",
+  "title": "Essential In-Person | Merritt Island, FL",
+  "city": "Merritt Island",
+  "state": "FL",
+  "instructor": "Mark Wieland",
+  "enrolledStudents": 2,
+  "instrumentsPurchased": 0,
+  "capacity": 25,
+  "minViableEnrollment": 8,
+  "type": "Essential",
+  "mode": "In-Person",
+  "status": "upcoming",
+  "featuredImage": "https://picsum.photos/seed/evt-26025571/800/400",
+  "date": "2025-09-27T08:00:00-04:00",
+  "startDate": "2025-09-27T08:00:00-04:00",
+  "endDate": "2025-09-27T18:00:00-04:00",
+  "location": {
+    "city": "Merritt Island",
+    "state": "FL"
+  },
+  "enrolledCount": 2,
+  "learndashGroup": "26025571",
+  "venue": {
+    "name": "",
+    "address": "595 North Courtenay Parkway",
+    "address2": "Suite 203",
+    "city": "Merritt Island",
+    "state": "FL",
+    "zipcode": "32953",
+    "fullAddress": "595 North Courtenay Parkway Suite 203 Merritt Island, FL 32953"
+  },
+  "schedule": {
+    "day1": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    },
+    "day2": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    }
+  },
+  "headline": "Essential Hybrid Training, which includes an online pre-course/intro.",
+  "evaluationForm": "Merritt Island, FL-2025-09-27: Mark Wieland"
+}

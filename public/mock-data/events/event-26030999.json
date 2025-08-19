@@ -1,0 +1,46 @@
+{
+  "id": "evt-26030999",
+  "name": "Essential In-Person | Cape Coral, FL",
+  "title": "Essential In-Person | Cape Coral, FL",
+  "city": "Cape Coral",
+  "state": "FL",
+  "instructor": "Ashli Linkhorn",
+  "enrolledStudents": 2,
+  "instrumentsPurchased": 0,
+  "capacity": 25,
+  "minViableEnrollment": 8,
+  "type": "Essential",
+  "mode": "In-Person",
+  "status": "upcoming",
+  "featuredImage": "https://picsum.photos/seed/evt-26030999/800/400",
+  "date": "2025-09-27T08:00:00-04:00",
+  "startDate": "2025-09-27T08:00:00-04:00",
+  "endDate": "2025-09-27T18:00:00-04:00",
+  "location": {
+    "city": "Cape Coral",
+    "state": "FL"
+  },
+  "enrolledCount": 2,
+  "learndashGroup": "26030999",
+  "venue": {
+    "name": "",
+    "address": "605 SE 13th Court",
+    "address2": "",
+    "city": "Cape Coral",
+    "state": "FL",
+    "zipcode": "33990",
+    "fullAddress": "605 SE 13th Court  Cape Coral, FL 33990"
+  },
+  "schedule": {
+    "day1": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    },
+    "day2": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    }
+  },
+  "headline": "Essential Hybrid Training, which includes an online pre-course.  Fort Myers area.",
+  "evaluationForm": "Cape Coral, FL-2025-09-27: Ashli Linkhorn"
+}

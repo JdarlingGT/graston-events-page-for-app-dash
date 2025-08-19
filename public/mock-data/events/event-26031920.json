@@ -1,0 +1,46 @@
+{
+  "id": "evt-26031920",
+  "name": "Essential In-Person | Livermore, CA",
+  "title": "Essential In-Person | Livermore, CA",
+  "city": "Livermore",
+  "state": "CA",
+  "instructor": "John Dang",
+  "enrolledStudents": 0,
+  "instrumentsPurchased": 0,
+  "capacity": 25,
+  "minViableEnrollment": 8,
+  "type": "Essential",
+  "mode": "In-Person",
+  "status": "upcoming",
+  "featuredImage": "https://picsum.photos/seed/evt-26031920/800/400",
+  "date": "2025-11-08T08:00:00-07:00",
+  "startDate": "2025-11-08T08:00:00-07:00",
+  "endDate": "2025-11-08T18:00:00-07:00",
+  "location": {
+    "city": "Livermore",
+    "state": "CA"
+  },
+  "enrolledCount": 0,
+  "learndashGroup": "26031920",
+  "venue": {
+    "name": "",
+    "address": "2492 Nissen Drive",
+    "address2": "",
+    "city": "Livermore",
+    "state": "CA",
+    "zipcode": "94551",
+    "fullAddress": "2492 Nissen Drive  Livermore, CA 94551"
+  },
+  "schedule": {
+    "day1": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    },
+    "day2": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    }
+  },
+  "headline": "Essential Hybrid Training, which includes an online pre-course/intro.  San Francisco/Oakland area.",
+  "evaluationForm": "Livermore, CA-2025-11-08: John Dang"
+}

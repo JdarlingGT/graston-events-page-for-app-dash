@@ -1,0 +1,46 @@
+{
+  "id": "evt-26024592",
+  "name": "Essential In-Person | Pasadena, CA",
+  "title": "Essential In-Person | Pasadena, CA",
+  "city": "Pasadena",
+  "state": "CA",
+  "instructor": "TBA",
+  "enrolledStudents": 5,
+  "instrumentsPurchased": 1,
+  "capacity": 25,
+  "minViableEnrollment": 8,
+  "type": "Essential",
+  "mode": "In-Person",
+  "status": "upcoming",
+  "featuredImage": "https://picsum.photos/seed/evt-26024592/800/400",
+  "date": "2025-09-28T08:00:00-07:00",
+  "startDate": "2025-09-28T08:00:00-07:00",
+  "endDate": "2025-09-28T06:00:00-07:00",
+  "location": {
+    "city": "Pasadena",
+    "state": "CA"
+  },
+  "enrolledCount": 5,
+  "learndashGroup": "26024592",
+  "venue": {
+    "name": "",
+    "address": "111 South Hudson Avenue",
+    "address2": "",
+    "city": "Pasadena",
+    "state": "CA",
+    "zipcode": "91101",
+    "fullAddress": "111 South Hudson Avenue  Pasadena, CA 91101"
+  },
+  "schedule": {
+    "day1": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    },
+    "day2": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 AM"
+    }
+  },
+  "headline": "Essential Hybrid Training, which includes an online pre-course",
+  "evaluationForm": "Pasadena, CA-2025-09-28: TBA"
+}

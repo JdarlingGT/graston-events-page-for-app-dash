@@ -1,0 +1,46 @@
+{
+  "id": "evt-26025852",
+  "name": "Essential In-Person | Westmont, IL",
+  "title": "Essential In-Person | Westmont, IL",
+  "city": "Westmont",
+  "state": "IL",
+  "instructor": "Kristin White",
+  "enrolledStudents": 21,
+  "instrumentsPurchased": 1,
+  "capacity": 25,
+  "minViableEnrollment": 8,
+  "type": "Essential",
+  "mode": "In-Person",
+  "status": "upcoming",
+  "featuredImage": "https://picsum.photos/seed/evt-26025852/800/400",
+  "date": "2025-08-23T08:00:00-05:00",
+  "startDate": "2025-08-23T08:00:00-05:00",
+  "endDate": "2025-08-23T18:00:00-05:00",
+  "location": {
+    "city": "Westmont",
+    "state": "IL"
+  },
+  "enrolledCount": 21,
+  "learndashGroup": "26025852",
+  "venue": {
+    "name": "",
+    "address": "303 West Ogden Avenue",
+    "address2": "",
+    "city": "Westmont",
+    "state": "IL",
+    "zipcode": "60559",
+    "fullAddress": "303 West Ogden Avenue  Westmont, IL 60559"
+  },
+  "schedule": {
+    "day1": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    },
+    "day2": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    }
+  },
+  "headline": "Essential Hybrid Training, which includes an online pre-course/intro.  Chicago area.",
+  "evaluationForm": "Westmont, IL-2025-08-23: Kristin White"
+}

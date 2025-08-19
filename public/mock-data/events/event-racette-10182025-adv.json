@@ -1,0 +1,46 @@
+{
+  "id": "evt-racette-10182025-adv",
+  "name": "Advanced Virtual | Online, Virtual",
+  "title": "Advanced Virtual | Online, Virtual",
+  "city": "Online",
+  "state": "Virtual",
+  "instructor": "Michael Racette",
+  "enrolledStudents": 0,
+  "instrumentsPurchased": 0,
+  "capacity": 30,
+  "minViableEnrollment": 12,
+  "type": "Advanced",
+  "mode": "Virtual",
+  "status": "upcoming",
+  "featuredImage": "https://picsum.photos/seed/evt-racette-10182025-adv/800/400",
+  "date": "2025-10-18T08:00:00-05:00",
+  "startDate": "2025-10-18T08:00:00-05:00",
+  "endDate": "2025-10-19T13:00:00-05:00",
+  "location": {
+    "city": "Online",
+    "state": "Virtual"
+  },
+  "enrolledCount": 0,
+  "learndashGroup": "",
+  "venue": {
+    "name": "Virtual Platform",
+    "address": "",
+    "address2": "",
+    "city": "",
+    "state": "",
+    "zipcode": "",
+    "fullAddress": ""
+  },
+  "schedule": {
+    "day1": {
+      "startTime": "8:00 AM",
+      "endTime": "1:00 PM"
+    },
+    "day2": {
+      "startTime": "8:00 AM",
+      "endTime": "1:00 PM"
+    }
+  },
+  "headline": "Live Online 2-Day Advanced Training",
+  "evaluationForm": "Advanced Virtual-2025-10-18: Michael Racette"
+}

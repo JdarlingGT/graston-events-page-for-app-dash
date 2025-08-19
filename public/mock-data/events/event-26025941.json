@@ -1,0 +1,46 @@
+{
+  "id": "evt-26025941",
+  "name": "Essential In-Person | Eau Claire, WI",
+  "title": "Essential In-Person | Eau Claire, WI",
+  "city": "Eau Claire",
+  "state": "WI",
+  "instructor": "Robert Stow",
+  "enrolledStudents": 11,
+  "instrumentsPurchased": 0,
+  "capacity": 25,
+  "minViableEnrollment": 8,
+  "type": "Essential",
+  "mode": "In-Person",
+  "status": "upcoming",
+  "featuredImage": "https://picsum.photos/seed/evt-26025941/800/400",
+  "date": "2025-08-16T08:00:00-05:00",
+  "startDate": "2025-08-16T08:00:00-05:00",
+  "endDate": "2025-08-16T18:00:00-05:00",
+  "location": {
+    "city": "Eau Claire",
+    "state": "WI"
+  },
+  "enrolledCount": 11,
+  "learndashGroup": "26025941",
+  "venue": {
+    "name": "McPhee Centers",
+    "address": "509 University Drive",
+    "address2": "",
+    "city": "Eau Claire",
+    "state": "WI",
+    "zipcode": "54702",
+    "fullAddress": "McPhee Center 509 University Drive Eau Claire, WI 54702"
+  },
+  "schedule": {
+    "day1": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    },
+    "day2": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    }
+  },
+  "headline": "Essential Hybrid Training, which includes an online pre-course/intro.",
+  "evaluationForm": "Eau Claire, WI-2025-08-16: Robert Stow"
+}

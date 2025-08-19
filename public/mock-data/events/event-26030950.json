@@ -1,0 +1,46 @@
+{
+  "id": "evt-26030950",
+  "name": "Essential In-Person | Las Vegas, NV",
+  "title": "Essential In-Person | Las Vegas, NV",
+  "city": "Las Vegas",
+  "state": "NV",
+  "instructor": "Trevor Roberts",
+  "enrolledStudents": 1,
+  "instrumentsPurchased": 1,
+  "capacity": 25,
+  "minViableEnrollment": 8,
+  "type": "Essential",
+  "mode": "In-Person",
+  "status": "upcoming",
+  "featuredImage": "https://picsum.photos/seed/evt-26030950/800/400",
+  "date": "2025-10-25T08:00:00-07:00",
+  "startDate": "2025-10-25T08:00:00-07:00",
+  "endDate": "2025-10-25T18:00:00-07:00",
+  "location": {
+    "city": "Las Vegas",
+    "state": "NV"
+  },
+  "enrolledCount": 1,
+  "learndashGroup": "26030950",
+  "venue": {
+    "name": "",
+    "address": "4505 South Maryland Parkway",
+    "address2": "University of Nevada - Las Vegas",
+    "city": "Las Vegas",
+    "state": "NV",
+    "zipcode": "89154",
+    "fullAddress": "4505 South Maryland Parkway University of Nevada - Las Vegas Las Vegas, NV 89154"
+  },
+  "schedule": {
+    "day1": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    },
+    "day2": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    }
+  },
+  "headline": "Essential Hybrid Training, which includes an online pre-course/intro.",
+  "evaluationForm": "Las Vegas, NV-2025-10-25: Trevor Roberts"
+}

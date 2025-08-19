@@ -1,0 +1,46 @@
+{
+  "id": "evt-27398956",
+  "name": "Essential In-Person | Sabetha, KS",
+  "title": "Essential In-Person | Sabetha, KS",
+  "city": "Sabetha",
+  "state": "KS",
+  "instructor": "Mike Ploski",
+  "enrolledStudents": 0,
+  "instrumentsPurchased": 0,
+  "capacity": 25,
+  "minViableEnrollment": 8,
+  "type": "Essential",
+  "mode": "In-Person",
+  "status": "upcoming",
+  "featuredImage": "https://picsum.photos/seed/evt-27398956/800/400",
+  "date": "2025-11-01T08:00:00-05:00",
+  "startDate": "2025-11-01T08:00:00-05:00",
+  "endDate": "2025-11-01T18:00:00-05:00",
+  "location": {
+    "city": "Sabetha",
+    "state": "KS"
+  },
+  "enrolledCount": 0,
+  "learndashGroup": "27398956",
+  "venue": {
+    "name": "Sabetha Community Hospital",
+    "address": "508 South 14th Street",
+    "address2": "",
+    "city": "Sabetha",
+    "state": "KS",
+    "zipcode": "66534",
+    "fullAddress": "508 South 14th Street  Sabetha, KS 66534"
+  },
+  "schedule": {
+    "day1": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    },
+    "day2": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    }
+  },
+  "headline": "Essential Hybrid Training that includes an online pre-course/intro.",
+  "evaluationForm": "Sabetha, KS-2025-11-01: Mike Ploski"
+}

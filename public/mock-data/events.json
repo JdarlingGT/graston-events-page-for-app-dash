@@ -1,102 +1,1842 @@
 [
   {
-    "id": "evt-1",
-    "name": "Essential Training | Austin, TX",
-    "city": "Austin",
-    "state": "TX",
-    "instructor": "Sarah Johnson",
-    "enrolledStudents": 10,
-    "instrumentsPurchased": 2,
+    "id": "evt-26025941",
+    "name": "Essential In-Person | Eau Claire, WI",
+    "title": "Essential In-Person | Eau Claire, WI",
+    "city": "Eau Claire",
+    "state": "WI",
+    "instructor": "Robert Stow",
+    "enrolledStudents": 11,
+    "instrumentsPurchased": 0,
     "capacity": 25,
-    "minViableEnrollment": 15,
+    "minViableEnrollment": 8,
     "type": "Essential",
     "mode": "In-Person",
     "status": "upcoming",
-    "featuredImage": "https://picsum.photos/seed/evt-1/800/400",
-    "date": "2025-09-15T09:00:00-05:00",
-    "startDate": "2025-09-15T09:00:00-05:00",
-    "location": { "city": "Austin", "state": "TX" },
-    "enrolledCount": 10,
-    "title": "Essential Training | Austin, TX"
+    "featuredImage": "https://picsum.photos/seed/evt-26025941/800/400",
+    "date": "2025-08-16T08:00:00-05:00",
+    "startDate": "2025-08-16T08:00:00-05:00",
+    "endDate": "2025-08-16T18:00:00-05:00",
+    "location": {
+      "city": "Eau Claire",
+      "state": "WI"
+    },
+    "enrolledCount": 11,
+    "learndashGroup": "26025941",
+    "venue": {
+      "name": "McPhee Centers",
+      "address": "509 University Drive",
+      "address2": "",
+      "city": "Eau Claire",
+      "state": "WI",
+      "zipcode": "54702",
+      "fullAddress": "McPhee Center 509 University Drive Eau Claire, WI 54702"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      }
+    },
+    "headline": "Essential Hybrid Training, which includes an online pre-course/intro.",
+    "evaluationForm": "Eau Claire, WI-2025-08-16: Robert Stow"
   },
   {
-    "id": "evt-2",
-    "name": "Advanced Virtual Workshop",
+    "id": "evt-26025951",
+    "name": "Essential Virtual | Online, Virtual",
+    "title": "Essential Virtual | Online, Virtual",
     "city": "Online",
     "state": "Virtual",
-    "instructor": "Mike Chen",
-    "enrolledStudents": 45,
+    "instructor": "Randall Lazicki",
+    "enrolledStudents": 0,
     "instrumentsPurchased": 0,
-    "capacity": 100,
-    "minViableEnrollment": 30,
+    "capacity": 50,
+    "minViableEnrollment": 8,
+    "type": "Essential",
+    "mode": "Virtual",
+    "status": "cancelled",
+    "featuredImage": "https://picsum.photos/seed/evt-26025951/800/400",
+    "date": "2025-08-16T11:00:00-05:00",
+    "startDate": "2025-08-16T11:00:00-05:00",
+    "endDate": "2025-08-17T15:30:00-05:00",
+    "location": {
+      "city": "Online",
+      "state": "Virtual"
+    },
+    "enrolledCount": 0,
+    "learndashGroup": "26025951",
+    "venue": {
+      "name": "Virtual Platform",
+      "address": "",
+      "address2": "",
+      "city": "",
+      "state": "",
+      "zipcode": "",
+      "fullAddress": ","
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "11:00 AM",
+        "endTime": "3:30 PM"
+      },
+      "day2": {
+        "startTime": "11:00 AM",
+        "endTime": "3:30 PM"
+      }
+    },
+    "headline": "Live Online Essential Training",
+    "evaluationForm": "Essential Virtual -2025-08-16: Randall Lazicki"
+  },
+  {
+    "id": "evt-26025714",
+    "name": "Essential In-Person | Phoenix, AZ",
+    "title": "Essential In-Person | Phoenix, AZ",
+    "city": "Phoenix",
+    "state": "AZ",
+    "instructor": "Larry Munger",
+    "enrolledStudents": 0,
+    "instrumentsPurchased": 0,
+    "capacity": 25,
+    "minViableEnrollment": 8,
+    "type": "Essential",
+    "mode": "In-Person",
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-26025714/800/400",
+    "date": "2025-08-23T08:00:00-07:00",
+    "startDate": "2025-08-23T08:00:00-07:00",
+    "endDate": "2025-08-23T18:00:00-07:00",
+    "location": {
+      "city": "Phoenix",
+      "state": "AZ"
+    },
+    "enrolledCount": 0,
+    "learndashGroup": "26025714",
+    "venue": {
+      "name": "",
+      "address": "15905 South 46th Street",
+      "address2": "Suite 140",
+      "city": "Phoenix",
+      "state": "AZ",
+      "zipcode": "85048",
+      "fullAddress": "15905 South 46th Street Suite 140 Phoenix, AZ 85048"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      }
+    },
+    "headline": "Essential Hybrid Training, which includes an online pre-course/intro.",
+    "evaluationForm": "Phoenix, AZ-2025-08-23: Larry Munger"
+  },
+  {
+    "id": "evt-lemont-il-08232025-e",
+    "name": "Essential Hybrid | Lemont, IL",
+    "title": "Essential Hybrid | Lemont, IL",
+    "city": "Lemont",
+    "state": "IL",
+    "instructor": "Kristin White",
+    "enrolledStudents": 0,
+    "instrumentsPurchased": 0,
+    "capacity": 25,
+    "minViableEnrollment": 8,
+    "type": "Essential",
+    "mode": "Hybrid",
+    "status": "cancelled",
+    "featuredImage": "https://picsum.photos/seed/evt-lemont-il-08232025-e/800/400",
+    "date": "2025-08-23T08:00:00-05:00",
+    "startDate": "2025-08-23T08:00:00-05:00",
+    "endDate": "2025-08-23T18:00:00-05:00",
+    "location": {
+      "city": "Lemont",
+      "state": "IL"
+    },
+    "enrolledCount": 0,
+    "learndashGroup": "",
+    "venue": {
+      "name": "Duly Health and Care",
+      "address": "13462 Archer Avenue",
+      "address2": "",
+      "city": "Lemont",
+      "state": "IL",
+      "zipcode": "60439",
+      "fullAddress": "13462 Archer Avenue Lemont, IL 60439"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      }
+    },
+    "headline": "Essential Hybrid Training, which includes an online pre-course/intro. Chicago area.",
+    "evaluationForm": "Lemont, IL -8/23/2025: Kristin White"
+  },
+  {
+    "id": "evt-26025852",
+    "name": "Essential In-Person | Westmont, IL",
+    "title": "Essential In-Person | Westmont, IL",
+    "city": "Westmont",
+    "state": "IL",
+    "instructor": "Kristin White",
+    "enrolledStudents": 21,
+    "instrumentsPurchased": 1,
+    "capacity": 25,
+    "minViableEnrollment": 8,
+    "type": "Essential",
+    "mode": "In-Person",
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-26025852/800/400",
+    "date": "2025-08-23T08:00:00-05:00",
+    "startDate": "2025-08-23T08:00:00-05:00",
+    "endDate": "2025-08-23T18:00:00-05:00",
+    "location": {
+      "city": "Westmont",
+      "state": "IL"
+    },
+    "enrolledCount": 21,
+    "learndashGroup": "26025852",
+    "venue": {
+      "name": "",
+      "address": "303 West Ogden Avenue",
+      "address2": "",
+      "city": "Westmont",
+      "state": "IL",
+      "zipcode": "60559",
+      "fullAddress": "303 West Ogden Avenue  Westmont, IL 60559"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      }
+    },
+    "headline": "Essential Hybrid Training, which includes an online pre-course/intro.  Chicago area.",
+    "evaluationForm": "Westmont, IL-2025-08-23: Kristin White"
+  },
+  {
+    "id": "evt-26031996",
+    "name": "Essential In-Person | Terre Haute, IN",
+    "title": "Essential In-Person | Terre Haute, IN",
+    "city": "Terre Haute",
+    "state": "IN",
+    "instructor": "Tim Demchak",
+    "enrolledStudents": 16,
+    "instrumentsPurchased": 0,
+    "capacity": 20,
+    "minViableEnrollment": 8,
+    "type": "Essential",
+    "mode": "In-Person",
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-26031996/800/400",
+    "date": "2025-08-23T08:00:00-05:00",
+    "startDate": "2025-08-23T08:00:00-05:00",
+    "endDate": "2025-08-23T18:00:00-05:00",
+    "location": {
+      "city": "Terre Haute",
+      "state": "IN"
+    },
+    "enrolledCount": 16,
+    "learndashGroup": "26031996",
+    "venue": {
+      "name": "",
+      "address": "567 North 5th Street",
+      "address2": "",
+      "city": "Terre Haute",
+      "state": "IN",
+      "zipcode": "47809",
+      "fullAddress": "567 North 5th Street  Terre Haute, IN 47809"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      }
+    },
+    "headline": "Essential Hybrid Onsite for DPT students at Indiana State University",
+    "evaluationForm": "Terre Haute, IN-2025-08-23: Tim Demchak"
+  },
+  {
+    "id": "evt-27396927",
+    "name": "Essential In-Person | Terre Haute, IN",
+    "title": "Essential In-Person | Terre Haute, IN",
+    "city": "Terre Haute",
+    "state": "IN",
+    "instructor": "Tim Demchak",
+    "enrolledStudents": 15,
+    "instrumentsPurchased": 0,
+    "capacity": 20,
+    "minViableEnrollment": 8,
+    "type": "Essential",
+    "mode": "In-Person",
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-27396927/800/400",
+    "date": "2025-08-24T08:00:00-05:00",
+    "startDate": "2025-08-24T08:00:00-05:00",
+    "endDate": "2025-08-24T18:00:00-05:00",
+    "location": {
+      "city": "Terre Haute",
+      "state": "IN"
+    },
+    "enrolledCount": 15,
+    "learndashGroup": "27396927",
+    "venue": {
+      "name": "",
+      "address": "567 North 5th Street",
+      "address2": "",
+      "city": "Terre Haute",
+      "state": "IN",
+      "zipcode": "47809",
+      "fullAddress": "567 North 5th Street  Terre Haute, IN 47809"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      }
+    },
+    "headline": "Private Onsite Training for DPT students at Indiana State University",
+    "evaluationForm": "Terre Haute, IN-2025-08-24: Tim Demchak"
+  },
+  {
+    "id": "evt-26012320",
+    "name": "Essential Hybrid | Portland, ME",
+    "title": "Essential Hybrid | Portland, ME",
+    "city": "Portland",
+    "state": "ME",
+    "instructor": "Kelsey Taylor",
+    "enrolledStudents": 3,
+    "instrumentsPurchased": 0,
+    "capacity": 25,
+    "minViableEnrollment": 8,
+    "type": "Essential",
+    "mode": "Hybrid",
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-26012320/800/400",
+    "date": "2025-09-06T08:00:00-04:00",
+    "startDate": "2025-09-06T08:00:00-04:00",
+    "endDate": "2025-09-06T18:00:00-04:00",
+    "location": {
+      "city": "Portland",
+      "state": "ME"
+    },
+    "enrolledCount": 3,
+    "learndashGroup": "26012320",
+    "venue": {
+      "name": "Holiday Inn by the Bay",
+      "address": "88 Spring St",
+      "address2": "",
+      "city": "Portland",
+      "state": "ME",
+      "zipcode": "4101",
+      "fullAddress": "88 Spring St Portland, ME 04101"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      }
+    },
+    "headline": "Essential Hybrid Training, which includes an online pre-course/intro. 45 minutes south of August, ME.",
+    "evaluationForm": "Portland, ME -9/06/2025: Kelsey Taylor"
+  },
+  {
+    "id": "evt-26025537",
+    "name": "Essential In-Person | Cleveland, OH",
+    "title": "Essential In-Person | Cleveland, OH",
+    "city": "Cleveland",
+    "state": "OH",
+    "instructor": "Dr Reena Pathak",
+    "enrolledStudents": 2,
+    "instrumentsPurchased": 0,
+    "capacity": 25,
+    "minViableEnrollment": 8,
+    "type": "Essential",
+    "mode": "In-Person",
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-26025537/800/400",
+    "date": "2025-09-13T08:00:00-04:00",
+    "startDate": "2025-09-13T08:00:00-04:00",
+    "endDate": "2025-09-13T18:00:00-04:00",
+    "location": {
+      "city": "Cleveland",
+      "state": "OH"
+    },
+    "enrolledCount": 2,
+    "learndashGroup": "26025537",
+    "venue": {
+      "name": "",
+      "address": "1810 West 25th Street",
+      "address2": "Unit 1",
+      "city": "Cleveland",
+      "state": "OH",
+      "zipcode": "44113",
+      "fullAddress": "1810 West 25th Street Unit 1 Cleveland, OH 44113"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      }
+    },
+    "headline": "Essential Hybrid Training, which includes an online pre-course/intro.",
+    "evaluationForm": "Cleveland, OH-2025-09-13: Dr Reena Pathak"
+  },
+  {
+    "id": "evt-kelley-09132025-esse",
+    "name": "Essential Virtual | Online, Virtual",
+    "title": "Essential Virtual | Online, Virtual",
+    "city": "Online",
+    "state": "Virtual",
+    "instructor": "Greg Kelley",
+    "enrolledStudents": 2,
+    "instrumentsPurchased": 0,
+    "capacity": 50,
+    "minViableEnrollment": 8,
+    "type": "Essential",
+    "mode": "Virtual",
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-kelley-09132025-esse/800/400",
+    "date": "2025-09-13T11:00:00-05:00",
+    "startDate": "2025-09-13T11:00:00-05:00",
+    "endDate": "2025-09-14T15:30:00-05:00",
+    "location": {
+      "city": "Online",
+      "state": "Virtual"
+    },
+    "enrolledCount": 2,
+    "learndashGroup": "",
+    "venue": {
+      "name": "Virtual Platform",
+      "address": "",
+      "address2": "",
+      "city": "",
+      "state": "",
+      "zipcode": "",
+      "fullAddress": ""
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "11:00 AM",
+        "endTime": "3:30 PM"
+      },
+      "day2": {
+        "startTime": "11:00 AM",
+        "endTime": "3:30 PM"
+      }
+    },
+    "headline": "Live Online Essential Training, which includes an online pre-course/intro",
+    "evaluationForm": "Essential Virtual-2025-09-13: Greg Kelley"
+  },
+  {
+    "id": "evt-27398136",
+    "name": "Essential In-Person | Chicago, IL",
+    "title": "Essential In-Person | Chicago, IL",
+    "city": "Chicago",
+    "state": "IL",
+    "instructor": "Mike Ploski",
+    "enrolledStudents": 10,
+    "instrumentsPurchased": 0,
+    "capacity": 25,
+    "minViableEnrollment": 8,
+    "type": "Essential",
+    "mode": "In-Person",
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-27398136/800/400",
+    "date": "2025-09-16T08:00:00-05:00",
+    "startDate": "2025-09-16T08:00:00-05:00",
+    "endDate": "2025-09-16T18:00:00-05:00",
+    "location": {
+      "city": "Chicago",
+      "state": "IL"
+    },
+    "enrolledCount": 10,
+    "learndashGroup": "27398136",
+    "venue": {
+      "name": "St. Regis Spa Chicago",
+      "address": "401 East Wacker Drive",
+      "address2": "10th Floor",
+      "city": "Chicago",
+      "state": "IL",
+      "zipcode": "60601",
+      "fullAddress": "401 East Wacker Drive 10th Floor Chicago, IL 60601"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      }
+    },
+    "headline": "Essential Hybrid Onsite for St. Regis Spa Chicago",
+    "evaluationForm": "Chicago, IL-2025-09-16: Mike Ploski"
+  },
+  {
+    "id": "evt-26021560",
+    "name": "Essential In-Person | West Boylston, MA",
+    "title": "Essential In-Person | West Boylston, MA",
+    "city": "West Boylston",
+    "state": "MA",
+    "instructor": "Michael Racette",
+    "enrolledStudents": 12,
+    "instrumentsPurchased": 0,
+    "capacity": 25,
+    "minViableEnrollment": 8,
+    "type": "Essential",
+    "mode": "In-Person",
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-26021560/800/400",
+    "date": "2025-09-20T08:00:00-04:00",
+    "startDate": "2025-09-20T08:00:00-04:00",
+    "endDate": "2025-09-20T18:00:00-04:00",
+    "location": {
+      "city": "West Boylston",
+      "state": "MA"
+    },
+    "enrolledCount": 12,
+    "learndashGroup": "26021560",
+    "venue": {
+      "name": "",
+      "address": "342 West Boylston Street",
+      "address2": "Suite 111",
+      "city": "West Boylston",
+      "state": "MA",
+      "zipcode": "1583",
+      "fullAddress": "342 West Boylston Street Suite 111 West Boylston, MA 01583"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      }
+    },
+    "headline": "Essential Hybrid Training, which includes an online pre-course/intro.  Boston area.",
+    "evaluationForm": "West Boylston, MA-2025-09-20: Michael Racette"
+  },
+  {
+    "id": "evt-ploski-09202025-adva",
+    "name": "Advanced Virtual | Online, Virtual",
+    "title": "Advanced Virtual | Online, Virtual",
+    "city": "Online",
+    "state": "Virtual",
+    "instructor": "Mike Ploski",
+    "enrolledStudents": 1,
+    "instrumentsPurchased": 0,
+    "capacity": 30,
+    "minViableEnrollment": 12,
     "type": "Advanced",
     "mode": "Virtual",
     "status": "upcoming",
-    "featuredImage": "https://picsum.photos/seed/evt-2/800/400",
-    "date": "2025-09-20T10:00:00-07:00",
-    "startDate": "2025-09-20T10:00:00-07:00",
-    "location": { "city": "Online", "state": "Virtual" },
-    "enrolledCount": 45,
-    "title": "Advanced Virtual Workshop"
+    "featuredImage": "https://picsum.photos/seed/evt-ploski-09202025-adva/800/400",
+    "date": "2025-09-20T11:00:00-05:00",
+    "startDate": "2025-09-20T11:00:00-05:00",
+    "endDate": "2025-09-21T16:00:00-05:00",
+    "location": {
+      "city": "Online",
+      "state": "Virtual"
+    },
+    "enrolledCount": 1,
+    "learndashGroup": "",
+    "venue": {
+      "name": "Virtual Platform",
+      "address": "",
+      "address2": "",
+      "city": "",
+      "state": "",
+      "zipcode": "",
+      "fullAddress": ""
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "11:00 AM",
+        "endTime": "4:00 PM"
+      },
+      "day2": {
+        "startTime": "11:00 AM",
+        "endTime": "4:00 PM"
+      }
+    },
+    "headline": "Live Online Advanced Training",
+    "evaluationForm": "Advanced Virtual-2025-09-20: Mike Ploski"
   },
   {
-    "id": "evt-3",
-    "name": "Essential Training | New York, NY",
-    "city": "New York",
-    "state": "NY",
-    "instructor": "Lisa Park",
+    "id": "evt-27398136",
+    "name": "Essential In-Person | Fort Wayne, IN",
+    "title": "Essential In-Person | Fort Wayne, IN",
+    "city": "Fort Wayne",
+    "state": "IN",
+    "instructor": "Mike Ploski",
+    "enrolledStudents": 10,
+    "instrumentsPurchased": 0,
+    "capacity": 20,
+    "minViableEnrollment": 8,
+    "type": "Essential",
+    "mode": "In-Person",
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-27398136/800/400",
+    "date": "2025-09-26T08:00:00-05:00",
+    "startDate": "2025-09-26T08:00:00-05:00",
+    "endDate": "2025-09-26T18:00:00-05:00",
+    "location": {
+      "city": "Fort Wayne",
+      "state": "IN"
+    },
+    "enrolledCount": 10,
+    "learndashGroup": "27398136",
+    "venue": {
+      "name": "",
+      "address": "10627 Diebold Road",
+      "address2": "",
+      "city": "Fort Wayne",
+      "state": "IN",
+      "zipcode": "46845",
+      "fullAddress": "10627 Diebold Road  Fort Wayne, IN 46845"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      }
+    },
+    "headline": "Essential Hybrid Onsite for Manchester University Students",
+    "evaluationForm": "Fort Wayne, IN-2025-09-26: Mike Ploski"
+  },
+  {
+    "id": "evt-26030999",
+    "name": "Essential In-Person | Cape Coral, FL",
+    "title": "Essential In-Person | Cape Coral, FL",
+    "city": "Cape Coral",
+    "state": "FL",
+    "instructor": "Ashli Linkhorn",
+    "enrolledStudents": 2,
+    "instrumentsPurchased": 0,
+    "capacity": 25,
+    "minViableEnrollment": 8,
+    "type": "Essential",
+    "mode": "In-Person",
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-26030999/800/400",
+    "date": "2025-09-27T08:00:00-04:00",
+    "startDate": "2025-09-27T08:00:00-04:00",
+    "endDate": "2025-09-27T18:00:00-04:00",
+    "location": {
+      "city": "Cape Coral",
+      "state": "FL"
+    },
+    "enrolledCount": 2,
+    "learndashGroup": "26030999",
+    "venue": {
+      "name": "",
+      "address": "605 SE 13th Court",
+      "address2": "",
+      "city": "Cape Coral",
+      "state": "FL",
+      "zipcode": "33990",
+      "fullAddress": "605 SE 13th Court  Cape Coral, FL 33990"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      }
+    },
+    "headline": "Essential Hybrid Training, which includes an online pre-course.  Fort Myers area.",
+    "evaluationForm": "Cape Coral, FL-2025-09-27: Ashli Linkhorn"
+  },
+  {
+    "id": "evt-26025571",
+    "name": "Essential In-Person | Merritt Island, FL",
+    "title": "Essential In-Person | Merritt Island, FL",
+    "city": "Merritt Island",
+    "state": "FL",
+    "instructor": "Mark Wieland",
+    "enrolledStudents": 2,
+    "instrumentsPurchased": 0,
+    "capacity": 25,
+    "minViableEnrollment": 8,
+    "type": "Essential",
+    "mode": "In-Person",
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-26025571/800/400",
+    "date": "2025-09-27T08:00:00-04:00",
+    "startDate": "2025-09-27T08:00:00-04:00",
+    "endDate": "2025-09-27T18:00:00-04:00",
+    "location": {
+      "city": "Merritt Island",
+      "state": "FL"
+    },
+    "enrolledCount": 2,
+    "learndashGroup": "26025571",
+    "venue": {
+      "name": "",
+      "address": "595 North Courtenay Parkway",
+      "address2": "Suite 203",
+      "city": "Merritt Island",
+      "state": "FL",
+      "zipcode": "32953",
+      "fullAddress": "595 North Courtenay Parkway Suite 203 Merritt Island, FL 32953"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      }
+    },
+    "headline": "Essential Hybrid Training, which includes an online pre-course/intro.",
+    "evaluationForm": "Merritt Island, FL-2025-09-27: Mark Wieland"
+  },
+  {
+    "id": "evt-26024592",
+    "name": "Essential In-Person | Pasadena, CA",
+    "title": "Essential In-Person | Pasadena, CA",
+    "city": "Pasadena",
+    "state": "CA",
+    "instructor": "TBA",
     "enrolledStudents": 5,
     "instrumentsPurchased": 1,
     "capacity": 25,
-    "minViableEnrollment": 15,
+    "minViableEnrollment": 8,
     "type": "Essential",
     "mode": "In-Person",
     "status": "upcoming",
-    "featuredImage": "https://picsum.photos/seed/evt-3/800/400",
-    "date": "2025-10-05T09:00:00-04:00",
-    "startDate": "2025-10-05T09:00:00-04:00",
-    "location": { "city": "New York", "state": "NY" },
+    "featuredImage": "https://picsum.photos/seed/evt-26024592/800/400",
+    "date": "2025-09-28T08:00:00-07:00",
+    "startDate": "2025-09-28T08:00:00-07:00",
+    "endDate": "2025-09-28T06:00:00-07:00",
+    "location": {
+      "city": "Pasadena",
+      "state": "CA"
+    },
     "enrolledCount": 5,
-    "title": "Essential Training | New York, NY"
+    "learndashGroup": "26024592",
+    "venue": {
+      "name": "",
+      "address": "111 South Hudson Avenue",
+      "address2": "",
+      "city": "Pasadena",
+      "state": "CA",
+      "zipcode": "91101",
+      "fullAddress": "111 South Hudson Avenue  Pasadena, CA 91101"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 AM"
+      }
+    },
+    "headline": "Essential Hybrid Training, which includes an online pre-course",
+    "evaluationForm": "Pasadena, CA-2025-09-28: TBA"
   },
   {
-    "id": "evt-4",
-    "name": "Advanced Training | San Francisco, CA",
-    "city": "San Francisco",
-    "state": "CA",
-    "instructor": "Sarah Johnson",
-    "enrolledStudents": 22,
-    "instrumentsPurchased": 15,
+    "id": "evt-27398191",
+    "name": "Essential In-Person | Somerset, NJ",
+    "title": "Essential In-Person | Somerset, NJ",
+    "city": "Somerset",
+    "state": "NJ",
+    "instructor": "Kelsey Taylor",
+    "enrolledStudents": 0,
+    "instrumentsPurchased": 0,
+    "capacity": 25,
+    "minViableEnrollment": 8,
+    "type": "Essential",
+    "mode": "In-Person",
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-27398191/800/400",
+    "date": "2025-10-04T08:00:00-04:00",
+    "startDate": "2025-10-04T08:00:00-04:00",
+    "endDate": "2025-10-04T18:00:00-04:00",
+    "location": {
+      "city": "Somerset",
+      "state": "NJ"
+    },
+    "enrolledCount": 0,
+    "learndashGroup": "27398191",
+    "venue": {
+      "name": "University Orthopaedics Associates",
+      "address": "2 World's Fair Drive",
+      "address2": "",
+      "city": "Somerset",
+      "state": "NJ",
+      "zipcode": "8873",
+      "fullAddress": "2 World's Fair Drive  Somerset, NJ 08873"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      }
+    },
+    "headline": "Essential Hybrid Training, which includes an online pre-course/intro.",
+    "evaluationForm": "Somerset, NJ-2025-10-04: Kelsey Taylor"
+  },
+  {
+    "id": "evt-26030718",
+    "name": "Essential In-Person | Indianapolis, IN",
+    "title": "Essential In-Person | Indianapolis, IN",
+    "city": "Indianapolis",
+    "state": "IN",
+    "instructor": "Mike Ploski",
+    "enrolledStudents": 0,
+    "instrumentsPurchased": 0,
+    "capacity": 20,
+    "minViableEnrollment": 8,
+    "type": "Essential",
+    "mode": "In-Person",
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-26030718/800/400",
+    "date": "2025-10-11T08:00:00-05:00",
+    "startDate": "2025-10-11T08:00:00-05:00",
+    "endDate": "2025-10-11T17:30:00-05:00",
+    "location": {
+      "city": "Indianapolis",
+      "state": "IN"
+    },
+    "enrolledCount": 0,
+    "learndashGroup": "26030718",
+    "venue": {
+      "name": "",
+      "address": "1050 Wishard Boulevard",
+      "address2": "School of Health & Human Sciences",
+      "city": "Indianapolis",
+      "state": "IN",
+      "zipcode": "46202",
+      "fullAddress": "1050 Wishard Boulevard School of Health & Human Sciences Indianapolis, IN 46202"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "5:30 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "5:30 PM"
+      }
+    },
+    "headline": "Essential Hybrid Private Onsite for IU-Indianapolis students",
+    "evaluationForm": "Indianapolis, IN-2025-10-11: Mike Ploski"
+  },
+  {
+    "id": "evt-26023042",
+    "name": "Essential In-Person | Pittsburgh, PA",
+    "title": "Essential In-Person | Pittsburgh, PA",
+    "city": "Pittsburgh",
+    "state": "PA",
+    "instructor": "Dr Reena Pathak",
+    "enrolledStudents": 4,
+    "instrumentsPurchased": 0,
+    "capacity": 25,
+    "minViableEnrollment": 8,
+    "type": "Essential",
+    "mode": "In-Person",
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-26023042/800/400",
+    "date": "2025-10-11T08:00:00-04:00",
+    "startDate": "2025-10-11T08:00:00-04:00",
+    "endDate": "2025-10-11T18:00:00-04:00",
+    "location": {
+      "city": "Pittsburgh",
+      "state": "PA"
+    },
+    "enrolledCount": 4,
+    "learndashGroup": "26023042",
+    "venue": {
+      "name": "",
+      "address": "3600 Laketon Road",
+      "address2": "",
+      "city": "Pittsburgh",
+      "state": "PA",
+      "zipcode": "15235",
+      "fullAddress": "3600 Laketon Road  Pittsburgh, PA 15235"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      }
+    },
+    "headline": "Essential Hybrid Training, which includes an online pre-course/intro.",
+    "evaluationForm": "Pittsburgh, PA-2025-10-11: Dr Reena Pathak"
+  },
+  {
+    "id": "evt-kelley-10112025-esse",
+    "name": "Essential Virtual | Online, Virtual",
+    "title": "Essential Virtual | Online, Virtual",
+    "city": "Online",
+    "state": "Virtual",
+    "instructor": "Greg Kelley",
+    "enrolledStudents": 0,
+    "instrumentsPurchased": 0,
+    "capacity": 50,
+    "minViableEnrollment": 8,
+    "type": "Essential",
+    "mode": "Virtual",
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-kelley-10112025-esse/800/400",
+    "date": "2025-10-11T11:00:00-05:00",
+    "startDate": "2025-10-11T11:00:00-05:00",
+    "endDate": "2025-10-12T15:30:00-05:00",
+    "location": {
+      "city": "Online",
+      "state": "Virtual"
+    },
+    "enrolledCount": 0,
+    "learndashGroup": "",
+    "venue": {
+      "name": "Virtual Platform",
+      "address": "",
+      "address2": "",
+      "city": "",
+      "state": "",
+      "zipcode": "",
+      "fullAddress": ""
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "11:00 AM",
+        "endTime": "3:30 PM"
+      },
+      "day2": {
+        "startTime": "11:00 AM",
+        "endTime": "3:30 PM"
+      }
+    },
+    "headline": "Live Online 2-Day Advanced Training",
+    "evaluationForm": "Essential Virtual-2025-10-11: Greg Kelley"
+  },
+  {
+    "id": "evt-27397142",
+    "name": "Essential In-Person | Emmetsburg, IA",
+    "title": "Essential In-Person | Emmetsburg, IA",
+    "city": "Emmetsburg",
+    "state": "IA",
+    "instructor": "Ryan Lystad",
+    "enrolledStudents": 0,
+    "instrumentsPurchased": 0,
+    "capacity": 20,
+    "minViableEnrollment": 8,
+    "type": "Essential",
+    "mode": "In-Person",
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-27397142/800/400",
+    "date": "2025-10-15T08:00:00-05:00",
+    "startDate": "2025-10-15T08:00:00-05:00",
+    "endDate": "2025-10-15T18:00:00-05:00",
+    "location": {
+      "city": "Emmetsburg",
+      "state": "IA"
+    },
+    "enrolledCount": 0,
+    "learndashGroup": "27397142",
+    "venue": {
+      "name": "",
+      "address": "3201 1st Street",
+      "address2": "",
+      "city": "Emmetsburg",
+      "state": "IA",
+      "zipcode": "50536",
+      "fullAddress": "3201 1st Street  Emmetsburg, IA 50536"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      }
+    },
+    "headline": "Essential Hybrid Private Onsite for Mercy Health - Palo Alto County",
+    "evaluationForm": "Emmetsburg, IA-2025-10-15: Ryan Lystad"
+  },
+  {
+    "id": "evt-26031687",
+    "name": "Essential In-Person | Garden City, NY",
+    "title": "Essential In-Person | Garden City, NY",
+    "city": "Garden City",
+    "state": "NY",
+    "instructor": "Dave Mansfield",
+    "enrolledStudents": 1,
+    "instrumentsPurchased": 0,
+    "capacity": 25,
+    "minViableEnrollment": 8,
+    "type": "Essential",
+    "mode": "In-Person",
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-26031687/800/400",
+    "date": "2025-10-18T08:00:00-04:00",
+    "startDate": "2025-10-18T08:00:00-04:00",
+    "endDate": "2025-10-18T18:00:00-04:00",
+    "location": {
+      "city": "Garden City",
+      "state": "NY"
+    },
+    "enrolledCount": 1,
+    "learndashGroup": "26031687",
+    "venue": {
+      "name": "",
+      "address": "800 East Gate Boulevard",
+      "address2": "",
+      "city": "Garden City",
+      "state": "NY",
+      "zipcode": "11530",
+      "fullAddress": "800 East Gate Boulevard  Garden City, NY 11530"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      }
+    },
+    "headline": "Essential Hybrid Training, which includes an online pre-course/intro.",
+    "evaluationForm": "Garden City, NY-2025-10-18: Dave Mansfield"
+  },
+  {
+    "id": "evt-racette-10182025-adv",
+    "name": "Advanced Virtual | Online, Virtual",
+    "title": "Advanced Virtual | Online, Virtual",
+    "city": "Online",
+    "state": "Virtual",
+    "instructor": "Michael Racette",
+    "enrolledStudents": 0,
+    "instrumentsPurchased": 0,
     "capacity": 30,
-    "minViableEnrollment": 20,
+    "minViableEnrollment": 12,
+    "type": "Advanced",
+    "mode": "Virtual",
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-racette-10182025-adv/800/400",
+    "date": "2025-10-18T08:00:00-05:00",
+    "startDate": "2025-10-18T08:00:00-05:00",
+    "endDate": "2025-10-19T13:00:00-05:00",
+    "location": {
+      "city": "Online",
+      "state": "Virtual"
+    },
+    "enrolledCount": 0,
+    "learndashGroup": "",
+    "venue": {
+      "name": "Virtual Platform",
+      "address": "",
+      "address2": "",
+      "city": "",
+      "state": "",
+      "zipcode": "",
+      "fullAddress": ""
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "1:00 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "1:00 PM"
+      }
+    },
+    "headline": "Live Online 2-Day Advanced Training",
+    "evaluationForm": "Advanced Virtual-2025-10-18: Michael Racette"
+  },
+  {
+    "id": "evt-26030950",
+    "name": "Essential In-Person | Las Vegas, NV",
+    "title": "Essential In-Person | Las Vegas, NV",
+    "city": "Las Vegas",
+    "state": "NV",
+    "instructor": "Trevor Roberts",
+    "enrolledStudents": 1,
+    "instrumentsPurchased": 1,
+    "capacity": 25,
+    "minViableEnrollment": 8,
+    "type": "Essential",
+    "mode": "In-Person",
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-26030950/800/400",
+    "date": "2025-10-25T08:00:00-07:00",
+    "startDate": "2025-10-25T08:00:00-07:00",
+    "endDate": "2025-10-25T18:00:00-07:00",
+    "location": {
+      "city": "Las Vegas",
+      "state": "NV"
+    },
+    "enrolledCount": 1,
+    "learndashGroup": "26030950",
+    "venue": {
+      "name": "",
+      "address": "4505 South Maryland Parkway",
+      "address2": "University of Nevada - Las Vegas",
+      "city": "Las Vegas",
+      "state": "NV",
+      "zipcode": "89154",
+      "fullAddress": "4505 South Maryland Parkway University of Nevada - Las Vegas Las Vegas, NV 89154"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      }
+    },
+    "headline": "Essential Hybrid Training, which includes an online pre-course/intro.",
+    "evaluationForm": "Las Vegas, NV-2025-10-25: Trevor Roberts"
+  },
+  {
+    "id": "evt-26031224",
+    "name": "Advanced In-Person | Atlanta, GA",
+    "title": "Advanced In-Person | Atlanta, GA",
+    "city": "Atlanta",
+    "state": "GA",
+    "instructor": "Ashli Linkhorn",
+    "enrolledStudents": 3,
+    "instrumentsPurchased": 0,
+    "capacity": 30,
+    "minViableEnrollment": 12,
     "type": "Advanced",
     "mode": "In-Person",
     "status": "upcoming",
-    "featuredImage": "https://picsum.photos/seed/evt-4/800/400",
-    "date": "2025-10-12T09:00:00-07:00",
-    "startDate": "2025-10-12T09:00:00-07:00",
-    "location": { "city": "San Francisco", "state": "CA" },
-    "enrolledCount": 22,
-    "title": "Advanced Training | San Francisco, CA"
+    "featuredImage": "https://picsum.photos/seed/evt-26031224/800/400",
+    "date": "2025-11-01T08:00:00-04:00",
+    "startDate": "2025-11-01T08:00:00-04:00",
+    "endDate": "2025-11-02T13:30:00-04:00",
+    "location": {
+      "city": "Atlanta",
+      "state": "GA"
+    },
+    "enrolledCount": 3,
+    "learndashGroup": "26031224",
+    "venue": {
+      "name": "",
+      "address": "1495 Northside Drive NW",
+      "address2": "",
+      "city": "Atlanta",
+      "state": "GA",
+      "zipcode": "30318",
+      "fullAddress": "1495 Northside Drive NW  Atlanta, GA 30318"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "5:30 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "1:30 PM"
+      }
+    },
+    "headline": "Advanced 2-Day Training",
+    "evaluationForm": "Atlanta, GA-2025-11-01: Ashli Linkhorn"
   },
   {
-    "id": "evt-5",
-    "name": "Completed Workshop | Chicago, IL",
-    "city": "Chicago",
-    "state": "IL",
-    "instructor": "Mike Chen",
-    "enrolledStudents": 25,
-    "instrumentsPurchased": 20,
+    "id": "evt-27398956",
+    "name": "Essential In-Person | Sabetha, KS",
+    "title": "Essential In-Person | Sabetha, KS",
+    "city": "Sabetha",
+    "state": "KS",
+    "instructor": "Mike Ploski",
+    "enrolledStudents": 0,
+    "instrumentsPurchased": 0,
     "capacity": 25,
-    "minViableEnrollment": 15,
+    "minViableEnrollment": 8,
     "type": "Essential",
     "mode": "In-Person",
-    "status": "completed",
-    "featuredImage": "https://picsum.photos/seed/evt-5/800/400",
-    "date": "2025-07-20T09:00:00-05:00",
-    "startDate": "2025-07-20T09:00:00-05:00",
-    "location": { "city": "Chicago", "state": "IL" },
-    "enrolledCount": 25,
-    "title": "Completed Workshop | Chicago, IL"
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-27398956/800/400",
+    "date": "2025-11-01T08:00:00-05:00",
+    "startDate": "2025-11-01T08:00:00-05:00",
+    "endDate": "2025-11-01T18:00:00-05:00",
+    "location": {
+      "city": "Sabetha",
+      "state": "KS"
+    },
+    "enrolledCount": 0,
+    "learndashGroup": "27398956",
+    "venue": {
+      "name": "Sabetha Community Hospital",
+      "address": "508 South 14th Street",
+      "address2": "",
+      "city": "Sabetha",
+      "state": "KS",
+      "zipcode": "66534",
+      "fullAddress": "508 South 14th Street  Sabetha, KS 66534"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      }
+    },
+    "headline": "Essential Hybrid Training that includes an online pre-course/intro.",
+    "evaluationForm": "Sabetha, KS-2025-11-01: Mike Ploski"
+  },
+  {
+    "id": "evt-27397923",
+    "name": "Upper Quadrant In-Person | Cranford, NJ",
+    "title": "Upper Quadrant In-Person | Cranford, NJ",
+    "city": "Cranford",
+    "state": "NJ",
+    "instructor": "Mike Ploski",
+    "enrolledStudents": 8,
+    "instrumentsPurchased": 0,
+    "capacity": 20,
+    "minViableEnrollment": 8,
+    "type": "Upper Quadrant",
+    "mode": "In-Person",
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-27397923/800/400",
+    "date": "2025-11-06T09:00:00-04:00",
+    "startDate": "2025-11-06T09:00:00-04:00",
+    "endDate": "2025-11-06T15:00:00-04:00",
+    "location": {
+      "city": "Cranford",
+      "state": "NJ"
+    },
+    "enrolledCount": 8,
+    "learndashGroup": "27397923",
+    "venue": {
+      "name": "Ivy Rehaab",
+      "address": "210 North Avenue East",
+      "address2": "",
+      "city": "Cranford",
+      "state": "NJ",
+      "zipcode": "7016",
+      "fullAddress": "210 North Avenue East  Cranford, NJ 07016"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "9:00 AM",
+        "endTime": "3:00 PM"
+      },
+      "day2": {
+        "startTime": "9:00 AM",
+        "endTime": "3:00 PM"
+      }
+    },
+    "headline": "Private Upper Quadrant Training for Ivy Rehab",
+    "evaluationForm": "Cranford, NJ-2025-11-06: Mike Ploski"
+  },
+  {
+    "id": "evt-26031920",
+    "name": "Essential In-Person | Livermore, CA",
+    "title": "Essential In-Person | Livermore, CA",
+    "city": "Livermore",
+    "state": "CA",
+    "instructor": "John Dang",
+    "enrolledStudents": 0,
+    "instrumentsPurchased": 0,
+    "capacity": 25,
+    "minViableEnrollment": 8,
+    "type": "Essential",
+    "mode": "In-Person",
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-26031920/800/400",
+    "date": "2025-11-08T08:00:00-07:00",
+    "startDate": "2025-11-08T08:00:00-07:00",
+    "endDate": "2025-11-08T18:00:00-07:00",
+    "location": {
+      "city": "Livermore",
+      "state": "CA"
+    },
+    "enrolledCount": 0,
+    "learndashGroup": "26031920",
+    "venue": {
+      "name": "",
+      "address": "2492 Nissen Drive",
+      "address2": "",
+      "city": "Livermore",
+      "state": "CA",
+      "zipcode": "94551",
+      "fullAddress": "2492 Nissen Drive  Livermore, CA 94551"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      }
+    },
+    "headline": "Essential Hybrid Training, which includes an online pre-course/intro.  San Francisco/Oakland area.",
+    "evaluationForm": "Livermore, CA-2025-11-08: John Dang"
+  },
+  {
+    "id": "evt-26031014",
+    "name": "Advanced In-Person | Indianapolis, IN",
+    "title": "Advanced In-Person | Indianapolis, IN",
+    "city": "Indianapolis",
+    "state": "IN",
+    "instructor": "Mike Ploski",
+    "enrolledStudents": 3,
+    "instrumentsPurchased": 0,
+    "capacity": 30,
+    "minViableEnrollment": 12,
+    "type": "Advanced",
+    "mode": "In-Person",
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-26031014/800/400",
+    "date": "2025-11-08T08:00:00-05:00",
+    "startDate": "2025-11-08T08:00:00-05:00",
+    "endDate": "2025-11-09T13:30:00-05:00",
+    "location": {
+      "city": "Indianapolis",
+      "state": "IN"
+    },
+    "enrolledCount": 3,
+    "learndashGroup": "26031014",
+    "venue": {
+      "name": "",
+      "address": "7801 East 88th Street",
+      "address2": "",
+      "city": "Indianapolis",
+      "state": "IN",
+      "zipcode": "46256",
+      "fullAddress": "7801 East 88th Street  Indianapolis, IN 46256"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "5:30 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "1:30 PM"
+      }
+    },
+    "headline": "Advanced 2-Day Training",
+    "evaluationForm": "Indianapolis, IN-2025-11-08: Mike Ploski"
+  },
+  {
+    "id": "evt-27397900",
+    "name": "Essential In-Person | New York City, NY",
+    "title": "Essential In-Person | New York City, NY",
+    "city": "New York City",
+    "state": "NY",
+    "instructor": "Justine DeLuccio",
+    "enrolledStudents": 1,
+    "instrumentsPurchased": 0,
+    "capacity": 25,
+    "minViableEnrollment": 8,
+    "type": "Essential",
+    "mode": "In-Person",
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-27397900/800/400",
+    "date": "2025-11-08T08:00:00-04:00",
+    "startDate": "2025-11-08T08:00:00-04:00",
+    "endDate": "2025-11-08T18:00:00-04:00",
+    "location": {
+      "city": "New York City",
+      "state": "NY"
+    },
+    "enrolledCount": 1,
+    "learndashGroup": "27397900",
+    "venue": {
+      "name": "ActiveCare Physical Therapy",
+      "address": "29 West 38th Street",
+      "address2": "Suite 601",
+      "city": "New York City",
+      "state": "NY",
+      "zipcode": "10018",
+      "fullAddress": "29 West 38th Street Suite 601 New York City, NY 10018"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      }
+    },
+    "headline": "Essential Hybrid Training, which includes an online pre-course/intro.",
+    "evaluationForm": "New York City, NY-2025-11-08: Justine DeLuccio"
+  },
+  {
+    "id": "evt-27398231",
+    "name": "Essential In-Person | Portland, OR",
+    "title": "Essential In-Person | Portland, OR",
+    "city": "Portland",
+    "state": "OR",
+    "instructor": "Michael Dillon",
+    "enrolledStudents": 1,
+    "instrumentsPurchased": 0,
+    "capacity": 25,
+    "minViableEnrollment": 8,
+    "type": "Essential",
+    "mode": "In-Person",
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-27398231/800/400",
+    "date": "2025-11-08T08:00:00-07:00",
+    "startDate": "2025-11-08T08:00:00-07:00",
+    "endDate": "2025-11-08T18:00:00-07:00",
+    "location": {
+      "city": "Portland",
+      "state": "OR"
+    },
+    "enrolledCount": 1,
+    "learndashGroup": "27398231",
+    "venue": {
+      "name": "Providence Northeast Rehabilitation",
+      "address": "507 NE 47th Avenue",
+      "address2": "",
+      "city": "Portland",
+      "state": "OR",
+      "zipcode": "97213",
+      "fullAddress": "507 NE 47th Avenue  Portland, OR 97213"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      }
+    },
+    "headline": "Essential Hybrid Training, which includes an online pre-course/intro.",
+    "evaluationForm": "Portland, OR-2025-11-08: Michael Dillon"
+  },
+  {
+    "id": "evt-26031233",
+    "name": "Advanced In-Person | West Melbourne, FL",
+    "title": "Advanced In-Person | West Melbourne, FL",
+    "city": "West Melbourne",
+    "state": "FL",
+    "instructor": "TBA",
+    "enrolledStudents": 1,
+    "instrumentsPurchased": 0,
+    "capacity": 30,
+    "minViableEnrollment": 12,
+    "type": "Advanced",
+    "mode": "In-Person",
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-26031233/800/400",
+    "date": "2025-11-15T08:00:00-04:00",
+    "startDate": "2025-11-15T08:00:00-04:00",
+    "endDate": "2025-11-16T13:30:00-04:00",
+    "location": {
+      "city": "West Melbourne",
+      "state": "FL"
+    },
+    "enrolledCount": 1,
+    "learndashGroup": "26031233",
+    "venue": {
+      "name": "Beachside Physical Therapy-Palm Bay",
+      "address": "4270 Minton Road",
+      "address2": "",
+      "city": "West Melbourne",
+      "state": "FL",
+      "zipcode": "32904",
+      "fullAddress": "4270 Minton Road West Melbourne, FL 32904"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "5:30 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "1:30 PM"
+      }
+    },
+    "headline": "Advanced 2-Day Training. 45 minutes east of Orlando.",
+    "evaluationForm": "West Melbourne, FL -11/15/2025: "
+  },
+  {
+    "id": "evt-27397322",
+    "name": "Essential In-Person | Lynchburg, VA",
+    "title": "Essential In-Person | Lynchburg, VA",
+    "city": "Lynchburg",
+    "state": "VA",
+    "instructor": "Randall Lazicki",
+    "enrolledStudents": 0,
+    "instrumentsPurchased": 0,
+    "capacity": 25,
+    "minViableEnrollment": 8,
+    "type": "Essential",
+    "mode": "In-Person",
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-27397322/800/400",
+    "date": "2025-11-15T08:00:00-04:00",
+    "startDate": "2025-11-15T08:00:00-04:00",
+    "endDate": "2025-11-15T18:00:00-04:00",
+    "location": {
+      "city": "Lynchburg",
+      "state": "VA"
+    },
+    "enrolledCount": 0,
+    "learndashGroup": "27397322",
+    "venue": {
+      "name": "",
+      "address": "1971 University Boulevard",
+      "address2": "",
+      "city": "Lynchburg",
+      "state": "VA",
+      "zipcode": "24515",
+      "fullAddress": "1971 University Boulevard  Lynchburg, VA 24515"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      }
+    },
+    "headline": "Essential Hybrid Training for Liberty University Students",
+    "evaluationForm": "Lynchburg, VA-2025-11-15: Randall Lazicki"
+  },
+  {
+    "id": "evt-26031582",
+    "name": "Essential In-Person | Denver, CO",
+    "title": "Essential In-Person | Denver, CO",
+    "city": "Denver",
+    "state": "CO",
+    "instructor": "Ryan Lystad",
+    "enrolledStudents": 1,
+    "instrumentsPurchased": 1,
+    "capacity": 25,
+    "minViableEnrollment": 8,
+    "type": "Essential",
+    "mode": "In-Person",
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-26031582/800/400",
+    "date": "2025-11-22T08:00:00-06:00",
+    "startDate": "2025-11-22T08:00:00-06:00",
+    "endDate": "2025-11-22T18:00:00-06:00",
+    "location": {
+      "city": "Denver",
+      "state": "CO"
+    },
+    "enrolledCount": 1,
+    "learndashGroup": "26031582",
+    "venue": {
+      "name": "",
+      "address": "3333 Regis Boulevard",
+      "address2": "Peter Claver Hall Room 409",
+      "city": "Denver",
+      "state": "CO",
+      "zipcode": "80221",
+      "fullAddress": "3333 Regis Boulevard Peter Claver Hall Room 409 Denver, CO 80221"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      }
+    },
+    "headline": "Essential Hybrid Training, which includes an online pre-course/intro.",
+    "evaluationForm": "Denver, CO-2025-11-22: Ryan Lystad"
+  },
+  {
+    "id": "evt-27398154",
+    "name": "Essential In-Person | Indianapolis, IN",
+    "title": "Essential In-Person | Indianapolis, IN",
+    "city": "Indianapolis",
+    "state": "IN",
+    "instructor": "Mike Ploski",
+    "enrolledStudents": 0,
+    "instrumentsPurchased": 0,
+    "capacity": 25,
+    "minViableEnrollment": 8,
+    "type": "Essential",
+    "mode": "In-Person",
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-27398154/800/400",
+    "date": "2025-11-22T08:00:00-05:00",
+    "startDate": "2025-11-22T08:00:00-05:00",
+    "endDate": "2025-11-22T18:00:00-05:00",
+    "location": {
+      "city": "Indianapolis",
+      "state": "IN"
+    },
+    "enrolledCount": 0,
+    "learndashGroup": "27398154",
+    "venue": {
+      "name": "Graston Technique",
+      "address": "7801 East 88th Street",
+      "address2": "",
+      "city": "Indianapolis",
+      "state": "IN",
+      "zipcode": "46256",
+      "fullAddress": "7801 East 88th Street  Indianapolis, IN 46256"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      }
+    },
+    "headline": "Essential Hybrid Training, which includes an online pre-course/intro.",
+    "evaluationForm": "Indianapolis, IN-2025-11-22: Mike Ploski"
+  },
+  {
+    "id": "evt-27397904",
+    "name": "Advanced In-Person | West Boylston, MA",
+    "title": "Advanced In-Person | West Boylston, MA",
+    "city": "West Boylston",
+    "state": "MA",
+    "instructor": "Jackie Shakar",
+    "enrolledStudents": 2,
+    "instrumentsPurchased": 0,
+    "capacity": 30,
+    "minViableEnrollment": 12,
+    "type": "Advanced",
+    "mode": "In-Person",
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-27397904/800/400",
+    "date": "2025-12-06T08:00:00-04:00",
+    "startDate": "2025-12-06T08:00:00-04:00",
+    "endDate": "2025-12-07T13:30:00-04:00",
+    "location": {
+      "city": "West Boylston",
+      "state": "MA"
+    },
+    "enrolledCount": 2,
+    "learndashGroup": "27397904",
+    "venue": {
+      "name": "",
+      "address": "342 West Boylston Street",
+      "address2": "Suite 111",
+      "city": "West Boylston",
+      "state": "MA",
+      "zipcode": "1583",
+      "fullAddress": "342 West Boylston Street Suite 111 West Boylston, MA 01583"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "5:30 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "1:30 PM"
+      }
+    },
+    "headline": "Advanced 2-Day training in the Boston area.",
+    "evaluationForm": "West Boylston, MA-2025-12-06: Jackie Shakar"
+  },
+  {
+    "id": "evt-27398266",
+    "name": "Essential In-Person | Bloomington, IN",
+    "title": "Essential In-Person | Bloomington, IN",
+    "city": "Bloomington",
+    "state": "IN",
+    "instructor": "Mike Ploski",
+    "enrolledStudents": 0,
+    "instrumentsPurchased": 0,
+    "capacity": 25,
+    "minViableEnrollment": 8,
+    "type": "Essential",
+    "mode": "In-Person",
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-27398266/800/400",
+    "date": "2025-12-11T08:00:00-05:00",
+    "startDate": "2025-12-11T08:00:00-05:00",
+    "endDate": "2025-12-11T18:00:00-05:00",
+    "location": {
+      "city": "Bloomington",
+      "state": "IN"
+    },
+    "enrolledCount": 0,
+    "learndashGroup": "27398266",
+    "venue": {
+      "name": "IU School of Public Health Building",
+      "address": "1025 East 7th Street",
+      "address2": "School of Public Health Building",
+      "city": "Bloomington",
+      "state": "IN",
+      "zipcode": "47405",
+      "fullAddress": "1025 East 7th Street School of Public Health Building Bloomington, IN 47405"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      }
+    },
+    "headline": "Essential Hybrid Onsite for IU students & staff",
+    "evaluationForm": "Bloomington, IN-2025-12-11: Mike Ploski"
+  },
+  {
+    "id": "evt-27398161",
+    "name": "Essential In-Person | Santa Monica, CA",
+    "title": "Essential In-Person | Santa Monica, CA",
+    "city": "Santa Monica",
+    "state": "CA",
+    "instructor": "Larry Munger",
+    "enrolledStudents": 0,
+    "instrumentsPurchased": 0,
+    "capacity": 25,
+    "minViableEnrollment": 8,
+    "type": "Essential",
+    "mode": "In-Person",
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-27398161/800/400",
+    "date": "2025-12-13T08:00:00-07:00",
+    "startDate": "2025-12-13T08:00:00-07:00",
+    "endDate": "2025-12-13T18:00:00-07:00",
+    "location": {
+      "city": "Santa Monica",
+      "state": "CA"
+    },
+    "enrolledCount": 0,
+    "learndashGroup": "27398161",
+    "venue": {
+      "name": "Sadhana Health",
+      "address": "2701 Ocean Park Boulevard",
+      "address2": "Suite 111",
+      "city": "Santa Monica",
+      "state": "CA",
+      "zipcode": "90405",
+      "fullAddress": "2701 Ocean Park Boulevard Suite 111 Santa Monica, CA 90405"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "6:00 PM"
+      }
+    },
+    "headline": "Essential Hybrid Training that includes an online pre-course/intro.",
+    "evaluationForm": "Santa Monica, CA-2025-12-13: Larry Munger"
+  },
+  {
+    "id": "evt-27398058",
+    "name": "Advanced In-Person | Des Plaines, IL",
+    "title": "Advanced In-Person | Des Plaines, IL",
+    "city": "Des Plaines",
+    "state": "IL",
+    "instructor": "Mike Ploski",
+    "enrolledStudents": 0,
+    "instrumentsPurchased": 0,
+    "capacity": 30,
+    "minViableEnrollment": 12,
+    "type": "Advanced",
+    "mode": "In-Person",
+    "status": "upcoming",
+    "featuredImage": "https://picsum.photos/seed/evt-27398058/800/400",
+    "date": "2026-01-24T08:00:00-05:00",
+    "startDate": "2026-01-24T08:00:00-05:00",
+    "endDate": "2026-01-25T13:30:00-05:00",
+    "location": {
+      "city": "Des Plaines",
+      "state": "IL"
+    },
+    "enrolledCount": 0,
+    "learndashGroup": "27398058",
+    "venue": {
+      "name": "",
+      "address": "2250 East Devon Avenue",
+      "address2": "Suite 244",
+      "city": "Des Plaines",
+      "state": "IL",
+      "zipcode": "60018",
+      "fullAddress": "2250 East Devon Avenue Suite 244 Des Plaines, IL 60018"
+    },
+    "schedule": {
+      "day1": {
+        "startTime": "8:00 AM",
+        "endTime": "5:30 PM"
+      },
+      "day2": {
+        "startTime": "8:00 AM",
+        "endTime": "1:30 PM"
+      }
+    },
+    "headline": "2-Day Advanced Training.  Chicago area.",
+    "evaluationForm": "Des Plaines, IL-2026-01-24: Mike Ploski"
   }
 ]

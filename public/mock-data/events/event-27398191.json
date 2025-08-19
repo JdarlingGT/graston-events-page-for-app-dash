@@ -1,0 +1,46 @@
+{
+  "id": "evt-27398191",
+  "name": "Essential In-Person | Somerset, NJ",
+  "title": "Essential In-Person | Somerset, NJ",
+  "city": "Somerset",
+  "state": "NJ",
+  "instructor": "Kelsey Taylor",
+  "enrolledStudents": 0,
+  "instrumentsPurchased": 0,
+  "capacity": 25,
+  "minViableEnrollment": 8,
+  "type": "Essential",
+  "mode": "In-Person",
+  "status": "upcoming",
+  "featuredImage": "https://picsum.photos/seed/evt-27398191/800/400",
+  "date": "2025-10-04T08:00:00-04:00",
+  "startDate": "2025-10-04T08:00:00-04:00",
+  "endDate": "2025-10-04T18:00:00-04:00",
+  "location": {
+    "city": "Somerset",
+    "state": "NJ"
+  },
+  "enrolledCount": 0,
+  "learndashGroup": "27398191",
+  "venue": {
+    "name": "University Orthopaedics Associates",
+    "address": "2 World's Fair Drive",
+    "address2": "",
+    "city": "Somerset",
+    "state": "NJ",
+    "zipcode": "8873",
+    "fullAddress": "2 World's Fair Drive  Somerset, NJ 08873"
+  },
+  "schedule": {
+    "day1": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    },
+    "day2": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    }
+  },
+  "headline": "Essential Hybrid Training, which includes an online pre-course/intro.",
+  "evaluationForm": "Somerset, NJ-2025-10-04: Kelsey Taylor"
+}

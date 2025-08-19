@@ -1,0 +1,46 @@
+{
+  "id": "evt-26025537",
+  "name": "Essential In-Person | Cleveland, OH",
+  "title": "Essential In-Person | Cleveland, OH",
+  "city": "Cleveland",
+  "state": "OH",
+  "instructor": "Dr Reena Pathak",
+  "enrolledStudents": 2,
+  "instrumentsPurchased": 0,
+  "capacity": 25,
+  "minViableEnrollment": 8,
+  "type": "Essential",
+  "mode": "In-Person",
+  "status": "upcoming",
+  "featuredImage": "https://picsum.photos/seed/evt-26025537/800/400",
+  "date": "2025-09-13T08:00:00-04:00",
+  "startDate": "2025-09-13T08:00:00-04:00",
+  "endDate": "2025-09-13T18:00:00-04:00",
+  "location": {
+    "city": "Cleveland",
+    "state": "OH"
+  },
+  "enrolledCount": 2,
+  "learndashGroup": "26025537",
+  "venue": {
+    "name": "",
+    "address": "1810 West 25th Street",
+    "address2": "Unit 1",
+    "city": "Cleveland",
+    "state": "OH",
+    "zipcode": "44113",
+    "fullAddress": "1810 West 25th Street Unit 1 Cleveland, OH 44113"
+  },
+  "schedule": {
+    "day1": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    },
+    "day2": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    }
+  },
+  "headline": "Essential Hybrid Training, which includes an online pre-course/intro.",
+  "evaluationForm": "Cleveland, OH-2025-09-13: Dr Reena Pathak"
+}

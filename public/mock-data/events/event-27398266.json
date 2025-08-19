@@ -1,0 +1,46 @@
+{
+  "id": "evt-27398266",
+  "name": "Essential In-Person | Bloomington, IN",
+  "title": "Essential In-Person | Bloomington, IN",
+  "city": "Bloomington",
+  "state": "IN",
+  "instructor": "Mike Ploski",
+  "enrolledStudents": 0,
+  "instrumentsPurchased": 0,
+  "capacity": 25,
+  "minViableEnrollment": 8,
+  "type": "Essential",
+  "mode": "In-Person",
+  "status": "upcoming",
+  "featuredImage": "https://picsum.photos/seed/evt-27398266/800/400",
+  "date": "2025-12-11T08:00:00-05:00",
+  "startDate": "2025-12-11T08:00:00-05:00",
+  "endDate": "2025-12-11T18:00:00-05:00",
+  "location": {
+    "city": "Bloomington",
+    "state": "IN"
+  },
+  "enrolledCount": 0,
+  "learndashGroup": "27398266",
+  "venue": {
+    "name": "IU School of Public Health Building",
+    "address": "1025 East 7th Street",
+    "address2": "School of Public Health Building",
+    "city": "Bloomington",
+    "state": "IN",
+    "zipcode": "47405",
+    "fullAddress": "1025 East 7th Street School of Public Health Building Bloomington, IN 47405"
+  },
+  "schedule": {
+    "day1": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    },
+    "day2": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    }
+  },
+  "headline": "Essential Hybrid Onsite for IU students & staff",
+  "evaluationForm": "Bloomington, IN-2025-12-11: Mike Ploski"
+}

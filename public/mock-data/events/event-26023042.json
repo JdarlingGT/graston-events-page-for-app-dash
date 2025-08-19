@@ -1,0 +1,46 @@
+{
+  "id": "evt-26023042",
+  "name": "Essential In-Person | Pittsburgh, PA",
+  "title": "Essential In-Person | Pittsburgh, PA",
+  "city": "Pittsburgh",
+  "state": "PA",
+  "instructor": "Dr Reena Pathak",
+  "enrolledStudents": 4,
+  "instrumentsPurchased": 0,
+  "capacity": 25,
+  "minViableEnrollment": 8,
+  "type": "Essential",
+  "mode": "In-Person",
+  "status": "upcoming",
+  "featuredImage": "https://picsum.photos/seed/evt-26023042/800/400",
+  "date": "2025-10-11T08:00:00-04:00",
+  "startDate": "2025-10-11T08:00:00-04:00",
+  "endDate": "2025-10-11T18:00:00-04:00",
+  "location": {
+    "city": "Pittsburgh",
+    "state": "PA"
+  },
+  "enrolledCount": 4,
+  "learndashGroup": "26023042",
+  "venue": {
+    "name": "",
+    "address": "3600 Laketon Road",
+    "address2": "",
+    "city": "Pittsburgh",
+    "state": "PA",
+    "zipcode": "15235",
+    "fullAddress": "3600 Laketon Road  Pittsburgh, PA 15235"
+  },
+  "schedule": {
+    "day1": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    },
+    "day2": {
+      "startTime": "8:00 AM",
+      "endTime": "6:00 PM"
+    }
+  },
+  "headline": "Essential Hybrid Training, which includes an online pre-course/intro.",
+  "evaluationForm": "Pittsburgh, PA-2025-10-11: Dr Reena Pathak"
+}
