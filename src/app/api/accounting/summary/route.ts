@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 
 // Sample data for demonstration purposes
 const accountingData = {
@@ -7,13 +7,7 @@ const accountingData = {
   netProfit: 50000,
 };
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === 'GET') {
-    // Return the accounting summary
-    res.status(200).json(accountingData);
-  } else {
-    // Handle any other HTTP method
-    res.setHeader('Allow', ['GET']);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
-  }
+export async function GET(request: NextRequest) {
+  // Return the accounting summary
+  return NextResponse.json(accountingData);
 }

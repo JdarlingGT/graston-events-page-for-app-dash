@@ -19,9 +19,13 @@ async function saveVouchers(vouchers: any) {
 }
 
 // PATCH - Revoke a voucher
-export async function PATCH(request: Request, { params }: { params: { id: string; voucherId: string } }) {
+export async function PATCH(
+  request: Request, 
+  { params }: { params: Promise<{ id: string; voucherId: string }> }
+) {
+  const { id, voucherId } = await params;
   const allVouchers = await getVouchers();
-  const voucherIndex = allVouchers.findIndex((v: any) => v.voucherId === params.voucherId && v.clinicianId === params.id);
+  const voucherIndex = allVouchers.findIndex((v: any) => v.voucherId === voucherId && v.clinicianId === id);
 
   if (voucherIndex === -1) {
     return new NextResponse('Voucher not found', { status: 404 });
