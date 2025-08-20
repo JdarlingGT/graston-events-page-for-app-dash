@@ -11,6 +11,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Globe } from 'lucide-react';
 import Link from 'next/link';
+import TeamManagement from '@/components/dashboard/settings/TeamManagement';
 
 export default function SettingsPage() {
   return (

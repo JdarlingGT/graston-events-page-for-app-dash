@@ -27,7 +27,7 @@ import {
   CardDescription,
 } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
-import { EventFormValues, eventSchema } from '@/lib/schemas';
+import { EventFormValues, EventFormSchema } from '@/lib/schemas/eventFormSchema';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { useState } from 'react';
@@ -63,7 +63,7 @@ export function EventForm({ initialData }: EventFormProps) {
   const [socialMediaContent, setSocialMediaContent] = useState('');
 
   const form = useForm<EventFormValues>({
-    resolver: zodResolver(eventSchema) as any,
+    resolver: zodResolver(EventFormSchema) as any,
     defaultValues: initialData || {
       title: '',
       status: 'Go' as const,
@@ -99,12 +99,49 @@ export function EventForm({ initialData }: EventFormProps) {
       
       if (!initialData) {
         const eventType = values.courseType.includes('In-Person') ? 'In-Person' : 'Virtual';
+        const taskTemplates = getTaskTemplates(eventType, values.title);
         await fetch('/api/tasks/bulkCreate', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ eventType, eventName: values.title }),
+            body: JSON.stringify(taskTemplates),
         });
-        toast.info('Relevant setup tasks have been automatically created.');
+        toast.info('Smart Task Templates have been automatically created.');
+
+        // Create Google Calendar events for each task
+        for (const task of taskTemplates.tasks) {
+            await fetch('/api/tasks/create-google-calendar-event', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    title: task.title,
+                    dueDate: task.dueDate,
+                    description: `Task for ${values.title}`,
+                }),
+            });
+        }
+
+        // Upload attachment to Google Drive if provided
+        if (values.attachment) {
+            const formData = new FormData();
+            formData.append('file', values.attachment);
+            formData.append('filename', values.attachment.name);
+
+            await fetch('/api/tasks/upload-to-google-drive', {
+                method: 'POST',
+                body: formData,
+            });
+        }
+
+        // Send Gmail notification
+        await fetch('/api/tasks/send-gmail-notification', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                to: 'user@example.com', // Replace with actual recipient
+                subject: `New Event Created: ${values.title}`,
+                body: `A new event has been created: ${values.title}\n\nDetails: ${values.courseType}\nStart Date: ${values.startDate}\nEnd Date: ${values.endDate}`,
+            }),
+        });
       }
 
       if (socialMediaContent) {
@@ -146,6 +183,26 @@ export function EventForm({ initialData }: EventFormProps) {
                       <FormMessage />
                     </FormItem>
                   )}
+                />
+                <FormField
+                  control={form.control}
+                  name="attachment"
+                  render={({ field }) => {
+                    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+                      const file = event.target.files?.[0];
+                      field.onChange(file);
+                    };
+
+                    return (
+                      <FormItem>
+                        <FormLabel>Attachment</FormLabel>
+                        <FormControl>
+                          <Input type="file" onChange={handleFileChange} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    );
+                  }}
                 />
                 <FormField
                   control={form.control}
@@ -287,4 +344,26 @@ export function EventForm({ initialData }: EventFormProps) {
       />
     </>
   );
+}
+function getTaskTemplates(eventType: string, eventName: string) {
+    const commonTasks = [
+        { title: `Prepare venue for ${eventName}`, dueDate: '2025-09-01' },
+        { title: `Send invitations for ${eventName}`, dueDate: '2025-09-05' },
+    ];
+
+    const inPersonTasks = [
+        { title: `Arrange catering for ${eventName}`, dueDate: '2025-09-03' },
+        { title: `Setup audio/visual equipment for ${eventName}`, dueDate: '2025-09-04' },
+    ];
+
+    const virtualTasks = [
+        { title: `Setup webinar software for ${eventName}`, dueDate: '2025-09-02' },
+        { title: `Test internet connection for ${eventName}`, dueDate: '2025-09-03' },
+    ];
+
+    return {
+        eventType,
+        eventName,
+        tasks: eventType === 'In-Person' ? [...commonTasks, ...inPersonTasks] : [...commonTasks, ...virtualTasks],
+    };
 }
