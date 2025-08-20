@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
   "build": "next build",
-  "build:ci": "node --max-old-space-size=4096 ./node_modules/next/dist/bin/next.js build",
+  "build:ci": "node --max-old-space-size=4096 ./node_modules/.bin/next build",
     "start": "next start",
     "test": "jest",
     "lint": "pnpm dlx eslint --ext .js,.jsx,.ts,.tsx .",
