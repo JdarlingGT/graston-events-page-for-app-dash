@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import WithAuth from '@/components/withAuth';
 import {
   Card,
   CardContent,

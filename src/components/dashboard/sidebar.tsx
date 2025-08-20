@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { hasPermission, ROLES } from '@/lib/permissions';
 import { usePathname } from 'next/navigation';
 import { Home, LayoutDashboard, Calendar, BarChart3, CheckSquare, Settings, BookOpen, Target, Megaphone, Building, Users, Archive, UserCheck, FolderKanban } from 'lucide-react';
 import { cn } from '../../lib/utils';
@@ -34,6 +35,8 @@ const navItems = [
 ];
 
 export default function Sidebar() {
+  // Simulate fetching user role from authentication context
+  const userRole = ROLES.USER; // Replace with actual user role fetching logic
   const pathname = usePathname();
 
   const isDirectoryActive = ['/dashboard/directory/venues', '/dashboard/directory/instructors', '/dashboard/directory/clinicians'].some(path => pathname.startsWith(path));
@@ -48,7 +51,32 @@ export default function Sidebar() {
       </div>
       <nav className="flex-1 p-2">
         <ul className="space-y-1">
-          {navItems.map((item) => {
+          {navItems
+            .filter((item) => {
+              // Define required permissions for each navigation item
+              const requiredPermissions = {
+                '/dashboard': ['view_dashboard'],
+                '/dashboard/instructor': ['view_instructor_workspace'],
+                '/dashboard/events': ['view_events'],
+                '/dashboard/projects': ['view_projects'],
+                '/dashboard/tasks': ['view_tasks'],
+                '/dashboard/marketing': ['view_marketing'],
+                '/dashboard/sales': ['view_sales'],
+                '/dashboard/reports': ['view_reports'],
+                '/dashboard/directory/venues': ['view_venues'],
+                '/dashboard/directory/instructors': ['view_instructors'],
+                '/dashboard/directory/clinicians': ['view_clinicians'],
+                '/dashboard/archival-search': ['view_archival_search'],
+                '/dashboard/settings': ['view_settings'],
+              };
+
+              // Determine the required permission for the current item
+              const requiredPermission = requiredPermissions[item.href as keyof typeof requiredPermissions] || 'view_dashboard';
+
+              // Check if the user has the required permission
+              return hasPermission(userRole, Array.isArray(requiredPermission) ? requiredPermission[0] : requiredPermission);
+            })
+            .map((item) => {
             if (item.children) {
               return (
                 <Accordion key={item.label} type="single" collapsible defaultValue={isDirectoryActive ? 'item-1' : ''}>
