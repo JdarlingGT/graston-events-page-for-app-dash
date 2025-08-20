@@ -40,6 +40,9 @@
       ],
       "hooks/*": [
         "./src/hooks/*"
+      ],
+      "app/ui/dashboard/*": [
+        "./app/ui/dashboard/*"
       ]
     },
     "types": [
