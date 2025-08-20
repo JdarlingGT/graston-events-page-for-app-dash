@@ -158,7 +158,7 @@ export function EventDirectory() {
       if (sortBy) params.append('sortBy', sortBy);
       if (sortDir) params.append('sortDir', sortDir);
 
-      const response = await fetch(`/api/events?${params.toString()}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/events?${params.toString()}`);
       if (!response.ok) {
         throw new Error('Failed to fetch events');
       }
