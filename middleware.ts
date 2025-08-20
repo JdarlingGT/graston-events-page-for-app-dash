@@ -1,120 +1,43 @@
-import { NextRequest, NextResponse } from 'next/server';
-import {
-  annotateHeadersWithRole,
-  enforceRoleAccess,
-  extractRole,
-  isEnforcementEnabled,
-  type HttpMethod,
-} from '@/lib/auth/rbac';
-import { getCorrelationId, generateCorrelationId } from '@/lib/logging';
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
-const PUBLIC_API_PREFIXES: Array<{ prefix: string; methods?: HttpMethod[] }> = [
-  // Health and integration checks (read-only)
-  { prefix: '/api/notifications/slack/check', methods: ['GET'] },
-  { prefix: '/api/crm/fluentcrm/check', methods: ['GET'] },
-  { prefix: '/api/analytics/ga4/check', methods: ['GET'] },
-  { prefix: '/api/commerce/woocommerce/check', methods: ['GET'] },
-  { prefix: '/api/notifications/email/sendgrid/check', methods: ['GET'] },
+// This function can be marked `async` if using `await` inside
+export function middleware(request: NextRequest) {
+  // Get the user's role from the session or token
+  // For demo purposes, we'll use a header. In production, this would come from your auth system
+  const userRole = request.headers.get('x-user-role') || 'guest';
+  const userId = request.headers.get('x-user-id');
 
-  // Sales intelligence read endpoints commonly allowed for dashboards (optional, can remove)
-  { prefix: '/api/sales/summary', methods: ['GET'] },
-  { prefix: '/api/events/check-danger-zone', methods: ['GET'] },
-];
-
-function isPublicApi(pathname: string, method: string): boolean {
-  for (const entry of PUBLIC_API_PREFIXES) {
-    if (pathname.startsWith(entry.prefix)) {
-      if (!entry.methods || entry.methods.length === 0) return true;
-      if (entry.methods.includes(method as HttpMethod)) return true;
+  // Handle instructor-specific routes
+  if (request.nextUrl.pathname.startsWith('/dashboard/instructors')) {
+    // If user is an instructor, redirect them to their personal dashboard
+    if (userRole === 'instructor') {
+      // Only redirect if they're trying to access the main instructors list
+      if (request.nextUrl.pathname === '/dashboard/instructors') {
+        return NextResponse.redirect(new URL(`/dashboard/instructors/me`, request.url));
+      }
+    }
+    // If user is not an admin or instructor, redirect to dashboard
+    else if (userRole !== 'admin') {
+      return NextResponse.redirect(new URL('/dashboard', request.url));
     }
   }
-  return false;
+
+  // Handle instructor workspace routes
+  if (request.nextUrl.pathname.startsWith('/dashboard/trainings')) {
+    // Only allow instructors and admins to access training workspaces
+    if (!['admin', 'instructor'].includes(userRole)) {
+      return NextResponse.redirect(new URL('/dashboard', request.url));
+    }
+  }
+
+  return NextResponse.next();
 }
 
-export async function middleware(req: NextRequest) {
-  const url = new URL(req.url);
-  const pathname = url.pathname;
-  const method = (req.method || 'GET').toUpperCase() as HttpMethod;
-
-  // Generate or honor correlation id and forward it downstream
-  const resolvedCorrelationId = getCorrelationId(req.headers) ?? generateCorrelationId();
-  const forwardedHeaders = new Headers(req.headers);
-  forwardedHeaders.set('x-correlation-id', resolvedCorrelationId);
-
-  // Only guard API routes (matcher below also limits)
-  if (!pathname.startsWith('/api/')) {
-    // Non-API: still forward correlation id
-    const res = NextResponse.next({
-      request: {
-        headers: forwardedHeaders,
-      },
-    });
-    res.headers.set('x-correlation-id', resolvedCorrelationId);
-    return res;
-  }
-
-  // Public GET endpoints passthrough (still annotate role + correlation)
-  if (isPublicApi(pathname, method)) {
-    const role = extractRole(req);
-    const res = NextResponse.next({
-      request: {
-        headers: forwardedHeaders,
-      },
-    });
-    res.headers.set('x-user-role-resolved', role);
-    res.headers.set('x-correlation-id', resolvedCorrelationId);
-    return res;
-  }
-
-  const role = extractRole(req);
-  const enforcement = isEnforcementEnabled();
-
-  const decision = enforceRoleAccess(role, pathname, method);
-
-  if (!enforcement) {
-    // Enforcement disabled: allow but annotate reason
-    const res = NextResponse.next({
-      request: {
-        headers: forwardedHeaders,
-      },
-    });
-    res.headers.set('x-rbac-enforcement', 'disabled');
-    res.headers.set('x-user-role-resolved', role);
-    res.headers.set('x-correlation-id', resolvedCorrelationId);
-    return res;
-  }
-
-  if (!decision.allowed) {
-    // Blocked
-    const body = {
-      error: 'Forbidden',
-      role,
-      path: pathname,
-      method,
-      reason: decision.reason || 'Denied',
-      matchedPolicy: decision.matchedPolicy || null,
-      correlationId: resolvedCorrelationId,
-    };
-    const res = NextResponse.json(body, { status: 403 });
-    res.headers.set('x-rbac-enforcement', 'enabled');
-    res.headers.set('x-user-role-resolved', role);
-    res.headers.set('x-correlation-id', resolvedCorrelationId);
-    return res;
-  }
-
-  // Allowed
-  const res = NextResponse.next({
-    request: {
-      headers: forwardedHeaders,
-    },
-  });
-  res.headers.set('x-rbac-enforcement', 'enabled');
-  res.headers.set('x-user-role-resolved', role);
-  res.headers.set('x-correlation-id', resolvedCorrelationId);
-  return res;
-}
-
+// See "Matching Paths" below to learn more
 export const config = {
-  // Apply to all API routes, excluding Next internals and static assets
-  matcher: ['/api/:path*'],
+  matcher: [
+    '/dashboard/instructors/:path*',
+    '/dashboard/trainings/:path*',
+  ],
 };

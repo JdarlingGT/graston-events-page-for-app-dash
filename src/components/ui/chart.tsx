@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 
 // Workaround for https://github.com/recharts/recharts/issues/3615
 const CartesianGrid = React.forwardRef<
-  SVGRectElement,
+  React.ElementRef<typeof RechartsPrimitive.CartesianGrid>,
   React.ComponentProps<typeof RechartsPrimitive.CartesianGrid>
 >(({ className, ...props }, ref) => (
   <RechartsPrimitive.CartesianGrid
@@ -20,13 +20,21 @@ CartesianGrid.displayName = 'CartesianGrid';
 
 const ChartTooltip = RechartsPrimitive.Tooltip;
 
+interface PayloadItem {
+  color?: string;
+  value: any; // Replace with specific type if known
+  name?: string;
+  dataKey?: string;
+  payload: any; // Replace with specific type if known
+}
+
 interface ChartTooltipContentProps {
   nameKey?: string;
   hideLabel?: boolean;
   hideIndicator?: boolean;
   indicator?: 'dot' | 'line' | 'dashed';
   active?: boolean;
-  payload?: any[];
+  payload?: PayloadItem[];
   className?: string;
 }
 
@@ -38,7 +46,7 @@ const ChartTooltipContent = React.forwardRef<
 return null;
 }
 
-  const data = payload.map((item: any) => ({
+  const data = payload.map((item: PayloadItem) => ({
     color: item.color || item.payload.fill,
     value: item.value,
     name: item.name || item.dataKey,
@@ -127,7 +135,7 @@ const ChartContainer = React.forwardRef<
         {...props}
       >
         {React.cloneElement(children, {
-          className: cn('max-h-[--container-height] w-full', (children.props as any)?.className),
+          className: cn('max-h-[--container-height] w-full', (children.props as React.HTMLAttributes<HTMLElement>)?.className),
         } as React.HTMLAttributes<HTMLElement>)}
       </div>
     </ChartContext.Provider>

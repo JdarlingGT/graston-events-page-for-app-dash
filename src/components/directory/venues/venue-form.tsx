@@ -43,7 +43,7 @@ export function VenueForm({ initialData }: VenueFormProps) {
   const [loading, setLoading] = useState(false);
 
   const form = useForm<VenueFormValues>({
-    resolver: zodResolver(venueSchema),
+    resolver: zodResolver(venueSchema) as any,
     defaultValues: initialData || {
       name: '',
       type: '',
@@ -93,7 +93,7 @@ export function VenueForm({ initialData }: VenueFormProps) {
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <form onSubmit={form.handleSubmit(onSubmit as any)} className="space-y-8">
             <FormField
               control={form.control}
               name="name"

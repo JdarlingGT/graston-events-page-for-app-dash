@@ -141,7 +141,7 @@ export const NotificationSchema = z.object({
   read: z.boolean(),
   targetRole: RoleSchema.optional(),
   createdAt: z.string().datetime(),
-  meta: z.record(z.unknown()).optional(),
+  meta: z.record(z.string(), z.unknown()).optional(),
 });
 
 // Sales

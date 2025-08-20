@@ -347,7 +347,7 @@ export async function GET(request: NextRequest) {
     
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { error: 'Invalid filter parameters', details: error.errors },
+        { error: 'Invalid filter parameters', details: error.issues },
         { status: 400 }
       );
     }

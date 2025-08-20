@@ -48,7 +48,6 @@ export function PipelineFunnel({ stages, conversionRates }: PipelineFunnelProps)
                   dataKey="value"
                   data={funnelData}
                   isAnimationActive
-                  labelLine={false}
                   fill="#8884d8"
                 >
                   <LabelList position="right" dataKey="name" fill="#000" stroke="none" />

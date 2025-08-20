@@ -176,7 +176,7 @@ export const instructorFiltersSchema = z.object({
 export const bulkInstructorOperationSchema = z.object({
   operation: z.enum(['activate', 'deactivate', 'delete', 'assign_specialty', 'remove_specialty']),
   instructorIds: z.array(z.string()).min(1, 'At least one instructor must be selected'),
-  data: z.record(z.any()).optional(), // Additional data for specific operations
+  data: z.record(z.string(), z.any()).optional(), // Additional data for specific operations
 });
 
 // Import/Export schemas

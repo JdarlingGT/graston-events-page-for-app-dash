@@ -23,8 +23,20 @@ export const dashboardPreferencesSchema = z.object({
 export const userPreferencesSchema = z.object({
   theme: z.enum(['light', 'dark', 'system']).default('system'),
   language: z.string().default('en'),
-  notifications: notificationPreferencesSchema.default({}),
-  dashboard: dashboardPreferencesSchema.default({}),
+  notifications: notificationPreferencesSchema.default(() => ({
+    email: true,
+    push: false,
+    sms: false,
+    eventReminders: true,
+    studentUpdates: true,
+    systemAlerts: true,
+  })),
+  dashboard: dashboardPreferencesSchema.default(() => ({
+    defaultView: 'grid' as const,
+    showMetrics: true,
+    compactMode: false,
+    autoRefresh: true,
+  })),
 });
 
 // User profile schema
@@ -40,7 +52,24 @@ export const instructorProfileSchema = z.object({
 export const userProfileSchema = z.object({
   phone: z.string().regex(/^\+?[\d\s\-\(\)]+$/, 'Invalid phone number format').optional(),
   timezone: z.string().min(1, 'Timezone is required').default('America/New_York'),
-  preferences: userPreferencesSchema.default({}),
+  preferences: userPreferencesSchema.default(() => ({
+    theme: 'system' as const,
+    language: 'en',
+    notifications: {
+      email: true,
+      push: false,
+      sms: false,
+      eventReminders: true,
+      studentUpdates: true,
+      systemAlerts: true,
+    },
+    dashboard: {
+      defaultView: 'grid' as const,
+      showMetrics: true,
+      compactMode: false,
+      autoRefresh: true,
+    },
+  })),
   instructorProfile: instructorProfileSchema.optional(),
 });
 
@@ -50,7 +79,27 @@ export const userSchema = z.object({
   email: z.string().email('Invalid email address'),
   role: userRoleSchema.default('viewer'),
   status: z.enum(['active', 'inactive', 'pending', 'suspended']).default('active'),
-  profile: userProfileSchema.default({}),
+  profile: userProfileSchema.default(() => ({
+    timezone: 'America/New_York',
+    preferences: {
+      theme: 'system' as const,
+      language: 'en',
+      notifications: {
+        email: true,
+        push: false,
+        sms: false,
+        eventReminders: true,
+        studentUpdates: true,
+        systemAlerts: true,
+      },
+      dashboard: {
+        defaultView: 'grid' as const,
+        showMetrics: true,
+        compactMode: false,
+        autoRefresh: true,
+      },
+    },
+  })),
 });
 
 export const userUpdateSchema = userSchema.partial();
@@ -191,13 +240,21 @@ export const passwordPolicySchema = z.object({
 });
 
 export const securitySettingsSchema = z.object({
-  passwordPolicy: passwordPolicySchema.default({}),
+  passwordPolicy: passwordPolicySchema.default(() => ({
+    minLength: 8,
+    requireUppercase: true,
+    requireLowercase: true,
+    requireNumbers: true,
+    requireSpecialChars: true,
+    preventReuse: 5,
+    maxAge: 90,
+  })),
   sessionTimeout: z.number().int().min(15).max(1440).default(480), // minutes
   maxLoginAttempts: z.number().int().min(3).max(10).default(5),
   lockoutDuration: z.number().int().min(5).max(60).default(15), // minutes
   requireMFA: z.boolean().default(false),
   allowedDomains: z.array(z.string().regex(/^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, 'Invalid domain format')).optional(),
-  ipWhitelist: z.array(z.string().ip('Invalid IP address')).optional(),
+  ipWhitelist: z.array(z.string().regex(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/, 'Invalid IP address')).optional(),
 });
 
 // Audit log schemas
@@ -205,8 +262,8 @@ export const authAuditLogSchema = z.object({
   userId: z.string().optional(),
   action: z.string().min(1, 'Action is required'),
   resource: z.string().optional(),
-  details: z.record(z.any()).default({}),
-  ipAddress: z.string().ip('Invalid IP address'),
+  details: z.record(z.string(), z.any()).default({}),
+  ipAddress: z.string().regex(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/, 'Invalid IP address'),
   userAgent: z.string().min(1, 'User agent is required'),
   success: z.boolean(),
   errorCode: z.string().optional(),
@@ -245,7 +302,7 @@ export const auditLogFiltersSchema = z.object({
 export const bulkUserOperationSchema = z.object({
   operation: z.enum(['activate', 'deactivate', 'suspend', 'delete', 'change_role', 'reset_password']),
   userIds: z.array(z.string()).min(1, 'At least one user must be selected'),
-  data: z.record(z.any()).optional(), // Additional data for specific operations
+  data: z.record(z.string(), z.any()).optional(), // Additional data for specific operations
 });
 
 // Type exports

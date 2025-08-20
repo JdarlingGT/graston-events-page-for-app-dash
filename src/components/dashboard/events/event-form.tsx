@@ -63,10 +63,10 @@ export function EventForm({ initialData }: EventFormProps) {
   const [socialMediaContent, setSocialMediaContent] = useState('');
 
   const form = useForm<EventFormValues>({
-    resolver: zodResolver(eventSchema),
+    resolver: zodResolver(eventSchema) as any,
     defaultValues: initialData || {
       title: '',
-      status: 'Go',
+      status: 'Go' as const,
       startDate: '',
       endDate: '',
       location: { city: '', state: '', venueId: null },
@@ -132,7 +132,7 @@ export function EventForm({ initialData }: EventFormProps) {
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <form onSubmit={form.handleSubmit(onSubmit as any)} className="space-y-8">
               <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
                 <FormField
                   control={form.control}

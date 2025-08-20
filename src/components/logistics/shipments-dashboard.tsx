@@ -114,7 +114,7 @@ export function ShipmentsDashboard() {
       if (!res.ok) throw new Error('Failed to fetch shipments');
       return res.json();
     },
-    keepPreviousData: true,
+    placeholderData: (previousData) => previousData,
   });
 
   // Bulk ops
@@ -266,7 +266,7 @@ export function ShipmentsDashboard() {
             <Button
               size="sm"
               variant="outline"
-              disabled={!selectedIds.length || bulkMutation.isLoading}
+              disabled={!selectedIds.length || bulkMutation.isPending}
               onClick={() => bulkMutation.mutate({ ids: selectedIds, op: 'status', value: 'packed', by: 'operator@org.com' })}
             >
               Mark Packed
@@ -274,7 +274,7 @@ export function ShipmentsDashboard() {
             <Button
               size="sm"
               variant="outline"
-              disabled={!selectedIds.length || bulkMutation.isLoading}
+              disabled={!selectedIds.length || bulkMutation.isPending}
               onClick={() => bulkMutation.mutate({ ids: selectedIds, op: 'status', value: 'shipped', by: 'operator@org.com' })}
             >
               Mark Shipped
@@ -282,7 +282,7 @@ export function ShipmentsDashboard() {
             <Button
               size="sm"
               variant="outline"
-              disabled={!selectedIds.length || bulkMutation.isLoading}
+              disabled={!selectedIds.length || bulkMutation.isPending}
               onClick={() => bulkMutation.mutate({ ids: selectedIds, op: 'assign', value: 'logistics@org.com', by: 'operator@org.com' })}
             >
               Assign
@@ -331,3 +331,34 @@ export function ShipmentsDashboard() {
                         <Badge variant={variantForStatus(s.status)} className="capitalize">{s.status}</Badge>
                         {s.status === 'delayed' && <AlertTriangle className="h-4 w-4 text-red-600" />}
                         {s.status === 'delivered' && <CheckCircle2 className="h-4 w-4 text-green-600" />}
+                      </div>
+                      <div className="col-span-1">
+                        <Badge variant={s.priority === 'high' ? 'destructive' : s.priority === 'medium' ? 'default' : 'secondary'} className="capitalize">
+                          {s.priority}
+                        </Badge>
+                      </div>
+                      <div className="col-span-1 text-sm">
+                        {s.assignee ?? '—'}
+                      </div>
+                      <div className="col-span-2 flex items-center gap-2 text-sm">
+                        <Clock className="h-4 w-4" />
+                        {s.slaDueAt ? new Date(s.slaDueAt).toLocaleString() : '—'}
+                        {typeof dueDays === 'number' && (
+                          <span className={`text-xs ${overdue ? 'text-red-600' : dueSoon ? 'text-yellow-600' : 'text-muted-foreground'}`}>
+                            {overdue ? `${Math.abs(dueDays)}d overdue` : dueSoon ? `${dueDays}d left` : ''}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })
+              )}
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
+export default ShipmentsDashboard;
