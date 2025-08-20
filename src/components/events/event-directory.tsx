@@ -173,7 +173,7 @@ export function EventDirectory() {
       const data = await response.json();
 
       // De-duplicate events to prevent React key errors
-      const uniqueEvents: any[] = [];
+      const uniqueEvents: Event[] = [];
       const seenIds = new Set();
       for (const event of data) {
         if (!seenIds.has(event.id)) {
@@ -182,7 +182,7 @@ export function EventDirectory() {
         }
       }
 
-      return uniqueEvents.map((event: any) => ({
+      return uniqueEvents.map((event: Event) => ({
         ...event,
         instructor: {
           name: typeof event.instructor === 'string' ? event.instructor : event.instructor?.name || 'Unknown',
@@ -205,11 +205,7 @@ toast.error('Failed to load events.');
     coordinates: cityCoordinates[event.city] || { lat: 0, lng: 0 },
   }));
 
-  // Ensure single declaration for tableEvents
-  const tableEvents = events.map((e: Event) => ({
-    ...e,
-    instructor: e?.instructor?.name ?? e.instructor,
-  }));
+  // (removed unused tableEvents variable)
 
 
 
@@ -400,7 +396,10 @@ toast.error('Failed to load events.');
 
       {viewMode === 'table' && (
         <EventsTable
-          events={tableEvents as any}
+          events={events.map((e: Event) => ({
+            ...e,
+            instructor: typeof e.instructor === 'string' ? e.instructor : e.instructor?.name ?? 'Unknown',
+          }))}
           sortBy={sortBy}
           sortDir={sortDir}
           onSortChange={(by, dir) => {
