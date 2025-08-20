@@ -1,3 +1,4 @@
+// Temporarily removed to resolve build issues.
 // @ts-nocheck
 /* eslint-disable */
 import { NextRequest, NextResponse } from 'next/server';
@@ -351,30 +352,34 @@ const MOCK_CUSTOMER_JOURNEYS: CustomerJourney[] = [
   {
     customerId: 'cust_1',
     customerEmail: 'john.doe@healthcare.com',
-    ];
-
-    /**
-     * Generate simple attribution models from touchpoints.
-     */
-    function generateAttributionModels(touchpoints: Touchpoint[]): AttributionModel[] {
-      const totalRevenue = touchpoints.reduce((sum, tp) => sum + tp.revenue, 0);
-      const totalConversions = touchpoints.reduce((sum, tp) => sum + tp.conversions, 0);
-      return [
-        {
-          name: 'Linear',
-          description: 'Equal credit distributed across all touchpoints',
-          weight: 1,
-          touchpoints: touchpoints.map(tp => ({
-            touchpointId: tp.id,
-            attribution: 100 / touchpoints.length,
-            revenue: (tp.revenue * (100 / touchpoints.length)) / 100,
-            conversions: (tp.conversions * (100 / touchpoints.length)) / 100,
-          })),
-          totalAttributedRevenue: totalRevenue,
-          totalAttributedConversions: totalConversions,
-        },
-      ];
-    }
+    customerName: 'John Doe',
+    journey: [
+      {
+        timestamp: '2024-11-01T10:00:00Z',
+        channel: 'Facebook',
+        campaign: 'Retargeting',
+        touchpoint: 'Social media ad',
+        action: 'click',
+        conversionStage: 'Awareness',
+      },
+      {
+        timestamp: '2024-11-02T14:30:00Z',
+        channel: 'Email',
+        campaign: 'Newsletter',
+        touchpoint: 'Welcome email',
+        action: 'open',
+        conversionStage: 'Interest',
+      },
+      {
+        timestamp: '2024-11-05T09:15:00Z',
+        channel: 'LinkedIn',
+        campaign: 'Professional',
+        touchpoint: 'Professional content',
+        action: 'engage',
+        conversionStage: 'Consideration',
+      },
+      {
+        timestamp: '2024-11-07T16:45:00Z',
         channel: 'Email',
         campaign: 'Newsletter',
         touchpoint: 'Reminder email',
@@ -392,6 +397,16 @@ const MOCK_CUSTOMER_JOURNEYS: CustomerJourney[] = [
     journeyDuration: 6,
   },
 ];
+
+/**
+ * Generate simple attribution models from touchpoints.
+ */
+function generateAttributionModels(touchpoints: Touchpoint[]): AttributionModel[] {
+  const totalRevenue = touchpoints.reduce((sum, tp) => sum + tp.revenue, 0);
+  const totalConversions = touchpoints.reduce((sum, tp) => sum + tp.conversions, 0);
+  
+  return [
+    {
       name: 'Last Touch',
       description: '100% credit to the final touchpoint before conversion',
       weight: 1,
@@ -456,14 +471,14 @@ const MOCK_CUSTOMER_JOURNEYS: CustomerJourney[] = [
       touchpoints: touchpoints.map((tp, index, array) => {
         let attribution = 0;
         if (index === 0) {
-attribution = 40;
-} // First touch
+          attribution = 40;
+        } // First touch
         else if (index === array.length - 1) {
-attribution = 40;
-} // Last touch
+          attribution = 40;
+        } // Last touch
         else {
-attribution = 20 / (array.length - 2);
-} // Middle touchpoints
+          attribution = 20 / (array.length - 2);
+        } // Middle touchpoints
         
         return {
           touchpointId: tp.id,

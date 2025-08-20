@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
@@ -202,9 +202,26 @@ export function EventCancelWizard({ eventId, onComplete, onCancel }: EventCancel
   const currentStepIndex = CANCEL_STEPS.findIndex(step => step.key === currentStep);
   const progress = ((currentStepIndex + 1) / CANCEL_STEPS.length) * 100;
 
+  const loadEventData = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(`/api/events/${eventId}`);
+      if (response.ok) {
+        const data = await response.json();
+        setEventData(data);
+      } else {
+        toast.error('Failed to load event data');
+      }
+    } catch (error) {
+      toast.error('Failed to load event data');
+    } finally {
+      setIsLoading(false);
+    }
+  }, [eventId]);
+
   useEffect(() => {
     loadEventData();
-  }, [eventId]);
+  }, [eventId, loadEventData]);
 
   useEffect(() => {
     // Set default email template based on cancel reason
@@ -225,23 +242,6 @@ export function EventCancelWizard({ eventId, onComplete, onCancel }: EventCancel
       refundDeadline: defaultDeadline.toISOString().split('T')[0],
     }));
   }, []);
-
-  const loadEventData = async () => {
-    setIsLoading(true);
-    try {
-      const response = await fetch(`/api/events/${eventId}`);
-      if (response.ok) {
-        const data = await response.json();
-        setEventData(data);
-      } else {
-        toast.error('Failed to load event data');
-      }
-    } catch (error) {
-      toast.error('Failed to load event data');
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const updateFormData = (updates: Partial<CancelFormData>) => {
     setFormData(prev => ({ ...prev, ...updates }));
@@ -918,4 +918,3 @@ return 'Not set';
     </div>
   );
 }
-                    

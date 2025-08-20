@@ -131,17 +131,10 @@ export function EventWizard({ mode, eventId, initialData, onComplete, onCancel }
   const currentStepIndex = WIZARD_STEPS.findIndex(step => step.key === currentStep);
   const progress = ((currentStepIndex + 1) / WIZARD_STEPS.length) * 100;
 
-  useEffect(() => {
-    if (mode === 'edit' && eventId) {
-      loadEventData();
-    }
-  }, [mode, eventId]);
-
-  const loadEventData = async () => {
+  const loadEventData = React.useCallback(async () => {
     if (!eventId) {
-return;
-}
-    
+      return;
+    }
     setIsLoading(true);
     try {
       const response = await fetch(`/api/events/${eventId}`);
@@ -154,7 +147,13 @@ return;
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [eventId]);
+
+  React.useEffect(() => {
+    if (mode === 'edit' && eventId) {
+      loadEventData();
+    }
+  }, [mode, eventId, loadEventData]);
 
   const updateFormData = (updates: Partial<EventFormData>) => {
     setFormData(prev => ({ ...prev, ...updates }));
@@ -238,44 +237,36 @@ newErrors.minViableEnrollment = 'Minimum viable enrollment must be greater than 
       const payload = { ...formData, status: 'draft' };
       const url = mode === 'edit' && eventId ? `/api/events/${eventId}` : '/api/events';
       const method = mode === 'edit' ? 'PUT' : 'POST';
-      
       const response = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
-
       if (response.ok) {
         const result = await response.json();
         toast.success('Event saved as draft');
         onComplete?.(result.id || eventId!);
       } else {
-        throw new Error('Failed to save event');
+        throw new Error('Failed to save draft');
       }
     } catch (error) {
-      toast.error('Failed to save event');
+      toast.error('Failed to save draft');
     } finally {
       setIsLoading(false);
     }
   };
 
   const publishEvent = async () => {
-    if (!validateStep(currentStep)) {
-return;
-}
-
     setIsLoading(true);
     try {
       const payload = { ...formData, status: 'published' };
       const url = mode === 'edit' && eventId ? `/api/events/${eventId}` : '/api/events';
       const method = mode === 'edit' ? 'PUT' : 'POST';
-      
       const response = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
-
       if (response.ok) {
         const result = await response.json();
         toast.success(`Event ${mode === 'edit' ? 'updated' : 'created'} successfully`);
@@ -291,17 +282,21 @@ return;
   };
 
   const duplicateEvent = async () => {
-    if (!eventId) {
-return;
-}
-    
     setIsLoading(true);
     try {
-      const response = await fetch(`/api/events/${eventId}/duplicate`, { method: 'POST' });
+      const payload = { ...formData, status: 'draft' };
+      delete (payload as any).id; // Remove ID to create new event
+      const response = await fetch('/api/events', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
       if (response.ok) {
         const result = await response.json();
         toast.success('Event duplicated successfully');
         onComplete?.(result.id);
+      } else {
+        throw new Error('Failed to duplicate event');
       }
     } catch (error) {
       toast.error('Failed to duplicate event');
