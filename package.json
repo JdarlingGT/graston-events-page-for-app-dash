@@ -80,6 +80,7 @@
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "@types/uuid": "^10.0.0",
+    "eslint": "^9.33.0",
     "jest": "^30.0.5",
     "jest-environment-jsdom": "^30.0.5",
     "jspdf": "^3.0.1",

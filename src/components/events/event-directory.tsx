@@ -31,9 +31,9 @@ interface Event {
   enrolledStudents: number;
   capacity: number;
   minViableEnrollment: number;
-  type: 'Essential' | 'Advanced';
-  mode: 'In-Person' | 'Virtual';
-  status: 'upcoming' | 'ongoing' | 'completed';
+  type: 'Essential' | 'Advanced' | 'Upper Quadrant';
+  mode: 'In-Person' | 'Virtual' | 'Hybrid';
+  status: 'upcoming' | 'ongoing' | 'completed' | 'cancelled';
   featuredImage?: string;
   date: string;
   endDate?: string;
@@ -94,7 +94,9 @@ export function EventDirectory() {
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) setSavedViews(JSON.parse(raw));
+      if (raw) {
+        setSavedViews(JSON.parse(raw));
+      }
     } catch {}
   }, []);
 
@@ -118,7 +120,9 @@ export function EventDirectory() {
 
   const loadView = (name: string) => {
     const v = savedViews.find(v => v.name === name);
-    if (!v) return;
+    if (!v) {
+      return;
+    }
     setFilters(v.filters);
     setSortBy(v.sortBy);
     setSortDir(v.sortDir);
@@ -155,8 +159,12 @@ export function EventDirectory() {
       if (filters.dateRange.to) {
         params.append('toDate', filters.dateRange.to.toISOString().split('T')[0]);
       }
-      if (sortBy) params.append('sortBy', sortBy);
-      if (sortDir) params.append('sortDir', sortDir);
+      if (sortBy) {
+        params.append('sortBy', sortBy);
+      }
+      if (sortDir) {
+        params.append('sortDir', sortDir);
+      }
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/events?${params.toString()}`);
       if (!response.ok) {
@@ -176,7 +184,12 @@ export function EventDirectory() {
 
       return uniqueEvents.map((event: any) => ({
         ...event,
-        instructor: { name: event.instructor, avatar: `https://i.pravatar.cc/150?u=${event.instructor}` },
+        instructor: {
+          name: typeof event.instructor === 'string' ? event.instructor : event.instructor?.name || 'Unknown',
+          avatar: typeof event.instructor === 'string'
+            ? `https://i.pravatar.cc/150?u=${event.instructor}`
+            : event.instructor?.avatar || `https://i.pravatar.cc/150?u=${event.instructor?.name || 'unknown'}`,
+        },
       }));
     },
   });
@@ -193,7 +206,7 @@ toast.error('Failed to load events.');
   }));
 
   // Ensure single declaration for tableEvents
-  const tableEvents = events.map((e: any) => ({
+  const tableEvents = events.map((e: Event) => ({
     ...e,
     instructor: e?.instructor?.name ?? e.instructor,
   }));
@@ -201,10 +214,10 @@ toast.error('Failed to load events.');
 
 
   const availableOptions = {
-    cities: Array.from(new Set(events.map(e => e.city))),
-    instructors: Array.from(new Set(events.map(e => e.instructor.name))),
-    types: ['Essential', 'Advanced'],
-    modes: ['In-Person', 'Virtual'],
+    cities: Array.from(new Set(events.map((e: Event) => e.city))),
+    instructors: Array.from(new Set(events.map((e: Event) => e.instructor.name))),
+    types: ['Essential', 'Advanced', 'Upper Quadrant'],
+    modes: ['In-Person', 'Virtual', 'Hybrid'],
   };
 
   const handlePinClick = (eventId: string) => {
@@ -341,7 +354,7 @@ toast.error('Failed to load events.');
                     <p>Try adjusting your search filters.</p>
                   </div>
                 ) : (
-                  eventsWithCoordinates.map((event) => {
+                  eventsWithCoordinates.map((event: Event & { coordinates: { lat: number; lng: number } }) => {
                     const eventForCard = {
                       id: event.id,
                       title: event.name,

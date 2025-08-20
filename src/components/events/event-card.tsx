@@ -40,9 +40,9 @@ interface EventCardProps {
       capacity: number;
       minViable: number;
     };
-    type: 'Essential' | 'Advanced';
-    mode: 'In-Person' | 'Virtual';
-    status: 'upcoming' | 'ongoing' | 'completed';
+    type: 'Essential' | 'Advanced' | 'Upper Quadrant';
+    mode: 'In-Person' | 'Virtual' | 'Hybrid';
+    status: 'upcoming' | 'ongoing' | 'completed' | 'cancelled';
     featuredImage?: string;
   };
   isHovered?: boolean;
