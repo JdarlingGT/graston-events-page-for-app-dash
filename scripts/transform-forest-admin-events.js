@@ -3,12 +3,14 @@ const path = require('path');
 
 // Read the Forest Admin event data
 const forestAdminData = JSON.parse(
-  fs.readFileSync(path.join(__dirname, '../public/mock-data/Mock Forest Admin - Event Creation.json'), 'utf8')
+  fs.readFileSync(path.join(__dirname, '../public/mock-data/Mock Forest Admin - Event Creation.json'), 'utf8'),
 );
 
 // Helper function to parse date and create ISO string
 function parseEventDate(dateStr, timeStr, state) {
-  if (!dateStr || !timeStr) return new Date().toISOString();
+  if (!dateStr || !timeStr) {
+return new Date().toISOString();
+}
   
   // Map states to timezone offsets (simplified)
   const timezoneMap = {
@@ -16,7 +18,7 @@ function parseEventDate(dateStr, timeStr, state) {
     'ME': '-04:00', 'OH': '-04:00', 'MA': '-04:00', 'FL': '-04:00',
     'CA': '-07:00', 'NJ': '-04:00', 'PA': '-04:00', 'IA': '-05:00',
     'NY': '-04:00', 'NV': '-07:00', 'GA': '-04:00', 'KS': '-05:00',
-    'VA': '-04:00', 'CO': '-06:00', 'OR': '-07:00'
+    'VA': '-04:00', 'CO': '-06:00', 'OR': '-07:00',
   };
   
   const timezone = timezoneMap[state] || '-05:00';
@@ -25,17 +27,27 @@ function parseEventDate(dateStr, timeStr, state) {
   const [hours, minutes] = time.split(':');
   
   let hour24 = parseInt(hours);
-  if (period === 'PM' && hour24 !== 12) hour24 += 12;
-  if (period === 'AM' && hour24 === 12) hour24 = 0;
+  if (period === 'PM' && hour24 !== 12) {
+hour24 += 12;
+}
+  if (period === 'AM' && hour24 === 12) {
+hour24 = 0;
+}
   
   return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}T${hour24.toString().padStart(2, '0')}:${minutes}:00${timezone}`;
 }
 
 // Helper function to determine event status
 function getEventStatus(registrants, eventName) {
-  if (eventName.toLowerCase().includes('cancelled')) return 'cancelled';
-  if (registrants === 'Cancelled') return 'cancelled';
-  if (registrants === '' || registrants === '0' || registrants === 0) return 'upcoming';
+  if (eventName.toLowerCase().includes('cancelled')) {
+return 'cancelled';
+}
+  if (registrants === 'Cancelled') {
+return 'cancelled';
+}
+  if (registrants === '' || registrants === '0' || registrants === 0) {
+return 'upcoming';
+}
   return 'upcoming';
 }
 
@@ -44,12 +56,20 @@ function parseEventType(eventName) {
   const name = eventName.toLowerCase();
   
   let type = 'Essential';
-  if (name.includes('advanced')) type = 'Advanced';
-  if (name.includes('upper quadrant')) type = 'Upper Quadrant';
+  if (name.includes('advanced')) {
+type = 'Advanced';
+}
+  if (name.includes('upper quadrant')) {
+type = 'Upper Quadrant';
+}
   
   let mode = 'In-Person';
-  if (name.includes('virtual')) mode = 'Virtual';
-  if (name.includes('hybrid')) mode = 'Hybrid';
+  if (name.includes('virtual')) {
+mode = 'Virtual';
+}
+  if (name.includes('hybrid')) {
+mode = 'Hybrid';
+}
   
   return { type, mode };
 }
@@ -85,9 +105,15 @@ const transformedEvents = forestAdminData.map((event, index) => {
 
   // Generate capacity based on type and mode
   let capacity = 25;
-  if (mode === 'Virtual') capacity = 50;
-  if (type === 'Advanced') capacity = 30;
-  if (event['Forest Event Names'].toLowerCase().includes('onsite')) capacity = 20;
+  if (mode === 'Virtual') {
+capacity = 50;
+}
+  if (type === 'Advanced') {
+capacity = 30;
+}
+  if (event['Forest Event Names'].toLowerCase().includes('onsite')) {
+capacity = 20;
+}
 
   const startDate = parseEventDate(event['Start Date'], event['Day 1 Start Time'], event['State']);
   const endDate = parseEventDate(event['End Date'] || event['Start Date'], event['Day 2 End Time'] || event['Day 1 End Time'], event['State']);
@@ -112,7 +138,7 @@ const transformedEvents = forestAdminData.map((event, index) => {
     endDate: endDate,
     location: { 
       city: event['City'] || (mode === 'Virtual' ? 'Online' : ''), 
-      state: event['State'] || (mode === 'Virtual' ? 'Virtual' : '') 
+      state: event['State'] || (mode === 'Virtual' ? 'Virtual' : ''), 
     },
     enrolledCount: enrolledCount,
     learndashGroup: event['Learndash Group'] || '',
@@ -123,27 +149,27 @@ const transformedEvents = forestAdminData.map((event, index) => {
       city: event['City'] || '',
       state: event['State'] || '',
       zipcode: event['Zipcode'] || '',
-      fullAddress: event['Full Address'] || ''
+      fullAddress: event['Full Address'] || '',
     },
     schedule: {
       day1: {
         startTime: event['Day 1 Start Time'] || '8:00 AM',
-        endTime: event['Day 1 End Time'] || '6:00 PM'
+        endTime: event['Day 1 End Time'] || '6:00 PM',
       },
       day2: {
         startTime: event['Day 2 Start Time'] || '8:00 AM',
-        endTime: event['Day 2 End Time'] || '6:00 PM'
-      }
+        endTime: event['Day 2 End Time'] || '6:00 PM',
+      },
     },
     headline: event['Headline'] || `${type} ${mode} Training`,
-    evaluationForm: event['Evaluation Form Names'] || ''
+    evaluationForm: event['Evaluation Form Names'] || '',
   };
 });
 
 // Write the transformed data
 fs.writeFileSync(
   path.join(__dirname, '../public/mock-data/events.json'),
-  JSON.stringify(transformedEvents, null, 2)
+  JSON.stringify(transformedEvents, null, 2),
 );
 
 // Also create individual event files
@@ -156,12 +182,12 @@ transformedEvents.forEach(event => {
   const filename = `event-${event.id.replace('evt-', '')}.json`;
   fs.writeFileSync(
     path.join(eventsDir, filename),
-    JSON.stringify(event, null, 2)
+    JSON.stringify(event, null, 2),
   );
 });
 
 console.log(`✅ Transformed ${transformedEvents.length} events from Forest Admin data`);
-console.log(`✅ Updated events.json with comprehensive event data`);
+console.log('✅ Updated events.json with comprehensive event data');
 console.log(`✅ Created ${transformedEvents.length} individual event files`);
 
 // Generate summary statistics
@@ -171,7 +197,7 @@ const stats = {
   byMode: {},
   byStatus: {},
   totalEnrolled: 0,
-  totalInstruments: 0
+  totalInstruments: 0,
 };
 
 transformedEvents.forEach(event => {

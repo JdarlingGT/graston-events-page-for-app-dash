@@ -288,7 +288,7 @@ export function AttendanceForecast({
                     labelFormatter={(value) => `Date: ${formatDate(value as string)}`}
                     formatter={(value: number, name: string) => [
                       `${value} students`,
-                      name === 'predicted' ? 'Predicted Enrollment' : name
+                      name === 'predicted' ? 'Predicted Enrollment' : name,
                     ]}
                   />
                   <ReferenceLine 

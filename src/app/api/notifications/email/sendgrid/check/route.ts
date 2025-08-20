@@ -27,13 +27,13 @@ export async function GET(_request: NextRequest) {
         headers: {
           'Cache-Control': 'no-store',
         },
-      }
+      },
     );
   } catch (err) {
     console.error('SendGrid connectivity check error:', err);
     return NextResponse.json(
       { success: false, error: 'SendGrid connectivity check failed' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

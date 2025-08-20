@@ -23,7 +23,7 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
                 href={item.href}
                 className={cn(
                   'text-sm font-medium text-muted-foreground hover:text-foreground',
-                  item.active && 'text-foreground'
+                  item.active && 'text-foreground',
                 )}
               >
                 {item.label}
@@ -32,7 +32,7 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
               <span
                 className={cn(
                   'text-sm font-medium',
-                  item.active ? 'text-foreground' : 'text-muted-foreground'
+                  item.active ? 'text-foreground' : 'text-muted-foreground',
                 )}
               >
                 {item.label}

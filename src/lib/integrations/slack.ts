@@ -28,7 +28,9 @@ export interface SlackCheckResult {
 
 function getEnv(name: string, fallback?: string): string | undefined {
   const v = process.env[name];
-  if (v === undefined || v === null || v === '') return fallback;
+  if (v === undefined || v === null || v === '') {
+return fallback;
+}
   return v;
 }
 
@@ -43,7 +45,7 @@ function withTimeout<T>(p: Promise<T>, ms: number): Promise<T> {
       (e) => {
         clearTimeout(t);
         reject(e);
-      }
+      },
     );
   });
 }
@@ -51,7 +53,9 @@ function withTimeout<T>(p: Promise<T>, ms: number): Promise<T> {
 function parseRateLimitHeaders(resp: Response): SlackCheckResult['rateLimit'] {
   const retryAfter = resp.headers.get('retry-after');
   const toNum = (s: string | null): number | undefined => {
-    if (!s) return undefined;
+    if (!s) {
+return undefined;
+}
     const n = Number(s);
     return Number.isFinite(n) ? n : undefined;
   };
@@ -102,7 +106,7 @@ export async function checkSlackWebhookConnectivity(): Promise<SlackCheckResult>
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       }),
-      timeoutMs
+      timeoutMs,
     );
 
     const httpStatus = resp.status;
@@ -114,7 +118,9 @@ export async function checkSlackWebhookConnectivity(): Promise<SlackCheckResult>
       // Attempt to collect response text for diagnostics (best-effort)
       try {
         const txt = await resp.text();
-        if (txt) errors.push(`Response: ${txt}`);
+        if (txt) {
+errors.push(`Response: ${txt}`);
+}
       } catch {
         // ignore
       }

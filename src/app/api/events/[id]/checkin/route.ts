@@ -139,7 +139,7 @@ function calculateAttendanceSummary(studentId: string, record: CheckInRecord, st
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {
   try {
     const eventId = params.id;
@@ -184,7 +184,7 @@ export async function GET(
     console.error('Error fetching check-in data:', error);
     return NextResponse.json(
       { error: 'Failed to fetch check-in data' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -195,7 +195,7 @@ export async function GET(
  */
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {
   try {
     const eventId = params.id;
@@ -204,7 +204,7 @@ export async function POST(
     if (!studentId || !period || !timestamp) {
       return NextResponse.json(
         { error: 'Missing required fields: studentId, period, timestamp' },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -212,7 +212,7 @@ export async function POST(
     if (!validPeriods.includes(period)) {
       return NextResponse.json(
         { error: `Invalid period. Must be one of: ${validPeriods.join(', ')}` },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -237,7 +237,7 @@ export async function POST(
     // Calculate updated attendance summary for this student
     const attendanceSummary = calculateAttendanceSummary(
       studentId, 
-      checkInData[eventId][studentId]
+      checkInData[eventId][studentId],
     );
 
     return NextResponse.json({
@@ -253,7 +253,7 @@ export async function POST(
     console.error('Error recording check-in:', error);
     return NextResponse.json(
       { error: 'Failed to record check-in' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -264,7 +264,7 @@ export async function POST(
  */
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {
   try {
     const eventId = params.id;
@@ -273,7 +273,7 @@ export async function PUT(
     if (!updates || typeof updates !== 'object') {
       return NextResponse.json(
         { error: 'Invalid update data format' },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -309,7 +309,7 @@ export async function PUT(
     console.error('Error bulk updating check-in data:', error);
     return NextResponse.json(
       { error: 'Failed to update check-in data' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -320,7 +320,7 @@ export async function PUT(
  */
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {
   try {
     const eventId = params.id;
@@ -344,7 +344,7 @@ export async function DELETE(
       } else {
         return NextResponse.json(
           { error: 'Student check-in data not found' },
-          { status: 404 }
+          { status: 404 },
         );
       }
     } else {
@@ -361,7 +361,7 @@ export async function DELETE(
       } else {
         return NextResponse.json(
           { error: 'Event check-in data not found' },
-          { status: 404 }
+          { status: 404 },
         );
       }
     }
@@ -369,7 +369,7 @@ export async function DELETE(
     console.error('Error clearing check-in data:', error);
     return NextResponse.json(
       { error: 'Failed to clear check-in data' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -182,7 +182,7 @@ function generateEngagementProfiles(count: number = 100): EngagementProfile[] {
       (emailClicks * 5) + 
       (websiteVisits * 3) + 
       (eventAttendance * 20) + 
-      (socialEngagement * 1)
+      (socialEngagement * 1),
     );
     
     const hasAdvancedExperience = eventAttendance > 0;
@@ -236,7 +236,9 @@ function calculateDistance(lat1: number, lng1: number, lat2: number, lng2: numbe
  * Filter locations by geographic criteria
  */
 function filterLocationsByGeo(locations: TargetLocation[], criteria: TargetingCriteria): TargetLocation[] {
-  if (!criteria.geoRadius) return locations;
+  if (!criteria.geoRadius) {
+return locations;
+}
   
   const { centerLat, centerLng, radiusMiles } = criteria.geoRadius;
   
@@ -251,7 +253,7 @@ function filterLocationsByGeo(locations: TargetLocation[], criteria: TargetingCr
  */
 function generateTargetingRecommendations(
   locations: TargetLocation[], 
-  criteria: TargetingCriteria
+  criteria: TargetingCriteria,
 ): TargetingRecommendation[] {
   return locations.map(location => {
     // Calculate priority based on market penetration, competition, and demographics
@@ -266,7 +268,7 @@ function generateTargetingRecommendations(
     
     // Estimate attendees based on healthcare professionals and market penetration
     const estimatedAttendees = Math.floor(
-      (location.healthcareProfessionals * 0.02) * (1 - location.marketPenetration / 100)
+      (location.healthcareProfessionals * 0.02) * (1 - location.marketPenetration / 100),
     );
     
     // Recommend course type based on market maturity
@@ -381,7 +383,7 @@ export async function GET(request: NextRequest) {
     
     if (criteria.courseTypes) {
       filteredProfiles = filteredProfiles.filter(p => 
-        p.preferences.courseTypes.some(ct => criteria.courseTypes!.includes(ct))
+        p.preferences.courseTypes.some(ct => criteria.courseTypes!.includes(ct)),
       );
     }
     
@@ -399,7 +401,7 @@ export async function GET(request: NextRequest) {
       underservedMarkets: MOCK_LOCATIONS.filter(l => l.marketPenetration < 10),
       saturatedMarkets: MOCK_LOCATIONS.filter(l => l.marketPenetration > 25),
       emergingOpportunities: MOCK_LOCATIONS.filter(l => 
-        l.marketPenetration < 15 && l.competitorDensity < 3 && l.averageIncome > 60000
+        l.marketPenetration < 15 && l.competitorDensity < 3 && l.averageIncome > 60000,
       ),
     };
     
@@ -452,7 +454,7 @@ export async function GET(request: NextRequest) {
     console.error('Error generating targeting recommendations:', error);
     return NextResponse.json(
       { error: 'Failed to generate targeting recommendations' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -474,7 +476,7 @@ export async function POST(request: NextRequest) {
     if (!name || !criteria) {
       return NextResponse.json(
         { error: 'Campaign name and targeting criteria are required' },
-        { status: 400 }
+        { status: 400 },
       );
     }
     
@@ -509,7 +511,7 @@ export async function POST(request: NextRequest) {
     console.error('Error creating targeting campaign:', error);
     return NextResponse.json(
       { error: 'Failed to create targeting campaign' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

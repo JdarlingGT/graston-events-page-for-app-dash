@@ -165,7 +165,7 @@ export function extractRole(req: Request): Role {
 
 function isValidRole(val: string): val is Role {
   return ['admin', 'coordinator', 'instructor', 'sales', 'marketing', 'accounting', 'guest'].includes(
-    val.toLowerCase()
+    val.toLowerCase(),
   );
 }
 
@@ -175,9 +175,11 @@ function isValidRole(val: string): val is Role {
 function matchPolicy(
   list: RoutePolicy[] | undefined,
   pathname: string,
-  method: HttpMethod
+  method: HttpMethod,
 ): RoutePolicy | null {
-  if (!list || list.length === 0) return null;
+  if (!list || list.length === 0) {
+return null;
+}
 
   // Sort by longest prefix to match the most specific first
   const sorted = [...list].sort((a, b) => b.prefix.length - a.prefix.length);
@@ -201,7 +203,7 @@ function matchPolicy(
 export function enforceRoleAccess(
   role: Role,
   pathname: string,
-  method: HttpMethod
+  method: HttpMethod,
 ): EnforcementResult {
   // Admin short-circuit
   if (role === 'admin') {

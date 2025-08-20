@@ -61,7 +61,9 @@ async function ensureInventory(): Promise<InventoryItem[]> {
   try {
     const content = await fs.readFile(inventoryPath, 'utf8');
     const parsed = JSON.parse(content);
-    if (Array.isArray(parsed)) return parsed;
+    if (Array.isArray(parsed)) {
+return parsed;
+}
   } catch {
     // no-op, will seed below
   }
@@ -164,7 +166,9 @@ const CONSUMPTION_MATRIX: Record<CourseType, Array<{ sku: string; qtyPerEvent: n
 };
 
 function withinWindow(dateStr?: string, windowDays: number = 30): boolean {
-  if (!dateStr) return false;
+  if (!dateStr) {
+return false;
+}
   const d = new Date(dateStr).getTime();
   const now = Date.now();
   const windowMs = windowDays * 24 * 60 * 60 * 1000;
@@ -176,7 +180,9 @@ function buildProjectedUsage(events: any[], windowDays: number): Record<string, 
   for (const e of events) {
     const type: CourseType = e?.type;
     const when = e?.date || e?.startDate;
-    if (!type || !withinWindow(when, windowDays)) continue;
+    if (!type || !withinWindow(when, windowDays)) {
+continue;
+}
 
     const rows = CONSUMPTION_MATRIX[type] || [];
     for (const row of rows) {
@@ -215,9 +221,13 @@ export async function GET(request: NextRequest) {
       const projectedRequired = usageMap[it.sku] || 0;
       const shortage = Math.max(0, projectedRequired - netAvailable);
 
-      if (netAvailable <= it.reorderPoint) belowReorder++;
+      if (netAvailable <= it.reorderPoint) {
+belowReorder++;
+}
       // define "low stock" as <= 1.25 * reorder point (heuristic)
-      if (netAvailable <= Math.ceil(it.reorderPoint * 1.25)) lowStock++;
+      if (netAvailable <= Math.ceil(it.reorderPoint * 1.25)) {
+lowStock++;
+}
 
       if (shortage > 0) {
         shortfalls.push({
@@ -288,10 +298,14 @@ export async function PATCH(request: NextRequest) {
       const sku = String(op?.sku || '');
       const action = String(op?.action || '');
       const qty = Number(op?.qty || 0);
-      if (!sku || !action || !Number.isFinite(qty)) continue;
+      if (!sku || !action || !Number.isFinite(qty)) {
+continue;
+}
 
       const it = bySku[sku];
-      if (!it) continue;
+      if (!it) {
+continue;
+}
 
       switch (action) {
         case 'adjust':

@@ -38,7 +38,9 @@ export interface SendGridCheckResult {
 
 function getEnv(name: string, fallback?: string): string | undefined {
   const v = process.env[name];
-  if (v === undefined || v === null || v === "") return fallback;
+  if (v === undefined || v === null || v === '') {
+return fallback;
+}
   return v;
 }
 
@@ -53,7 +55,7 @@ function withTimeout<T>(p: Promise<T>, ms: number): Promise<T> {
       (e) => {
         clearTimeout(t);
         reject(e);
-      }
+      },
     );
   });
 }
@@ -61,23 +63,25 @@ function withTimeout<T>(p: Promise<T>, ms: number): Promise<T> {
 function parseRateLimitHeaders(resp: Response) {
   const get = (h: string) => resp.headers.get(h);
   const toNum = (s: string | null): number | undefined => {
-    if (!s) return undefined;
+    if (!s) {
+return undefined;
+}
     const n = Number(s);
     return Number.isFinite(n) ? n : undefined;
   };
 
-  const limitStr = get("x-ratelimit-limit") || get("X-RateLimit-Limit");
-  const remainingStr = get("x-ratelimit-remaining") || get("X-RateLimit-Remaining");
-  const resetStr = get("x-ratelimit-reset") || get("X-RateLimit-Reset");
+  const limitStr = get('x-ratelimit-limit') || get('X-RateLimit-Limit');
+  const remainingStr = get('x-ratelimit-remaining') || get('X-RateLimit-Remaining');
+  const resetStr = get('x-ratelimit-reset') || get('X-RateLimit-Reset');
 
   return {
     limit: toNum(limitStr),
     remaining: toNum(remainingStr),
     reset: toNum(resetStr),
     raw: {
-      "x-ratelimit-limit": limitStr,
-      "x-ratelimit-remaining": remainingStr,
-      "x-ratelimit-reset": resetStr,
+      'x-ratelimit-limit': limitStr,
+      'x-ratelimit-remaining': remainingStr,
+      'x-ratelimit-reset': resetStr,
     },
   };
 }
@@ -85,21 +89,21 @@ function parseRateLimitHeaders(resp: Response) {
 async function tryGet(
   url: string,
   apiKey: string,
-  timeoutMs: number
+  timeoutMs: number,
 ): Promise<{ status?: number; ok?: boolean; error?: string; resp?: Response }> {
   try {
     const resp = await withTimeout(
       fetch(url, {
         headers: {
           Authorization: `Bearer ${apiKey}`,
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       }),
-      timeoutMs
+      timeoutMs,
     );
     return { status: resp.status, ok: resp.ok, resp };
   } catch (err: any) {
-    return { error: err?.message || "Network error" };
+    return { error: err?.message || 'Network error' };
   }
 }
 

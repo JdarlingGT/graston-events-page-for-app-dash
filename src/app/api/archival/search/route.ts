@@ -65,7 +65,7 @@ function filterResults(results: SearchResult[], filters: any): SearchResult[] {
     filtered = filtered.filter(result =>
       result.title.toLowerCase().includes(searchTerm) ||
       result.description.toLowerCase().includes(searchTerm) ||
-      result.type.includes(searchTerm)
+      result.type.includes(searchTerm),
     );
   }
 
@@ -114,7 +114,7 @@ export async function GET(request: NextRequest) {
     const allResults = await getArchivalData();
 
     // Apply filters
-    let filteredResults = filterResults(allResults, validatedFilters);
+    const filteredResults = filterResults(allResults, validatedFilters);
 
     // Apply pagination
     const total = filteredResults.length;
@@ -143,13 +143,13 @@ export async function GET(request: NextRequest) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid filter parameters', details: error.issues },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     return NextResponse.json(
       { error: 'Internal server error' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -240,9 +240,15 @@ export function SmartNotifications({ className }: SmartNotificationsProps) {
   const actionableCount = notifications.filter(n => n.actionable && !n.read).length;
 
   const getNotificationIcon = (type: string, category: string) => {
-    if (type === 'alert') return AlertTriangle;
-    if (type === 'success') return CheckCircle;
-    if (type === 'warning') return Clock;
+    if (type === 'alert') {
+return AlertTriangle;
+}
+    if (type === 'success') {
+return CheckCircle;
+}
+    if (type === 'warning') {
+return Clock;
+}
     
     switch (category) {
       case 'enrollment': return Users;
@@ -273,7 +279,7 @@ export function SmartNotifications({ className }: SmartNotificationsProps) {
 
   const markAsRead = (id: string) => {
     setNotifications(prev =>
-      prev.map(n => n.id === id ? { ...n, read: true } : n)
+      prev.map(n => n.id === id ? { ...n, read: true } : n),
     );
   };
 
@@ -310,8 +316,12 @@ export function SmartNotifications({ className }: SmartNotificationsProps) {
   };
 
   const filteredNotifications = notifications.filter(notification => {
-    if (filter === 'unread') return !notification.read;
-    if (filter === 'actionable') return notification.actionable;
+    if (filter === 'unread') {
+return !notification.read;
+}
+    if (filter === 'actionable') {
+return notification.actionable;
+}
     return true;
   });
 
@@ -323,10 +333,18 @@ export function SmartNotifications({ className }: SmartNotificationsProps) {
     const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
     const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
-    if (diffMins < 1) return 'Just now';
-    if (diffMins < 60) return `${diffMins}m ago`;
-    if (diffHours < 24) return `${diffHours}h ago`;
-    if (diffDays < 7) return `${diffDays}d ago`;
+    if (diffMins < 1) {
+return 'Just now';
+}
+    if (diffMins < 60) {
+return `${diffMins}m ago`;
+}
+    if (diffHours < 24) {
+return `${diffHours}h ago`;
+}
+    if (diffDays < 7) {
+return `${diffDays}d ago`;
+}
     return date.toLocaleDateString();
   };
 
@@ -455,7 +473,7 @@ export function SmartNotifications({ className }: SmartNotificationsProps) {
                     onCheckedChange={(checked) =>
                       setSettings(prev => ({ 
                         ...prev, 
-                        quietHours: { ...prev.quietHours, enabled: checked }
+                        quietHours: { ...prev.quietHours, enabled: checked },
                       }))
                     }
                   />
@@ -480,7 +498,7 @@ export function SmartNotifications({ className }: SmartNotificationsProps) {
                     <div
                       className={cn(
                         'p-3 rounded-lg border transition-colors hover:bg-muted/50',
-                        !notification.read && 'bg-primary/5 border-primary/20'
+                        !notification.read && 'bg-primary/5 border-primary/20',
                       )}
                     >
                       <div className="flex items-start gap-3">

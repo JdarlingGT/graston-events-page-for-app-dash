@@ -28,7 +28,7 @@ import {
   Zap,
   CheckCircle,
   AlertCircle,
-  X
+  X,
 } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -159,7 +159,7 @@ export function QuickEmailModal({
   onClose, 
   studentEmails, 
   eventName = 'Training Event',
-  instructorName = 'Instructor'
+  instructorName = 'Instructor',
 }: QuickEmailModalProps) {
   const [selectedTemplate, setSelectedTemplate] = useState<EmailTemplate | null>(null);
   const [customSubject, setCustomSubject] = useState('');
@@ -198,7 +198,7 @@ export function QuickEmailModal({
     setSelectedEmails(prev => 
       prev.includes(email) 
         ? prev.filter(e => e !== email)
-        : [...prev, email]
+        : [...prev, email],
     );
   };
 

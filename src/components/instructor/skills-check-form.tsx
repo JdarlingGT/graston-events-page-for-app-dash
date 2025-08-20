@@ -80,7 +80,7 @@ export function SkillsCheckForm({ trainingId }: SkillsCheckFormProps) {
             criteria: data.assessment,
             feedback: data.feedback,
           }),
-        }
+        },
       );
       if (!response.ok) {
         throw new Error('Failed to submit assessment');
@@ -95,7 +95,9 @@ export function SkillsCheckForm({ trainingId }: SkillsCheckFormProps) {
   });
 
   const handleSubmit = () => {
-    if (!selectedStudent) return;
+    if (!selectedStudent) {
+return;
+}
 
     submitAssessmentMutation.mutate({
       studentId: selectedStudent,
@@ -109,7 +111,7 @@ export function SkillsCheckForm({ trainingId }: SkillsCheckFormProps) {
   }
 
   const completedCount = students.filter(
-    (s) => s.skillsCheck.status === 'passed' || s.skillsCheck.status === 'needs_review'
+    (s) => s.skillsCheck.status === 'passed' || s.skillsCheck.status === 'needs_review',
   ).length;
   const progress = (completedCount / students.length) * 100;
 

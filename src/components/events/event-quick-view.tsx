@@ -48,12 +48,16 @@ export function EventQuickView() {
   }, []);
 
   const enrollmentPct = useMemo(() => {
-    if (!event) return 0;
+    if (!event) {
+return 0;
+}
     return (event.enrollment.current / Math.max(event.enrollment.capacity, 1)) * 100;
   }, [event]);
 
   const risk = useMemo(() => {
-    if (!event) return null;
+    if (!event) {
+return null;
+}
     const enrolled = event.enrollment.current ?? 0;
     const minViable = event.enrollment.minViable ?? 0;
     const pct = enrollmentPct;
@@ -73,7 +77,9 @@ export function EventQuickView() {
   const RiskIcon = risk?.icon ?? Users;
 
   const formatDate = (dateString?: string) => {
-    if (!dateString) return '';
+    if (!dateString) {
+return '';
+}
     return new Date(dateString).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
   };
 

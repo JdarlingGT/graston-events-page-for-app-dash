@@ -32,7 +32,7 @@ import {
   AlertTriangle,
   CheckCircle,
   Clock,
-  Zap
+  Zap,
 } from 'lucide-react';
 import {
   LineChart,
@@ -142,7 +142,9 @@ export function SalesDashboard() {
     queryKey: ['sales-summary', timeframe],
     queryFn: async (): Promise<SalesSummary> => {
       const response = await fetch(`/api/sales/summary?timeframe=${timeframe}`);
-      if (!response.ok) throw new Error('Failed to fetch sales data');
+      if (!response.ok) {
+throw new Error('Failed to fetch sales data');
+}
       return response.json();
     },
   });
@@ -152,7 +154,9 @@ export function SalesDashboard() {
     queryKey: ['sales-targeting'],
     queryFn: async (): Promise<TargetingResults> => {
       const response = await fetch('/api/sales/targeting');
-      if (!response.ok) throw new Error('Failed to fetch targeting data');
+      if (!response.ok) {
+throw new Error('Failed to fetch targeting data');
+}
       return response.json();
     },
   });

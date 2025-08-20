@@ -28,13 +28,13 @@ export async function GET(_request: NextRequest) {
         headers: {
           'Cache-Control': 'no-store',
         },
-      }
+      },
     );
   } catch (err) {
     console.error('Slack connectivity check error:', err);
     return NextResponse.json(
       { success: false, error: 'Slack connectivity check failed' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

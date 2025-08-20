@@ -77,7 +77,9 @@ export function SkillsEvaluationModal({ isOpen, onClose, student, onSave }: Skil
 
   const startDrawing = (e: React.MouseEvent<HTMLCanvasElement>, type: 'student' | 'instructor') => {
     const canvas = type === 'student' ? studentCanvasRef.current : instructorCanvasRef.current;
-    if (!canvas) return;
+    if (!canvas) {
+return;
+}
 
     setIsDrawing(true);
     setActiveSignaturePad(type);
@@ -94,10 +96,14 @@ export function SkillsEvaluationModal({ isOpen, onClose, student, onSave }: Skil
   };
 
   const draw = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    if (!isDrawing || !activeSignaturePad) return;
+    if (!isDrawing || !activeSignaturePad) {
+return;
+}
     
     const canvas = activeSignaturePad === 'student' ? studentCanvasRef.current : instructorCanvasRef.current;
-    if (!canvas) return;
+    if (!canvas) {
+return;
+}
 
     const rect = canvas.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -111,7 +117,9 @@ export function SkillsEvaluationModal({ isOpen, onClose, student, onSave }: Skil
   };
 
   const stopDrawing = () => {
-    if (!isDrawing || !activeSignaturePad) return;
+    if (!isDrawing || !activeSignaturePad) {
+return;
+}
     
     setIsDrawing(false);
     
@@ -156,7 +164,9 @@ export function SkillsEvaluationModal({ isOpen, onClose, student, onSave }: Skil
   };
 
   const handleSave = () => {
-    if (!student) return;
+    if (!student) {
+return;
+}
 
     if (currentStep === 'signature') {
       if (!studentSignature || !instructorSignature) {

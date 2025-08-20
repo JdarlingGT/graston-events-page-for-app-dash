@@ -44,7 +44,9 @@ export interface LdCheckResult {
 
 function getEnv(name: string, fallback?: string): string | undefined {
   const v = process.env[name];
-  if (v === undefined || v === null || v === '') return fallback;
+  if (v === undefined || v === null || v === '') {
+return fallback;
+}
   return v;
 }
 
@@ -59,7 +61,7 @@ function withTimeout<T>(p: Promise<T>, ms: number): Promise<T> {
       (e) => {
         clearTimeout(t);
         reject(e);
-      }
+      },
     );
   });
 }
@@ -74,7 +76,9 @@ function buildHeaders(mode: LdAuthMode, basicAuth?: string): HeadersInit {
 function parseRateLimitHeaders(resp: Response) {
   const get = (h: string) => resp.headers.get(h);
   const toNum = (s: string | null): number | undefined => {
-    if (!s) return undefined;
+    if (!s) {
+return undefined;
+}
     const n = Number(s);
     return Number.isFinite(n) ? n : undefined;
   };
@@ -103,7 +107,7 @@ async function tryFetch(
   path: string,
   mode: LdAuthMode,
   basicAuth: string | undefined,
-  timeoutMs: number
+  timeoutMs: number,
 ): Promise<{ endpoint: string; response?: Response; error?: Error }> {
   const endpoint = new URL(path, base).toString();
   const headers = buildHeaders(mode, basicAuth);
@@ -215,7 +219,9 @@ export async function checkLearnDashConnectivity(): Promise<LdCheckResult> {
         errors.push({ endpoint: `${r.endpoint} [${mode}]`, error: r.error.message });
       }
     }
-    if (ldOk) break;
+    if (ldOk) {
+break;
+}
   }
 
   const ok = wpOk && (ldOk || !!detectedBase);

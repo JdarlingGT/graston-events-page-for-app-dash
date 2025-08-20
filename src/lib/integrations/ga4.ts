@@ -31,7 +31,9 @@ export interface Ga4CheckResult {
 
 function getEnv(name: string, fallback?: string): string | undefined {
   const v = process.env[name];
-  if (v === undefined || v === null || v === '') return fallback;
+  if (v === undefined || v === null || v === '') {
+return fallback;
+}
   return v;
 }
 
@@ -46,14 +48,16 @@ function withTimeout<T>(p: Promise<T>, ms: number): Promise<T> {
       (e) => {
         clearTimeout(t);
         reject(e);
-      }
+      },
     );
   });
 }
 
 function buildClientId(): string {
   const fromEnv = getEnv('GA4_DEBUG_CLIENT_ID');
-  if (fromEnv) return fromEnv;
+  if (fromEnv) {
+return fromEnv;
+}
   // Simple pseudo client id
   return `${Date.now()}.${Math.floor(Math.random() * 1_000_000_000)}`;
 }
@@ -68,7 +72,7 @@ export async function checkGa4Connectivity(): Promise<Ga4CheckResult> {
 
   const endpointBase = 'https://www.google-analytics.com/debug/mp/collect';
   const endpoint = `${endpointBase}?measurement_id=${encodeURIComponent(
-    measurementId || ''
+    measurementId || '',
   )}&api_secret=${encodeURIComponent(apiSecret || '')}`;
 
   // Env presence pre-check
@@ -116,7 +120,7 @@ export async function checkGa4Connectivity(): Promise<Ga4CheckResult> {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       }),
-      timeoutMs
+      timeoutMs,
     );
 
     const httpStatus = resp.status;
@@ -140,7 +144,7 @@ export async function checkGa4Connectivity(): Promise<Ga4CheckResult> {
       validationMessages.some(
         (m) =>
           String(m.validationCode || '').toUpperCase().includes('ERROR') ||
-          String(m.description || '').toLowerCase().includes('error')
+          String(m.description || '').toLowerCase().includes('error'),
       );
 
     const ok = resp.ok && !hasErrors;
@@ -159,7 +163,7 @@ export async function checkGa4Connectivity(): Promise<Ga4CheckResult> {
                   (m) =>
                     `${m.validationCode || 'MSG'}: ${m.description || ''}${
                       m.fieldPath ? ` (${m.fieldPath})` : ''
-                    }`
+                    }`,
                 )
               : []),
           ].filter(Boolean),

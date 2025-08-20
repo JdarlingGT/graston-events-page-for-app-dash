@@ -30,7 +30,9 @@ export function MarketingCalendar() {
     queryKey: ['marketing-calendar'],
     queryFn: async (): Promise<{ events: CampaignEvent[] }> => {
       const res = await fetch('/api/marketing/calendar');
-      if (!res.ok) throw new Error('Failed to fetch calendar');
+      if (!res.ok) {
+throw new Error('Failed to fetch calendar');
+}
       return res.json();
     },
   });

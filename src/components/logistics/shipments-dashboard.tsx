@@ -78,7 +78,9 @@ function variantForStatus(s: ShipmentStatus) {
 }
 
 function daysUntil(dateIso?: string): number | undefined {
-  if (!dateIso) return undefined;
+  if (!dateIso) {
+return undefined;
+}
   const due = new Date(dateIso).getTime();
   const now = Date.now();
   return Math.ceil((due - now) / (1000 * 60 * 60 * 24));
@@ -102,16 +104,26 @@ export function ShipmentsDashboard() {
     queryKey,
     queryFn: async (): Promise<ShipmentsResponse> => {
       const sp = new URLSearchParams();
-      if (status !== 'all') sp.append('status', status);
-      if (priority !== 'all') sp.append('priority', priority);
-      if (assignee) sp.set('assignee', assignee);
-      if (eventId) sp.set('eventId', eventId);
+      if (status !== 'all') {
+sp.append('status', status);
+}
+      if (priority !== 'all') {
+sp.append('priority', priority);
+}
+      if (assignee) {
+sp.set('assignee', assignee);
+}
+      if (eventId) {
+sp.set('eventId', eventId);
+}
       sp.set('sortBy', sortBy);
       sp.set('sortOrder', sortOrder);
       sp.set('page', String(page));
       sp.set('limit', String(limit));
       const res = await fetch(`/api/logistics/shipments?${sp.toString()}`);
-      if (!res.ok) throw new Error('Failed to fetch shipments');
+      if (!res.ok) {
+throw new Error('Failed to fetch shipments');
+}
       return res.json();
     },
     placeholderData: (previousData) => previousData,
@@ -128,7 +140,9 @@ export function ShipmentsDashboard() {
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify(payload),
       });
-      if (!res.ok) throw new Error('Bulk update failed');
+      if (!res.ok) {
+throw new Error('Bulk update failed');
+}
       return res.json();
     },
     onSuccess: () => {
@@ -138,9 +152,13 @@ export function ShipmentsDashboard() {
   });
 
   const toggleAll = (checked: boolean) => {
-    if (!data?.shipments) return;
+    if (!data?.shipments) {
+return;
+}
     const next: Record<string, boolean> = {};
-    data.shipments.forEach((s) => { next[s.id] = checked; });
+    data.shipments.forEach((s) => {
+ next[s.id] = checked; 
+});
     setSelected(next);
   };
 
@@ -178,7 +196,9 @@ export function ShipmentsDashboard() {
         <CardContent className="grid gap-4 md:grid-cols-6">
           <div className="space-y-1">
             <Label>Status</Label>
-            <Select value={status} onValueChange={(v: any) => { setPage(1); setStatus(v); }}>
+            <Select value={status} onValueChange={(v: any) => {
+ setPage(1); setStatus(v); 
+}}>
               <SelectTrigger><SelectValue placeholder="All" /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All</SelectItem>
@@ -188,7 +208,9 @@ export function ShipmentsDashboard() {
           </div>
           <div className="space-y-1">
             <Label>Priority</Label>
-            <Select value={priority} onValueChange={(v: any) => { setPage(1); setPriority(v); }}>
+            <Select value={priority} onValueChange={(v: any) => {
+ setPage(1); setPriority(v); 
+}}>
               <SelectTrigger><SelectValue placeholder="All" /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All</SelectItem>
@@ -198,11 +220,15 @@ export function ShipmentsDashboard() {
           </div>
           <div className="space-y-1">
             <Label>Assignee</Label>
-            <Input placeholder="email or name" value={assignee} onChange={(e) => { setPage(1); setAssignee(e.target.value); }} />
+            <Input placeholder="email or name" value={assignee} onChange={(e) => {
+ setPage(1); setAssignee(e.target.value); 
+}} />
           </div>
           <div className="space-y-1">
             <Label>Event ID</Label>
-            <Input placeholder="evt_xxx" value={eventId} onChange={(e) => { setPage(1); setEventId(e.target.value); }} />
+            <Input placeholder="evt_xxx" value={eventId} onChange={(e) => {
+ setPage(1); setEventId(e.target.value); 
+}} />
           </div>
           <div className="space-y-1">
             <Label>Sort</Label>
@@ -222,7 +248,9 @@ export function ShipmentsDashboard() {
           </div>
           <div className="space-y-1">
             <Label>Page Size</Label>
-            <Select value={String(limit)} onValueChange={(v: any) => { setPage(1); setLimit(Number(v)); }}>
+            <Select value={String(limit)} onValueChange={(v: any) => {
+ setPage(1); setLimit(Number(v)); 
+}}>
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>
                 {[10, 20, 50].map((n) => (<SelectItem key={n} value={String(n)}>{n}</SelectItem>))}

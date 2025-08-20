@@ -20,7 +20,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       const matchingEntry = ledgerEntries.find(entry => 
         entry.date === statement.date && 
         entry.description === statement.description && 
-        entry.amount === statement.amount
+        entry.amount === statement.amount,
       );
       return {
         ...statement,

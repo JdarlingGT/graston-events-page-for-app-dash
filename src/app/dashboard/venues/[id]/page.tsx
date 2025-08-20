@@ -49,7 +49,7 @@ export default function VenueDetailPage({ params }: { params: { id: string } }) 
       <Breadcrumb
         items={[
           { label: 'Venues', href: '/dashboard/directory/venues' },
-          { label: venue.name, active: true }
+          { label: venue.name, active: true },
         ]}
       />
       <Card>

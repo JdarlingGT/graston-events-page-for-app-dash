@@ -61,9 +61,15 @@ function computeRisk(e: Event): 'at-risk' | 'almost-full' | 'healthy' | 'buildin
   const capacity = e.capacity || 1;
   const pct = (enrolled / capacity) * 100;
 
-  if (enrolled < minViable) return 'at-risk';
-  if (pct >= 90) return 'almost-full';
-  if (enrolled >= minViable) return 'healthy';
+  if (enrolled < minViable) {
+return 'at-risk';
+}
+  if (pct >= 90) {
+return 'almost-full';
+}
+  if (enrolled >= minViable) {
+return 'healthy';
+}
   return 'building';
 }
 
@@ -92,7 +98,7 @@ export async function GET(request: NextRequest) {
   const sortBy = url.searchParams.get('sortBy') || 'date';
   const sortDir = (url.searchParams.get('sortDir') || 'asc').toLowerCase() === 'desc' ? 'desc' : 'asc';
 
-  let events = await getEvents();
+  const events = await getEvents();
 
   // Normalize and enrich (attach derived fields without changing public contract)
   const enriched = events.map(e => {

@@ -40,7 +40,7 @@ import {
   Globe,
   Facebook,
   MessageCircle,
-  Linkedin
+  Linkedin,
 } from 'lucide-react';
 import {
   LineChart,
@@ -209,7 +209,9 @@ export function AttributionDashboard() {
         attributionModel,
       });
       const response = await fetch(`/api/marketing/funnel-data?${params}`);
-      if (!response.ok) throw new Error('Failed to fetch funnel data');
+      if (!response.ok) {
+throw new Error('Failed to fetch funnel data');
+}
       return response.json();
     },
   });
@@ -341,7 +343,9 @@ export function AttributionDashboard() {
               />
             </div>
             <div className="flex items-end">
-              <Button variant="outline" onClick={() => { setChannel(''); setCampaign(''); }}>
+              <Button variant="outline" onClick={() => {
+ setChannel(''); setCampaign(''); 
+}}>
                 Clear Filters
               </Button>
             </div>

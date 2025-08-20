@@ -219,15 +219,15 @@ function applyFilters(instructors: Instructor[], filters: any): Instructor[] {
       instructor.name.toLowerCase().includes(searchTerm) ||
       instructor.email.toLowerCase().includes(searchTerm) ||
       instructor.specialties.some(specialty => 
-        specialty.toLowerCase().includes(searchTerm)
-      )
+        specialty.toLowerCase().includes(searchTerm),
+      ),
     );
   }
 
   // Status filter
   if (filters.status && filters.status.length > 0) {
     filtered = filtered.filter(instructor => 
-      filters.status.includes(instructor.status)
+      filters.status.includes(instructor.status),
     );
   }
 
@@ -235,15 +235,15 @@ function applyFilters(instructors: Instructor[], filters: any): Instructor[] {
   if (filters.specialties && filters.specialties.length > 0) {
     filtered = filtered.filter(instructor =>
       filters.specialties.some((specialty: string) =>
-        instructor.specialties.includes(specialty)
-      )
+        instructor.specialties.includes(specialty),
+      ),
     );
   }
 
   // Rating filter
   if (filters.rating) {
     filtered = filtered.filter(instructor =>
-      instructor.performanceMetrics?.averageStudentRating >= filters.rating
+      instructor.performanceMetrics?.averageStudentRating >= filters.rating,
     );
   }
 
@@ -251,8 +251,8 @@ function applyFilters(instructors: Instructor[], filters: any): Instructor[] {
   if (filters.location) {
     filtered = filtered.filter(instructor =>
       instructor.availability?.preferredLocations.some(location =>
-        location.toLowerCase().includes(filters.location.toLowerCase())
-      )
+        location.toLowerCase().includes(filters.location.toLowerCase()),
+      ),
     );
   }
 
@@ -286,8 +286,12 @@ function sortInstructors(instructors: Instructor[], sortBy: string, sortOrder: s
         bValue = b.name.toLowerCase();
     }
 
-    if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1;
-    if (aValue > bValue) return sortOrder === 'asc' ? 1 : -1;
+    if (aValue < bValue) {
+return sortOrder === 'asc' ? -1 : 1;
+}
+    if (aValue > bValue) {
+return sortOrder === 'asc' ? 1 : -1;
+}
     return 0;
   });
 }
@@ -348,13 +352,13 @@ export async function GET(request: NextRequest) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid filter parameters', details: error.issues },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     return NextResponse.json(
       { error: 'Internal server error' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -367,7 +371,7 @@ export async function POST(request: NextRequest) {
     if (!validation.success) {
       return NextResponse.json(
         { error: 'Invalid instructor data', details: validation.error.format() },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -418,7 +422,7 @@ export async function POST(request: NextRequest) {
     console.error('POST /api/instructors error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

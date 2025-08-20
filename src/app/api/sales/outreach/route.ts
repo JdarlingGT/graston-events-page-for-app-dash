@@ -134,7 +134,7 @@ Best regards,
 P.S. Early bird pricing ends in 7 days - I'd hate for you to miss out on the savings.`,
     personalizationSlots: [
       'firstName', 'title', 'location', 'preferredCourseType', 
-      'primaryGoal', 'specificBenefit', 'mutualConnection'
+      'primaryGoal', 'specificBenefit', 'mutualConnection',
     ],
     complianceFlags: ['can_spam', 'gdpr', 'professional_tone'],
     tone: 'professional',
@@ -174,7 +174,7 @@ Looking forward to hearing from you,
 P.S. {{urgencyElement}}`,
     personalizationSlots: [
       'firstName', 'preferredCourseType', 'location', 'recentActivity',
-      'timeBasedUpdate', 'painPoint', 'urgencyElement'
+      'timeBasedUpdate', 'painPoint', 'urgencyElement',
     ],
     complianceFlags: ['follow_up_limit', 'truthful_urgency'],
     tone: 'friendly',
@@ -219,7 +219,7 @@ Proud of your progress,
 P.S. Your classmate {{peerReference}} just enrolled and is excited to continue learning alongside familiar faces.`,
     personalizationSlots: [
       'firstName', 'completedCourse', 'specificGoal', 'nextLevelCourse',
-      'skillsScore', 'specificStrength', 'advancedNeed', 'location', 'peerReference'
+      'skillsScore', 'specificStrength', 'advancedNeed', 'location', 'peerReference',
     ],
     complianceFlags: ['truthful_claims', 'alumni_verification'],
     tone: 'educational',
@@ -340,7 +340,7 @@ function checkCompliance(content: string, subject: string, rules: ComplianceRule
         
       case 'professional_tone':
         const casualWords = rule.forbiddenElements?.filter(word => 
-          fullText.includes(word.toLowerCase())
+          fullText.includes(word.toLowerCase()),
         ) || [];
         if (casualWords.length > 0) {
           status = 'warning';
@@ -350,7 +350,7 @@ function checkCompliance(content: string, subject: string, rules: ComplianceRule
         
       case 'truthful_urgency':
         const urgencyWords = rule.keywords?.filter(word => 
-          fullText.includes(word.toLowerCase())
+          fullText.includes(word.toLowerCase()),
         ) || [];
         if (urgencyWords.length > 0) {
           status = 'warning';
@@ -384,7 +384,9 @@ function calculateReadabilityScore(text: string): number {
   const words = text.split(/\s+/).length;
   const syllables = text.split(/[aeiouAEIOU]/).length - 1;
   
-  if (sentences === 0 || words === 0) return 0;
+  if (sentences === 0 || words === 0) {
+return 0;
+}
   
   const avgWordsPerSentence = words / sentences;
   const avgSyllablesPerWord = syllables / words;
@@ -399,7 +401,7 @@ function calculateReadabilityScore(text: string): number {
 function estimateEngagement(
   template: OutreachTemplate, 
   personalizationApplied: string[],
-  complianceScore: number
+  complianceScore: number,
 ): number {
   const baseEngagement = template.usage.opened / Math.max(template.usage.sent, 1) * 100;
   const personalizationBonus = personalizationApplied.length * 5;
@@ -438,7 +440,7 @@ export async function GET(request: NextRequest) {
     console.error('Error fetching outreach templates:', error);
     return NextResponse.json(
       { error: 'Failed to fetch outreach templates' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -454,7 +456,7 @@ export async function POST(request: NextRequest) {
     if (!outreachRequest.templateId || !outreachRequest.recipients?.length) {
       return NextResponse.json(
         { error: 'Template ID and recipients are required' },
-        { status: 400 }
+        { status: 400 },
       );
     }
     
@@ -462,7 +464,7 @@ export async function POST(request: NextRequest) {
     if (!template) {
       return NextResponse.json(
         { error: 'Template not found' },
-        { status: 404 }
+        { status: 404 },
       );
     }
     
@@ -473,7 +475,7 @@ export async function POST(request: NextRequest) {
       // Personalize subject and content
       const personalizedSubject = personalizeContent(
         outreachRequest.customizations?.subject || template.subject || '',
-        recipient.personalizationData
+        recipient.personalizationData,
       );
       
       let personalizedContent = personalizeContent(template.content, recipient.personalizationData);
@@ -487,13 +489,13 @@ export async function POST(request: NextRequest) {
       if (outreachRequest.customizations?.callToAction) {
         personalizedContent = personalizedContent.replace(
           /Best regards,/g,
-          `${outreachRequest.customizations.callToAction}\n\nBest regards,`
+          `${outreachRequest.customizations.callToAction}\n\nBest regards,`,
         );
       }
       
       // Check which personalization slots were filled
       const personalizationApplied = template.personalizationSlots.filter(slot => 
-        recipient.personalizationData[slot as keyof PersonalizationData]
+        recipient.personalizationData[slot as keyof PersonalizationData],
       );
       
       // Run compliance checks
@@ -566,7 +568,7 @@ export async function POST(request: NextRequest) {
     console.error('Error generating outreach messages:', error);
     return NextResponse.json(
       { error: 'Failed to generate outreach messages' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

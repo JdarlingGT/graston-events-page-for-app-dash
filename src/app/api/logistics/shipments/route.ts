@@ -186,7 +186,7 @@ export async function GET(request: NextRequest) {
         headers: {
           'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
         },
-      }
+      },
     );
   } catch (err) {
     console.error('GET /api/logistics/shipments error:', err);
@@ -204,7 +204,7 @@ export async function POST(request: NextRequest) {
     if (!body?.title || !Array.isArray(body?.items) || body.items.length === 0) {
       return NextResponse.json(
         { error: 'title and items[] are required' },
-        { status: 400 }
+        { status: 400 },
       );
     }
     if (body.status && !validStatus(body.status)) {
@@ -276,7 +276,9 @@ export async function PATCH(request: NextRequest) {
     const now = new Date().toISOString();
 
     for (const s of list) {
-      if (!idset.has(s.id)) continue;
+      if (!idset.has(s.id)) {
+continue;
+}
 
       switch (op) {
         case 'status': {

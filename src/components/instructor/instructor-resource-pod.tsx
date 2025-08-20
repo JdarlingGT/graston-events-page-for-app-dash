@@ -19,7 +19,7 @@ import {
   RefreshCw,
   Clock,
   CheckCircle,
-  AlertTriangle
+  AlertTriangle,
 } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -158,7 +158,7 @@ export function InstructorResourcePod() {
       
       setTimeout(() => {
         setResources(prev => prev.map(r => 
-          r.id === resource.id ? { ...r, cached: true, lastAccessed: new Date().toISOString() } : r
+          r.id === resource.id ? { ...r, cached: true, lastAccessed: new Date().toISOString() } : r,
         ));
         setCacheStatus(prev => ({
           ...prev,
@@ -208,7 +208,7 @@ export function InstructorResourcePod() {
       
       // Update last accessed
       setResources(prev => prev.map(r => 
-        r.id === resource.id ? { ...r, lastAccessed: new Date().toISOString() } : r
+        r.id === resource.id ? { ...r, lastAccessed: new Date().toISOString() } : r,
       ));
       
       // Open resource (simulate)
@@ -236,15 +236,23 @@ export function InstructorResourcePod() {
   };
 
   const formatLastAccessed = (timestamp?: string) => {
-    if (!timestamp) return 'Never';
+    if (!timestamp) {
+return 'Never';
+}
     const date = new Date(timestamp);
     const now = new Date();
     const diffMs = now.getTime() - date.getTime();
     const diffMins = Math.floor(diffMs / 60000);
     
-    if (diffMins < 1) return 'Just now';
-    if (diffMins < 60) return `${diffMins}m ago`;
-    if (diffMins < 1440) return `${Math.floor(diffMins / 60)}h ago`;
+    if (diffMins < 1) {
+return 'Just now';
+}
+    if (diffMins < 60) {
+return `${diffMins}m ago`;
+}
+    if (diffMins < 1440) {
+return `${Math.floor(diffMins / 60)}h ago`;
+}
     return date.toLocaleDateString();
   };
 

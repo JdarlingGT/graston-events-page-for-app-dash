@@ -112,7 +112,9 @@ const EventsHubClient: React.FC = () => {
     queryKey: ['events', pagination, sorting, filtering],
     queryFn: async () => {
       const response = await fetch('/api/events');
-      if (!response.ok) throw new Error('Failed to fetch events');
+      if (!response.ok) {
+throw new Error('Failed to fetch events');
+}
       return response.json();
     },
   });

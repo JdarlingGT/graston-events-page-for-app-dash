@@ -21,7 +21,7 @@ const server = setupServer(
         { id: '2', title: 'Task 2', dueDate: null, status: 'in_progress', priority: 'medium' },
       ],
     });
-  })
+  }),
 );
 
 beforeAll(() => server.listen());

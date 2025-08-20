@@ -10,7 +10,7 @@ type ErrorProps = {
 export default function Error({ error, reset }: ErrorProps) {
   useEffect(() => {
     // Best-effort client-side log for visibility. Server logs will carry correlation IDs.
-    // eslint-disable-next-line no-console
+     
     console.error('App Error Boundary:', { message: error?.message, digest: error?.digest });
   }, [error]);
 

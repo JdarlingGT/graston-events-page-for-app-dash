@@ -442,15 +442,13 @@ const MOCK_CUSTOMER_JOURNEYS: CustomerJourney[] = [
   },
 ];
 
-/**
- * Generate attribution models
- */
-function generateAttributionModels(touchpoints: Touchpoint[]): AttributionModel[] {
-  const totalConversions = touchpoints.reduce((sum, tp) => sum + tp.conversions, 0);
-  const totalRevenue = touchpoints.reduce((sum, tp) => sum + tp.revenue, 0);
-
-  return [
-    {
+} else {
+  // ...existing code...
+}
+// ...existing code...
+} else {
+  // ...existing code...
+}
       name: 'Last Touch',
       description: '100% credit to the final touchpoint before conversion',
       weight: 1,
@@ -514,9 +512,15 @@ function generateAttributionModels(touchpoints: Touchpoint[]): AttributionModel[
       weight: 1,
       touchpoints: touchpoints.map((tp, index, array) => {
         let attribution = 0;
-        if (index === 0) attribution = 40; // First touch
-        else if (index === array.length - 1) attribution = 40; // Last touch
-        else attribution = 20 / (array.length - 2); // Middle touchpoints
+        if (index === 0) {
+attribution = 40;
+} // First touch
+        else if (index === array.length - 1) {
+attribution = 40;
+} // Last touch
+        else {
+attribution = 20 / (array.length - 2);
+} // Middle touchpoints
         
         return {
           touchpointId: tp.id,
@@ -549,19 +553,19 @@ export async function GET(request: NextRequest) {
 
     if (channel) {
       filteredTouchpoints = filteredTouchpoints.filter(tp => 
-        tp.channel.toLowerCase().includes(channel.toLowerCase())
+        tp.channel.toLowerCase().includes(channel.toLowerCase()),
       );
       filteredCampaigns = filteredCampaigns.filter(camp => 
-        camp.channel.toLowerCase().includes(channel.toLowerCase())
+        camp.channel.toLowerCase().includes(channel.toLowerCase()),
       );
     }
 
     if (campaign) {
       filteredTouchpoints = filteredTouchpoints.filter(tp => 
-        tp.campaign.toLowerCase().includes(campaign.toLowerCase())
+        tp.campaign.toLowerCase().includes(campaign.toLowerCase()),
       );
       filteredCampaigns = filteredCampaigns.filter(camp => 
-        camp.name.toLowerCase().includes(campaign.toLowerCase())
+        camp.name.toLowerCase().includes(campaign.toLowerCase()),
       );
     }
 
@@ -663,7 +667,7 @@ export async function GET(request: NextRequest) {
     console.error('Error fetching funnel data:', error);
     return NextResponse.json(
       { error: 'Failed to fetch funnel data' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -685,7 +689,7 @@ export async function POST(request: NextRequest) {
     if (!action) {
       return NextResponse.json(
         { error: 'Action is required' },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -725,14 +729,14 @@ export async function POST(request: NextRequest) {
       default:
         return NextResponse.json(
           { error: 'Invalid action' },
-          { status: 400 }
+          { status: 400 },
         );
     }
   } catch (error) {
     console.error('Error processing funnel data request:', error);
     return NextResponse.json(
       { error: 'Failed to process funnel data request' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

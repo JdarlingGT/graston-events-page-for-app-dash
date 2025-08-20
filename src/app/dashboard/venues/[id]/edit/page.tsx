@@ -45,7 +45,7 @@ export default function VenueEditPage({ params }: { params: { id: string } }) {
         items={[
           { label: 'Venues', href: '/dashboard/directory/venues' },
           { label: 'Venue Detail', href: `/dashboard/directory/venues/${params.id}` },
-          { label: 'Edit Venue', active: true }
+          { label: 'Edit Venue', active: true },
         ]}
       />
       <h1>Edit Venue</h1>

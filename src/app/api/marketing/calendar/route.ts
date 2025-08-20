@@ -96,7 +96,7 @@ export async function GET(request: NextRequest) {
     console.error('Error fetching marketing calendar:', error);
     return NextResponse.json(
       { error: 'Failed to fetch marketing calendar' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

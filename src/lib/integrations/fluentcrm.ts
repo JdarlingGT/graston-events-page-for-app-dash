@@ -42,7 +42,9 @@ export interface FluentCrmCheckResult {
 
 function getEnv(name: string, fallback?: string): string | undefined {
   const v = process.env[name];
-  if (v === undefined || v === null || v === '') return fallback;
+  if (v === undefined || v === null || v === '') {
+return fallback;
+}
   return v;
 }
 
@@ -57,7 +59,7 @@ function withTimeout<T>(p: Promise<T>, ms: number): Promise<T> {
       (e) => {
         clearTimeout(t);
         reject(e);
-      }
+      },
     );
   });
 }
@@ -65,7 +67,7 @@ function withTimeout<T>(p: Promise<T>, ms: number): Promise<T> {
 function buildAuthHeaders(
   mode: FluentCrmAuthMode,
   apiKey?: string,
-  basicAuth?: string
+  basicAuth?: string,
 ): HeadersInit {
   switch (mode) {
     case 'bearer':
@@ -82,7 +84,9 @@ function buildAuthHeaders(
 }
 
 function appendQueryApiKey(url: string, mode: FluentCrmAuthMode, apiKey?: string): string {
-  if (mode !== 'query-api-key' || !apiKey) return url;
+  if (mode !== 'query-api-key' || !apiKey) {
+return url;
+}
   const u = new URL(url);
   u.searchParams.set('api_key', apiKey);
   return u.toString();
@@ -97,7 +101,9 @@ function extractRateLimitHeaders(resp: Response): FluentCrmCheckResult['rateLimi
   const retryAfterStr = getHeader('retry-after');
 
   const toNum = (s: string | null): number | undefined => {
-    if (!s) return undefined;
+    if (!s) {
+return undefined;
+}
     const n = Number(s);
     return Number.isFinite(n) ? n : undefined;
   };
@@ -121,7 +127,7 @@ async function tryFetch(
   mode: FluentCrmAuthMode,
   apiKey: string | undefined,
   basicAuth: string | undefined,
-  timeoutMs: number
+  timeoutMs: number,
 ): Promise<{ response?: Response; error?: Error }> {
   const authHeaders = buildAuthHeaders(mode, apiKey, basicAuth);
   const finalUrl = appendQueryApiKey(url, mode, apiKey);
@@ -129,7 +135,7 @@ async function tryFetch(
   try {
     const response = await withTimeout(
       fetch(finalUrl, { headers: { ...authHeaders } }),
-      timeoutMs
+      timeoutMs,
     );
     return { response };
   } catch (error: any) {
@@ -253,7 +259,9 @@ export async function checkFluentCrmConnectivity(): Promise<FluentCrmCheckResult
       }
     }
 
-    if (fluentOk) break;
+    if (fluentOk) {
+break;
+}
   }
 
   const ok = wpOk && (fluentOk || !!detectedBase);

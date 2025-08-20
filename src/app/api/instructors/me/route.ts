@@ -56,7 +56,7 @@ export async function GET(req: NextRequest) {
     ]);
 
     // Try to locate instructor by id/email/name
-    let me =
+    const me =
       (id ? instructors.find((i: any) => i.id === id) : undefined) ||
       (email ? instructors.find((i: any) => (i.email || '').toLowerCase() === email.toLowerCase()) : undefined) ||
       (name ? instructors.find((i: any) => (i.name || '').toLowerCase() === name.toLowerCase()) : undefined) ||
@@ -65,7 +65,7 @@ export async function GET(req: NextRequest) {
     if (!me) {
       return NextResponse.json(
         { error: 'Instructor profile not found for current identity' },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -132,7 +132,7 @@ export async function GET(req: NextRequest) {
     console.error('GET /api/instructors/me error:', err);
     return NextResponse.json(
       { error: 'Failed to resolve current instructor' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

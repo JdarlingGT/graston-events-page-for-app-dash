@@ -1,5 +1,6 @@
 import tseslint from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
+import reactHooks from 'eslint-plugin-react-hooks';
 
 export default [
   {
@@ -15,10 +16,14 @@ export default [
       },
     },
     plugins: {
-      '@typescript-eslint': tseslint,
+  '@typescript-eslint': tseslint,
+  'react-hooks': reactHooks,
     },
     rules: {
       'prefer-const': 'error',
+  // React Hooks linting
+  'react-hooks/rules-of-hooks': 'error',
+  'react-hooks/exhaustive-deps': 'warn',
       'no-var': 'error',
       // Allow console.log in this project (kept as warn to avoid failing CI)
       'no-console': ['warn', { allow: ['warn', 'error', 'log'] }],

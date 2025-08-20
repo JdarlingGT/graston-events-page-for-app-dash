@@ -79,7 +79,7 @@ export const ROLE_PERMISSIONS: Record<UserRole, string[]> = {
     'reports:view',
     'settings:manage',
     'users:manage',
-    'system:admin'
+    'system:admin',
   ],
   instructor: [
     'events:read',
@@ -89,20 +89,20 @@ export const ROLE_PERMISSIONS: Record<UserRole, string[]> = {
     'training:manage_workspace',
     'resources:read',
     'resources:upload_own',
-    'profile:update_own'
+    'profile:update_own',
   ],
   staff: [
     'events:read',
     'students:read',
     'instructors:read',
     'venues:read',
-    'reports:view_limited'
+    'reports:view_limited',
   ],
   viewer: [
     'events:read',
     'instructors:read',
-    'venues:read'
-  ]
+    'venues:read',
+  ],
 };
 
 // Authentication session
@@ -228,7 +228,7 @@ export const AUTH_ERRORS = {
   ACCOUNT_LOCKED: 'account_locked',
   EMAIL_NOT_VERIFIED: 'email_not_verified',
   PASSWORD_TOO_WEAK: 'password_too_weak',
-  EMAIL_ALREADY_EXISTS: 'email_already_exists'
+  EMAIL_ALREADY_EXISTS: 'email_already_exists',
 } as const;
 
 // Audit logging

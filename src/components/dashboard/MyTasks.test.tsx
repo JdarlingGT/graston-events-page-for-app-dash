@@ -10,8 +10,8 @@ describe('MyTasks Component', () => {
 
   it('renders with tasks', () => {
     const tasks = [
-      { id: '1', title: 'Task 1', dueDate: '2025-08-30', status: 'open' as 'open', priority: 'high' as 'high' },
-      { id: '2', title: 'Task 2', dueDate: null, status: 'in_progress' as 'in_progress', priority: 'medium' as 'medium' },
+      { id: '1', title: 'Task 1', dueDate: '2025-08-30', status: 'open' as const, priority: 'high' as const },
+      { id: '2', title: 'Task 2', dueDate: null, status: 'in_progress' as const, priority: 'medium' as const },
     ];
     render(<MyTasks tasks={tasks} />);
     expect(screen.getByText(/task 1/i)).toBeInTheDocument();

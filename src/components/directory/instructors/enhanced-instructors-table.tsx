@@ -30,7 +30,7 @@ import {
   Award,
   CheckCircle,
   XCircle,
-  Clock
+  Clock,
 } from 'lucide-react';
 import Link from 'next/link';
 import { Instructor, InstructorFilters, InstructorStats } from '@/types/instructor';
@@ -47,7 +47,7 @@ export function EnhancedInstructorsTable({
   showBulkActions = true, 
   showFilters = true, 
   showStats = true,
-  compactMode = false 
+  compactMode = false, 
 }: EnhancedInstructorsTableProps) {
   const queryClient = useQueryClient();
   const [selectedInstructors, setSelectedInstructors] = useState<string[]>([]);
@@ -252,7 +252,9 @@ export function EnhancedInstructorsTable({
       header: 'Performance',
       cell: ({ row }) => {
         const metrics = row.original.performanceMetrics;
-        if (!metrics) return <span className="text-muted-foreground">No data</span>;
+        if (!metrics) {
+return <span className="text-muted-foreground">No data</span>;
+}
         
         return (
           <div className="space-y-1">
@@ -526,8 +528,12 @@ export function EnhancedInstructorsTable({
             data={instructorsData?.instructors || []}
             getRowClassName={(row) => {
               const status = row.original.status;
-              if (status === 'inactive') return 'opacity-60';
-              if (status === 'pending') return 'bg-yellow-50';
+              if (status === 'inactive') {
+return 'opacity-60';
+}
+              if (status === 'pending') {
+return 'bg-yellow-50';
+}
               return '';
             }}
           />

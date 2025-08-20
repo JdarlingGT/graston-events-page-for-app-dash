@@ -34,7 +34,7 @@ export function createApiError(
   code: string,
   message: string,
   status: number = 400,
-  details?: unknown
+  details?: unknown,
 ) {
   return new ApiError(message, { status, code, details });
 }
@@ -43,7 +43,9 @@ export function createApiError(
  * Convert an unknown exception into a normalized ApiError + response body
  */
 export function normalizeUnknownError(err: unknown): ApiError {
-  if (err instanceof ApiError) return err;
+  if (err instanceof ApiError) {
+return err;
+}
 
   // Handle common error shapes
   if (typeof err === 'object' && err && 'message' in err) {
@@ -95,7 +97,7 @@ function extractZodDetails(maybeZodErr: unknown): unknown {
  */
 export function errorResponse(
   err: unknown,
-  reqHeaders?: Headers
+  reqHeaders?: Headers,
 ): NextResponse<NormalizedErrorBody> {
   const apiErr = normalizeUnknownError(err);
 
@@ -153,7 +155,7 @@ export function errorResponse(
  *   });
  */
 export function withApiHandler<T extends (req: Request) => Promise<NextResponse> | NextResponse>(
-  handler: T
+  handler: T,
 ) {
   return (async function wrapped(req: Request) {
     try {
@@ -174,7 +176,7 @@ export function requireEnv(vars: string[]): void {
     throw createApiError(
       'ENV_MISSING',
       `Missing required environment variable(s): ${missing.join(', ')}`,
-      500
+      500,
     );
   }
 }

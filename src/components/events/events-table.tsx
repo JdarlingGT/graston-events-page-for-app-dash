@@ -50,7 +50,9 @@ export function EventsTable({ events, sortBy, sortDir, onSortChange, onRefetch }
   const [selected, setSelected] = useState<Record<string, boolean>>({});
 
   const allSelected = useMemo(() => {
-    if (!events?.length) return false;
+    if (!events?.length) {
+return false;
+}
     return events.every(e => selected[e.id]);
   }, [events, selected]);
 
@@ -61,7 +63,9 @@ export function EventsTable({ events, sortBy, sortDir, onSortChange, onRefetch }
       setSelected({});
     } else {
       const next: Record<string, boolean> = {};
-      events.forEach(e => { next[e.id] = true; });
+      events.forEach(e => {
+ next[e.id] = true; 
+});
       setSelected(next);
     }
   };
@@ -71,7 +75,9 @@ export function EventsTable({ events, sortBy, sortDir, onSortChange, onRefetch }
   };
 
   const formatDate = (iso?: string) => {
-    if (!iso) return '';
+    if (!iso) {
+return '';
+}
     return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
   };
 
@@ -150,7 +156,7 @@ export function EventsTable({ events, sortBy, sortDir, onSortChange, onRefetch }
           (e.date || e.startDate || ''),
         ];
         return values.map(v => (v?.includes(',') ? JSON.stringify(v) : v)).join(',');
-      })
+      }),
     ];
     const blob = new Blob([lines.join('\n')], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
@@ -170,7 +176,9 @@ export function EventsTable({ events, sortBy, sortDir, onSortChange, onRefetch }
       return;
     }
     const confirm = window.confirm(`Cancel ${selectedIds.length} selected event(s)?`);
-    if (!confirm) return;
+    if (!confirm) {
+return;
+}
 
     try {
       for (const id of selectedIds) {

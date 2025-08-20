@@ -22,7 +22,9 @@ export function VenueMap({ address, city, state }: VenueMapProps) {
   const [mapLoaded, setMapLoaded] = useState(false);
 
   useEffect(() => {
-    if (!mapRef.current) return;
+    if (!mapRef.current) {
+return;
+}
 
     const loadMapScript = () => {
       const script = document.createElement('script');
@@ -38,7 +40,9 @@ export function VenueMap({ address, city, state }: VenueMapProps) {
     };
 
     const initMap = () => {
-      if (!mapRef.current) return;
+      if (!mapRef.current) {
+return;
+}
 
       const map = new window.google.maps.Map(mapRef.current, {
         center: { lat: 37.7749, lng: -122.4194 }, // Default to San Francisco

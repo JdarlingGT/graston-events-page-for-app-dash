@@ -52,7 +52,9 @@ export interface WooCheckResult {
 
 function getEnv(name: string, fallback?: string): string | undefined {
   const v = process.env[name];
-  if (v === undefined || v === null || v === '') return fallback;
+  if (v === undefined || v === null || v === '') {
+return fallback;
+}
   return v;
 }
 
@@ -67,7 +69,7 @@ function withTimeout<T>(p: Promise<T>, ms: number): Promise<T> {
       (e) => {
         clearTimeout(t);
         reject(e);
-      }
+      },
     );
   });
 }
@@ -84,7 +86,7 @@ function buildUrl(
   path: string,
   mode: WooAuthMode,
   ck?: string,
-  cs?: string
+  cs?: string,
 ): string {
   const u = new URL(path, base);
   if (mode === 'query' && ck && cs) {
@@ -97,7 +99,9 @@ function buildUrl(
 function parseRateLimitHeaders(resp: Response) {
   const get = (h: string) => resp.headers.get(h);
   const toNum = (s: string | null): number | undefined => {
-    if (!s) return undefined;
+    if (!s) {
+return undefined;
+}
     const n = Number(s);
     return Number.isFinite(n) ? n : undefined;
   };
@@ -127,7 +131,7 @@ async function tryFetch(
   ck: string | undefined,
   cs: string | undefined,
   basicAuth: string | undefined,
-  timeoutMs: number
+  timeoutMs: number,
 ): Promise<{ endpoint: string; response?: Response; error?: Error }> {
   const endpoint = buildUrl(base, url, mode, ck, cs);
   const headers = buildHeaders(mode, basicAuth);
@@ -240,7 +244,9 @@ export async function checkWooCommerceConnectivity(): Promise<WooCheckResult> {
         errors.push({ endpoint: `${r.endpoint} [${mode}]`, error: r.error.message });
       }
     }
-    if (wooOk) break;
+    if (wooOk) {
+break;
+}
   }
 
   const ok = wpOk && (wooOk || !!detectedBase);

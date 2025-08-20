@@ -52,15 +52,23 @@ const MyTasks: React.FC<MyTasksProps> = ({ tasks, showCompleted = false, loading
   };
 
   const formatDueDate = (date: string | null) => {
-    if (!date) return 'No due date';
+    if (!date) {
+return 'No due date';
+}
     const dueDate = new Date(date);
     const today = new Date();
     const diffTime = dueDate.getTime() - today.getTime();
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     
-    if (diffDays < 0) return `Overdue by ${Math.abs(diffDays)} days`;
-    if (diffDays === 0) return 'Due today';
-    if (diffDays === 1) return 'Due tomorrow';
+    if (diffDays < 0) {
+return `Overdue by ${Math.abs(diffDays)} days`;
+}
+    if (diffDays === 0) {
+return 'Due today';
+}
+    if (diffDays === 1) {
+return 'Due tomorrow';
+}
     return `Due in ${diffDays} days`;
   };
 

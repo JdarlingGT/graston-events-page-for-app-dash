@@ -9,7 +9,7 @@ export async function POST(request: Request) {
     const gmail = getGmailClient();
 
     const messageParts = [
-      `From: me`,
+      'From: me',
       `To: ${to}`,
       `Subject: ${subject}`,
       'Content-Type: text/plain; charset=UTF-8',

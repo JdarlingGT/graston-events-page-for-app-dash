@@ -10,7 +10,7 @@ export default function VenuesPage() {
       <Breadcrumb
         items={[
           { label: 'Directory', href: '/dashboard/directory' },
-          { label: 'Venues', active: true }
+          { label: 'Venues', active: true },
         ]}
       />
       <h1>Venues Management</h1>

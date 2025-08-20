@@ -45,8 +45,8 @@ export async function GET(request: Request) {
   // Filter by search term
   let filteredVenues = venues.filter((venue: Venue) =>
     Object.values(venue).some(val =>
-      typeof val === 'string' && val.toLowerCase().includes(search.toLowerCase())
-    )
+      typeof val === 'string' && val.toLowerCase().includes(search.toLowerCase()),
+    ),
   );
 
   // Filter by type

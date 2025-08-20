@@ -29,7 +29,7 @@ import {
   Building,
   User,
   Phone,
-  Globe
+  Globe,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -138,7 +138,9 @@ export function EventWizard({ mode, eventId, initialData, onComplete, onCancel }
   }, [mode, eventId]);
 
   const loadEventData = async () => {
-    if (!eventId) return;
+    if (!eventId) {
+return;
+}
     
     setIsLoading(true);
     try {
@@ -169,25 +171,41 @@ export function EventWizard({ mode, eventId, initialData, onComplete, onCancel }
 
     switch (step) {
       case 'basics':
-        if (!formData.name.trim()) newErrors.name = 'Event name is required';
-        if (!formData.instructor.trim()) newErrors.instructor = 'Instructor is required';
+        if (!formData.name.trim()) {
+newErrors.name = 'Event name is required';
+}
+        if (!formData.instructor.trim()) {
+newErrors.instructor = 'Instructor is required';
+}
         break;
       case 'schedule':
-        if (!formData.startDate) newErrors.startDate = 'Start date is required';
-        if (!formData.endDate) newErrors.endDate = 'End date is required';
+        if (!formData.startDate) {
+newErrors.startDate = 'Start date is required';
+}
+        if (!formData.endDate) {
+newErrors.endDate = 'End date is required';
+}
         if (formData.startDate && formData.endDate && formData.startDate > formData.endDate) {
           newErrors.endDate = 'End date must be after start date';
         }
         break;
       case 'venue':
         if (formData.mode !== 'Virtual') {
-          if (!formData.city.trim()) newErrors.city = 'City is required';
-          if (!formData.state.trim()) newErrors.state = 'State is required';
+          if (!formData.city.trim()) {
+newErrors.city = 'City is required';
+}
+          if (!formData.state.trim()) {
+newErrors.state = 'State is required';
+}
         }
         break;
       case 'pricing':
-        if (formData.capacity <= 0) newErrors.capacity = 'Capacity must be greater than 0';
-        if (formData.minViableEnrollment <= 0) newErrors.minViableEnrollment = 'Minimum viable enrollment must be greater than 0';
+        if (formData.capacity <= 0) {
+newErrors.capacity = 'Capacity must be greater than 0';
+}
+        if (formData.minViableEnrollment <= 0) {
+newErrors.minViableEnrollment = 'Minimum viable enrollment must be greater than 0';
+}
         if (formData.minViableEnrollment > formData.capacity) {
           newErrors.minViableEnrollment = 'Minimum viable enrollment cannot exceed capacity';
         }
@@ -242,7 +260,9 @@ export function EventWizard({ mode, eventId, initialData, onComplete, onCancel }
   };
 
   const publishEvent = async () => {
-    if (!validateStep(currentStep)) return;
+    if (!validateStep(currentStep)) {
+return;
+}
 
     setIsLoading(true);
     try {
@@ -271,7 +291,9 @@ export function EventWizard({ mode, eventId, initialData, onComplete, onCancel }
   };
 
   const duplicateEvent = async () => {
-    if (!eventId) return;
+    if (!eventId) {
+return;
+}
     
     setIsLoading(true);
     try {
@@ -760,7 +782,7 @@ export function EventWizard({ mode, eventId, initialData, onComplete, onCancel }
                 'flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap',
                 isActive && 'bg-primary text-primary-foreground',
                 isCompleted && !isActive && 'bg-muted text-muted-foreground',
-                !isActive && !isCompleted && 'text-muted-foreground hover:text-foreground'
+                !isActive && !isCompleted && 'text-muted-foreground hover:text-foreground',
               )}
             >
               <StepIcon className="h-4 w-4" />
@@ -775,7 +797,7 @@ export function EventWizard({ mode, eventId, initialData, onComplete, onCancel }
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            {React.createElement(WIZARD_STEPS[currentStepIndex].icon, { className: "h-5 w-5" })}
+            {React.createElement(WIZARD_STEPS[currentStepIndex].icon, { className: 'h-5 w-5' })}
             {WIZARD_STEPS[currentStepIndex].title}
           </CardTitle>
         </CardHeader>

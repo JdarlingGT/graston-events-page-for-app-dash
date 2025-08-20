@@ -86,7 +86,7 @@ function generateStudentData(attendee: Attendee): Student {
     'Basic Applications',
     'Advanced Methods',
     'Case Studies',
-    'Assessment Preparation'
+    'Assessment Preparation',
   ];
   
   const completedCount = Math.floor((preCourseProgress / 100) * allModules.length);
@@ -105,7 +105,7 @@ function generateStudentData(attendee: Attendee): Student {
       name: 'Anatomy Knowledge Test',
       score: 60 + Math.floor(Math.random() * 40), // 60-100%
       completedAt: new Date(Date.now() - Math.random() * 14 * 24 * 60 * 60 * 1000).toISOString(),
-    }
+    },
   ].filter(() => preCourseProgress > 50); // Only include if student is making progress
   
   return {
@@ -138,12 +138,16 @@ async function enrichStudents(students: Student[]): Promise<void> {
 
     // Tags derived from license type and progress bracket
     const tags: string[] = [];
-    if (s.licenseType) tags.push(`license:${s.licenseType.replace(/\s+/g, '_').toLowerCase()}`);
+    if (s.licenseType) {
+tags.push(`license:${s.licenseType.replace(/\s+/g, '_').toLowerCase()}`);
+}
     tags.push(
       s.preCourseProgress >= 90 ? 'progress_ahead' :
-      s.preCourseProgress >= 60 ? 'progress_on_track' : 'progress_behind'
+      s.preCourseProgress >= 60 ? 'progress_on_track' : 'progress_behind',
     );
-    if ((s.skillsAssessments ?? []).some(a => a.score >= 90)) tags.push('high_scorer');
+    if ((s.skillsAssessments ?? []).some(a => a.score >= 90)) {
+tags.push('high_scorer');
+}
     s.crmTags = tags;
 
     // LearnDash course progress (blend of pre-course and assessment averages)
@@ -163,7 +167,7 @@ async function enrichStudents(students: Student[]): Promise<void> {
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {
   try {
     const eventId = params.id;
@@ -194,7 +198,7 @@ export async function GET(
     console.error('Error fetching event students:', error);
     return NextResponse.json(
       { error: 'Failed to fetch event students' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -205,7 +209,7 @@ export async function GET(
  */
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {
   try {
     const eventId = params.id;
@@ -215,7 +219,7 @@ export async function POST(
     if (!studentData.name || !studentData.email) {
       return NextResponse.json(
         { error: 'Name and email are required' },
-        { status: 400 }
+        { status: 400 },
       );
     }
     
@@ -223,7 +227,7 @@ export async function POST(
     
     // Check if student already exists for this event
     const existingIndex = attendees.findIndex(
-      a => a.eventId === eventId && a.email === studentData.email
+      a => a.eventId === eventId && a.email === studentData.email,
     );
     
     if (existingIndex >= 0) {
@@ -260,7 +264,7 @@ export async function POST(
     console.error('Error adding/updating student:', error);
     return NextResponse.json(
       { error: 'Failed to add/update student' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -271,7 +275,7 @@ export async function POST(
  */
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {
   try {
     const eventId = params.id;
@@ -280,7 +284,7 @@ export async function PUT(
     if (!Array.isArray(updates)) {
       return NextResponse.json(
         { error: 'Expected array of student updates' },
-        { status: 400 }
+        { status: 400 },
       );
     }
     
@@ -289,7 +293,7 @@ export async function PUT(
     // Apply updates
     for (const update of updates) {
       const attendeeIndex = attendees.findIndex(
-        a => a.eventId === eventId && a.attendeeId === update.id
+        a => a.eventId === eventId && a.attendeeId === update.id,
       );
       
       if (attendeeIndex >= 0) {
@@ -307,13 +311,13 @@ export async function PUT(
     return NextResponse.json({ 
       success: true, 
       updated: updates.length,
-      message: `Updated ${updates.length} student records`
+      message: `Updated ${updates.length} student records`,
     });
   } catch (error) {
     console.error('Error bulk updating students:', error);
     return NextResponse.json(
       { error: 'Failed to update students' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

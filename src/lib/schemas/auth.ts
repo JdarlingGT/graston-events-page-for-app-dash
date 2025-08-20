@@ -123,7 +123,7 @@ export const registerDataSchema = z.object({
   inviteToken: z.string().optional(),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
-  path: ["confirmPassword"],
+  path: ['confirmPassword'],
 });
 
 export const passwordResetRequestSchema = z.object({
@@ -139,7 +139,7 @@ export const passwordResetSchema = z.object({
   confirmPassword: z.string(),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
-  path: ["confirmPassword"],
+  path: ['confirmPassword'],
 });
 
 export const changePasswordSchema = z.object({
@@ -151,7 +151,7 @@ export const changePasswordSchema = z.object({
   confirmPassword: z.string(),
 }).refine((data) => data.newPassword === data.confirmPassword, {
   message: "Passwords don't match",
-  path: ["confirmPassword"],
+  path: ['confirmPassword'],
 });
 
 // Permission schemas
@@ -225,7 +225,7 @@ export const acceptInvitationSchema = z.object({
   confirmPassword: z.string(),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
-  path: ["confirmPassword"],
+  path: ['confirmPassword'],
 });
 
 // Security settings schemas

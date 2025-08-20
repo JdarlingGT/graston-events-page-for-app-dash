@@ -29,7 +29,7 @@ import {
   X,
   CheckCircle,
   AlertCircle,
-  Info
+  Info,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -211,7 +211,7 @@ export function EventCancelWizard({ eventId, onComplete, onCancel }: EventCancel
     if (formData.cancelReason && EMAIL_TEMPLATES[formData.cancelReason as keyof typeof EMAIL_TEMPLATES]) {
       setFormData(prev => ({
         ...prev,
-        emailTemplate: EMAIL_TEMPLATES[formData.cancelReason as keyof typeof EMAIL_TEMPLATES]
+        emailTemplate: EMAIL_TEMPLATES[formData.cancelReason as keyof typeof EMAIL_TEMPLATES],
       }));
     }
   }, [formData.cancelReason]);
@@ -222,7 +222,7 @@ export function EventCancelWizard({ eventId, onComplete, onCancel }: EventCancel
     defaultDeadline.setDate(defaultDeadline.getDate() + 30);
     setFormData(prev => ({
       ...prev,
-      refundDeadline: defaultDeadline.toISOString().split('T')[0]
+      refundDeadline: defaultDeadline.toISOString().split('T')[0],
     }));
   }, []);
 
@@ -309,7 +309,9 @@ export function EventCancelWizard({ eventId, onComplete, onCancel }: EventCancel
   };
 
   const cancelEvent = async () => {
-    if (!validateStep(currentStep)) return;
+    if (!validateStep(currentStep)) {
+return;
+}
 
     setIsLoading(true);
     try {
@@ -339,7 +341,9 @@ export function EventCancelWizard({ eventId, onComplete, onCancel }: EventCancel
   };
 
   const formatDate = (dateString?: string) => {
-    if (!dateString) return 'Not set';
+    if (!dateString) {
+return 'Not set';
+}
     return new Date(dateString).toLocaleDateString('en-US', {
       weekday: 'long',
       year: 'numeric',
@@ -759,7 +763,7 @@ export function EventCancelWizard({ eventId, onComplete, onCancel }: EventCancel
                       formData.cancelVenueBooking && 'Venue booking',
                       formData.returnEquipment && 'Equipment',
                       formData.updateWebsite && 'Website',
-                      formData.updateMarketingMaterials && 'Marketing materials'
+                      formData.updateMarketingMaterials && 'Marketing materials',
                     ].filter(Boolean).join(', ')} will be updated
                   </span>
                 </div>
@@ -853,7 +857,7 @@ export function EventCancelWizard({ eventId, onComplete, onCancel }: EventCancel
                 'flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap',
                 isActive && 'bg-destructive text-destructive-foreground',
                 isCompleted && !isActive && 'bg-muted text-muted-foreground',
-                !isActive && !isCompleted && 'text-muted-foreground hover:text-foreground'
+                !isActive && !isCompleted && 'text-muted-foreground hover:text-foreground',
               )}
             >
               <StepIcon className="h-4 w-4" />
@@ -868,7 +872,7 @@ export function EventCancelWizard({ eventId, onComplete, onCancel }: EventCancel
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            {React.createElement(CANCEL_STEPS[currentStepIndex].icon, { className: "h-5 w-5" })}
+            {React.createElement(CANCEL_STEPS[currentStepIndex].icon, { className: 'h-5 w-5' })}
             {CANCEL_STEPS[currentStepIndex].title}
           </CardTitle>
         </CardHeader>

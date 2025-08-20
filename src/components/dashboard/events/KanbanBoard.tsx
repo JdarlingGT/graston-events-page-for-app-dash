@@ -5,16 +5,16 @@ const KanbanBoard: React.FC = () => {
   const columns = {
     todo: {
       name: 'To-Do',
-      items: []
+      items: [],
     },
     inProgress: {
       name: 'In Progress',
-      items: []
+      items: [],
     },
     done: {
       name: 'Done',
-      items: [{ id: '1', content: 'Sample Task 1' }, { id: '2', content: 'Sample Task 2' }]
-    }
+      items: [{ id: '1', content: 'Sample Task 1' }, { id: '2', content: 'Sample Task 2' }],
+    },
   };
 
   const onDragEnd = (result: DropResult) => {
@@ -46,7 +46,7 @@ const KanbanBoard: React.FC = () => {
                         minHeight: '50px',
                         backgroundColor: '#fff',
                         color: 'black',
-                        ...provided.draggableProps.style
+                        ...provided.draggableProps.style,
                       }}
                     >
                       {item.content}

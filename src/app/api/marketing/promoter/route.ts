@@ -80,7 +80,7 @@ export async function GET(request: NextRequest) {
     console.error('Error fetching campaign promotions:', error);
     return NextResponse.json(
       { error: 'Failed to fetch campaign promotions' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

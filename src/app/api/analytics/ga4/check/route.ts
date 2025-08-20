@@ -28,13 +28,13 @@ export async function GET(_request: NextRequest) {
         headers: {
           'Cache-Control': 'no-store',
         },
-      }
+      },
     );
   } catch (err) {
     console.error('GA4 connectivity check error:', err);
     return NextResponse.json(
       { success: false, error: 'GA4 connectivity check failed' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

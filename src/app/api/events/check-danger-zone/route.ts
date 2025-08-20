@@ -81,10 +81,14 @@ function analyzeDangerZone(events: Event[]): DangerZoneAlert[] {
 
   for (const event of events) {
     // Skip cancelled or completed events
-    if (event.status === 'cancelled' || event.status === 'completed') continue;
+    if (event.status === 'cancelled' || event.status === 'completed') {
+continue;
+}
 
     const eventDate = event.date || event.startDate;
-    if (!eventDate) continue;
+    if (!eventDate) {
+continue;
+}
 
     const daysUntil = getDaysUntilEvent(eventDate);
     const enrolled = event.enrolledStudents || 0;
@@ -217,7 +221,9 @@ async function sendSlackAlerts(alerts: DangerZoneAlert[]): Promise<void> {
 
   // Group alerts by severity for better organization
   const groupedAlerts = alerts.reduce((acc, alert) => {
-    if (!acc[alert.severity]) acc[alert.severity] = [];
+    if (!acc[alert.severity]) {
+acc[alert.severity] = [];
+}
     acc[alert.severity].push(alert);
     return acc;
   }, {} as Record<string, DangerZoneAlert[]>);
@@ -239,7 +245,9 @@ async function sendSlackAlerts(alerts: DangerZoneAlert[]): Promise<void> {
 
   for (const severity of severityOrder) {
     const severityAlerts = groupedAlerts[severity];
-    if (!severityAlerts?.length) continue;
+    if (!severityAlerts?.length) {
+continue;
+}
 
     const blocks = [
       {
@@ -394,7 +402,7 @@ export async function POST(request: NextRequest) {
     console.error('Error in danger zone check:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -446,7 +454,7 @@ export async function GET() {
     console.error('Error in danger zone analysis:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

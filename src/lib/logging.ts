@@ -75,7 +75,9 @@ export function log(level: LogLevel, message: string, meta?: LogMeta) {
 }
 
 function sanitizeMeta(meta?: LogMeta): Record<string, unknown> | undefined {
-  if (!meta) return undefined;
+  if (!meta) {
+return undefined;
+}
   const { correlationId, ...rest } = meta;
   // Avoid circular structures by safe-stringifying objects if needed
   try {

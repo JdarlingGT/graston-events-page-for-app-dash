@@ -217,9 +217,15 @@ export function IntelligentInsights({ className }: IntelligentInsightsProps) {
   };
 
   const getInsightColor = (type: string, priority: string) => {
-    if (type === 'risk') return 'destructive';
-    if (type === 'opportunity') return 'default';
-    if (priority === 'high') return 'secondary';
+    if (type === 'risk') {
+return 'destructive';
+}
+    if (type === 'opportunity') {
+return 'default';
+}
+    if (priority === 'high') {
+return 'secondary';
+}
     return 'outline';
   };
 
@@ -253,7 +259,9 @@ export function IntelligentInsights({ className }: IntelligentInsightsProps) {
     );
   }
 
-  if (!insights) return null;
+  if (!insights) {
+return null;
+}
 
   const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8'];
 

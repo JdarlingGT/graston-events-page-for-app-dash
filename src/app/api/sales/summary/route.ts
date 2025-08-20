@@ -83,7 +83,7 @@ async function loadSalesData(): Promise<{ events: Event[]; attendees: any[] }> {
   try {
     const [eventsData, attendeesData] = await Promise.all([
       fs.readFile(eventsPath, 'utf8').then(data => JSON.parse(data)),
-      fs.readFile(attendeesPath, 'utf8').then(data => JSON.parse(data))
+      fs.readFile(attendeesPath, 'utf8').then(data => JSON.parse(data)),
     ]);
     
     return { events: eventsData, attendees: attendeesData };
@@ -249,7 +249,7 @@ function calculateCourseTypePerformance(events: Event[]): CourseTypePerformance[
 function generateMonthlyTrends(): MonthlyTrend[] {
   const months = [
     'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
   ];
   
   return months.map((month, index) => {
@@ -273,7 +273,7 @@ function generateMonthlyTrends(): MonthlyTrend[] {
  */
 function identifyOpportunities(
   events: Event[], 
-  regionalPerformance: RegionalPerformance[]
+  regionalPerformance: RegionalPerformance[],
 ) {
   const upcomingEvents = events.filter(e => e.status === 'upcoming');
   
@@ -364,7 +364,7 @@ export async function GET(request: NextRequest) {
     console.error('Error generating sales summary:', error);
     return NextResponse.json(
       { error: 'Failed to generate sales summary' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -402,7 +402,7 @@ export async function POST(request: NextRequest) {
     console.error('Error refreshing sales data:', error);
     return NextResponse.json(
       { error: 'Failed to refresh sales data' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

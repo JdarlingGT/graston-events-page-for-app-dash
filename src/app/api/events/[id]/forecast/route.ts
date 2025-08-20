@@ -39,7 +39,7 @@ function generateAttendanceForecast(
   daysUntilEvent: number,
   eventType: string,
   location: string,
-  instructor: string
+  instructor: string,
 ): ForecastData {
   // Simulate historical analysis
   const similarEvents = Math.floor(Math.random() * 20) + 10;
@@ -69,7 +69,7 @@ function generateAttendanceForecast(
     enrollmentTrend.push({
       date: date.toISOString().split('T')[0],
       predicted: Math.round(predicted),
-      confidence: confidence * (0.8 + 0.2 * progress)
+      confidence: confidence * (0.8 + 0.2 * progress),
     });
   }
 
@@ -120,7 +120,7 @@ function generateAttendanceForecast(
     historicalData: {
       similarEvents,
       averageEnrollmentRate,
-      seasonalFactor
+      seasonalFactor,
     },
     predictions: {
       finalEnrollment: {
@@ -128,22 +128,22 @@ function generateAttendanceForecast(
         confidence: Math.round(confidence * 100) / 100,
         range: {
           min: Math.round(finalPrediction * 0.8),
-          max: Math.round(Math.min(finalPrediction * 1.2, capacity))
-        }
+          max: Math.round(Math.min(finalPrediction * 1.2, capacity)),
+        },
       },
       enrollmentTrend,
       riskAssessment: {
         level: riskLevel,
         factors,
-        recommendations
-      }
-    }
+        recommendations,
+      },
+    },
   };
 }
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {
   try {
     const { searchParams } = new URL(request.url);
@@ -158,7 +158,7 @@ export async function GET(
       daysUntilEvent: parseInt(searchParams.get('daysUntil') || '21'),
       eventType: searchParams.get('type') || 'Essential',
       location: searchParams.get('location') || 'Indianapolis, IN',
-      instructor: searchParams.get('instructor') || 'Mike Ploski'
+      instructor: searchParams.get('instructor') || 'Mike Ploski',
     };
 
     // Simulate API processing delay
@@ -172,7 +172,7 @@ export async function GET(
       mockEventData.daysUntilEvent,
       mockEventData.eventType,
       mockEventData.location,
-      mockEventData.instructor
+      mockEventData.instructor,
     );
 
     return NextResponse.json(forecast, {
@@ -184,7 +184,7 @@ export async function GET(
     console.error('Forecast API error:', error);
     return NextResponse.json(
       { error: 'Failed to generate attendance forecast' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

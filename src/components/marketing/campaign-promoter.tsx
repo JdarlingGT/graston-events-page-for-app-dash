@@ -25,7 +25,9 @@ export function CampaignPromoter() {
     queryKey: ['campaign-promotions'],
     queryFn: async (): Promise<{ promotions: CampaignPromotion[] }> => {
       const res = await fetch('/api/marketing/promoter');
-      if (!res.ok) throw new Error('Failed to fetch promotions');
+      if (!res.ok) {
+throw new Error('Failed to fetch promotions');
+}
       return res.json();
     },
   });
