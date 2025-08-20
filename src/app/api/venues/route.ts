@@ -3,6 +3,14 @@ import path from 'path';
 import { promises as fs } from 'fs';
 import { venueSchema } from '@/lib/schemas';
 
+// Define the Venue type
+type Venue = {
+  id: string;
+  name: string;
+  type: string;
+  // Add other properties as needed
+};
+
 const jsonDirectory = path.join(process.cwd(), 'public', 'mock-data');
 const filePath = path.join(jsonDirectory, 'venues.json');
 
@@ -35,7 +43,7 @@ export async function GET(request: Request) {
   const venues = await getVenues();
 
   // Filter by search term
-  let filteredVenues = venues.filter(venue =>
+  let filteredVenues = venues.filter((venue: Venue) =>
     Object.values(venue).some(val =>
       typeof val === 'string' && val.toLowerCase().includes(search.toLowerCase())
     )
@@ -43,7 +51,7 @@ export async function GET(request: Request) {
 
   // Filter by type
   if (filter) {
-    filteredVenues = filteredVenues.filter(venue => venue.type === filter);
+    filteredVenues = filteredVenues.filter((venue: Venue) => venue.type === filter);
   }
 
   // Paginate results
