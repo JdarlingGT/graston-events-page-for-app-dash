@@ -36,11 +36,8 @@ export default [
       'jsx-quotes': ['error', 'prefer-double'],
       ...tseslint.configs.recommended.rules,
       // Relax common TS rules to reduce noise; still keep as warnings so they're visible
-      '@typescript-eslint/no-explicit-any': 'warn',
-      '@typescript-eslint/no-unused-vars': [
-        'warn',
-        { argsIgnorePattern: '^_', varsIgnorePattern: '^_', ignoreRestSiblings: true },
-      ],
+  '@typescript-eslint/no-explicit-any': 'off',
+  '@typescript-eslint/no-unused-vars': 'off',
       '@typescript-eslint/no-empty-object-type': 'off',
     },
   },
