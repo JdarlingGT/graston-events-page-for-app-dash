@@ -25,9 +25,38 @@ async function saveVenues(venues: any) {
   }
 }
 
-export async function GET() {
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const search = searchParams.get('search') || '';
+  const filter = searchParams.get('filter') || '';
+  const page = parseInt(searchParams.get('page') || '1', 10);
+  const pageSize = parseInt(searchParams.get('pageSize') || '10', 10);
+
   const venues = await getVenues();
-  return NextResponse.json(venues, {
+
+  // Filter by search term
+  let filteredVenues = venues.filter(venue =>
+    Object.values(venue).some(val =>
+      typeof val === 'string' && val.toLowerCase().includes(search.toLowerCase())
+    )
+  );
+
+  // Filter by type
+  if (filter) {
+    filteredVenues = filteredVenues.filter(venue => venue.type === filter);
+  }
+
+  // Paginate results
+  const total = filteredVenues.length;
+  const paginatedVenues = filteredVenues.slice((page - 1) * pageSize, page * pageSize);
+
+  return NextResponse.json({
+    venues: paginatedVenues,
+    total,
+    page,
+    pageSize,
+    totalPages: Math.ceil(total / pageSize),
+  }, {
     headers: {
       'Cache-Control': 'public, s-maxage=120, stale-while-revalidate=600',
     },

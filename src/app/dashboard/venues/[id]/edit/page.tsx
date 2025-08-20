@@ -3,6 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { VenueForm } from '@/components/directory/venues/venue-form';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Breadcrumb } from '@/components/ui/breadcrumb';
 
 interface Venue {
   id: string;
@@ -40,6 +41,13 @@ export default function VenueEditPage({ params }: { params: { id: string } }) {
 
   return (
     <div>
+      <Breadcrumb
+        items={[
+          { label: 'Venues', href: '/dashboard/directory/venues' },
+          { label: 'Venue Detail', href: `/dashboard/directory/venues/${params.id}` },
+          { label: 'Edit Venue', active: true }
+        ]}
+      />
       <h1>Edit Venue</h1>
       <VenueForm initialData={venue} />
     </div>

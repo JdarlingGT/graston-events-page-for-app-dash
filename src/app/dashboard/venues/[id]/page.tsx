@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Skeleton } from '@/components/ui/skeleton';
 import { MapPin, Phone, Building, Users } from 'lucide-react';
 import { VenueMap } from '@/components/directory/venues/venue-map';
+import { Breadcrumb } from '@/components/ui/breadcrumb';
 
 interface Venue {
   id: string;
@@ -45,6 +46,12 @@ export default function VenueDetailPage({ params }: { params: { id: string } }) 
 
   return (
     <div className="space-y-6">
+      <Breadcrumb
+        items={[
+          { label: 'Venues', href: '/dashboard/directory/venues' },
+          { label: venue.name, active: true }
+        ]}
+      />
       <Card>
         <CardHeader>
           <CardTitle className="text-3xl">{venue.name}</CardTitle>

@@ -13,7 +13,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { MoreHorizontal, Edit, Trash } from 'lucide-react';
+import { MoreHorizontal, Edit, Trash, Search } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import {
   AlertDialog,
@@ -26,7 +26,15 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import React from 'react';
+import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import React, { useState } from 'react';
 
 interface Venue {
   id: string;
@@ -47,12 +55,47 @@ throw new Error('Failed to fetch venues');
 export function VenuesTable() {
   const queryClient = useQueryClient();
   const router = useRouter();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filter, setFilter] = useState('');
+  const [page, setPage] = useState(1);
+  const pageSize = 10;
 
-  const { data: venues = [], isLoading } = useQuery<Venue[]>({
-    queryKey: ['venues'],
-    queryFn: fetchVenues,
+  interface VenuesResponse {
+    venues: Venue[];
+    total: number;
+    page: number;
+    pageSize: number;
+    totalPages: number;
+  }
+
+  const { data, isLoading } = useQuery<VenuesResponse>({
+    queryKey: ['venues', searchTerm, filter, page, pageSize],
+    queryFn: async () => {
+      let url = '/api/venues';
+
+      // Add search parameter if searchTerm exists
+      if (searchTerm) {
+        url += `?search=${encodeURIComponent(searchTerm)}`;
+      }
+
+      // Add filter parameter if filter exists
+      if (filter) {
+        url += searchTerm ? `&filter=${encodeURIComponent(filter)}` : `?filter=${encodeURIComponent(filter)}`;
+      }
+
+      // Add pagination parameters
+      url += `${searchTerm || filter ? '&' : '?'}page=${page}&pageSize=${pageSize}`;
+
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('Failed to fetch venues');
+      }
+      return response.json();
+    },
     staleTime: 1000 * 60 * 15, // 15 minutes
   });
+
+  const venues = data?.venues || [];
 
   const deleteMutation = useMutation({
     mutationFn: async (venueId: string) => {
@@ -133,5 +176,55 @@ export function VenuesTable() {
     return <Skeleton className="h-96 w-full" />;
   }
 
-  return <DataTable columns={columns} data={venues} />;
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center space-x-2">
+          <Input
+            type="text"
+            placeholder="Search venues..."
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+              setPage(1); // Reset to first page on new search
+            }}
+            className="h-8 w-auto"
+          />
+          <Select value={filter} onValueChange={setFilter}>
+            <SelectTrigger className="h-8 w-[180px]">
+              <SelectValue placeholder="Filter by type" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="">All Types</SelectItem>
+              <SelectItem value="Conference Center">Conference Center</SelectItem>
+              <SelectItem value="Hotel Ballroom">Hotel Ballroom</SelectItem>
+              <SelectItem value="Outdoor Venue">Outdoor Venue</SelectItem>
+              <SelectItem value="Sports Stadium">Sports Stadium</SelectItem>
+              <SelectItem value="Other">Other</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="text-sm text-muted-foreground">
+          Page {page} of {data?.totalPages || 1}
+        </div>
+      </div>
+      <DataTable columns={columns} data={venues} />
+      <div className="flex justify-between">
+        <Button
+          variant="outline"
+          onClick={() => setPage(page > 1 ? page - 1 : 1)}
+          disabled={page <= 1}
+        >
+          Previous
+        </Button>
+        <Button
+          variant="outline"
+          onClick={() => setPage(page + 1)}
+          disabled={page >= (data?.totalPages || 1)}
+        >
+          Next
+        </Button>
+      </div>
+    </div>
+  );
 }
