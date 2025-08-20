@@ -13,9 +13,13 @@ async function readJsonFile(filePath: string) {
   }
 }
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(
+  request: Request, 
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
   const clinicians = await readJsonFile(path.join(jsonDirectory, 'clinicians.json'));
-  const clinician = clinicians.find((c: any) => c.id === params.id);
+  const clinician = clinicians.find((c: any) => c.id === id);
 
   if (!clinician) {
     return new NextResponse('Clinician not found', { status: 404 });
