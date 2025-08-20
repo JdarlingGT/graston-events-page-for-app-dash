@@ -1,3 +1,4 @@
+import nextPlugin from '@next/eslint-plugin-next';
 import tseslint from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 import reactHooks from 'eslint-plugin-react-hooks';
@@ -16,6 +17,7 @@ export default [
       },
     },
     plugins: {
+  '@next/next': nextPlugin,
   '@typescript-eslint': tseslint,
   'react-hooks': reactHooks,
     },
@@ -39,6 +41,7 @@ export default [
   '@typescript-eslint/no-explicit-any': 'off',
   '@typescript-eslint/no-unused-vars': 'off',
       '@typescript-eslint/no-empty-object-type': 'off',
+      ...nextPlugin.configs.recommended.rules,
     },
   },
   // Loosen for declaration files
