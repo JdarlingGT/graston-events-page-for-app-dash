@@ -145,3 +145,89 @@ export async function getStoredToken(): Promise<any | null> {
     return null;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Minimal helper to send a plain-text Gmail message using the OAuth client.
+export async function sendGmailNotification(task: {
+  title: string;
+  description: string;
+  assignee: { name?: string; email: string };
+}): Promise<void> {
+  const gmail = getGmailClient();
+
+  const from = process.env.GMAIL_FROM || 'no-reply@example.com';
+  const to = task.assignee.email;
+  const subject = task.title || 'Notification';
+
+  const bodyLines = [
+    `From: ${from}`,
+    `To: ${to}`,
+    `Subject: ${subject}`,
+    'Content-Type: text/plain; charset="UTF-8"',
+    '',
+    task.description || '',
+  ];
+
+  const raw = Buffer.from(bodyLines.join('\r\n')).toString('base64url');
+
+  try {
+    await gmail.users.messages.send({
+      userId: 'me',
+      requestBody: {
+        raw,
+      },
+    } as any);
+  } catch (err) {
+    console.error('Failed to send Gmail notification:', err);
+    throw err;
+  }
+}

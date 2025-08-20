@@ -1,19 +1,14 @@
+import * as React from 'react';
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '../components/ui/sonner';
 import { ThemeProvider } from '../components/theme-provider';
 import { ReactQueryProvider } from '../lib/react-query-provider';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
+// Avoid using next/font/google during CI/build on Windows to prevent spawn
+// failures; use CSS variables or fallback fonts instead.
+const geistSansVar = '--font-geist-sans';
+const geistMonoVar = '--font-geist-mono';
 
 export const metadata: Metadata = {
   title: 'Event Management Dashboard',
@@ -28,9 +23,7 @@ export default function RootLayout({
   console.log('Rendering RootLayout');
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={'antialiased'}>
         <ReactQueryProvider>
           <ThemeProvider
             attribute="class"
@@ -45,17 +38,24 @@ export default function RootLayout({
       </body>
     </html>
   );
-// Register service worker
-if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker
-      .register('/service-worker.js')
-      .then((registration) => {
-        console.log('Service Worker registered with scope:', registration.scope);
-      })
-      .catch((error) => {
-        console.error('Service Worker registration failed:', error);
-      });
-  });
 }
+
+// Client-only component to register the service worker on mount. This keeps
+// navigator/serviceWorker references out of server/build-time execution.
+export function ClientServiceWorkerRegister() {
+  'use client';
+  React.useEffect(() => {
+    if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+      navigator.serviceWorker
+        .register('/service-worker.js')
+        .then((registration) => {
+          console.log('Service Worker registered with scope:', registration.scope);
+        })
+        .catch((error) => {
+          console.error('Service Worker registration failed:', error);
+        });
+    }
+  }, []);
+
+  return null;
 }
