@@ -30,6 +30,12 @@ interface Student {
     completedAt: string;
   }[];
   notes?: string;
+
+  // Enrichment fields (LearnDash + FluentCRM)
+  crmTags?: string[];
+  crmEngagementScore?: number; // 0-100
+  ldCourseProgress?: number;   // 0-100
+  certificateEligible?: boolean;
 }
 
 /**
@@ -118,6 +124,40 @@ function generateStudentData(attendee: Attendee): Student {
 }
 
 /**
+ * Enrich student records with pseudo LearnDash + FluentCRM data (dev-friendly).
+ * In production, replace with real API lookups.
+ */
+async function enrichStudents(students: Student[]): Promise<void> {
+  for (const s of students) {
+    // CRM engagement score based on pre-course progress and last login recency
+    const lastLoginDays =
+      s.lastLogin ? Math.min(30, Math.max(0, Math.floor((Date.now() - new Date(s.lastLogin).getTime()) / (1000 * 60 * 60 * 24)))) : 30;
+    const recencyScore = 100 - Math.min(100, lastLoginDays * 3); // 0..100
+    const base = Math.round((s.preCourseProgress * 0.6) + (recencyScore * 0.4));
+    s.crmEngagementScore = Math.max(0, Math.min(100, base));
+
+    // Tags derived from license type and progress bracket
+    const tags: string[] = [];
+    if (s.licenseType) tags.push(`license:${s.licenseType.replace(/\s+/g, '_').toLowerCase()}`);
+    tags.push(
+      s.preCourseProgress >= 90 ? 'progress_ahead' :
+      s.preCourseProgress >= 60 ? 'progress_on_track' : 'progress_behind'
+    );
+    if ((s.skillsAssessments ?? []).some(a => a.score >= 90)) tags.push('high_scorer');
+    s.crmTags = tags;
+
+    // LearnDash course progress (blend of pre-course and assessment averages)
+    const avgAssessment = (s.skillsAssessments && s.skillsAssessments.length)
+      ? Math.round(s.skillsAssessments.reduce((sum, a) => sum + a.score, 0) / s.skillsAssessments.length)
+      : s.preCourseProgress;
+    s.ldCourseProgress = Math.round((s.preCourseProgress * 0.5) + (avgAssessment * 0.5));
+
+    // Certificate eligibility threshold
+    s.certificateEligible = (s.ldCourseProgress ?? 0) >= 85;
+  }
+}
+
+/**
  * GET /api/events/[id]/students
  * Get all students registered for a specific event with detailed information
  */
@@ -138,6 +178,9 @@ export async function GET(
     
     // Convert attendees to detailed student objects
     const students = eventAttendees.map(generateStudentData);
+    
+    // Enrich with CRM + LearnDash dev-friendly data
+    await enrichStudents(students);
     
     // Sort by name for consistent ordering
     students.sort((a, b) => a.name.localeCompare(b.name));
@@ -208,6 +251,8 @@ export async function POST(
     // Return the updated student list for this event
     const eventAttendees = attendees.filter(attendee => attendee.eventId === eventId);
     const students = eventAttendees.map(generateStudentData);
+    // Enrich with CRM + LearnDash dev-friendly data
+    await enrichStudents(students);
     students.sort((a, b) => a.name.localeCompare(b.name));
     
     return NextResponse.json(students);
