@@ -1,7 +1,9 @@
 'use client';
 
+import { useQuery } from '@tanstack/react-query';
 import { DataTable } from '@/components/ui/data-table';
 import { Check, X } from 'lucide-react';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface StudentTableProps {
   eventId: string;
@@ -9,24 +11,24 @@ interface StudentTableProps {
   showInstrumentColumn?: boolean;
 }
 
+interface StudentRow {
+  id: string;
+  name: string;
+  email: string;
+  evaluationStatus: string;
+  instrumentPurchase?: boolean;
+}
+
 export function StudentTable({ eventId, eventDate, showInstrumentColumn = false }: StudentTableProps) {
-  // TODO: Replace mock with fetch(`/api/events/${eventId}/students`)
-  const students = [
-    {
-      id: 1,
-      name: 'John Doe',
-      email: 'john@example.com',
-      evaluationStatus: 'Completed',
-      instrumentPurchase: true,
+  const { data: students, isLoading, error } = useQuery<StudentRow[]>({
+    queryKey: ['students', eventId],
+    queryFn: async () => {
+      const res = await fetch(`/api/events/${eventId}/students`);
+      if (!res.ok) throw new Error('Failed to fetch students');
+      return res.json();
     },
-    {
-      id: 2,
-      name: 'Jane Smith',
-      email: 'jane@example.com',
-      evaluationStatus: 'Pending',
-      instrumentPurchase: false,
-    },
-  ];
+    staleTime: 1000 * 60 * 5,
+  });
 
   const columns: any[] = [
     { key: 'name', label: 'Name' },
@@ -45,6 +47,14 @@ export function StudentTable({ eventId, eventDate, showInstrumentColumn = false 
           <X className="h-4 w-4 text-red-600" />
         ),
     });
+  }
+
+  if (isLoading) {
+    return <Skeleton className="h-96 w-full" />;
+  }
+
+  if (error || !students) {
+    return <p className="text-red-500">Failed to load students</p>;
   }
 
   return (
