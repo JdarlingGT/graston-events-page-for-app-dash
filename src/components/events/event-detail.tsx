@@ -1,18 +1,18 @@
 'use client';
 
-import { useState } from 'react';
-import { useQuery, useMutation } from '@tanstack/react-query';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { useState, useEffect } from 'react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Skeleton } from '@/components/ui/skeleton';
 import { MarketingRescueCopilotModal } from './marketing-rescue-copilot-modal';
-import { 
-  Calendar, 
-  MapPin, 
-  Users, 
+import {
+  Calendar,
+  MapPin,
+  Users,
   DollarSign,
   Mail,
   Phone,
@@ -25,6 +25,8 @@ import {
   Trash,
   Copy,
   Send,
+  AlertTriangle,
+  Package,
 } from 'lucide-react';
 import {
   AlertDialog,
@@ -41,6 +43,7 @@ import { toast } from 'sonner';
 import Link from 'next/link';
 import { Progress } from '../ui/progress';
 import dynamic from 'next/dynamic';
+import Pusher from 'pusher-js';
 
 const StudentTable = dynamic(() => import('./student-table').then(mod => mod.StudentTable), {
   loading: () => <Skeleton className="h-96 w-full" />,
@@ -66,7 +69,6 @@ const EventScheduleTimeline = dynamic(() => import('./event-schedule-timeline').
 const ActivityLogTab = dynamic(() => import('./activity-log-tab').then(mod => mod.ActivityLogTab), {
   loading: () => <Skeleton className="h-96 w-full" />,
 });
-
 
 interface EventDetailProps {
   eventId: string;
@@ -110,6 +112,10 @@ interface EventDetailData {
     revenue: number;
     projectedRevenue: number;
   };
+  instruments?: {
+    totalRevenue: number;
+    totalUnits: number;
+  };
   type: 'Essential' | 'Advanced';
   mode: 'In-Person' | 'Virtual';
   status: 'draft' | 'published' | 'cancelled';
@@ -119,18 +125,31 @@ interface EventDetailData {
 export function EventDetail({ eventId }: EventDetailProps) {
   const [activeTab, setActiveTab] = useState('overview');
   const [isCopilotOpen, setIsCopilotOpen] = useState(false);
+  const queryClient = useQueryClient();
 
   const { data: event, isLoading, error } = useQuery<EventDetailData>({
     queryKey: ['event-detail', eventId],
     queryFn: async () => {
       const response = await fetch(`/api/events/${eventId}/details`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch event details');
-      }
+      if (!response.ok) throw new Error('Failed to fetch event details');
       return response.json();
     },
-    staleTime: 1000 * 60 * 5, // 5 minutes
+    staleTime: 1000 * 60 * 5,
   });
+
+  useEffect(() => {
+    if (!eventId) return;
+    const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY!, {
+      cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER!,
+    });
+    const channel = pusher.subscribe(`event-${eventId}`);
+    channel.bind("event-updated", () => queryClient.invalidateQueries(['event-detail', eventId]));
+    channel.bind("attendee-updated", () => queryClient.invalidateQueries(['event-detail', eventId]));
+    return () => {
+      channel.unsubscribe();
+      pusher.disconnect();
+    };
+  }, [eventId, queryClient]);
 
   const reminderMutation = useMutation({
     mutationFn: () => fetch(`/api/events/${eventId}/reminders`, { method: 'POST' }),
@@ -149,9 +168,7 @@ export function EventDetail({ eventId }: EventDetailProps) {
     });
   };
 
-  const handleDuplicate = () => {
-    toast.info('Duplicate feature coming soon!');
-  };
+  const handleDuplicate = () => toast.info('Duplicate feature coming soon!');
 
   if (isLoading) {
     return (
@@ -178,6 +195,7 @@ export function EventDetail({ eventId }: EventDetailProps) {
   }
 
   const enrollmentPercentage = (event.enrollment.current / event.enrollment.capacity) * 100;
+  const inDangerZone = event.enrollment.current < event.enrollment.minViable;
 
   return (
     <AlertDialog>
@@ -212,6 +230,13 @@ export function EventDetail({ eventId }: EventDetailProps) {
             </CardHeader>
           </Card>
 
+          {inDangerZone && (
+            <div className="p-4 rounded-lg bg-red-50 border border-red-200 text-red-700 flex items-center gap-2">
+              <AlertTriangle className="h-5 w-5" />
+              Danger Zone: Enrollment is below the minimum viable threshold.
+            </div>
+          )}
+
           <Tabs value={activeTab} onValueChange={setActiveTab}>
             <TabsList className="grid w-full grid-cols-7">
               <TabsTrigger value="overview">Overview</TabsTrigger>
@@ -222,12 +247,12 @@ export function EventDetail({ eventId }: EventDetailProps) {
               <TabsTrigger value="activity">Activity Log</TabsTrigger>
               <TabsTrigger value="post-mortem">Post-Mortem</TabsTrigger>
             </TabsList>
-            
+
             <TabsContent value="overview" className="mt-6 space-y-6">
               <EventScheduleTimeline schedule={event.schedule} />
               <InternalNotesPanel />
             </TabsContent>
-            
+
             <TabsContent value="attendees" className="mt-6">
               <StudentTable eventId={eventId} eventDate={event.schedule.startDate} />
             </TabsContent>
@@ -235,11 +260,11 @@ export function EventDetail({ eventId }: EventDetailProps) {
             <TabsContent value="logistics" className="mt-6">
               <LogisticsTab venue={event.venue} instructor={event.instructor} />
             </TabsContent>
-            
+
             <TabsContent value="tasks" className="mt-6">
               <TaskBoard eventId={eventId} />
             </TabsContent>
-            
+
             <TabsContent value="communications" className="mt-6">
               <BulkEmailPanel attendeeCount={event.enrollment.current} />
             </TabsContent>
@@ -288,6 +313,22 @@ export function EventDetail({ eventId }: EventDetailProps) {
             </CardContent>
           </Card>
 
+          {event.instruments && (
+            <Card>
+              <CardHeader><CardTitle className="text-lg">Instrument Sales</CardTitle></CardHeader>
+              <CardContent className="space-y-3 text-sm">
+                <div className="flex items-center gap-2">
+                  <Package className="h-4 w-4 text-muted-foreground" />
+                  <span>{event.instruments.totalUnits} Units Sold</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <DollarSign className="h-4 w-4 text-muted-foreground" />
+                  <span>${event.instruments.totalRevenue}</span>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
           <Card>
             <CardHeader><CardTitle className="text-lg">Key Details</CardTitle></CardHeader>
             <CardContent className="space-y-3 text-sm">
@@ -333,13 +374,4 @@ export function EventDetail({ eventId }: EventDetailProps) {
             This action cannot be undone. This will permanently delete the event "{event.title}".
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
-            Delete
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
-  );
-}
+        <
